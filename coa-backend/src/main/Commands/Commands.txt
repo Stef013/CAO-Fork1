@@ -13,5 +13,8 @@ curl -w "\n" http://localhost:8080/hello/greeting/quarkus
 -Create package:
 mvn package
 
+-Remake package:
+
+
 -Run java file:
 java -jar target/getting-started-1.0.0-SNAPSHOT-runner.jar
