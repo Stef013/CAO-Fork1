@@ -11,14 +11,7 @@ const APIKey =
 class App extends Component {
   constructor(props) {
     super(props);
-  }
 
-  componentWillMount() {
-    this.setState({ MockAirplaneInfo: this.getAirplaneInfo() });
-  }
-
-  componentDidMount() {
-    this.calcMove();
     this.state = {
       viewport: {
         latitude: 38.751569,
@@ -27,11 +20,13 @@ class App extends Component {
         bearing: 0,
         pitch: 0,
       },
-      AirplaneInfo: null,
-      MockAirplaneInfo: null,
       AllMarkers: null,
-      mounted: true,
-    };
+      MockAirplaneInfo: this.getAirplaneInfo()
+    }
+  }
+
+  componentDidMount() {
+    this.calcMove();
     this.movePlanes();
   }
 
@@ -41,40 +36,53 @@ class App extends Component {
   }
 
   calcMove() {
-    this.state.MockAirplaneInfo.map(function (plane) {
-      plane.latToMove =
-        (plane.endLatitude - plane.latitude) / plane.minutesToFly;
-      plane.longToMove =
-        (plane.endLongitude - plane.longitude) / plane.minutesToFly;
+    this.setState({
+      MockAirplaneInfo: this.state.MockAirplaneInfo.map(plane => {
+        const directionLatitude = plane.endLatitude - plane.latitude;
+        const directionLongitude = plane.endLongitude - plane.longitude;
+        const angle = Math.atan2(directionLongitude, directionLatitude) * 180 / Math.PI;
+
+        return {
+          ...plane,
+          latToMove: directionLatitude / plane.minutesToFly,
+          longToMove: directionLongitude / plane.minutesToFly,
+          angle: angle
+        };
+      })
     });
   }
 
   movePlanes() {
-    const interval = setInterval(() => {
-      this.state.MockAirplaneInfo.map(function (plane) {
-        if (plane.minutesToFly > 0) {
-          plane.latitude = plane.latitude + plane.latToMove;
-          plane.longitude = plane.longitude + plane.longToMove;
-          plane.minutesToFly -= 1;
-          console.log(plane.latitude);
-        }
+    setInterval(() => {
+      this.setState({
+        MockAirplaneInfo: this.state.MockAirplaneInfo.map(plane => {
+          if (plane.minutesToFly <= 0) {
+            return plane;
+          }
+          
+          return {
+            ...plane,
+            latitude: plane.latitude + plane.latToMove,
+            longitude: plane.longitude + plane.longToMove,
+            minutesToFly: --plane.minutesToFly
+          };
+        })
       });
-    }, 200);
+    }, 1000);
   }
 
-  rAirplaneMarker = (AirplaneInfo, index) => {
-    console.log(AirplaneInfo);
-    console.log(index);
+  rAirplaneMarker = (plane, index) => {
     return (
       <Marker
         key={`marker-${index}`}
-        longitude={AirplaneInfo.longitude}
-        latitude={AirplaneInfo.latitude}
+        longitude={plane.longitude}
+        latitude={plane.latitude}
         offsetLeft={-20}
         offsetTop={-20}
       >
         <AirplanePin
-          onClick={() => this.setState({ PopUpInfo: AirplaneInfo })}
+          onClick = {() => this.setState({ PopUpInfo: plane })}
+          angle = { plane.angle }
         />
       </Marker>
     );

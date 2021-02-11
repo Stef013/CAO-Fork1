@@ -1,3 +1,4 @@
+import { Rotate90DegreesCcw } from "@material-ui/icons";
 import React, { PureComponent } from "react";
 import Airplane from "../Images/Airplane.png";
 
@@ -8,12 +9,15 @@ const pinStyle = {
 
 export default class AirplanePin extends PureComponent {
   render() {
-    const { onClick } = this.props;
+    const { onClick, angle } = this.props;
+    
+
     return (
       <img
         style={{
           ...pinStyle,
           width: "8%",
+          transform: "rotate(" + angle + "deg)"
         }}
         onClick={onClick}
         src={Airplane}
