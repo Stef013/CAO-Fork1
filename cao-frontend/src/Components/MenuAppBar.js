@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   logo: {
-    height: "64px",
+    height: "36px",
     padding: "20px",
     display: "block",
   },
