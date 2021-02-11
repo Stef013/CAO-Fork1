@@ -68,7 +68,7 @@ class App extends Component {
           };
         })
       });
-    }, 1000);
+    }, 20);
   }
 
   rAirplaneMarker = (plane, index) => {
