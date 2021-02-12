@@ -1,9 +1,7 @@
 import React, { PureComponent } from "react";
 import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import moment from "moment";
@@ -17,7 +15,7 @@ export default class AirplaneInfo extends PureComponent {
     const { info } = this.props;
     this.setState({
       currentTime: moment()
-        .add(info.minutesToFly / 240, "m")
+        .add(info.minutesToFly / 600, "m")
         .format("HH:mm:ss"),
     });
 
@@ -55,6 +53,7 @@ export default class AirplaneInfo extends PureComponent {
         <img
           style={{ borderRadius: "10px", width: "100%" }}
           src={info.Image}
+          alt="airplane"
         ></img>
       </div>
     );

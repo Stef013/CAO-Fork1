@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, Component, useEffect } from "react";
+import React, { Component } from "react";
 import MenuAppBar from "./Components/MenuAppBar";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import AirplanePin from "./Components/AirplanePin";
@@ -69,7 +69,7 @@ class App extends Component {
           };
         }),
       });
-    }, 250);
+    }, 100);
   }
 
   rAirplaneMarker = (plane, index) => {
