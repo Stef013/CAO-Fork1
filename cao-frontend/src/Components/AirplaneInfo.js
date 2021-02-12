@@ -6,10 +6,20 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import moment from "moment";
 
 export default class AirplaneInfo extends PureComponent {
+  state = {
+    currentTime: null,
+  };
+
   render() {
     const { info } = this.props;
+    this.setState({
+      currentTime: moment()
+        .add(info.minutesToFly / 240, "m")
+        .format("HH:mm:ss"),
+    });
 
     const popUpStyle = {
       padding: "10px 15px",
@@ -35,15 +45,9 @@ export default class AirplaneInfo extends PureComponent {
             </TableRow>
             <TableRow>
               <TableCell>
-                <b>Latitude</b>
+                <b>ETA</b>
               </TableCell>
-              <TableCell>{info.latitude}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <b>Longitude</b>
-              </TableCell>
-              <TableCell>{info.longitude}</TableCell>
+              <TableCell>{this.state.currentTime}</TableCell>
             </TableRow>
           </Table>
         </TableContainer>

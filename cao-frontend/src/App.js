@@ -21,8 +21,8 @@ class App extends Component {
         pitch: 0,
       },
       AllMarkers: null,
-      MockAirplaneInfo: this.getAirplaneInfo()
-    }
+      MockAirplaneInfo: this.getAirplaneInfo(),
+    };
   }
 
   componentDidMount() {
@@ -37,38 +37,39 @@ class App extends Component {
 
   calcMove() {
     this.setState({
-      MockAirplaneInfo: this.state.MockAirplaneInfo.map(plane => {
+      MockAirplaneInfo: this.state.MockAirplaneInfo.map((plane) => {
         const directionLatitude = plane.endLatitude - plane.latitude;
         const directionLongitude = plane.endLongitude - plane.longitude;
-        const angle = Math.atan2(directionLongitude, directionLatitude) * 180 / Math.PI;
+        const angle =
+          (Math.atan2(directionLongitude, directionLatitude) * 180) / Math.PI;
 
         return {
           ...plane,
           latToMove: directionLatitude / plane.minutesToFly,
           longToMove: directionLongitude / plane.minutesToFly,
-          angle: angle
+          angle: angle,
         };
-      })
+      }),
     });
   }
 
   movePlanes() {
     setInterval(() => {
       this.setState({
-        MockAirplaneInfo: this.state.MockAirplaneInfo.map(plane => {
+        MockAirplaneInfo: this.state.MockAirplaneInfo.map((plane) => {
           if (plane.minutesToFly <= 0) {
             return plane;
           }
-          
+
           return {
             ...plane,
             latitude: plane.latitude + plane.latToMove,
             longitude: plane.longitude + plane.longToMove,
-            minutesToFly: --plane.minutesToFly
+            minutesToFly: --plane.minutesToFly,
           };
-        })
+        }),
       });
-    }, 20);
+    }, 250);
   }
 
   rAirplaneMarker = (plane, index) => {
@@ -81,8 +82,8 @@ class App extends Component {
         offsetTop={-20}
       >
         <AirplanePin
-          onClick = {() => this.setState({ PopUpInfo: plane })}
-          angle = { plane.angle }
+          onClick={() => this.setState({ PopUpInfo: plane })}
+          angle={plane.angle}
         />
       </Marker>
     );
