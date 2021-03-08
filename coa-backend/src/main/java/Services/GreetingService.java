@@ -1,4 +1,4 @@
-package com.cao.backend.Services;
+package Services;
 
 import javax.enterprise.context.ApplicationScoped;
 
