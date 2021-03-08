@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Oceana backend.iml" filepath="$PROJECT_DIR$/.idea/Oceana backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/coa-backend/backend-cao.iml" filepath="$PROJECT_DIR$/coa-backend/backend-cao.iml" />
     </modules>
   </component>
 </project>
