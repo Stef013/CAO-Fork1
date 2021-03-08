@@ -1,4 +1,4 @@
-package org.acme.getting.started;
+package com.cao.backend;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
