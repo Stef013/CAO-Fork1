@@ -1,4 +1,4 @@
-package com.cao.backend;
+package com.cao.backend.Resources;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -6,6 +6,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.cao.backend.Services.GreetingService;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 @Path("/hello")
