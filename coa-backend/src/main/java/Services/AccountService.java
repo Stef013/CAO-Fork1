@@ -8,6 +8,6 @@ public class AccountService {
 
     public String register(RegisterModel registerModel) {
 
-        return "kanker";
+        return "registeren voltooid";
     }
 }
