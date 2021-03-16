@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Account_Service/Account_Service.iml" filepath="$PROJECT_DIR$/Account_Service/Account_Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Booking_Service/Booking_Service.iml" filepath="$PROJECT_DIR$/Booking_Service/Booking_Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FlightTracker_Service/FlightTracker_Service.iml" filepath="$PROJECT_DIR$/FlightTracker_Service/FlightTracker_Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Flight_Service/Flight_Service.iml" filepath="$PROJECT_DIR$/Flight_Service/Flight_Service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Oceana backend.iml" filepath="$PROJECT_DIR$/.idea/Oceana backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PoliceRaport_Service/PoliceRaport_Service.iml" filepath="$PROJECT_DIR$/PoliceRaport_Service/PoliceRaport_Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Seatpicker_Service/Seatpicker_Service.iml" filepath="$PROJECT_DIR$/Seatpicker_Service/Seatpicker_Service.iml" />
       <module fileurl="file://$PROJECT_DIR$/coa-backend/backend-cao.iml" filepath="$PROJECT_DIR$/coa-backend/backend-cao.iml" />
     </modules>
   </component>
