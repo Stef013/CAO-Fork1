@@ -1,24 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import Login from './pages/LoginPage'
+import FlightTracker from './pages/FlightTracker'
+import Error from './pages/Error'
+import { Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <Switch>
+        <Route path="/" component={Login} exact />
+        <Route path="/FlightTracker" component={FlightTracker} />
+        <Route component={Error} />
+      </Switch>
+    </main>
   );
 }
 
