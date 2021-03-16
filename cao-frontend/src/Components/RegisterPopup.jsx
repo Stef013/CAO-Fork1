@@ -9,6 +9,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 export default function FormDialog() {
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
+    const { t, i18n } = useTranslation()
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -46,7 +48,7 @@ export default function FormDialog() {
     return (
         <div>
             <Link href="#" variant="body2" onClick={handleClickOpen}>
-                Don't have an account? Sign Up
+                {t('no account sign up.linklabel')}
             </Link>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>
