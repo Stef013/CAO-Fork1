@@ -5,38 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94e2b6aa-8370-4299-bd8f-81d662d0e9b7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Account_Service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account_Service/src/main/java/Account.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Booking_Service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Booking_Service/src/main/java/Booking.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FlightTracker_Service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FlightTracker_Service/src/main/java/FlightTracker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Flight_Service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Flight_Service/src/main/java/Flight.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PoliceRaport_Service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PoliceRaport_Service/src/main/java/PoliceReport.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Seatpicker_Service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Seatpicker_Service/src/main/java/Seatpicker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Oceana backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Oceana backend.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account_Service/src/main/java/Controller/RegistrationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account_Service/src/main/java/Enum/Roles.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account_Service/src/main/java/Interface/IRegistration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account_Service/src/main/java/Logic/Registration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account_Service/src/main/java/Model/Customer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account_Service/src/main/java/Model/Login.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account_Service/src/main/java/Model/RegistrationCustomer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account_Service/src/main/java/Model/RegistrationEmployee.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account_Service/src/main/java/Repository/RegistrationRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-backend/src/main/java/Services/AccountService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-frontend/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-frontend/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-frontend/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-frontend/public/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-frontend/public/logo192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-frontend/public/logo512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-frontend/public/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-frontend/public/robots.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-frontend/src/App.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-frontend/src/App.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-frontend/src/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-frontend/src/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-frontend/src/reportWebVitals.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-frontend/src/setupTests.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-frontend/yarn.lock" beforeDir="false" />
+    </list>
+    <list id="d7efbd2f-ebd6-4d94-8460-a4c259a60da4" name="Changes by StefanV" comment="">
+      <change afterPath="$PROJECT_DIR$/Account_Service/src/main/java/Model/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account_Service/src/main/java/Account.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +28,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
       </list>
@@ -55,20 +38,30 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1pT9WJnFDn2X3OgQpRcV1IHIPZg" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Language Defaults" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="Model" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\vince\Documents\Fontys\Semester 6\Oceana backend\coa-backend\src\main\java" />
       <recent name="C:\Users\vince\Documents\Fontys\Semester 6\Oceana backend\coa-backend\src\main\java\com\cao" />
@@ -103,7 +96,7 @@
       <workItem from="1615205792888" duration="389000" />
       <workItem from="1615208752499" duration="1352000" />
       <workItem from="1615884984673" duration="257000" />
-      <workItem from="1615885255542" duration="715000" />
+      <workItem from="1615885255542" duration="4065000" />
     </task>
     <servers />
   </component>
@@ -121,5 +114,8 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
