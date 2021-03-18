@@ -38,6 +38,7 @@ export default function FormDialog() {
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
     const [country, setCountry] = React.useState('');
+    const [Repassword, setRePassword] = React.useState('');
     const [account, setAccount] = React.useState({
         email: " ",
         password: " ",
@@ -69,7 +70,7 @@ export default function FormDialog() {
 
         const user = account;
         console.log(user);
-        console.log(CountryRegionData[0][0]);
+        console.log(country);
 
         // axios.post(`https://jsonplaceholder.typicode.com/users`, { user })
         //     .then(res => {
@@ -86,7 +87,7 @@ export default function FormDialog() {
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>
                 <DialogContent>
-                    <form className={classes.form} noValidate >
+                    <form className={classes.form} noValidate onSubmit={handleSubmit} >
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
@@ -117,28 +118,28 @@ export default function FormDialog() {
                                 <TextField
                                     variant="outlined"
                                     id="date"
-                                    label="Birthday"
+                                    label="Date of birth"
                                     type="date"
-                                    defaultValue="2017-05-24"
-                                    style={{ width: 220 }}
+                                    fullWidth
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
                                 />
-
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                    id="outlined-select-currency"
+                                    variant="outlined"
+                                    id="CountrySelect"
                                     select
-                                    label="Select"
+                                    label="Country"
+                                    fullWidth
                                     value={country}
-                                    onChange={(val) => setCountry(val)}
-                                    helperText="Please select your currency"
+                                    onChange={e => setCountry(e.target.value)}
+                                    helperText="Please select your Country"
                                 >
                                     {CountryRegionData.map((option) => (
-                                        <MenuItem key={option.value[0]} value={option.value[0]}>
-                                            {option.label}
+                                        <MenuItem key={option[0]} value={option[0]}>
+                                            {option[0]}
                                         </MenuItem>
                                     ))}
                                 </TextField>
@@ -169,22 +170,27 @@ export default function FormDialog() {
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                    label="I want to receive inspiration, marketing promotions and updates via email."
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    name="Rpassword"
+                                    label="Repeat Password"
+                                    type="password"
+                                    id="Rpassword"
+                                    autoComplete="current-password"
+                                    onInput={e => account.password = e.target.value}
                                 />
                             </Grid>
-                            <CountryDropdown
-                                value={country}
-                                onChange={(val) => setCountry(val)} />
+
                         </Grid>
                         <Button
-
+                            type="submit"
                             fullWidth
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-                            onClick={handleSubmit}
+
                         >
                             Sign Up
                         </Button>
