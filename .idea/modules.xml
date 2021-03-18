@@ -2,8 +2,14 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$USER_HOME$/Desktop/Crap code/Account_Service/Account_Service.iml" filepath="$USER_HOME$/Desktop/Crap code/Account_Service/Account_Service.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/Crap code/Booking_Service/Booking_Service.iml" filepath="$USER_HOME$/Desktop/Crap code/Booking_Service/Booking_Service.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/Crap code/FlightTracker_Service/FlightTracker_Service.iml" filepath="$USER_HOME$/Desktop/Crap code/FlightTracker_Service/FlightTracker_Service.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/Crap code/Flight_Service/Flight_Service.iml" filepath="$USER_HOME$/Desktop/Crap code/Flight_Service/Flight_Service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Oceana backend.iml" filepath="$PROJECT_DIR$/.idea/Oceana backend.iml" />
-      <module fileurl="file://$PROJECT_DIR$/coa-backend/backend-cao.iml" filepath="$PROJECT_DIR$/coa-backend/backend-cao.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/Crap code/PoliceRaport_Service/PoliceRaport_Service.iml" filepath="$USER_HOME$/Desktop/Crap code/PoliceRaport_Service/PoliceRaport_Service.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/Crap code/Seatpicker_Service/Seatpicker_Service.iml" filepath="$USER_HOME$/Desktop/Crap code/Seatpicker_Service/Seatpicker_Service.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/Crap code/cao-backend/backend-cao.iml" filepath="$USER_HOME$/Desktop/Crap code/cao-backend/backend-cao.iml" />
     </modules>
   </component>
 </project>
