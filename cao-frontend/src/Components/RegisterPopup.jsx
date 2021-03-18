@@ -9,6 +9,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import Axios from 'axios'
+import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -34,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 export default function FormDialog() {
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
+    const [country, setCountry] = React.useState('');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -42,6 +45,10 @@ export default function FormDialog() {
     const handleClose = () => {
         setOpen(false);
     };
+
+    function selectCountry(val) {
+        setCountry({ val }, () => console.log(country));
+    }
 
     return (
         <div>
@@ -105,13 +112,17 @@ export default function FormDialog() {
                                     label="I want to receive inspiration, marketing promotions and updates via email."
                                 />
                             </Grid>
+                            <CountryDropdown
+                                value={country}
+                                onChange={(val) => setCountry(val)} />
                         </Grid>
                         <Button
-                            type="submit"
+
                             fullWidth
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            onClick={() => console.log(country)}
                         >
                             Sign Up
                         </Button>
