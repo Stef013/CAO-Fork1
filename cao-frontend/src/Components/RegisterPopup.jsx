@@ -61,22 +61,21 @@ export default function FormDialog() {
         setCountry({ val }, () => console.log(country));
     }
 
-    function handleSubmit() {
+    function handleSubmit(event) {
+        event.preventDefault();
 
-        // setAccount({
-        //     email: 'test@test.nl',
-        //     password: 'wollah'
-        // })
+        // const user = account;
+        account.nationality = country;
 
         const user = account;
         console.log(user);
         console.log(country);
 
-        // axios.post(`https://jsonplaceholder.typicode.com/users`, { user })
-        //     .then(res => {
-        //         console.log(res);
-        //         console.log(res.data);
-        //     })
+        axios.post('http://localhost:5678/account/register', { user }).then(res => {
+            console.log(res);
+            console.log(res.data);
+        })
+
     }
 
     return (
@@ -87,7 +86,7 @@ export default function FormDialog() {
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>
                 <DialogContent>
-                    <form className={classes.form} noValidate onSubmit={handleSubmit} >
+                    <form className={classes.form} noValidate onSubmit={(event) => handleSubmit(event)} >
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
@@ -121,6 +120,7 @@ export default function FormDialog() {
                                     label="Date of birth"
                                     type="date"
                                     fullWidth
+                                    onChange={e => account.dateOfBirth = e.target.value}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -182,7 +182,6 @@ export default function FormDialog() {
                                     onInput={e => account.password = e.target.value}
                                 />
                             </Grid>
-
                         </Grid>
                         <Button
                             type="submit"
@@ -190,7 +189,6 @@ export default function FormDialog() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-
                         >
                             Sign Up
                         </Button>
