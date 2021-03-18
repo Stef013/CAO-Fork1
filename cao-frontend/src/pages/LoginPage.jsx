@@ -14,6 +14,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
 import RegisterPopup from '../Components/RegisterPopup'
+import { useTranslation } from 'react-i18next'
+import LanguageSelector from '../LanguageSelector';
 
 function Copyright() {
     return (
@@ -51,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
     const classes = useStyles();
     const history = useHistory();
+    const { t, i18n } = useTranslation()
 
     function navigateHome() {
         history.push('/FlightTracker');
@@ -63,8 +66,9 @@ export default function SignIn() {
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
                 </Avatar>
+                <LanguageSelector />
                 <Typography component="h1" variant="h5">
-                    Sign in
+                    {t('sign in.label')}
                 </Typography>
                 <form className={classes.form} noValidate>
                     <TextField
@@ -73,7 +77,7 @@ export default function SignIn() {
                         required
                         fullWidth
                         id="email"
-                        label="Email Address"
+                        label={t('email address.placeholder')}
                         name="email"
                         autoComplete="email"
                         autoFocus
@@ -84,14 +88,14 @@ export default function SignIn() {
                         required
                         fullWidth
                         name="password"
-                        label="Password"
+                        label={t('password.placeholder')}
                         type="password"
                         id="password"
                         autoComplete="current-password"
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
+                        label={t('remember me.label')}
                     />
                     <Button
                         type="submit"
@@ -101,12 +105,12 @@ export default function SignIn() {
                         className={classes.submit}
                         onClick={navigateHome}
                     >
-                        Sign In
+                        {t('sign in.button')}
                     </Button>
                     <Grid container>
                         <Grid item xs>
                             <Link href="#" variant="body2">
-                                Forgot password?
+                                {t('forgot password.linklabel')}
                             </Link>
                         </Grid>
                         <Grid item>
