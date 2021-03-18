@@ -8,8 +8,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
+import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
-import Axios from 'axios'
+import axios from 'axios'
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,6 +38,15 @@ export default function FormDialog() {
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
     const [country, setCountry] = React.useState('');
+    const [account, setAccount] = React.useState({
+        email: " ",
+        password: " ",
+        firstname: " ",
+        lastname: " ",
+        nationality: " ",
+        dateOfBirth: " "
+    });
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -50,6 +60,24 @@ export default function FormDialog() {
         setCountry({ val }, () => console.log(country));
     }
 
+    function handleSubmit() {
+
+        // setAccount({
+        //     email: 'test@test.nl',
+        //     password: 'wollah'
+        // })
+
+        const user = account;
+        console.log(user);
+        console.log(CountryRegionData[0][0]);
+
+        // axios.post(`https://jsonplaceholder.typicode.com/users`, { user })
+        //     .then(res => {
+        //         console.log(res);
+        //         console.log(res.data);
+        //     })
+    }
+
     return (
         <div>
             <Link href="#" variant="body2" onClick={handleClickOpen}>
@@ -58,7 +86,7 @@ export default function FormDialog() {
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>
                 <DialogContent>
-                    <form className={classes.form} noValidate>
+                    <form className={classes.form} noValidate >
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
@@ -69,6 +97,7 @@ export default function FormDialog() {
                                     fullWidth
                                     id="firstName"
                                     label="First Name"
+                                    onInput={e => account.firstname = e.target.value}
                                     autoFocus
                                 />
                             </Grid>
@@ -81,7 +110,38 @@ export default function FormDialog() {
                                     label="Last Name"
                                     name="lastName"
                                     autoComplete="lname"
+                                    onInput={e => account.lastname = e.target.value}
                                 />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    variant="outlined"
+                                    id="date"
+                                    label="Birthday"
+                                    type="date"
+                                    defaultValue="2017-05-24"
+                                    style={{ width: 220 }}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                />
+
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    id="outlined-select-currency"
+                                    select
+                                    label="Select"
+                                    value={country}
+                                    onChange={(val) => setCountry(val)}
+                                    helperText="Please select your currency"
+                                >
+                                    {CountryRegionData.map((option) => (
+                                        <MenuItem key={option.value[0]} value={option.value[0]}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
@@ -92,6 +152,7 @@ export default function FormDialog() {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
+                                    onInput={e => account.email = e.target.value}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -104,6 +165,7 @@ export default function FormDialog() {
                                     type="password"
                                     id="password"
                                     autoComplete="current-password"
+                                    onInput={e => account.password = e.target.value}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -122,13 +184,13 @@ export default function FormDialog() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-                            onClick={() => console.log(country)}
+                            onClick={handleSubmit}
                         >
                             Sign Up
                         </Button>
                     </form>
                 </DialogContent>
             </Dialog>
-        </div>
+        </div >
     );
 }
