@@ -15,7 +15,7 @@ import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
 import RegisterPopup from '../Components/RegisterPopup'
 import { useTranslation } from 'react-i18next'
-import LanguageSelector from '../LanguageSelector';
+import LanguageSelector from '../Components/LanguageSelector';
 
 function Copyright() {
     return (

@@ -1,12 +1,13 @@
 import i18n from 'i18next'
 import Backend from 'i18next-xhr-backend'
+import Cookies from 'js-cookie'
 import { initReactI18next } from 'react-i18next'
 
 i18n 
   .use(Backend)
   .use(initReactI18next)
   .init({
-    lng: 'en',
+    lng: Cookies.get("locale") || "en",
     backend: {
       /* translation file path */
       loadPath: '/assets/i18n/{{ns}}/{{lng}}.json'
@@ -23,7 +24,7 @@ i18n
     },
     react: {
       wait: true
-    }
+    } 
   })
 
 export default i18n
