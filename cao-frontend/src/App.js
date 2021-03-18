@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 function App() {
   return (
     <main>
-      <Suspense fallback={null}>
+      <Suspense fallback={<h1>Loading...</h1>}>
         <Switch>
           <Route path="/" component={Login} exact />
           <Route path="/FlightTracker" component={FlightTracker} />

@@ -5,6 +5,7 @@ import App from './App';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import reportWebVitals from './reportWebVitals';
+import './i18n';
 
 const theme = createMuiTheme({
   // palette: {
