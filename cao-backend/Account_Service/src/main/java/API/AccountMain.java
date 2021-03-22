@@ -11,7 +11,7 @@ public class AccountMain {
     public static void main(String[] args) throws UnknownHostException {
 
         String ip = Inet4Address.getLocalHost().getHostAddress();
-        Spark.ipAddress(ip);
+        Spark.ipAddress("127.0.0.1");
 
         new RegistrationController();
     }
