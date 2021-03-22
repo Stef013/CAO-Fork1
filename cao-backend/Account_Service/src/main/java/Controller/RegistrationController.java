@@ -1,11 +1,18 @@
 package Controller;
 
 import Logic.Registration;
+import Model.Customer;
+import Repository.RegistrationRepo;
 import spark.Spark;
 
 import static spark.Spark.options;
 
+import java.util.Date;
+
 public class RegistrationController {
+
+    private static String persistenceUnit = "Account_Service_PU";
+    private RegistrationRepo registrationRepo;
 
     Registration RL = new Registration();
 
@@ -24,34 +31,38 @@ public class RegistrationController {
             return "OK";
         });
 
-        //before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
-
+        // before((request, response) -> response.header("Access-Control-Allow-Origin",
+        // "*"));
 
         Spark.get("/", ((request, response) -> {
 
-            RL.registrateCustomer(null);
+            // RL.registrateCustomer(null);
 
             String json = "Get helemaal niets";
+            Date date = new Date();
+            Customer testCustomer = new Customer("email@email.nl", "password", "firstname", "lastname", "nationality",
+                    date);
+
+            registrationRepo = new RegistrationRepo(persistenceUnit);
+            boolean result = registrationRepo.insertCustomer(testCustomer);
+            registrationRepo.closeConnection();
 
             response.status(200);
-            return json;
+            return result;
 
         }));
-
 
         /*
-         Spark.post("/availability/", ((request, response) -> {
-            //TODO: Niet geimplementeerd??
-            System.out.println("In Schedule/availability");
-
-            String body = request.body();
-
-            String json = gson.toJson("Schedule/availability - Not implemented yet");
-            response.status(200);
-            return json;
-
-        }));
-
+         * Spark.post("/availability/", ((request, response) -> { //TODO: Niet
+         * geimplementeerd?? System.out.println("In Schedule/availability");
+         * 
+         * String body = request.body();
+         * 
+         * String json = gson.toJson("Schedule/availability - Not implemented yet");
+         * response.status(200); return json;
+         * 
+         * }));
+         * 
          */
 
     }

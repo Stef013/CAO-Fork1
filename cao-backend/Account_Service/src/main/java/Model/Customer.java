@@ -1,15 +1,22 @@
 package Model;
+
+import javax.persistence.*;
 import java.util.*;
 
+@Entity
+@Table(name = "Customers")
 public class Customer {
+
+    @Id
     private int id;
+
     private String email;
     private String password;
     private String firstname;
     private String lastname;
     private String nationality;
     private Date dateOfBirth;
-    private String[] contactPersons;
+    // private String[] contactPersons;
 
     public int getId() {
         return id;
@@ -67,22 +74,21 @@ public class Customer {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String[] getContactPersons() {
-        return contactPersons;
-    }
+    // public String[] getContactPersons() {
+    // return contactPersons;
+    // }
 
-    public void setContactPersons(String[] contactPersons) {
-        this.contactPersons = contactPersons;
-    }
+    // public void setContactPersons(String[] contactPersons) {
+    // this.contactPersons = contactPersons;
+    // }
 
-    public Customer(int id, String email, String password, String firstname, String lastname, String nationality, Date dateOfBirth, String[] contactPersons) {
-        this.id = id;
+    public Customer(String email, String password, String firstname, String lastname, String nationality,
+            Date dateOfBirth) {
         this.email = email;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.nationality = nationality;
         this.dateOfBirth = dateOfBirth;
-        this.contactPersons = contactPersons;
     }
 }

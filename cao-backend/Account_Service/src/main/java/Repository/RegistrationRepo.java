@@ -1,23 +1,40 @@
 package Repository;
 
 import Interface.IRegistration;
-import Model.RegistrationCustomer;
-
+import Model.Customer;
+import javax.persistence.*;
 
 public class RegistrationRepo implements IRegistration {
 
-    public boolean RegistrateCustomer(RegistrationCustomer newCustomer)
-    {
-        boolean result = false;
+    @PersistenceContext
+    private static EntityManagerFactory emf;
+    private static EntityManager em;
 
-        try{
-            result = true;
-        }
-        catch (Exception ex)
-        {
-            System.out.println(ex.toString());
-        }
-        return result;
+    public RegistrationRepo(String persistenceUnit) {
+        emf = Persistence.createEntityManagerFactory(persistenceUnit);
+        em = emf.createEntityManager();
     }
 
+    @Override
+    public void closeConnection() {
+        emf.close();
+    }
+
+    @Override
+    public boolean insertCustomer(Customer newCustomer) {
+        try {
+            // hashing = new Hashing();
+            // String hashedPassword = hashing.hash(user.getPassword());
+            // user.setPassword(hashedPassword);
+
+            em.getTransaction().begin();
+
+            em.persist(newCustomer);
+            em.getTransaction().commit();
+
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
 }
