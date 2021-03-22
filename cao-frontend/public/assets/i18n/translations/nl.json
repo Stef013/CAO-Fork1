@@ -1,9 +1,26 @@
 {
-    "sign in.label": "Log in",
-    "email address.placeholder": "Emailadres",
-    "password.placeholder": "Wachtwoord",
-    "remember me.label": "Onthoud mij",
-    "sign in.button": "Log in",
-    "forgot password.linklabel": "Wachtwoord vergeten?",
-    "no account sign up.linklabel": "Nog geen account? Maak nu!"
+    "loginpage": {
+        "log in header": "Log in",
+        "log in button": "Inloggen",
+        "email address": "Emailadres",
+        "password": "Wachtwoord",
+        "remember me": "Onthoud mij",
+        "forgot password": "Wachtwoord vergeten?",
+        "no account sign up": "Nog geen account? Maak nu!"
+    },
+
+    "registerpage": {
+        "first name": "",
+        "last name": "",
+        "date of birth": "",
+        "country dropdown": "",
+        "sign up": "",
+        "country description": ""
+    },
+
+    "airplaneinfo": {
+        "take off place": "Vertrekplaats",
+        "landing place": "Bestemming",
+        "ETA": "ETA"
+    }
 }

@@ -55,7 +55,7 @@ export default function FormDialog() {
     return (
         <div>
             <Link href="#" variant="body2" onClick={handleClickOpen}>
-                {t('no account sign up.linklabel')}
+                {t('loginpage.no account sign up')}
             </Link>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>

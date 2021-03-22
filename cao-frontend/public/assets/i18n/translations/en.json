@@ -1,9 +1,26 @@
 {
-    "sign in.label": "Sign in",
-    "email address.placeholder": "Email Address",
-    "password.placeholder": "Password",
-    "remember me.label": "Remember me",
-    "sign in.button": "Sign in",
-    "forgot password.linklabel": "Forgot password?",
-    "no account sign up.linklabel": "Don't have an account? Sign up!"
+    "loginpage": {
+        "log in header": "Log in",
+        "log in button": "Log in",
+        "email address": "Email Address",
+        "password": "Password",
+        "remember me": "Remember me",
+        "forgot password": "Forgot password?",
+        "no account sign up": "Don't have an account? Sign up!"
+    },
+
+    "registerpage": {
+        "first name": "",
+        "last name": "",
+        "date of birth": "",
+        "country dropdown": "",
+        "sign up": "",
+        "country description": ""
+    },
+
+    "airplaneinfo": {
+        "take off place": "Origin",
+        "landing place": "Destination",
+        "ETA": "ETA"
+    }
 }

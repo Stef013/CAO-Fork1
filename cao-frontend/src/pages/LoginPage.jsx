@@ -68,7 +68,7 @@ export default function SignIn() {
                 </Avatar>
                 <LanguageSelector />
                 <Typography component="h1" variant="h5">
-                    {t('sign in.label')}
+                    {t('loginpage.log in header')}
                 </Typography>
                 <form className={classes.form} noValidate>
                     <TextField
@@ -77,7 +77,7 @@ export default function SignIn() {
                         required
                         fullWidth
                         id="email"
-                        label={t('email address.placeholder')}
+                        label={t('loginpage.email address')}
                         name="email"
                         autoComplete="email"
                         autoFocus
@@ -88,14 +88,14 @@ export default function SignIn() {
                         required
                         fullWidth
                         name="password"
-                        label={t('password.placeholder')}
+                        label={t('loginpage.password')}
                         type="password"
                         id="password"
                         autoComplete="current-password"
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
-                        label={t('remember me.label')}
+                        label={t('loginpage.remember me')}
                     />
                     <Button
                         type="submit"
@@ -105,12 +105,12 @@ export default function SignIn() {
                         className={classes.submit}
                         onClick={navigateHome}
                     >
-                        {t('sign in.button')}
+                        {t('loginpage.log in button')}
                     </Button>
                     <Grid container>
                         <Grid item xs>
                             <Link href="#" variant="body2">
-                                {t('forgot password.linklabel')}
+                                {t('loginpage.forgot password')}
                             </Link>
                         </Grid>
                         <Grid item>

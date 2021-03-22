@@ -5,6 +5,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import moment from "moment";
+import i18n from './i18n'
 
 export default class AirplaneInfo extends PureComponent {
   state = {
@@ -13,6 +14,7 @@ export default class AirplaneInfo extends PureComponent {
 
   render() {
     const { info } = this.props;
+
     this.setState({
       currentTime: moment()
         .add(info.minutesToFly / 600, "m")
@@ -31,19 +33,19 @@ export default class AirplaneInfo extends PureComponent {
           <Table aria-label="simple table">
             <TableRow>
               <TableCell>
-                <b>Take Off Place</b>
+                <b>{i18n.t('airplaneinfo.take off place')}</b>
               </TableCell>
               <TableCell>{info.TakeOffPlace}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
-                <b>Landing Place</b>
+                <b>{i18n.t('airplaneinfo.landing place')}</b>
               </TableCell>
               <TableCell>{info.LandingPlace}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
-                <b>ETA</b>
+                <b>{i18n.t('airplaneinfo.ETA')}</b>
               </TableCell>
               <TableCell>{this.state.currentTime}</TableCell>
             </TableRow>
