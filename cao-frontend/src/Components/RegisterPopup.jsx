@@ -38,7 +38,7 @@ export default function FormDialog() {
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
     const [country, setCountry] = React.useState('');
-    const { t, i18n } = useTranslation()
+    const { t } = useTranslation()
 
     const handleClickOpen = () => {
         setOpen(true);

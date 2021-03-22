@@ -5,7 +5,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import moment from "moment";
-import i18n from './i18n'
+import i18n from './i18n';
 
 export default class AirplaneInfo extends PureComponent {
   state = {

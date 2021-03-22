@@ -10,17 +10,25 @@
     },
 
     "registerpage": {
-        "first name": "",
-        "last name": "",
-        "date of birth": "",
-        "country dropdown": "",
-        "sign up": "",
-        "country description": ""
+        "sign up header": "Sign up",
+        "first name": "First Name",
+        "last name": "Last Name",
+        "date of birth": "Date of Birth",
+        "country placeholder": "Country",
+        "country description": "Please select your country",
+        "email address": "Email Address",
+        "password": "Password",
+        "repeat password": "Repeat password",
+        "sign up button": "Sign up"
     },
 
     "airplaneinfo": {
         "take off place": "Origin",
         "landing place": "Destination",
         "ETA": "ETA"
+    },
+
+    "languageselector": {
+        "language": "Language"
     }
 }

@@ -10,17 +10,25 @@
     },
 
     "registerpage": {
-        "first name": "",
-        "last name": "",
-        "date of birth": "",
-        "country dropdown": "",
-        "sign up": "",
-        "country description": ""
+        "sign up header": "Account aanmaken",
+        "first name": "Voornaam",
+        "last name": "Achternaam",
+        "date of birth": "Geboortedatum",
+        "country placeholder": "Land",
+        "country description": "Kies jouw land",
+        "email address": "Emailadres",
+        "password": "Wachtwoord",
+        "repeat password": "Herhaal wachtwoord",
+        "sign up button": "Maak nieuw account"
     },
 
     "airplaneinfo": {
         "take off place": "Vertrekplaats",
         "landing place": "Bestemming",
         "ETA": "ETA"
+    },
+
+    "languageselector": {
+        "language": "Taal"
     }
 }
