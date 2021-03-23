@@ -14,7 +14,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import models.ReturnTicket;
 import services.BookingService;
 
-
 @Path("/booking-service")
 public class BookingController {
 
@@ -30,6 +29,7 @@ public class BookingController {
     public Response bookTicket(String ticketJson, @HeaderParam("jwtToken") String jwt) throws JsonProcessingException {
         // Uncomment when a valid jwtToken is sent (for now the userId is hardcoded)
         // int userId = (int)decodeJWT(jwt).get("userId")
+        System.out.println(ticketJson);
         int userId = 1;
         BookTicket bookTicket = objectMapper.readValue(ticketJson, BookTicket.class);
         ReturnTicket returnTicket = bookingService.bookTicket(bookTicket, userId);
