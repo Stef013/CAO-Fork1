@@ -28,6 +28,18 @@
         "ETA": "ETA"
     },
 
+    "flightplanner": {
+        "departure": "Vertrekplaats",
+        "arrival": "Aankomstplaats",
+        "departure time": "Vertrektijd",
+        "arrival time": "Aankomsttijd",
+        "ticket price": "Ticket prijs",
+        "location": "Locatie",
+        "set date and time": "Plaats datum & tijd",
+        "amount": "Prijs",
+        "create button": "Aanmaken"
+    },
+
     "languageselector": {
         "language": "Taal"
     }

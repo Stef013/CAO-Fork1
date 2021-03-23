@@ -28,6 +28,18 @@
         "ETA": "ETA"
     },
 
+    "flightplanner": {
+        "departure": "Departure",
+        "arrival": "Arrival",
+        "departure time": "Departure Time",
+        "arrival time": "Arrival Time",
+        "ticket price": "Ticket Price",
+        "location": "Location",
+        "set date and time": "Set Date & Time",
+        "amount": "Amount",
+        "create button": "Create"
+    },
+
     "languageselector": {
         "language": "Language"
     }
