@@ -6,7 +6,6 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Booking_Service" />
         <module name="Flight_Service" />
         <module name="FlightTracker_Service" />
         <module name="Seatpicker_Service" />
