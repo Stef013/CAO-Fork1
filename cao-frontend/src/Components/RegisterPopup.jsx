@@ -12,6 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios'
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -40,7 +41,7 @@ export default function FormDialog() {
     const [country, setCountry] = React.useState('');
     const [Repassword, setRePassword] = React.useState('');
     const [account, setAccount] = React.useState({
-        id: 0,
+        id: 6,
         email: " ",
         password: " ",
         firstname: " ",
@@ -68,11 +69,13 @@ export default function FormDialog() {
         // const user = account;
         account.nationality = country;
 
+
         const Customer = account;
         console.log(Customer);
         console.log(country);
+        Customer.dateOfBirth = moment(Customer.dateOfBirth).format("DD/MM/YYYY");
 
-
+        console.log(Customer.dateOfBirth)
         axios.post('http://localhost:8080/account/', Customer, {
             headers: {
                 "Content-Type": 'application/json', 'Accept': 'application/json'
@@ -126,6 +129,7 @@ export default function FormDialog() {
                                     id="date"
                                     label="Date of birth"
                                     type="date"
+                                    format="DD-MM-YYYY"
                                     fullWidth
                                     onChange={e => account.dateOfBirth = e.target.value}
                                     InputLabelProps={{

@@ -36,15 +36,14 @@ public class RegistrationRepo implements IRegistration {
                 cstmnt.setString(4, newCustomer.getFirstname());
                 cstmnt.setString(5, newCustomer.getLastname());
                 cstmnt.setString(6, newCustomer.getNationality());
-                cstmnt.setString(7, newCustomer.getDateOfBirth().toString());
+                cstmnt.setString(7, new SimpleDateFormat("dd/MM/yyyy").format(newCustomer.getDateOfBirth()));
                 cstmnt.executeUpdate();
 
                 newCustomer = null;
                 hashedPassword = null;
 
                 return true;
-            }
-            catch (SQLException e ) {
+            } catch (SQLException e) {
                 System.out.println(e.toString());
             }
         } catch (SQLException throwables) {
@@ -65,8 +64,7 @@ public class RegistrationRepo implements IRegistration {
                 cstmnt.setString(1, userEmail);
                 ResultSet rs = cstmnt.executeQuery();
 
-                while(rs.next())
-                {
+                while (rs.next()) {
                     int id = rs.getInt("id");
                     String email = rs.getString("email");
                     String password = rs.getString("password");
@@ -77,13 +75,12 @@ public class RegistrationRepo implements IRegistration {
 
                     Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dateOfBirth);
 
-                    customer = new Customer(id, email,password,firstname,lastname,nationality,date);
+                    customer = new Customer(id, email, password, firstname, lastname, nationality, date);
 
                 }
 
                 System.out.println(customer.getFirstname() + " " + customer.getLastname());
-            }
-            catch (SQLException e ) {
+            } catch (SQLException e) {
                 System.out.println(e.toString());
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -94,14 +91,13 @@ public class RegistrationRepo implements IRegistration {
         return customer;
     }
 
-
     public boolean checkEmail(String email) {
         try {
-            //TODO: stored precedure
+            // TODO: stored precedure
             // check of email bestaat
-            return true;
-        } catch (Exception ex) {
             return false;
+        } catch (Exception ex) {
+            return true;
         }
     }
 
@@ -127,8 +123,7 @@ public class RegistrationRepo implements IRegistration {
                 customer = null;
 
                 return true;
-            }
-            catch (SQLException e ) {
+            } catch (SQLException e) {
                 System.out.println(e.toString());
             }
         } catch (SQLException throwables) {
@@ -152,8 +147,7 @@ public class RegistrationRepo implements IRegistration {
 
                 return true;
 
-            }
-            catch (SQLException e ) {
+            } catch (SQLException e) {
                 System.out.println(e.toString());
             }
         } catch (SQLException throwables) {

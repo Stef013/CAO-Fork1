@@ -5,15 +5,12 @@ import Repository.RegistrationRepo;
 import spark.Spark;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import static spark.Spark.*;
 
 public class AccountController {
 
     private RegistrationRepo registrationRepo;
-    private Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();;
-
-    // Registration RL = new Registration();
+    private Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();;
 
     public AccountController(final String a) {
 
@@ -84,7 +81,6 @@ public class AccountController {
             }
 
             return message;
-
         }));
 
         Spark.put("/", ((request, response) -> {
