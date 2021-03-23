@@ -3,10 +3,12 @@ package com.cao.backendcao;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
-import org.springframework.web.filter.CorsFilter;
+
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 
 @EnableZuulProxy
 @SpringBootApplication
@@ -17,6 +19,7 @@ public class BackendCaoApplication {
 	}
 
 	@Bean
+	@Primary
 	public CorsFilter corsFilter() {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		final CorsConfiguration config = new CorsConfiguration();
@@ -24,7 +27,7 @@ public class BackendCaoApplication {
 		config.addAllowedOrigin("*");
 		config.addAllowedHeader("*");
 		config.addAllowedMethod("*");
-		source.registerCorsConfiguration("/*", config);
+		source.registerCorsConfiguration("/**", config);
 		return new CorsFilter(source);
 	}
 

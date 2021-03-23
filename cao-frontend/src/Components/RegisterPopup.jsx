@@ -73,7 +73,7 @@ export default function FormDialog() {
         console.log(country);
 
 
-        axios.post('http://localhost:8080/account', Customer, {
+        axios.post('http://localhost:8080/account/', Customer, {
             headers: {
                 "Content-Type": 'application/json', 'Accept': 'application/json'
             }
@@ -83,8 +83,6 @@ export default function FormDialog() {
                 console.log(res.data);
             })
             .catch(error => console.log(error));
-
-
     }
 
     return (
