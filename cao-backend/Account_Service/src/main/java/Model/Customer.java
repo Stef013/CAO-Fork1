@@ -90,4 +90,15 @@ public class Customer {
         this.nationality = nationality;
         this.dateOfBirth = dateOfBirth;
     }
+
+    public Customer(int id, String email, String password, String firstname, String lastname, String nationality,
+                    Date dateOfBirth) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.nationality = nationality;
+        this.dateOfBirth = dateOfBirth;
+    }
 }
