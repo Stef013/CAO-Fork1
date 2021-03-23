@@ -1,7 +1,6 @@
 package services;
 
-import models.BookTicket;
-import models.ReturnTicket;
+import models.*;
 import repositories.BookingRepository;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -13,7 +12,10 @@ public class BookingService {
     @Inject
     BookingRepository bookingRepository;
 
-    public ReturnTicket bookTicket(BookTicket bookTicket, int userId) {
-        return bookingRepository.bookTicket(bookTicket, userId);
+    public ReturnBooking book(Booking booking, int userId) {
+        if (booking.getCustomerId() == userId) {
+            return bookingRepository.book(booking, userId);
+        }
+        return new ReturnBooking(0, false);
     }
 }

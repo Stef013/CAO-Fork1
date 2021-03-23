@@ -1,6 +1,5 @@
 package controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import models.BookTicket;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -11,8 +10,11 @@ import javax.xml.bind.DatatypeConverter;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Claims;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import models.ReturnTicket;
+import models.Booking;
+import models.ReturnBooking;
 import services.BookingService;
+
+import java.util.Date;
 
 @Path("/booking-service")
 public class BookingController {
@@ -24,20 +26,20 @@ public class BookingController {
     ObjectMapper objectMapper = new ObjectMapper();
 
     @POST
-    @Path("/ticket")
+    @Path("/book")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response bookTicket(String ticketJson, @HeaderParam("jwtToken") String jwt) throws JsonProcessingException {
+    public Response book(String bookingJson, @HeaderParam("jwtToken") String jwt) throws JsonProcessingException {
         // Uncomment when a valid jwtToken is sent (for now the userId is hardcoded)
         // int userId = (int)decodeJWT(jwt).get("userId")
-        System.out.println(ticketJson);
-        int userId = 1;
-        BookTicket bookTicket = objectMapper.readValue(ticketJson, BookTicket.class);
-        ReturnTicket returnTicket = bookingService.bookTicket(bookTicket, userId);
-        if (returnTicket.isSuccess() == false) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+        Booking booking = objectMapper.readValue(bookingJson, Booking.class);
+        booking.setBookingDate(new Date());
+        ReturnBooking returnBooking = bookingService.book(booking, 1);
+
+        if (returnBooking.isSuccess() == false) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(objectMapper.writeValueAsString(returnBooking)).build();
         }
         //TODO: notify flight service that a ticket is booked (messaging)
-        return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(returnTicket)).build();
+        return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(returnBooking)).build();
     }
 
     public Claims decodeJWT(String jwt) {
