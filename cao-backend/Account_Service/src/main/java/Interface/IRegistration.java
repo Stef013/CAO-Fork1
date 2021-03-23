@@ -1,11 +1,10 @@
 package Interface;
 
-import Model.RegistrationCustomer;
+import Model.Customer;
 
 public interface IRegistration {
 
-    boolean RegistrateCustomer(RegistrationCustomer newCustomer);
+    boolean insertCustomer(Customer newCustomer);
 
-
-
+    void closeConnection();
 }
