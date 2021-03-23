@@ -1,15 +1,10 @@
 package Model;
 
-import javax.persistence.*;
 import java.util.*;
 
-@Entity
-@Table(name = "Customers")
 public class Customer {
 
-    @Id
     private int id;
-
     private String email;
     private String password;
     private String firstname;
@@ -81,6 +76,10 @@ public class Customer {
     // public void setContactPersons(String[] contactPersons) {
     // this.contactPersons = contactPersons;
     // }
+
+    public Customer() {
+
+    }
 
     public Customer(String email, String password, String firstname, String lastname, String nationality,
             Date dateOfBirth) {

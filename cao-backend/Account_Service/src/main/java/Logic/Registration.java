@@ -1,6 +1,6 @@
 package Logic;
 
-import Model.RegistrationCustomer;
+import Model.Customer;
 import Repository.RegistrationRepo;
 
 public class Registration {
