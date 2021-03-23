@@ -1,13 +1,12 @@
 package Controller;
 
-import Logic.Registration;
 import Model.Customer;
 import Repository.RegistrationRepo;
 import spark.Spark;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import static spark.Spark.options;
+import static spark.Spark.*;
 
 public class AccountController {
 
@@ -16,13 +15,15 @@ public class AccountController {
 
     // Registration RL = new Registration();
 
-    public AccountController() {
+    public AccountController(final String a) {
 
-        options("*/*", (request, response) -> {
+        options("/*", (request, response) -> {
+
             String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
             if (accessControlRequestHeaders != null) {
                 response.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
             }
+
             String accessControlRequestMethod = request.headers("Access-Control-Request-Method");
             if (accessControlRequestMethod != null) {
                 response.header("Access-Control-Allow-Methods", accessControlRequestMethod);
@@ -31,7 +32,7 @@ public class AccountController {
             return "OK";
         });
 
-        Spark.before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
+        before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
         Spark.get("/", ((request, response) -> {
 
@@ -61,7 +62,6 @@ public class AccountController {
             System.out.println("Post /");
             String body = request.body();
             System.out.println(body);
-
             String message = "";
 
             try {
@@ -83,7 +83,6 @@ public class AccountController {
                 message = "Something went wrong.";
             }
 
-            response.status(200);
             return message;
 
         }));

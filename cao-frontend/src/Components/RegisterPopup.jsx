@@ -40,6 +40,7 @@ export default function FormDialog() {
     const [country, setCountry] = React.useState('');
     const [Repassword, setRePassword] = React.useState('');
     const [account, setAccount] = React.useState({
+        id: 0,
         email: " ",
         password: " ",
         firstname: " ",
@@ -67,14 +68,22 @@ export default function FormDialog() {
         // const user = account;
         account.nationality = country;
 
-        const user = account;
-        console.log(user);
+        const Customer = account;
+        console.log(Customer);
         console.log(country);
 
-        axios.post('http://localhost:5678/account/register', { user }).then(res => {
-            console.log(res);
-            console.log(res.data);
+
+        axios.post('http://localhost:8080/account', Customer, {
+            headers: {
+                "Content-Type": 'application/json', 'Accept': 'application/json'
+            }
         })
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            })
+            .catch(error => console.log(error));
+
 
     }
 
