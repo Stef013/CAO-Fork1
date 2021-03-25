@@ -29,14 +29,13 @@ public class RegistrationRepo implements IRegistration {
         try (Connection connection = DriverManager.getConnection(connectionUrl);) {
 
             try {
-                CallableStatement cstmnt = connection.prepareCall("{call createCustomer(?,?,?,?,?,?,?)}");
-                cstmnt.setInt(1, newCustomer.getId());
-                cstmnt.setString(2, newCustomer.getEmail());
-                cstmnt.setString(3, hashedPassword);
-                cstmnt.setString(4, newCustomer.getFirstname());
-                cstmnt.setString(5, newCustomer.getLastname());
-                cstmnt.setString(6, newCustomer.getNationality());
-                cstmnt.setString(7, new SimpleDateFormat("dd/MM/yyyy").format(newCustomer.getDateOfBirth()));
+                CallableStatement cstmnt = connection.prepareCall("{call createCustomer(?,?,?,?,?,?)}");
+                cstmnt.setString(1, newCustomer.getEmail());
+                cstmnt.setString(2, hashedPassword);
+                cstmnt.setString(3, newCustomer.getFirstname());
+                cstmnt.setString(4, newCustomer.getLastname());
+                cstmnt.setString(5, newCustomer.getNationality());
+                cstmnt.setString(6, new SimpleDateFormat("dd/MM/yyyy").format(newCustomer.getDateOfBirth()));
                 cstmnt.executeUpdate();
 
                 newCustomer = null;
