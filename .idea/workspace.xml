@@ -10,34 +10,7 @@
     </loaded-modules>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ff813a3-d6ba-4cba-b014-481c79650406" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/cao-backend/Account_Service/src/main/java/META-INF/persistence.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cao-backend/Account_Service/src/main/java/mapping.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cao-backend/Account_Service/target/Account_Service-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cao-backend/Account_Service/target/classes/META-INF/persistence.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cao-backend/Account_Service/target/maven-archiver/pom.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cao-backend/Account_Service/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cao-backend/Account_Service/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cao-backend/Libraries/mssql-jdbc-9.2.1.jre15.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-backend/Account_Service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cao-backend/Account_Service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-backend/Account_Service/src/main/java/Account.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-backend/Account_Service/src/main/java/Controller/RegistrationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cao-backend/Account_Service/src/main/java/Controller/RegistrationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-backend/Account_Service/src/main/java/Interface/IRegistration.java" beforeDir="false" afterPath="$PROJECT_DIR$/cao-backend/Account_Service/src/main/java/Interface/IRegistration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-backend/Account_Service/src/main/java/Logic/Registration.java" beforeDir="false" afterPath="$PROJECT_DIR$/cao-backend/Account_Service/src/main/java/Logic/Registration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-backend/Account_Service/src/main/java/Model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/cao-backend/Account_Service/src/main/java/Model/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-backend/Account_Service/src/main/java/Repository/RegistrationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/cao-backend/Account_Service/src/main/java/Repository/RegistrationRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-backend/Account_Service/target/classes/Account.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-backend/Account_Service/target/classes/Controller/RegistrationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/cao-backend/Account_Service/target/classes/Controller/RegistrationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-backend/Account_Service/target/classes/Interface/IRegistration.class" beforeDir="false" afterPath="$PROJECT_DIR$/cao-backend/Account_Service/target/classes/Interface/IRegistration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-backend/Account_Service/target/classes/Logic/Registration.class" beforeDir="false" afterPath="$PROJECT_DIR$/cao-backend/Account_Service/target/classes/Logic/Registration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-backend/Account_Service/target/classes/Model/Customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/cao-backend/Account_Service/target/classes/Model/Customer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-backend/Account_Service/target/classes/Repository/RegistrationRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/cao-backend/Account_Service/target/classes/Repository/RegistrationRepo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-backend/Flight_Service/target/classes/META-INF/resources/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-backend/Flight_Service/target/classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-backend/Gateway/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/cao-backend/Gateway/.classpath" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cao-backend/Gateway/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/cao-backend/Gateway/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
-    </list>
+    <list default="true" id="8ff813a3-d6ba-4cba-b014-481c79650406" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,6 +25,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1pvPg3Sfzrq2oPup1AQIwOo5ukn" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -135,6 +116,7 @@
       <workItem from="1616065772395" duration="718000" />
       <workItem from="1616075757235" duration="602000" />
       <workItem from="1616425800169" duration="116000" />
+      <workItem from="1616425931026" duration="278000" />
     </task>
     <servers />
   </component>

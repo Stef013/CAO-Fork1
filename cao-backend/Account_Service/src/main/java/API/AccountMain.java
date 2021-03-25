@@ -1,6 +1,6 @@
 package API;
 
-import Controller.RegistrationController;
+import Controller.AccountController;
 import spark.Spark;
 
 import java.net.Inet4Address;
@@ -13,7 +13,7 @@ public class AccountMain {
         String ip = Inet4Address.getLocalHost().getHostAddress();
         Spark.ipAddress("127.0.0.1");
 
-        new RegistrationController();
+        new AccountController(new String());
     }
 
 }

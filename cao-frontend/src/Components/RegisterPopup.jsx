@@ -12,6 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios'
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
+import moment from 'moment';
 import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => ({
@@ -41,6 +42,7 @@ export default function FormDialog() {
     const [country, setCountry] = React.useState('');
     const [Repassword, setRePassword] = React.useState('');
     const [account, setAccount] = React.useState({
+        id: 6,
         email: " ",
         password: " ",
         firstname: " ",
@@ -69,15 +71,23 @@ export default function FormDialog() {
         // const user = account;
         account.nationality = country;
 
-        const user = account;
-        console.log(user);
+
+        const Customer = account;
+        console.log(Customer);
         console.log(country);
+        Customer.dateOfBirth = moment(Customer.dateOfBirth).format("DD/MM/YYYY");
 
-        axios.post('http://localhost:5678/account/register', { user }).then(res => {
-            console.log(res);
-            console.log(res.data);
+        console.log(Customer.dateOfBirth)
+        axios.post('http://localhost:8080/account/', Customer, {
+            headers: {
+                "Content-Type": 'application/json', 'Accept': 'application/json'
+            }
         })
-
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            })
+            .catch(error => console.log(error));
     }
 
     return (
@@ -121,6 +131,7 @@ export default function FormDialog() {
                                     id="date"
                                     label={t('registerpage.date of birth')}
                                     type="date"
+                                    format="DD-MM-YYYY"
                                     fullWidth
                                     onChange={e => account.dateOfBirth = e.target.value}
                                     InputLabelProps={{

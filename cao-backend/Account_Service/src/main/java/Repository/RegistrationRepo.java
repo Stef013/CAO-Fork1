@@ -2,39 +2,157 @@ package Repository;
 
 import Interface.IRegistration;
 import Model.Customer;
-import javax.persistence.*;
+import Utilities.Cryptography;
+
+import java.nio.charset.StandardCharsets;
+import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class RegistrationRepo implements IRegistration {
 
-    @PersistenceContext
-    private static EntityManagerFactory emf;
-    private static EntityManager em;
+    private final String connectionUrl = "jdbc:sqlserver://cao-dbserver.database.windows.net:1433;database=CAO_Account;user=CaoAdmin@cao-dbserver;password=7tJzrUVGB5i8dxX;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+    private static Statement statement;
 
-    public RegistrationRepo(String persistenceUnit) {
-        emf = Persistence.createEntityManagerFactory(persistenceUnit);
-        em = emf.createEntityManager();
-    }
+    Cryptography cryptography = new Cryptography();
 
-    @Override
     public void closeConnection() {
-        emf.close();
+        // TODO Auto-generated method stub
+
     }
 
     @Override
-    public boolean insertCustomer(Customer newCustomer) {
+    public boolean create(Customer newCustomer) {
+        String hashedPassword = cryptography.hash(newCustomer.getPassword());
+
+        try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+
+            try {
+                CallableStatement cstmnt = connection.prepareCall("{call createCustomer(?,?,?,?,?,?)}");
+                cstmnt.setString(1, newCustomer.getEmail());
+                cstmnt.setString(2, hashedPassword);
+                cstmnt.setString(3, newCustomer.getFirstname());
+                cstmnt.setString(4, newCustomer.getLastname());
+                cstmnt.setString(5, newCustomer.getNationality());
+                cstmnt.setString(6, new SimpleDateFormat("dd/MM/yyyy").format(newCustomer.getDateOfBirth()));
+                cstmnt.executeUpdate();
+
+                newCustomer = null;
+                hashedPassword = null;
+
+                return true;
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @Override
+    public Customer get(String userEmail) {
+
+        Customer customer = null;
+
+        try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+            try {
+                CallableStatement cstmnt = connection.prepareCall("{call getOneCustomer(?)}");
+                cstmnt.setString(1, userEmail);
+                ResultSet rs = cstmnt.executeQuery();
+
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String email = rs.getString("email");
+                    String password = rs.getString("password");
+                    String firstname = rs.getString("firstname");
+                    String lastname = rs.getString("lastname");
+                    String nationality = rs.getString("nationality");
+                    String dateOfBirth = rs.getString("dateOfBirth");
+
+                    Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dateOfBirth);
+
+                    customer = new Customer(id, email, password, firstname, lastname, nationality, date);
+
+                }
+
+                System.out.println(customer.getFirstname() + " " + customer.getLastname());
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return customer;
+    }
+
+    public boolean checkEmail(String email) {
         try {
-            // hashing = new Hashing();
-            // String hashedPassword = hashing.hash(user.getPassword());
-            // user.setPassword(hashedPassword);
-
-            em.getTransaction().begin();
-
-            em.persist(newCustomer);
-            em.getTransaction().commit();
-
-            return true;
-        } catch (Exception ex) {
+            // TODO: stored precedure
+            // check of email bestaat
             return false;
+        } catch (Exception ex) {
+            return true;
         }
     }
+
+    @Override
+    public boolean update(Customer customer) {
+
+        String hashedPassword = cryptography.hash(customer.getPassword());
+
+        try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+
+            try {
+                CallableStatement cstmnt = connection.prepareCall("{call updateCustomer(?,?,?,?,?,?,?)}");
+                cstmnt.setInt(1, customer.getId());
+                cstmnt.setString(2, customer.getEmail());
+                cstmnt.setString(3, hashedPassword);
+                cstmnt.setString(4, customer.getFirstname());
+                cstmnt.setString(5, customer.getLastname());
+                cstmnt.setString(6, customer.getNationality());
+                cstmnt.setString(7, customer.getDateOfBirth().toString());
+                cstmnt.executeUpdate();
+
+                hashedPassword = null;
+                customer = null;
+
+                return true;
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean delete(Customer customer) {
+
+        try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+
+            try {
+                CallableStatement cstmnt = connection.prepareCall("{call deleteCustomer(?)}");
+                cstmnt.setInt(1, 4);
+                cstmnt.executeUpdate();
+
+                customer = null;
+
+                return true;
+
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
 }
