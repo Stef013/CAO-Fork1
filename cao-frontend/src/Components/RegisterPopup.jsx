@@ -1,17 +1,9 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import MenuItem from '@material-ui/core/MenuItem';
+import { Button, TextField, Dialog, DialogContent, DialogTitle, Link, Grid, MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { CountryRegionData } from 'react-country-region-selector';
+
 import axios from 'axios'
-import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
@@ -39,9 +31,10 @@ export default function FormDialog() {
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
     const [country, setCountry] = React.useState('');
-    const [Repassword, setRePassword] = React.useState('');
+    const [confPassword, setConfPassword] = React.useState('');
+    const [showError, setShowError] = React.useState(false);
+    const [helperText, setHelperText] = React.useState();
     const [account, setAccount] = React.useState({
-        id: 6,
         email: " ",
         password: " ",
         firstname: " ",
@@ -59,33 +52,47 @@ export default function FormDialog() {
         setOpen(false);
     };
 
-    function selectCountry(val) {
-        setCountry({ val }, () => console.log(country));
+    function checkPasswords() {
+        if (account.password == confPassword) {
+            console.log(account.password)
+            console.log(confPassword)
+            return true;
+        }
+        else {
+            setShowError(true);
+            setHelperText("Passwords don't match!")
+            console.log(account.password)
+            console.log(confPassword)
+            return false;
+        }
+    }
+
+    function handleChange(event) {
+        account[event.target.name] = event.target.value;
     }
 
     function handleSubmit(event) {
         event.preventDefault();
 
-        // const user = account;
-        account.nationality = country;
+        if (checkPasswords()) {
+            account.nationality = country;
 
+            const Customer = account;
+            console.log(Customer);
+            Customer.dateOfBirth = moment(Customer.dateOfBirth).format("DD/MM/YYYY");
 
-        const Customer = account;
-        console.log(Customer);
-        console.log(country);
-        Customer.dateOfBirth = moment(Customer.dateOfBirth).format("DD/MM/YYYY");
-
-        console.log(Customer.dateOfBirth)
-        axios.post('http://localhost:8080/account/', Customer, {
-            headers: {
-                "Content-Type": 'application/json', 'Accept': 'application/json'
-            }
-        })
-            .then(res => {
-                console.log(res);
-                console.log(res.data);
+            axios.post('http://localhost:8080/account/', Customer, {
+                headers: {
+                    "Content-Type": 'application/json', 'Accept': 'application/json'
+                }
             })
-            .catch(error => console.log(error));
+                .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                    handleClose();
+                })
+                .catch(error => console.log(error));
+        }
     }
 
     return (
@@ -96,18 +103,18 @@ export default function FormDialog() {
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>
                 <DialogContent>
-                    <form className={classes.form} noValidate onSubmit={(event) => handleSubmit(event)} >
+                    <form className={classes.form} onSubmit={(event) => handleSubmit(event)} >
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     autoComplete="fname"
-                                    name="firstName"
+                                    name="firstname"
                                     variant="outlined"
                                     required
                                     fullWidth
                                     id="firstName"
                                     label="First Name"
-                                    onInput={e => account.firstname = e.target.value}
+                                    onInput={handleChange}
                                     autoFocus
                                 />
                             </Grid>
@@ -116,22 +123,24 @@ export default function FormDialog() {
                                     variant="outlined"
                                     required
                                     fullWidth
-                                    id="lastName"
+                                    id="lastname"
                                     label="Last Name"
                                     name="lastName"
                                     autoComplete="lname"
-                                    onInput={e => account.lastname = e.target.value}
+                                    onInput={handleChange}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     variant="outlined"
+                                    required
                                     id="date"
+                                    name="dateOfBirth"
                                     label="Date of birth"
                                     type="date"
                                     format="DD-MM-YYYY"
                                     fullWidth
-                                    onChange={e => account.dateOfBirth = e.target.value}
+                                    onChange={handleChange}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -140,6 +149,7 @@ export default function FormDialog() {
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     variant="outlined"
+                                    required
                                     id="CountrySelect"
                                     select
                                     label="Country"
@@ -164,7 +174,7 @@ export default function FormDialog() {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
-                                    onInput={e => account.email = e.target.value}
+                                    onInput={handleChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -177,7 +187,7 @@ export default function FormDialog() {
                                     type="password"
                                     id="password"
                                     autoComplete="current-password"
-                                    onInput={e => account.password = e.target.value}
+                                    onInput={handleChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -185,12 +195,14 @@ export default function FormDialog() {
                                     variant="outlined"
                                     required
                                     fullWidth
-                                    name="Rpassword"
-                                    label="Repeat Password"
+                                    name="confPassword"
+                                    label="Confirm Password"
                                     type="password"
-                                    id="Rpassword"
+                                    id="confPassword"
                                     autoComplete="current-password"
-                                    onInput={e => account.password = e.target.value}
+                                    helperText={helperText}
+                                    error={showError}
+                                    onInput={e => setConfPassword(e.target.value)}
                                 />
                             </Grid>
                         </Grid>
