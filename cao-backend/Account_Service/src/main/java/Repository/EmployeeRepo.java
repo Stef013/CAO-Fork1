@@ -1,16 +1,13 @@
 package Repository;
 
-import Interface.IRegistration;
-import Model.Customer;
+import Interface.IEmployeeRepo;
+import Model.Employee;
 import Utilities.Cryptography;
+import Enum.Roles;
 
-import java.nio.charset.StandardCharsets;
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-public class RegistrationRepo implements IRegistration {
+public class EmployeeRepo implements IEmployeeRepo {
 
     private final String connectionUrl = "jdbc:sqlserver://cao-dbserver.database.windows.net:1433;database=CAO_Account;user=CaoAdmin@cao-dbserver;password=7tJzrUVGB5i8dxX;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
     private static Statement statement;
@@ -23,22 +20,21 @@ public class RegistrationRepo implements IRegistration {
     }
 
     @Override
-    public boolean create(Customer newCustomer) {
-        String hashedPassword = cryptography.hash(newCustomer.getPassword());
+    public boolean create(Employee newEmployee) {
+        String hashedPassword = cryptography.hash(newEmployee.getPassword());
 
         try (Connection connection = DriverManager.getConnection(connectionUrl);) {
 
             try {
-                CallableStatement cstmnt = connection.prepareCall("{call createCustomer(?,?,?,?,?,?)}");
-                cstmnt.setString(1, newCustomer.getEmail());
+                CallableStatement cstmnt = connection.prepareCall("{call createEmployee(?,?,?,?,?)}");
+                cstmnt.setString(1, newEmployee.getEmail());
                 cstmnt.setString(2, hashedPassword);
-                cstmnt.setString(3, newCustomer.getFirstname());
-                cstmnt.setString(4, newCustomer.getLastname());
-                cstmnt.setString(5, newCustomer.getNationality());
-                cstmnt.setString(6, new SimpleDateFormat("dd/MM/yyyy").format(newCustomer.getDateOfBirth()));
+                cstmnt.setString(3, newEmployee.getFirstname());
+                cstmnt.setString(4, newEmployee.getLastname());
+                cstmnt.setString(5, newEmployee.getRole().toString());
                 cstmnt.executeUpdate();
 
-                newCustomer = null;
+                newEmployee = null;
                 hashedPassword = null;
 
                 return true;
@@ -53,13 +49,13 @@ public class RegistrationRepo implements IRegistration {
     }
 
     @Override
-    public Customer get(String userEmail) {
+    public Employee get(String userEmail) {
 
-        Customer customer = null;
+        Employee employee = null;
 
         try (Connection connection = DriverManager.getConnection(connectionUrl);) {
             try {
-                CallableStatement cstmnt = connection.prepareCall("{call getOneCustomer(?)}");
+                CallableStatement cstmnt = connection.prepareCall("{call getOneEmployee(?)}");
                 cstmnt.setString(1, userEmail);
                 ResultSet rs = cstmnt.executeQuery();
 
@@ -69,25 +65,22 @@ public class RegistrationRepo implements IRegistration {
                     String password = rs.getString("password");
                     String firstname = rs.getString("firstname");
                     String lastname = rs.getString("lastname");
-                    String nationality = rs.getString("nationality");
-                    String dateOfBirth = rs.getString("dateOfBirth");
+                    String role = rs.getString("role");
 
-                    Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dateOfBirth);
 
-                    customer = new Customer(id, email, password, firstname, lastname, nationality, date);
+
+                    employee = new Employee(id, email, password, firstname, lastname, Roles.valueOf(role) );
 
                 }
 
-                System.out.println(customer.getFirstname() + " " + customer.getLastname());
+                System.out.println(employee.getFirstname() + " " + employee.getLastname());
             } catch (SQLException e) {
                 System.out.println(e.toString());
-            } catch (ParseException e) {
-                e.printStackTrace();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return customer;
+        return employee;
     }
 
     public boolean checkEmail(String email) {
@@ -101,25 +94,24 @@ public class RegistrationRepo implements IRegistration {
     }
 
     @Override
-    public boolean update(Customer customer) {
+    public boolean update(Employee employee) {
 
-        String hashedPassword = cryptography.hash(customer.getPassword());
+        String hashedPassword = cryptography.hash(employee.getPassword());
 
         try (Connection connection = DriverManager.getConnection(connectionUrl);) {
 
             try {
-                CallableStatement cstmnt = connection.prepareCall("{call updateCustomer(?,?,?,?,?,?,?)}");
-                cstmnt.setInt(1, customer.getId());
-                cstmnt.setString(2, customer.getEmail());
+                CallableStatement cstmnt = connection.prepareCall("{call updateEmployee(?,?,?,?,?,?)}");
+                cstmnt.setInt(1, employee.getId());
+                cstmnt.setString(2, employee.getEmail());
                 cstmnt.setString(3, hashedPassword);
-                cstmnt.setString(4, customer.getFirstname());
-                cstmnt.setString(5, customer.getLastname());
-                cstmnt.setString(6, customer.getNationality());
-                cstmnt.setString(7, customer.getDateOfBirth().toString());
+                cstmnt.setString(4, employee.getFirstname());
+                cstmnt.setString(5, employee.getLastname());
+                cstmnt.setString(6, employee.getRole().toString());
                 cstmnt.executeUpdate();
 
                 hashedPassword = null;
-                customer = null;
+                employee = null;
 
                 return true;
             } catch (SQLException e) {
@@ -133,16 +125,16 @@ public class RegistrationRepo implements IRegistration {
     }
 
     @Override
-    public boolean delete(Customer customer) {
+    public boolean delete(int id) {
 
         try (Connection connection = DriverManager.getConnection(connectionUrl);) {
 
             try {
-                CallableStatement cstmnt = connection.prepareCall("{call deleteCustomer(?)}");
+                CallableStatement cstmnt = connection.prepareCall("{call deleteEmployee(?)}");
                 cstmnt.setInt(1, 4);
                 cstmnt.executeUpdate();
 
-                customer = null;
+                id = 0;
 
                 return true;
 
