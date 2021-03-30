@@ -23,7 +23,7 @@ public class EmployeeRepo implements IEmployeeRepo {
     public boolean create(Employee newEmployee) {
         String hashedPassword = cryptography.hash(newEmployee.getPassword());
 
-        try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
 
             try {
                 CallableStatement cstmnt = connection.prepareCall("{call createEmployee(?,?,?,?,?)}");
@@ -53,7 +53,7 @@ public class EmployeeRepo implements IEmployeeRepo {
 
         Employee employee = null;
 
-        try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
             try {
                 CallableStatement cstmnt = connection.prepareCall("{call getOneEmployee(?)}");
                 cstmnt.setString(1, userEmail);
@@ -98,7 +98,7 @@ public class EmployeeRepo implements IEmployeeRepo {
 
         String hashedPassword = cryptography.hash(employee.getPassword());
 
-        try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
 
             try {
                 CallableStatement cstmnt = connection.prepareCall("{call updateEmployee(?,?,?,?,?,?)}");
@@ -127,7 +127,7 @@ public class EmployeeRepo implements IEmployeeRepo {
     @Override
     public boolean delete(int id) {
 
-        try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
 
             try {
                 CallableStatement cstmnt = connection.prepareCall("{call deleteEmployee(?)}");
