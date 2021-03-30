@@ -1,16 +1,15 @@
 package Repository;
 
-import Interface.IRegistration;
+import Interface.ICustomerRepo;
 import Model.Customer;
 import Utilities.Cryptography;
 
-import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class RegistrationRepo implements IRegistration {
+public class CustomerRepo implements ICustomerRepo {
 
     private final String connectionUrl = "jdbc:sqlserver://cao-dbserver.database.windows.net:1433;database=CAO_Account;user=CaoAdmin@cao-dbserver;password=7tJzrUVGB5i8dxX;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
     private static Statement statement;
@@ -133,7 +132,7 @@ public class RegistrationRepo implements IRegistration {
     }
 
     @Override
-    public boolean delete(Customer customer) {
+    public boolean delete(int id) {
 
         try (Connection connection = DriverManager.getConnection(connectionUrl);) {
 
@@ -142,7 +141,7 @@ public class RegistrationRepo implements IRegistration {
                 cstmnt.setInt(1, 4);
                 cstmnt.executeUpdate();
 
-                customer = null;
+                id = 0;
 
                 return true;
 
