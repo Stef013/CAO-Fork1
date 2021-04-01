@@ -2,6 +2,7 @@ package Interface;
 
 import Model.Customer;
 import Model.Employee;
+import Model.RoleUpdate;
 
 public interface IEmployeeRepo {
 
@@ -10,6 +11,8 @@ public interface IEmployeeRepo {
     Employee get(String userEmail);
 
     boolean update(Employee employee);
+
+    boolean updateRole(RoleUpdate updateRole);
 
     boolean delete(int id);
 

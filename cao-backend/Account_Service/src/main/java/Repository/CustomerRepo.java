@@ -25,25 +25,36 @@ public class CustomerRepo implements ICustomerRepo {
     public boolean create(Customer newCustomer) {
         String hashedPassword = cryptography.hash(newCustomer.getPassword());
 
+        boolean exist = false;
+
         try (Connection connection = DriverManager.getConnection(connectionUrl);) {
 
-            try {
-                CallableStatement cstmnt = connection.prepareCall("{call createCustomer(?,?,?,?,?,?)}");
-                cstmnt.setString(1, newCustomer.getEmail());
-                cstmnt.setString(2, hashedPassword);
-                cstmnt.setString(3, newCustomer.getFirstname());
-                cstmnt.setString(4, newCustomer.getLastname());
-                cstmnt.setString(5, newCustomer.getNationality());
-                cstmnt.setString(6, new SimpleDateFormat("dd/MM/yyyy").format(newCustomer.getDateOfBirth()));
-                cstmnt.executeUpdate();
+                if (!checkEmail(newCustomer.getEmail()))
+                {
+                    try {
+                        CallableStatement cstmnt = connection.prepareCall("{call createCustomer(?,?,?,?,?,?)}");
+                        cstmnt.setString(1, newCustomer.getEmail());
+                        cstmnt.setString(2, hashedPassword);
+                        cstmnt.setString(3, newCustomer.getFirstname());
+                        cstmnt.setString(4, newCustomer.getLastname());
+                        cstmnt.setString(5, newCustomer.getNationality());
+                        cstmnt.setString(6, new SimpleDateFormat("dd/MM/yyyy").format(newCustomer.getDateOfBirth()));
+                        cstmnt.executeUpdate();
 
-                newCustomer = null;
-                hashedPassword = null;
+                        newCustomer = null;
+                        hashedPassword = null;
 
-                return true;
-            } catch (SQLException e) {
-                System.out.println(e.toString());
-            }
+                        cstmnt.close();
+                        return true;
+                    } catch (SQLException e) {
+                        System.out.println(e.toString());
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -91,12 +102,31 @@ public class CustomerRepo implements ICustomerRepo {
 
     public boolean checkEmail(String email) {
         try {
-            // TODO: stored precedure
-            // check of email bestaat
-            return false;
-        } catch (Exception ex) {
+            try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+
+                boolean exist = false;
+                try {
+                    CallableStatement cstmnt = connection.prepareCall("{call getOneCustomer(?)}");
+                    cstmnt.setString(1, email);
+                    ResultSet rs = cstmnt.executeQuery();
+
+                    while (rs.next()) {
+                        exist = true;
+                    }
+                    cstmnt.close();
+                } catch (SQLException e) {
+                    System.out.println(e.toString());
+
+                }
+                return exist;
+            } catch (Exception ex) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             return true;
         }
+
     }
 
     @Override

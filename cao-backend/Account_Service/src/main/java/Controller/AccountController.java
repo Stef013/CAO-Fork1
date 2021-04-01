@@ -3,6 +3,7 @@ package Controller;
 import Logic.Registration;
 import Model.Customer;
 import Model.Employee;
+import Model.RoleUpdate;
 import Repository.CustomerRepo;
 import spark.Spark;
 import com.google.gson.Gson;
@@ -199,6 +200,31 @@ public class AccountController {
                 Employee employee = gson.fromJson(body, Employee.class);
 
                 boolean result = RL.updateEmployee(employee);
+
+                if (result) {
+                    message = "Account setting updated!";
+                } else {
+                    message = "Database error.";
+                }
+
+            } catch (Exception ex) {
+                System.out.println(ex);
+                message = "Something went wrong.";
+            }
+            return message;
+
+        }));
+
+        Spark.put("/employee/role", ((request, response) -> {
+
+            System.out.println("Put /");
+            String body = request.body();
+            String message = "";
+
+            try {
+                RoleUpdate updateRole = gson.fromJson(body, RoleUpdate.class);
+
+                boolean result = RL.updateRole(updateRole);
 
                 if (result) {
                     message = "Account setting updated!";

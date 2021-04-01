@@ -2,6 +2,7 @@ package Logic;
 
 import Model.Customer;
 import Model.Employee;
+import Model.RoleUpdate;
 import Repository.CustomerRepo;
 import Repository.EmployeeRepo;
 
@@ -98,7 +99,17 @@ public class Registration {
                 !updateEmployee.getPassword().isBlank() && updateEmployee.getFirstname() != null && !updateEmployee.getFirstname().isBlank()&&
                 updateEmployee.getLastname() != null && !updateEmployee.getLastname().isBlank() && updateEmployee.getRole() != null)
         {
-            return ER.create(updateEmployee);
+            return ER.update(updateEmployee);
+        }
+        return false;
+    }
+
+    public boolean updateRole(RoleUpdate updateRole)
+    {
+        if (updateRole != null && updateRole.getUserId() != 0 &&
+                updateRole.getRole() != null)
+        {
+            return ER.updateRole(updateRole);
         }
         return false;
     }

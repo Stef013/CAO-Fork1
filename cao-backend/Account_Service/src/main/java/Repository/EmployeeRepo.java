@@ -2,6 +2,7 @@ package Repository;
 
 import Interface.IEmployeeRepo;
 import Model.Employee;
+import Model.RoleUpdate;
 import Utilities.Cryptography;
 import Enum.Roles;
 
@@ -25,21 +26,30 @@ public class EmployeeRepo implements IEmployeeRepo {
 
         try (Connection connection = DriverManager.getConnection(connectionUrl)) {
 
-            try {
-                CallableStatement cstmnt = connection.prepareCall("{call createEmployee(?,?,?,?,?)}");
-                cstmnt.setString(1, newEmployee.getEmail());
-                cstmnt.setString(2, hashedPassword);
-                cstmnt.setString(3, newEmployee.getFirstname());
-                cstmnt.setString(4, newEmployee.getLastname());
-                cstmnt.setString(5, newEmployee.getRole().toString());
-                cstmnt.executeUpdate();
 
-                newEmployee = null;
-                hashedPassword = null;
 
-                return true;
-            } catch (SQLException e) {
-                System.out.println(e.toString());
+            if (!checkEmail(newEmployee.getEmail())) {
+
+                try {
+                    CallableStatement cstmnt = connection.prepareCall("{call createEmployee(?,?,?,?,?)}");
+                    cstmnt.setString(1, newEmployee.getEmail());
+                    cstmnt.setString(2, hashedPassword);
+                    cstmnt.setString(3, newEmployee.getFirstname());
+                    cstmnt.setString(4, newEmployee.getLastname());
+                    cstmnt.setString(5, newEmployee.getRole().toString());
+                    cstmnt.executeUpdate();
+
+                    newEmployee = null;
+                    hashedPassword = null;
+
+                    return true;
+                } catch (SQLException e) {
+                    System.out.println(e.toString());
+                }
+            }
+            else
+            {
+                return false;
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -48,7 +58,7 @@ public class EmployeeRepo implements IEmployeeRepo {
         return false;
     }
 
-    @Override
+        @Override
     public Employee get(String userEmail) {
 
         Employee employee = null;
@@ -85,12 +95,31 @@ public class EmployeeRepo implements IEmployeeRepo {
 
     public boolean checkEmail(String email) {
         try {
-            // TODO: stored precedure
-            // check of email bestaat
-            return false;
+            try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+
+                boolean exist = false;
+                try {
+                    CallableStatement cstmnt = connection.prepareCall("{call getOneEmployee(?)}");
+                    cstmnt.setString(1, email);
+                    ResultSet rs = cstmnt.executeQuery();
+
+                    while (rs.next()) {
+                        exist = true;
+                    }
+                    cstmnt.close();
+                } catch (SQLException e) {
+                    System.out.println(e.toString());
+
+                }
+            return exist;
         } catch (Exception ex) {
             return true;
         }
+    } catch (Exception e) {
+            e.printStackTrace();
+            return true;
+        }
+
     }
 
     @Override
@@ -112,6 +141,29 @@ public class EmployeeRepo implements IEmployeeRepo {
 
                 hashedPassword = null;
                 employee = null;
+
+                return true;
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean updateRole(RoleUpdate updateRole) {
+
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+
+            try {
+                CallableStatement cstmnt = connection.prepareCall("{call updateRole(?,?)}");
+                cstmnt.setInt(1, updateRole.getUserId());
+                cstmnt.setString(2, updateRole.getRole().toString());
+                cstmnt.executeUpdate();
+
 
                 return true;
             } catch (SQLException e) {
