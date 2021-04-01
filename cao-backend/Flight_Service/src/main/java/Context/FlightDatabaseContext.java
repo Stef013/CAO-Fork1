@@ -24,7 +24,7 @@ public class FlightDatabaseContext implements IFlight {
         createFlightReturnModel returnModel = new createFlightReturnModel();
         try (Connection connection = DriverManager.getConnection(connectionUrl)){
             try {
-                CallableStatement cstmnt = connection.prepareCall("INSERT INTO `flight` (`airport_id`, `ticket_price`, `destination`, `origin`, `departure_time`, `arrival_time`) VALUES(?,?,?,?,?,?)");
+                CallableStatement cstmnt = connection.prepareCall("{CALL createFlight(?,?,?,?,?,?)}");
                 cstmnt.setInt(1, airport_id);
                 cstmnt.setString(2, ticket_price);
                 cstmnt.setString(3, destination);
@@ -33,6 +33,8 @@ public class FlightDatabaseContext implements IFlight {
                 cstmnt.setString(6, arrival_time);
 
                 cstmnt.executeUpdate();
+
+                returnModel.setSuccess(true);
             } catch (SQLException throwables) {
                 returnModel.setSuccess(false);
                 returnModel.setError(throwables.toString());
@@ -41,7 +43,6 @@ public class FlightDatabaseContext implements IFlight {
             returnModel.setSuccess(false);
             returnModel.setError(e.toString());
         }
-        returnModel.setSuccess(true);
 
         return returnModel;
     }

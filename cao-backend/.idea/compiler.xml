@@ -19,7 +19,7 @@
       <module name="Account_Service" target="15" />
       <module name="backend-cao" target="11" />
       <module name="Booking_Service" target="15" />
-      <module name="Flight_Service" target="15" />
+      <module name="Flight_Service" target="1.8" />
       <module name="FlightTracker_Service" target="15" />
       <module name="PoliceRaport_Service" target="15" />
       <module name="Seatpicker_Service" target="15" />
