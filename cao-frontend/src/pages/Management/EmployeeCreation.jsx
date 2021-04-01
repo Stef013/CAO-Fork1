@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MenuAppBar from "../../Components/MenuAppBar";
-import { Typography, Button, TextField, Grid, MenuItem } from '@material-ui/core';
+import { Typography, Button, TextField, Grid, MenuItem, Card } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -9,7 +9,13 @@ const useStyles = (theme) => ({
     title: {
         marginTop: 30,
         color: "white"
-    }
+    },
+    card: {
+        width: 275,
+        height: 260,
+        margin: 10,
+        align: "center",
+    },
 });
 
 class EmployeeCreation extends Component {
@@ -34,9 +40,9 @@ class EmployeeCreation extends Component {
         // this.handleChange = this.handleChange.bind(this);
     }
 
-    componentDidMount() {
-        document.body.style.backgroundColor = "#3166b0"
-    }
+    // componentDidMount() {
+    //     document.body.style.backgroundColor = "#3166b0"
+    // }
 
     checkPasswords() {
         // if (account.password == confPassword) {
@@ -88,102 +94,87 @@ class EmployeeCreation extends Component {
                 <Typography className={classes.title} align="center" variant="h3" >
                     New Employee Account
                 </Typography>
+                <Card className={classes.card} align="center">
+                    <form className={classes.form} onSubmit={(event) => this.handleSubmit(event)} >
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    autoComplete="fname"
+                                    name="firstname"
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="firstName"
+                                    label="First Name"
+                                    onInput={this.handleChange}
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="lastname"
+                                    label="Last Name"
+                                    name="lastName"
+                                    autoComplete="lname"
+                                    onInput={this.handleChange}
+                                />
+                            </Grid>
 
-                <form className={classes.form} onSubmit={(event) => this.handleSubmit(event)} >
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                autoComplete="fname"
-                                name="firstname"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="firstName"
-                                label="First Name"
-                                onInput={this.handleChange}
-                                autoFocus
-                            />
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
+                                    onInput={this.handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="current-password"
+                                    onInput={this.handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    name="confPassword"
+                                    label="Confirm Password"
+                                    type="password"
+                                    id="confPassword"
+                                    autoComplete="current-password"
+                                    helperText={this.state.helperText}
+                                    error={this.state.showError}
+                                    onInput={e => this.setState({ confPassword: e.target.value })}
+                                />
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="lastname"
-                                label="Last Name"
-                                name="lastName"
-                                autoComplete="lname"
-                                onInput={this.handleChange}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                id="date"
-                                name="dateOfBirth"
-                                label="Date of birth"
-                                type="date"
-                                format="DD-MM-YYYY"
-                                fullWidth
-                                onChange={this.handleChange}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                onInput={this.handleChange}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                                onInput={this.handleChange}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                name="confPassword"
-                                label="Confirm Password"
-                                type="password"
-                                id="confPassword"
-                                autoComplete="current-password"
-                                helperText={this.state.helperText}
-                                error={this.state.showError}
-                                onInput={e => this.setState({ confPassword: e.target.value })}
-                            />
-                        </Grid>
-                    </Grid>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                    >
-                        Sign Up
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                        >
+                            Sign Up
                         </Button>
-                </form>
+                    </form>
+                </Card>
             </div>
         )
     }
