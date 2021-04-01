@@ -1,6 +1,8 @@
 package API;
 
-import Controller.AccountController;
+import Controller.CustomerController;
+import Controller.EmployeeController;
+import Repository.EmployeeSqlRepository;
 import spark.Spark;
 
 import java.net.Inet4Address;
@@ -13,7 +15,12 @@ public class AccountMain {
         String ip = Inet4Address.getLocalHost().getHostAddress();
         Spark.ipAddress("127.0.0.1");
 
-        new AccountController(new String());
+        Spark.path("/customer", () -> {
+            new CustomerController(new String());
+        });
+        Spark.path("/employee", () -> {
+            new EmployeeController(new EmployeeSqlRepository());
+        });
     }
 
 }
