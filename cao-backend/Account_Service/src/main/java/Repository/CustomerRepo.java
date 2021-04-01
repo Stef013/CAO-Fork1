@@ -25,25 +25,46 @@ public class CustomerRepo implements ICustomerRepo {
     public boolean create(Customer newCustomer) {
         String hashedPassword = cryptography.hash(newCustomer.getPassword());
 
+        boolean exist = false;
+
         try (Connection connection = DriverManager.getConnection(connectionUrl);) {
 
-            try {
-                CallableStatement cstmnt = connection.prepareCall("{call createCustomer(?,?,?,?,?,?)}");
+            try
+            {
+                CallableStatement cstmnt = connection.prepareCall("{call getOneCustomer(?)}");
                 cstmnt.setString(1, newCustomer.getEmail());
-                cstmnt.setString(2, hashedPassword);
-                cstmnt.setString(3, newCustomer.getFirstname());
-                cstmnt.setString(4, newCustomer.getLastname());
-                cstmnt.setString(5, newCustomer.getNationality());
-                cstmnt.setString(6, new SimpleDateFormat("dd/MM/yyyy").format(newCustomer.getDateOfBirth()));
-                cstmnt.executeUpdate();
+                ResultSet rs = cstmnt.executeQuery();
 
-                newCustomer = null;
-                hashedPassword = null;
-
-                return true;
+                while (rs.next()) {
+                    exist = true;
+                }
+                cstmnt.close();
             } catch (SQLException e) {
                 System.out.println(e.toString());
+
             }
+                if (!exist)
+                {
+                    try {
+                        CallableStatement cstmnt = connection.prepareCall("{call createCustomer(?,?,?,?,?,?)}");
+                        cstmnt.setString(1, newCustomer.getEmail());
+                        cstmnt.setString(2, hashedPassword);
+                        cstmnt.setString(3, newCustomer.getFirstname());
+                        cstmnt.setString(4, newCustomer.getLastname());
+                        cstmnt.setString(5, newCustomer.getNationality());
+                        cstmnt.setString(6, new SimpleDateFormat("dd/MM/yyyy").format(newCustomer.getDateOfBirth()));
+                        cstmnt.executeUpdate();
+
+                        newCustomer = null;
+                        hashedPassword = null;
+
+                        cstmnt.close();
+                        return true;
+                    } catch (SQLException e) {
+                        System.out.println(e.toString());
+                    }
+                }
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

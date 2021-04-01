@@ -26,21 +26,38 @@ public class EmployeeRepo implements IEmployeeRepo {
 
         try (Connection connection = DriverManager.getConnection(connectionUrl)) {
 
+            boolean exist = false;
             try {
-                CallableStatement cstmnt = connection.prepareCall("{call createEmployee(?,?,?,?,?)}");
+                CallableStatement cstmnt = connection.prepareCall("{call getOneEmployee(?)}");
                 cstmnt.setString(1, newEmployee.getEmail());
-                cstmnt.setString(2, hashedPassword);
-                cstmnt.setString(3, newEmployee.getFirstname());
-                cstmnt.setString(4, newEmployee.getLastname());
-                cstmnt.setString(5, newEmployee.getRole().toString());
-                cstmnt.executeUpdate();
+                ResultSet rs = cstmnt.executeQuery();
 
-                newEmployee = null;
-                hashedPassword = null;
-
-                return true;
+                while (rs.next()) {
+                    exist = true;
+                }
+                cstmnt.close();
             } catch (SQLException e) {
                 System.out.println(e.toString());
+
+            }
+            if (!exist) {
+
+                try {
+                    CallableStatement cstmnt = connection.prepareCall("{call createEmployee(?,?,?,?,?)}");
+                    cstmnt.setString(1, newEmployee.getEmail());
+                    cstmnt.setString(2, hashedPassword);
+                    cstmnt.setString(3, newEmployee.getFirstname());
+                    cstmnt.setString(4, newEmployee.getLastname());
+                    cstmnt.setString(5, newEmployee.getRole().toString());
+                    cstmnt.executeUpdate();
+
+                    newEmployee = null;
+                    hashedPassword = null;
+
+                    return true;
+                } catch (SQLException e) {
+                    System.out.println(e.toString());
+                }
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -49,7 +66,7 @@ public class EmployeeRepo implements IEmployeeRepo {
         return false;
     }
 
-    @Override
+        @Override
     public Employee get(String userEmail) {
 
         Employee employee = null;
