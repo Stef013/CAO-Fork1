@@ -2,6 +2,7 @@ package Repository;
 
 import Interface.ICustomerRepo;
 import Model.Customer;
+import Model.Employee;
 import Utilities.Cryptography;
 
 import java.sql.*;
@@ -101,33 +102,32 @@ public class CustomerRepo implements ICustomerRepo {
     }
 
     public boolean checkEmail(String email) {
-        try {
-            try (Connection connection = DriverManager.getConnection(connectionUrl)) {
 
-                boolean exist = false;
-                try {
-                    CallableStatement cstmnt = connection.prepareCall("{call getOneCustomer(?)}");
-                    cstmnt.setString(1, email);
-                    ResultSet rs = cstmnt.executeQuery();
+        boolean exists = false;
 
-                    while (rs.next()) {
-                        exist = true;
-                    }
-                    cstmnt.close();
-                } catch (SQLException e) {
-                    System.out.println(e.toString());
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+            try {
+                CallableStatement cstmnt = connection.prepareCall("{call getOneCustomer(?)}");
+                cstmnt.setString(1, email);
+                ResultSet rs = cstmnt.executeQuery();
 
+                while (rs.next()) {
+                    String dummyemail = rs.getString("email");
+                    Customer dummy = new Customer(dummyemail, null, null, null,null,null);
+
+                    exists = true;
                 }
-                return exist;
-            } catch (Exception ex) {
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return true;
-        }
 
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return exists;
     }
+
+    
 
     @Override
     public boolean update(Customer customer) {
