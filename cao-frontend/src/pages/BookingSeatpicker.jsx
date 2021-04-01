@@ -43,87 +43,19 @@ export default function SignIn() {
     const classes = useStyles();
     const history = useHistory();
 
-    const [value, setValue] = React.useState(1);
-
-    const handleSliderChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
-    const handleInputChange = (event) => {
-        setValue(event.target.value === '' ? '' : Number(event.target.value));
-    };
-
-    const handleBlur = () => {
-        if (value < 1) {
-            setValue(1);
-        } else if (value > 25) {
-            setValue(25);
-        }
-    };
-
     const navigateForward = () => {
-        history.push('/Bookingseatpicker');
+        history.push('/Bookingoverview');
     }
 
     const navigateBack = () => {
-        history.push('');
+        history.push('/Bookingpassengers');
     }
-
-    const createDataFieldsForEachPerson = () => {
-        var rows = [];
-        for (var i = 1; i < value + 1; i++) {
-            rows.push(<PassengerInfo id={i} />)
-        }
-        return <div>{rows}</div>;
-    };
-
 
 
     return (
         <Container component="main" maxWidth="sm">
             <CssBaseline />
             <div className={classes.paper}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <Typography component="h1" variant="h3">
-                            Passengers information
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Typography component="h3">
-                            Number of passengers:
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Slider
-                            value={typeof value === 'number' ? value : 0}
-                            onChange={handleSliderChange}
-                            min={1}
-                            max={25}
-                            step={1}
-                            marks
-                        />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Input
-                            className={classes.input}
-                            value={value}
-                            margin="dense"
-                            onChange={handleInputChange}
-                            onBlur={handleBlur}
-                            inputProps={{
-                                step: 1,
-                                min: 1,
-                                max: 25,
-                                type: 'number',
-                                'aria-labelledby': 'input-slider',
-                            }}
-                        />
-                    </Grid>
-                </Grid>
-
-                {createDataFieldsForEachPerson()}
-
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
                         <Button
@@ -134,7 +66,7 @@ export default function SignIn() {
                             onClick={navigateBack}
                         >
                             <ArrowBackIcon />
-                            Flight menu
+                            Personal information
                     </Button>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -145,7 +77,7 @@ export default function SignIn() {
                             color="primary"
                             onClick={navigateForward}
                         >
-                            Seatpicker
+                            Booking overview
                             <ArrowForwardIcon />
                         </Button>
                     </Grid>

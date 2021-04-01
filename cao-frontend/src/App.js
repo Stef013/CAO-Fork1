@@ -1,7 +1,9 @@
-import Login from './pages/LoginPage'
+import Login from './pages/LoginPage';
 import FlightTracker from './pages/FlightTracker'
-import Bookingpage from './pages/BookingPassengers';
-import Error from './pages/Error'
+import BookingPassenger from './pages/BookingPassengers';
+import BookingOverview from './pages/BookingOverview';
+import BookingSeatpicker from './pages/BookingSeatpicker';
+import Error from './pages/Error';
 import { Route, Switch } from 'react-router-dom';
 
 function App() {
@@ -10,7 +12,9 @@ function App() {
       <Switch>
         <Route path="/" component={Login} exact />
         <Route path="/FlightTracker" component={FlightTracker} />
-        <Route path="/Booking" component={Bookingpage} />
+        <Route path="/Bookingpassengers" component={BookingPassenger} />
+        <Route path="/Bookingoverview" component={BookingOverview} />
+        <Route path="/Bookingseatpicker" component={BookingSeatpicker} />
         <Route component={Error} />
       </Switch>
     </main>
