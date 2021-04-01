@@ -26,9 +26,9 @@ public class EmployeeRepo implements IEmployeeRepo {
 
         try (Connection connection = DriverManager.getConnection(connectionUrl)) {
 
+                boolean userExists = checkEmail(newEmployee.getEmail());
 
-
-            if (!checkEmail(newEmployee.getEmail())) {
+            if (!userExists) {
 
                 try {
                     CallableStatement cstmnt = connection.prepareCall("{call createEmployee(?,?,?,?,?)}");
@@ -94,32 +94,29 @@ public class EmployeeRepo implements IEmployeeRepo {
     }
 
     public boolean checkEmail(String email) {
-        try {
-            try (Connection connection = DriverManager.getConnection(connectionUrl)) {
 
-                boolean exist = false;
-                try {
-                    CallableStatement cstmnt = connection.prepareCall("{call getOneEmployee(?)}");
-                    cstmnt.setString(1, email);
-                    ResultSet rs = cstmnt.executeQuery();
+        boolean exists = false;
 
-                    while (rs.next()) {
-                        exist = true;
-                    }
-                    cstmnt.close();
-                } catch (SQLException e) {
-                    System.out.println(e.toString());
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+            try {
+                CallableStatement cstmnt = connection.prepareCall("{call getOneEmployee(?)}");
+                cstmnt.setString(1, email);
+                ResultSet rs = cstmnt.executeQuery();
 
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    Employee dummy = new Employee(id, null, null, null,null,null);
+
+                    exists = true;
                 }
-            return exist;
-        } catch (Exception ex) {
-            return true;
-        }
-    } catch (Exception e) {
-            e.printStackTrace();
-            return true;
-        }
 
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return exists;
     }
 
     @Override
