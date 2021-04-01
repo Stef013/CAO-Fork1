@@ -67,6 +67,7 @@ class EmployeeCreation extends Component {
             lastname: "",
             role: "",
         };
+        this.handleChange = this.handleChange.bind(this);
     }
 
     handleClose = (event, reason) => {
