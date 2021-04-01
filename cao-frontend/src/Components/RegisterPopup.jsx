@@ -81,7 +81,7 @@ export default function FormDialog() {
             console.log(Customer);
             Customer.dateOfBirth = moment(Customer.dateOfBirth).format("DD/MM/YYYY");
 
-            axios.post('http://localhost:8080/account/', Customer, {
+            axios.post('http://localhost:8080/account/customer', Customer, {
                 headers: {
                     "Content-Type": 'application/json', 'Accept': 'application/json'
                 }
@@ -89,7 +89,6 @@ export default function FormDialog() {
                 .then(res => {
                     console.log(res);
                     console.log(res.data);
-                    handleClose();
                 })
                 .catch(error => console.log(error));
         }
