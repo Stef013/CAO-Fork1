@@ -29,21 +29,7 @@ public class CustomerRepo implements ICustomerRepo {
 
         try (Connection connection = DriverManager.getConnection(connectionUrl);) {
 
-            try
-            {
-                CallableStatement cstmnt = connection.prepareCall("{call getOneCustomer(?)}");
-                cstmnt.setString(1, newCustomer.getEmail());
-                ResultSet rs = cstmnt.executeQuery();
-
-                while (rs.next()) {
-                    exist = true;
-                }
-                cstmnt.close();
-            } catch (SQLException e) {
-                System.out.println(e.toString());
-
-            }
-                if (!exist)
+                if (!checkEmail(newCustomer.getEmail()))
                 {
                     try {
                         CallableStatement cstmnt = connection.prepareCall("{call createCustomer(?,?,?,?,?,?)}");
@@ -63,6 +49,10 @@ public class CustomerRepo implements ICustomerRepo {
                     } catch (SQLException e) {
                         System.out.println(e.toString());
                     }
+                }
+                else
+                {
+                    return false;
                 }
 
         } catch (SQLException throwables) {
@@ -112,12 +102,31 @@ public class CustomerRepo implements ICustomerRepo {
 
     public boolean checkEmail(String email) {
         try {
-            // TODO: stored precedure
-            // check of email bestaat
-            return false;
-        } catch (Exception ex) {
+            try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+
+                boolean exist = false;
+                try {
+                    CallableStatement cstmnt = connection.prepareCall("{call getOneCustomer(?)}");
+                    cstmnt.setString(1, email);
+                    ResultSet rs = cstmnt.executeQuery();
+
+                    while (rs.next()) {
+                        exist = true;
+                    }
+                    cstmnt.close();
+                } catch (SQLException e) {
+                    System.out.println(e.toString());
+
+                }
+                return exist;
+            } catch (Exception ex) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             return true;
         }
+
     }
 
     @Override

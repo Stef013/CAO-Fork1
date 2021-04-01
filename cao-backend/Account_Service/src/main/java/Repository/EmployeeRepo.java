@@ -26,21 +26,9 @@ public class EmployeeRepo implements IEmployeeRepo {
 
         try (Connection connection = DriverManager.getConnection(connectionUrl)) {
 
-            boolean exist = false;
-            try {
-                CallableStatement cstmnt = connection.prepareCall("{call getOneEmployee(?)}");
-                cstmnt.setString(1, newEmployee.getEmail());
-                ResultSet rs = cstmnt.executeQuery();
 
-                while (rs.next()) {
-                    exist = true;
-                }
-                cstmnt.close();
-            } catch (SQLException e) {
-                System.out.println(e.toString());
 
-            }
-            if (!exist) {
+            if (!checkEmail(newEmployee.getEmail())) {
 
                 try {
                     CallableStatement cstmnt = connection.prepareCall("{call createEmployee(?,?,?,?,?)}");
@@ -58,6 +46,10 @@ public class EmployeeRepo implements IEmployeeRepo {
                 } catch (SQLException e) {
                     System.out.println(e.toString());
                 }
+            }
+            else
+            {
+                return false;
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -103,12 +95,31 @@ public class EmployeeRepo implements IEmployeeRepo {
 
     public boolean checkEmail(String email) {
         try {
-            // TODO: stored precedure
-            // check of email bestaat
-            return false;
+            try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+
+                boolean exist = false;
+                try {
+                    CallableStatement cstmnt = connection.prepareCall("{call getOneEmployee(?)}");
+                    cstmnt.setString(1, email);
+                    ResultSet rs = cstmnt.executeQuery();
+
+                    while (rs.next()) {
+                        exist = true;
+                    }
+                    cstmnt.close();
+                } catch (SQLException e) {
+                    System.out.println(e.toString());
+
+                }
+            return exist;
         } catch (Exception ex) {
             return true;
         }
+    } catch (Exception e) {
+            e.printStackTrace();
+            return true;
+        }
+
     }
 
     @Override
