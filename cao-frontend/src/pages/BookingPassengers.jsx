@@ -12,7 +12,7 @@ import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { Grid, Input, MenuItem, Slider } from '@material-ui/core';
+import { Box, Grid, Input, MenuItem, Slider } from '@material-ui/core';
 import PassengerInfo from '../Components/PassengerInfo'
 
 const useStyles = makeStyles((theme) => ({
@@ -122,9 +122,45 @@ export default function SignIn() {
                     </Grid>
                 </Grid>
 
-                {createDataFieldsForEachPerson()}
+                <Grid item xs={12}>
+                    {createDataFieldsForEachPerson()}
+                </Grid>
 
-                <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Box border={1} p={2} m={0} mb={2} borderRadius={16}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <Typography component="h1" variant="h6">
+                                    <b>Emergency Contact Person</b>
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    margin="low"
+                                    required
+                                    fullWidth
+                                    id="email address"
+                                    label="Email Address"
+                                    name="email address"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    margin="low"
+                                    required
+                                    fullWidth
+                                    id="phone number"
+                                    label="Phone Number"
+                                    name="phone number"
+                                />
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Grid>
+
+                <Grid container spacing={2} >
                     <Grid item xs={12} sm={6}>
                         <Button
                             type="submit"

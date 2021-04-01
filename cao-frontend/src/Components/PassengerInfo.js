@@ -16,7 +16,7 @@ const PassengerInfo = (props) => {
                     <Grid item xs={12}>
                         <TextField
                             variant="outlined"
-                            margin="normal"
+                            margin="low"
                             required
                             fullWidth
                             id="email address"
@@ -27,7 +27,7 @@ const PassengerInfo = (props) => {
                     <Grid item xs={12}>
                         <TextField
                             variant="outlined"
-                            margin="normal"
+                            margin="low"
                             required
                             fullWidth
                             id="phone number"
@@ -41,7 +41,7 @@ const PassengerInfo = (props) => {
     };
 
     return (
-        <Box border={1} p={3} m={2} borderRadius={16}>
+        <Box border={1} p={3} m={0} mb={2} mt={1} borderRadius={16}>
             <Grid container spacing={1}>
                 <Grid item xs={12}>
                     <Typography component="h1" variant="h6">
