@@ -3,7 +3,7 @@ package Controller;
 import Logic.Registration;
 import Model.Customer;
 import Model.Employee;
-import Model.RoleUpdate;
+import Model.UpdateEmployee;
 import Utilities.Logging;
 import spark.Spark;
 import com.google.gson.Gson;
@@ -245,7 +245,7 @@ public class AccountController {
             try {
                 Employee employee = gson.fromJson(body, Employee.class);
 
-                boolean result = RL.updateEmployee(employee);
+                boolean result = RL.update(employee);
 
                 if (result) {
                     message = "Account setting updated!";
@@ -268,9 +268,9 @@ public class AccountController {
             String message = "";
 
             try {
-                RoleUpdate updateRole = gson.fromJson(body, RoleUpdate.class);
+                UpdateEmployee updateEmployee = gson.fromJson(body, UpdateEmployee.class);
 
-                boolean result = RL.updateRole(updateRole);
+                boolean result = RL.updateEmployee(updateEmployee);
 
                 if (result) {
                     message = "Account setting updated!";

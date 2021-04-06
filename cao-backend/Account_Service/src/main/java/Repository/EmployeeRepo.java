@@ -2,7 +2,7 @@ package Repository;
 
 import Interface.IEmployeeRepo;
 import Model.Employee;
-import Model.RoleUpdate;
+import Model.UpdateEmployee;
 import Utilities.Cryptography;
 import Enum.Roles;
 import Utilities.Logging;
@@ -191,8 +191,36 @@ public class EmployeeRepo implements IEmployeeRepo {
         return false;
     }
 
+
+    public boolean updateEmployee(UpdateEmployee updateRole) {
+
+        String hashedPW = cryptography.hash(updateRole.getPassword());
+
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+
+            try {
+                CallableStatement cstmnt = connection.prepareCall("{call updateEmployeeInfo(?,?,?)}");
+                cstmnt.setInt(1, updateRole.getUserId());
+                cstmnt.setString(2, updateRole.getRole().toString());
+                cstmnt.setString(3, hashedPW);
+                cstmnt.executeUpdate();
+
+                updateRole = null;
+                hashedPW = null;
+
+                return true;
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return false;
+    }
+
     @Override
-    public boolean updateRole(RoleUpdate updateRole) {
+    public boolean updateRole(UpdateEmployee updateRole) {
 
         try (Connection connection = DriverManager.getConnection(connectionUrl)) {
 
