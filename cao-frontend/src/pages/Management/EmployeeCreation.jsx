@@ -151,7 +151,7 @@ class EmployeeCreation extends Component {
                              </Alert>
                             </Snackbar>
                         </div>
-                        <form id="form" className={classes.form} onSubmit={(event) => this.handleSubmit(event)} >
+                        <form id="form" onSubmit={(event) => this.handleSubmit(event)} >
                             <Grid container spacing={3}>
                                 <Grid item xs={12} sm={6}>
                                     <TextField

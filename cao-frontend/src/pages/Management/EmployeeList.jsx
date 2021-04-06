@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-
 import { Accordion, AccordionDetails, AccordionSummary, AccordionActions, Typography, Button, Divider, Container, Paper, TextField, MenuItem } from '@material-ui/core';
-
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
 import MenuAppBar from "../../Components/MenuAppBar";
+import axios from 'axios';
 
 const useStyles = (theme) => ({
     maincolumn1: {
@@ -57,7 +55,7 @@ const useStyles = (theme) => ({
         maxWidth: 800,
     },
     accordion: {
-        width: "90%",
+        width: "100%",
     }
 });
 
@@ -79,19 +77,62 @@ class EmployeeList extends Component {
 
         this.state = {
             role: "",
+            gotUsers: false,
+            expanded: false,
         };
 
         this.account = {
             id: 0,
-            email: "",
             password: "",
-            firstname: "",
-            lastname: "",
             role: "",
         };
+
+        this.accounts = [];
     }
+
+    async componentDidMount() {
+        console.log("begin");
+        await axios.get('http://localhost:8080/account/employee',
+        ).then(res => {
+            console.log(res);
+            console.log(res.data);
+            this.accounts = res.data;
+            this.setState({ gotUsers: true });
+        }).catch(error => console.log(error));
+        console.log("end");
+    }
+
+    handleExpand = (panel) => (event, isExpanded) => {
+        const exp = isExpanded ? panel : false;
+        this.setState({ expanded: exp });
+        this.account = {
+            id: 0,
+            password: "",
+            role: "",
+        }
+    };
+
+    async handleSubmit(id, event) {
+        event.preventDefault();
+
+        this.account.id = id;
+
+        console.log(this.account);
+        await axios.put('http://localhost:8080/account/employee', this.account, {
+            headers: {
+                "Content-Type": 'application/json', 'Accept': 'application/json'
+            }
+        }).then(res => {
+            console.log(res);
+            console.log(res.data);
+            document.getElementById("form" + id).reset();
+
+        }).catch(error => console.log(error));
+    }
+
     render() {
         const { classes } = this.props;
+        const { gotUsers, expanded } = this.state;
 
         return (
             <div>
@@ -99,74 +140,92 @@ class EmployeeList extends Component {
                 <Typography className={classes.title} align="center" variant="h3" >
                     Edit Employees
                 </Typography>
-                <Container align="center">
-                    <Paper className={classes.paper} >
-                        <Accordion className={classes.accordion} >
-                            <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
-                                aria-controls="panel1c-content"
-                                id="panel1c-header"
-                            >
-                                <div className={classes.maincolumn1}>
-                                    <Typography >1. Piet Janssen</Typography>
-                                </div>
-                                <div className={classes.maincolumn1}>
-                                    <Typography >Piet@janssen.nl</Typography>
-                                </div>
-                                <div className={classes.maincolumn1}>
-                                    <Typography >Employee</Typography>
-                                </div>
-                            </AccordionSummary>
-                            <Divider style={{ marginBottom: 20 }} />
-                            <AccordionDetails className={classes.details}>
-                                <div className={classes.column1}>
-                                    <Typography className={classes.heading}>Reset Password: </Typography>
-                                </div>
-                                <div className={classes.column2}>
-                                    <TextField
-                                        variant="outlined"
-                                        fullWidth
-                                        name="password"
-                                        label="Password"
-                                        type="password"
-                                        id="password"
-                                    />
-                                </div>
-                            </AccordionDetails>
-                            <AccordionDetails className={classes.details}>
-                                <div className={classes.column1}>
-                                    <Typography className={classes.heading}>Change Role:</Typography>
-                                </div>
-                                <div className={classes.column2}>
-                                    <TextField
-                                        id="roleselect"
-                                        select
-                                        fullWidth
-                                        required
-                                        label="Select role"
-                                        name="role"
-                                        align="left"
-                                        variant="outlined"
-                                    >
-                                        {roles.map((option) => (
-                                            <MenuItem key={option.value} value={option.value}>
-                                                {option.label}
-                                            </MenuItem>
-                                        ))}
-                                    </TextField>
-                                </div>
+                {gotUsers ?
+                    (
+                        <Container align="center">
+                            <Paper className={classes.paper} >
 
-                            </AccordionDetails>
-                            <Divider />
-                            <AccordionActions>
-                                <Button size="small">Cancel</Button>
-                                <Button size="small" color="primary" variant="contained">
-                                    Save
-                            </Button>
-                            </AccordionActions>
-                        </Accordion>
-                    </Paper>
-                </Container>
+                                {this.accounts.map((user) => (
+
+                                    <Accordion className={classes.accordion} expanded={expanded === user.email} onChange={this.handleExpand(user.email)}>
+                                        <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon />}
+                                            aria-controls="panel1c-content"
+                                            id="panel1c-header"
+                                        >
+                                            <div className={classes.maincolumn1}>
+                                                <Typography>{user.firstname} {user.lastname}</Typography>
+                                            </div>
+                                            <div className={classes.maincolumn1}>
+                                                <Typography >{user.email}</Typography>
+                                            </div>
+                                            <div className={classes.maincolumn1}>
+                                                <Typography >{user.role}</Typography>
+                                            </div>
+                                        </AccordionSummary>
+                                        <Divider style={{ marginBottom: 20 }} />
+                                        <form id={"form" + user.id} onSubmit={(event) => this.handleSubmit(user.id, event)} >
+                                            <AccordionDetails className={classes.details}>
+                                                <div className={classes.column1}>
+                                                    <Typography className={classes.heading}>Reset Password: </Typography>
+                                                </div>
+                                                <div className={classes.column2}>
+                                                    <TextField
+                                                        variant="outlined"
+                                                        fullWidth
+                                                        name="password"
+                                                        label="Password"
+                                                        type="password"
+                                                        id="password"
+                                                        onInput={e => this.account.password = e.target.value}
+                                                    />
+                                                </div>
+                                            </AccordionDetails>
+                                            <AccordionDetails className={classes.details}>
+                                                <div className={classes.column1}>
+                                                    <Typography className={classes.heading}>Change Role:</Typography>
+                                                </div>
+                                                <div className={classes.column2}>
+                                                    <TextField
+                                                        id="roleselect"
+                                                        select
+                                                        fullWidth
+                                                        label="Select role"
+                                                        name="role"
+                                                        align="left"
+                                                        variant="outlined"
+                                                        onChange={e => this.account.role = e.target.value}
+                                                    >
+                                                        {roles.map((option) => (
+                                                            <MenuItem key={option.value} value={option.value}>
+                                                                {option.label}
+                                                            </MenuItem>
+                                                        ))}
+                                                    </TextField>
+                                                </div>
+                                            </AccordionDetails>
+                                            <Divider style={{ marginBottom: 10, marginTop: 15 }} />
+                                            <AccordionActions>
+                                                <Button size="small">Cancel</Button>
+                                                <Button type="submit" size="small" color="primary" variant="contained" >
+                                                    Save
+                                                </Button>
+                                            </AccordionActions>
+                                        </form>
+                                    </Accordion>
+                                ))}
+
+                            </Paper>
+                        </Container>
+                    )
+                    :
+                    (
+                        <Typography className={classes.title} align="center" variant="h4" >
+                            Loading...
+                        </Typography>
+                    )
+                }
+
             </div >
         )
     }
