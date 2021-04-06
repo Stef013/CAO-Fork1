@@ -2,22 +2,46 @@ package Controller;
 
 import Interface.IEmployeeRepository;
 import Model.Employee;
+import Model.AccountCredentials;
 import Model.RoleUpdate;
+import Repository.EmployeeSqlRepository;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import spark.Spark;
 
 public class EmployeeController {
-    private IEmployeeRepository employeeRepository;
+    private final Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
+    private final IEmployeeRepository employeeRepository;
 
+    /**
+     * Handles registering and logging in Employee accounts
+     * @param employeeRepository The Employee repository to be used
+     */
     public EmployeeController(final IEmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
 
         Spark.get("/login", ((request, response) -> {
-            return employeeRepository.checkLogin("axel@connectedairlines.com", "Fontys");
+            AccountCredentials credentials = gson.fromJson(request.body(), AccountCredentials.class);
+
+            // Get Employee with matching email
+            Employee employee = employeeRepository.get(credentials.getEmail());
+
+            //Check if credentials match
+            if( credentials.isMatchingAccount(employee) ) {
+                return gson.toJson(employee);
+            }
+            return gson.toJson(false);
+//            return new Employee(
+//                    1,
+//                    "axel@connectedairlines.com",
+//                    null,
+//                    "Axel",
+//                    "Kohler",
+//                    Roles.EMPLOYEE
+//            );
         }));
 
-        Spark.get("/employee", ((request, response) -> {
-
-            //System.out.println("Get /");
+        Spark.get("/", ((request, response) -> {
             String json;
 
             try {
@@ -25,12 +49,12 @@ public class EmployeeController {
                 System.out.println(email);
 
 
-                Employee employee = RL.getEmployee(email);
+                Employee employee = employeeRepository.get(email);
 
                 json = gson.toJson(employee);
 
             } catch (Exception ex) {
-                System.out.println(ex);
+                System.out.println(ex.toString());
                 json = "Cant find user.";
             }
 
@@ -39,7 +63,7 @@ public class EmployeeController {
             return json;
         }));
 
-        Spark.post("/employee", ((request, response) -> {
+        Spark.post("/", ((request, response) -> {
 
             System.out.println("Post /");
             String body = request.body();
@@ -49,10 +73,8 @@ public class EmployeeController {
             try {
                 Employee employee = gson.fromJson(body, Employee.class);
 
-
-
-                if (!RL.checkEmployee(employee.getEmail())) {
-                    boolean result = RL.registerEmployee(employee);
+                if (!employeeRepository.accountWithEmailExists(employee.getEmail())) {
+                    boolean result = employeeRepository.create(employee);
 
                     if (result) {
                         message = "Account created successfully!";
@@ -61,23 +83,23 @@ public class EmployeeController {
                     message = "Email already in use.";
                 }
             } catch (Exception ex) {
-                System.out.println(ex);
+                System.out.println(ex.toString());
                 message = "Something went wrong.";
             }
 
             return message;
         }));
 
-        Spark.put("/employee", ((request, response) -> {
+        Spark.put("/", ((request, response) -> {
 
             System.out.println("Put /");
             String body = request.body();
-            String message = "";
+            String message;
 
             try {
                 Employee employee = gson.fromJson(body, Employee.class);
 
-                boolean result = RL.updateEmployee(employee);
+                boolean result = employeeRepository.update(employee);
 
                 if (result) {
                     message = "Account setting updated!";
@@ -86,23 +108,23 @@ public class EmployeeController {
                 }
 
             } catch (Exception ex) {
-                System.out.println(ex);
+                System.out.println(ex.toString());
                 message = "Something went wrong.";
             }
             return message;
 
         }));
 
-        Spark.put("/employee/role", ((request, response) -> {
+        Spark.put("/role", ((request, response) -> {
 
             System.out.println("Put /");
             String body = request.body();
-            String message = "";
+            String message;
 
             try {
-                RoleUpdate updateRole = gson.fromJson(body, RoleUpdate.class);
+                RoleUpdate newRole = gson.fromJson(body, RoleUpdate.class);
 
-                boolean result = RL.updateRole(updateRole);
+                boolean result = employeeRepository.setRole(newRole);
 
                 if (result) {
                     message = "Account setting updated!";
@@ -111,24 +133,24 @@ public class EmployeeController {
                 }
 
             } catch (Exception ex) {
-                System.out.println(ex);
+                System.out.println(ex.toString());
                 message = "Something went wrong.";
             }
             return message;
 
         }));
 
-        Spark.delete("/employee", ((request, response) -> {
+        Spark.delete("/", ((request, response) -> {
 
             System.out.println("Delete /");
             String body = request.body();
-            String message = "";
+            String message;
 
             try {
                 Employee employee = gson.fromJson(body, Employee.class);
 
 
-                boolean result = RL.deleteEmployee(employee.getId());
+                boolean result = employeeRepository.delete(employee.getId());
 
                 if (result) {
                     message = "Account deleted!";
@@ -137,7 +159,7 @@ public class EmployeeController {
                 }
 
             } catch (Exception ex) {
-                System.out.println(ex);
+                System.out.println(ex.toString());
                 message = "Something went wrong.";
             }
             return message;

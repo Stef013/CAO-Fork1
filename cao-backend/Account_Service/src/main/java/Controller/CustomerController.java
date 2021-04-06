@@ -14,8 +14,8 @@ import static spark.Spark.*;
 public class CustomerController {
 
     //private CustomerRepo customerRepo;
-    private Registration RL = new Registration();
-    private Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
+    private final Registration RL = new Registration();
+    private final Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
 
     public CustomerController(final String a) {
 
@@ -36,7 +36,7 @@ public class CustomerController {
 
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
-        Spark.get("/customer", ((request, response) -> {
+        Spark.get("/", ((request, response) -> {
 
             System.out.println("Get /");
             String json;
@@ -58,7 +58,7 @@ public class CustomerController {
             return json;
         }));
 
-        Spark.post("/customer", ((request, response) -> {
+        Spark.post("/", ((request, response) -> {
 
             System.out.println("Post /");
             String body = request.body();
@@ -85,7 +85,7 @@ public class CustomerController {
             return message;
         }));
 
-        Spark.put("/customer", ((request, response) -> {
+        Spark.put("/", ((request, response) -> {
 
             System.out.println("Put /");
             String body = request.body();
@@ -110,7 +110,7 @@ public class CustomerController {
 
         }));
 
-        Spark.delete("/customer", ((request, response) -> {
+        Spark.delete("/", ((request, response) -> {
 
             System.out.println("Delete /");
             String body = request.body();

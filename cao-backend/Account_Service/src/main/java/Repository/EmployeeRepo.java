@@ -13,7 +13,7 @@ public class EmployeeRepo implements IEmployeeRepo {
     private final String connectionUrl = "jdbc:sqlserver://cao-dbserver.database.windows.net:1433;database=CAO_Account;user=CaoAdmin@cao-dbserver;password=7tJzrUVGB5i8dxX;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
     private static Statement statement;
 
-    Cryptography cryptography = new Cryptography();
+    final Cryptography cryptography = new Cryptography();
 
     public void closeConnection() {
         // TODO Auto-generated method stub

@@ -1,8 +1,10 @@
 package Model;
 
+import Interface.IAccount;
+
 import java.util.*;
 
-public class Customer {
+public class Customer implements IAccount {
 
     private int id;
     private String email;
@@ -11,7 +13,6 @@ public class Customer {
     private String lastname;
     private String nationality;
     private Date dateOfBirth;
-    // private String[] contactPersons;
 
     public int getId() {
         return id;
@@ -68,14 +69,6 @@ public class Customer {
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-
-    // public String[] getContactPersons() {
-    // return contactPersons;
-    // }
-
-    // public void setContactPersons(String[] contactPersons) {
-    // this.contactPersons = contactPersons;
-    // }
 
     public Customer() {
 

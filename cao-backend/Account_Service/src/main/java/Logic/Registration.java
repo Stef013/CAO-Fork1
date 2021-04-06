@@ -1,15 +1,18 @@
 package Logic;
 
+import Interface.ICustomerRepo;
+import Interface.IEmployeeRepository;
 import Model.Customer;
 import Model.Employee;
 import Model.RoleUpdate;
 import Repository.CustomerRepo;
 import Repository.EmployeeRepo;
+import Repository.EmployeeSqlRepository;
 
 public class Registration {
 
-     CustomerRepo CR = new CustomerRepo();
-     EmployeeRepo ER = new EmployeeRepo();
+     final ICustomerRepo CR = new CustomerRepo();
+     final IEmployeeRepository ER = new EmployeeSqlRepository();
 
      public boolean registerCustomer(Customer newCustomer)
      {
@@ -109,7 +112,7 @@ public class Registration {
         if (updateRole != null && updateRole.getUserId() != 0 &&
                 updateRole.getRole() != null)
         {
-            return ER.updateRole(updateRole);
+            return ER.setRole(updateRole);
         }
         return false;
     }
@@ -127,7 +130,7 @@ public class Registration {
     {
         if (employeeEmail != null && !employeeEmail.isBlank())
         {
-            return ER.checkEmail(employeeEmail);
+            return ER.accountWithEmailExists(employeeEmail);
         }
         return false;
     }
