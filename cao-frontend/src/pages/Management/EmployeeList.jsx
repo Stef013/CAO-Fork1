@@ -82,7 +82,7 @@ class EmployeeList extends Component {
         };
 
         this.account = {
-            id: 0,
+            userId: 0,
             password: "",
             role: "",
         };
@@ -106,7 +106,7 @@ class EmployeeList extends Component {
         const exp = isExpanded ? panel : false;
         this.setState({ expanded: exp });
         this.account = {
-            id: 0,
+            userId: 0,
             password: "",
             role: "",
         }
@@ -115,17 +115,18 @@ class EmployeeList extends Component {
     async handleSubmit(id, event) {
         event.preventDefault();
 
-        this.account.id = id;
+        this.account.userId = id;
 
         console.log(this.account);
-        await axios.put('http://localhost:8080/account/employee', this.account, {
+        await axios.put('http://localhost:8080/account/employee/role', this.account, {
             headers: {
                 "Content-Type": 'application/json', 'Accept': 'application/json'
             }
         }).then(res => {
             console.log(res);
             console.log(res.data);
-            document.getElementById("form" + id).reset();
+            // document.getElementById("form" + id).reset();
+            window.location.reload();
 
         }).catch(error => console.log(error));
     }

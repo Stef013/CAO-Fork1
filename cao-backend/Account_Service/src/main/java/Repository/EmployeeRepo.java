@@ -14,7 +14,7 @@ import java.util.List;
 
 public class EmployeeRepo implements IEmployeeRepo {
 
-    private final String connectionUrl = "jdbc:sqlserver://cao-dbserver.database.windows.net:1433;database=CAO_Account;user=CaoAdmin@cao-dbserver;password=7tJzrUVGB5i8dxX;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+    private final String connectionUrl = "jdbc:sqlserver://cao-dbserver.database.windows.net:1433;database=CAO_Account;user=CaoAdmin@cao-dbserver;password=7tJzrUVGB5i8dxX;encrypt=false;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
     private static Statement statement;
 
     Logging logger = new Logging();
@@ -32,7 +32,7 @@ public class EmployeeRepo implements IEmployeeRepo {
 
         try (Connection connection = DriverManager.getConnection(connectionUrl)) {
 
-                boolean userExists = checkEmail(newEmployee.getEmail());
+            boolean userExists = checkEmail(newEmployee.getEmail());
 
             if (!userExists) {
 
@@ -52,9 +52,7 @@ public class EmployeeRepo implements IEmployeeRepo {
                 } catch (SQLException e) {
                     System.out.println(e.toString());
                 }
-            }
-            else
-            {
+            } else {
                 return false;
             }
         } catch (SQLException throwables) {
@@ -64,7 +62,7 @@ public class EmployeeRepo implements IEmployeeRepo {
         return false;
     }
 
-        @Override
+    @Override
     public Employee get(String userEmail) {
 
         Employee employee = null;
@@ -83,9 +81,7 @@ public class EmployeeRepo implements IEmployeeRepo {
                     String lastname = rs.getString("lastname");
                     String role = rs.getString("role");
 
-
-
-                    employee = new Employee(id, email, password, firstname, lastname, Roles.valueOf(role) );
+                    employee = new Employee(id, email, password, firstname, lastname, Roles.valueOf(role));
 
                 }
 
@@ -117,8 +113,7 @@ public class EmployeeRepo implements IEmployeeRepo {
                     String lastname = rs.getString("lastname");
                     String role = rs.getString("role");
 
-
-                    employee = new Employee(id, email, password, firstname, lastname, Roles.valueOf(role) );
+                    employee = new Employee(id, email, password, firstname, lastname, Roles.valueOf(role));
                     allEmployees.add(employee);
 
                 }
@@ -144,7 +139,7 @@ public class EmployeeRepo implements IEmployeeRepo {
 
                 while (rs.next()) {
                     int id = rs.getInt("id");
-                    Employee dummy = new Employee(id, null, null, null,null,null);
+                    Employee dummy = new Employee(id, null, null, null, null, null);
 
                     exists = true;
                 }
@@ -177,7 +172,8 @@ public class EmployeeRepo implements IEmployeeRepo {
 
                 hashedPassword = null;
                 employee = null;
-                logger.logUserAction(getClass().getName(),"Employee " + String.valueOf(employee.getId()) + "has been updated","1");
+                logger.logUserAction(getClass().getName(),
+                        "Employee " + String.valueOf(employee.getId()) + "has been updated", "1");
                 return true;
             } catch (SQLException e) {
                 System.out.println(e.toString());
@@ -190,7 +186,6 @@ public class EmployeeRepo implements IEmployeeRepo {
 
         return false;
     }
-
 
     public boolean updateEmployee(UpdateEmployee updateRole) {
 
@@ -229,7 +224,6 @@ public class EmployeeRepo implements IEmployeeRepo {
                 cstmnt.setInt(1, updateRole.getUserId());
                 cstmnt.setString(2, updateRole.getRole().toString());
                 cstmnt.executeUpdate();
-
 
                 return true;
             } catch (SQLException e) {
