@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MenuAppBar from "../../Components/MenuAppBar";
-import { Typography, Button, TextField, Grid, MenuItem, Paper, Container, Collapse, IconButton, Snackbar } from '@material-ui/core';
+import { Typography, Button, TextField, Grid, MenuItem, Paper, Container, Snackbar } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert'
 import axios from 'axios'
 import { withStyles } from '@material-ui/core/styles';
@@ -80,7 +80,7 @@ class EmployeeCreation extends Component {
     };
 
     checkPasswords() {
-        if (this.account.password == this.state.confPassword) {
+        if (this.account.password === this.state.confPassword) {
             return true;
         }
         else {
@@ -98,7 +98,7 @@ class EmployeeCreation extends Component {
         event.preventDefault();
 
         if (this.checkPasswords()) {
-            if (this.state.role != "") {
+            if (this.state.role !== "") {
 
                 this.account.role = this.state.role;
 
@@ -115,7 +115,7 @@ class EmployeeCreation extends Component {
                     document.getElementById("form").reset();
                 }).catch(error => console.log(error));
 
-                if (result == "Account created successfully!") {
+                if (result === "Account created successfully!") {
                     this.setState({ openSuccess: true });
                     this.setState({ openError: false });
                 }

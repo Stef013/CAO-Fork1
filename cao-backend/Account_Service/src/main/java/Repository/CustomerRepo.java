@@ -30,31 +30,28 @@ public class CustomerRepo implements ICustomerRepo {
 
         try (Connection connection = DriverManager.getConnection(connectionUrl);) {
 
-                if (!checkEmail(newCustomer.getEmail()))
-                {
-                    try {
-                        CallableStatement cstmnt = connection.prepareCall("{call createCustomer(?,?,?,?,?,?)}");
-                        cstmnt.setString(1, newCustomer.getEmail());
-                        cstmnt.setString(2, hashedPassword);
-                        cstmnt.setString(3, newCustomer.getFirstname());
-                        cstmnt.setString(4, newCustomer.getLastname());
-                        cstmnt.setString(5, newCustomer.getNationality());
-                        cstmnt.setString(6, new SimpleDateFormat("dd/MM/yyyy").format(newCustomer.getDateOfBirth()));
-                        cstmnt.executeUpdate();
+            if (!checkEmail(newCustomer.getEmail())) {
+                try {
+                    CallableStatement cstmnt = connection.prepareCall("{call createCustomer(?,?,?,?,?,?)}");
+                    cstmnt.setString(1, newCustomer.getEmail());
+                    cstmnt.setString(2, hashedPassword);
+                    cstmnt.setString(3, newCustomer.getFirstname());
+                    cstmnt.setString(4, newCustomer.getLastname());
+                    cstmnt.setString(5, newCustomer.getNationality());
+                    cstmnt.setString(6, new SimpleDateFormat("dd/MM/yyyy").format(newCustomer.getDateOfBirth()));
+                    cstmnt.executeUpdate();
 
-                        newCustomer = null;
-                        hashedPassword = null;
+                    newCustomer = null;
+                    hashedPassword = null;
 
-                        cstmnt.close();
-                        return true;
-                    } catch (SQLException e) {
-                        System.out.println(e.toString());
-                    }
+                    cstmnt.close();
+                    return true;
+                } catch (SQLException e) {
+                    System.out.println(e.toString());
                 }
-                else
-                {
-                    return false;
-                }
+            } else {
+                return false;
+            }
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -113,7 +110,7 @@ public class CustomerRepo implements ICustomerRepo {
 
                 while (rs.next()) {
                     String dummyemail = rs.getString("email");
-                    Customer dummy = new Customer(dummyemail, null, null, null,null,null);
+                    Customer dummy = new Customer(dummyemail, null, null, null, null, null);
 
                     exists = true;
                 }
@@ -126,8 +123,6 @@ public class CustomerRepo implements ICustomerRepo {
         }
         return exists;
     }
-
-    
 
     @Override
     public boolean update(Customer customer) {
@@ -165,7 +160,6 @@ public class CustomerRepo implements ICustomerRepo {
     public boolean delete(int id) {
 
         try (Connection connection = DriverManager.getConnection(connectionUrl);) {
-
             try {
                 CallableStatement cstmnt = connection.prepareCall("{call deleteCustomer(?)}");
                 cstmnt.setInt(1, 4);
@@ -183,5 +177,4 @@ public class CustomerRepo implements ICustomerRepo {
         }
         return false;
     }
-
 }
