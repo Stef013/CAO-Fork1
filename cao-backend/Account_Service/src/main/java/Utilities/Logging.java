@@ -13,10 +13,10 @@ public class Logging {
     private final java.util.logging.Logger logger =  java.util.logging.Logger.getLogger(this.getClass().getName());
 
 
-    public void logInfo(String clssName, String msg) throws IOException {
+    public void logInfo(String className, String msg) throws IOException {
 
         FileHandler fh = writeLog();
-        logger.info("At: " + getDate() + ", in class: "  + clssName + ", With msg: " + msg);
+        logger.info("At: " + getDate() + ", in class: "  + className + ", With msg: " + msg);
         fh.close();
     }
 
@@ -27,23 +27,23 @@ public class Logging {
         fh.close();
     }
 
-    public void logError(String clssName, String msg) throws IOException
+    public void logError(String className, String msg) throws IOException
     {
         FileHandler fh = writeLog();
-        logger.severe("At: " + getDate() + ", in class: "  + clssName + ", With msg: " + msg);
+        logger.severe("At: " + getDate() + ", in class: "  + className + ", With msg: " + msg);
         fh.close();
     }
 
-    public void logWarning(String clssName, String msg) throws IOException
+    public void logWarning(String className, String msg) throws IOException
     {
         FileHandler fh = writeLog();
-        logger.warning("At: " + getDate() + ", in class: "  + clssName + ", With msg: " + msg);
+        logger.warning("At: " + getDate() + ", in class: "  + className + ", With msg: " + msg);
         fh.close();
     }
 
-    public void logDebug(String clssName, String msg) throws IOException {
+    public void logDebug(String className, String msg) throws IOException {
         FileHandler fh = writeLog();
-        logger.fine("At: " + getDate() + ", in class: "  + clssName + ", With msg: " + msg);
+        logger.fine("At: " + getDate() + ", in class: "  + className + ", With msg: " + msg);
         fh.close();
     }
 

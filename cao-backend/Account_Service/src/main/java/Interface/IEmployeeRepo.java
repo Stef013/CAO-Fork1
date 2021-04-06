@@ -1,8 +1,7 @@
 package Interface;
 
-import Model.Customer;
 import Model.Employee;
-import Model.RoleUpdate;
+import Model.UpdateEmployee;
 
 public interface IEmployeeRepo {
 
@@ -12,7 +11,7 @@ public interface IEmployeeRepo {
 
     boolean update(Employee employee);
 
-    boolean updateRole(RoleUpdate updateRole);
+    boolean updateRole(UpdateEmployee updateRole);
 
     boolean delete(int id);
 
