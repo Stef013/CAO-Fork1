@@ -1,5 +1,7 @@
 import { Box, Container, FormControlLabel, Grid, Radio, TextField, MenuItem, FormControl, InputLabel, Select, FormHelperText, RadioGroup, Typography } from "@material-ui/core";
 import React, { PureComponent } from "react";
+import Booking from '../models/Booking';
+import Ticket from '../models/Ticket';
 
 
 
@@ -9,9 +11,16 @@ const PassengerInfo = (props) => {
         setLuggage(event.target.value);
     };
 
+    const handleBookingChange = (e) => {
+        props.updateBooking(e);
+    }
+
+    const handleTicketChange = (e) => {
+        props.updateTickets(e, props.id);
+    }
 
     const createMainBookerDataFields = () => {
-        if (props.id === 1) {
+        if (props.id === 0) {
             return (
                 <Grid container spacing={1}>
                     <Grid item xs={12}>
@@ -20,9 +29,22 @@ const PassengerInfo = (props) => {
                             margin="low"
                             required
                             fullWidth
+                            id="email address"
+                            label="Email Address"
+                            name="contactEmail"
+                            onChange={handleBookingChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            margin="low"
+                            required
+                            fullWidth
                             id="phone number"
                             label="Phone Number"
-                            name="phone number"
+                            name="contactPhonenumber"
+                            onChange={handleBookingChange}
                         />
                     </Grid>
                 </Grid>
@@ -44,10 +66,10 @@ const PassengerInfo = (props) => {
                 <Grid item xs={12}>
                     <RadioGroup aria-label="gender" name="gender1" row>
                         <Grid item xs={6}>
-                            <FormControlLabel value="male" control={<Radio />} label="Male" />
+                            <FormControlLabel value="male" onChange={handleTicketChange} name="gender" control={<Radio />} label="Male" />
                         </Grid>
                         <Grid item xs={6}>
-                            <FormControlLabel value="female" control={<Radio />} label="Female" />
+                            <FormControlLabel value="female" onChange={handleTicketChange} name="gender" control={<Radio />} label="Female" />
                         </Grid>
                     </RadioGroup>
                 </Grid>
@@ -59,7 +81,8 @@ const PassengerInfo = (props) => {
                         fullWidth
                         id="first name"
                         label="First Name"
-                        name="first name"
+                        name="firstname"
+                        onChange={handleTicketChange}
                         autoComplete="current-password"
                     />
                 </Grid>
@@ -71,7 +94,8 @@ const PassengerInfo = (props) => {
                         fullWidth
                         id="last name"
                         label="Last Name"
-                        name="last name"
+                        name="lastname"
+                        onChange={handleTicketChange}
                         autoComplete="current-password"
                     />
                 </Grid>
@@ -81,6 +105,8 @@ const PassengerInfo = (props) => {
                         id="date"
                         label="Date of birth"
                         type="date"
+                        name="dateOfBirth"
+                        onChange={handleTicketChange}
                         fullWidth
                         required
                         InputLabelProps={{
@@ -92,12 +118,12 @@ const PassengerInfo = (props) => {
                     <FormControl required>
                         <InputLabel>Luggage</InputLabel>
                         <Select
-                            value={luggage}
-                            onChange={handleLuggageChange}
+                            onChange={handleTicketChange}
+                            name="extraLuggage"
                         >
-                            <MenuItem value={0}>0 extra bags + $0</MenuItem>
-                            <MenuItem value={1}>1 extra bags + $10</MenuItem>
-                            <MenuItem value={2}>2 extra bags + $20</MenuItem>
+                            <MenuItem name="extraLuggage" value={0}>0 extra bags + $0</MenuItem>
+                            <MenuItem name="extraLuggage" value={1}>1 extra bags + $10</MenuItem>
+                            <MenuItem name="extraLuggage" value={2}>2 extra bags + $20</MenuItem>
                         </Select>
                         <FormHelperText>Please select your amount of luggage</FormHelperText>
                     </FormControl>

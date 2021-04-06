@@ -14,6 +14,8 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Box, Grid, Input, MenuItem, Slider } from '@material-ui/core';
 import PassengerInfo from './BookingPassengerInfo'
+import Booking from '../models/Booking';
+import Ticket from '../models/Ticket';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -43,32 +45,70 @@ export default function SignIn(props) {
     const history = useHistory();
 
     const [value, setValue] = React.useState(1);
+    const [booking, setBooking] = React.useState(new Booking());
 
     const handleSliderChange = (event, newValue) => {
+        if (value > newValue) {
+            removeLastPassenger();
+        }
         setValue(newValue);
     };
 
     const handleInputChange = (event) => {
+        if (value > event.target.value) {
+            removeLastPassenger();
+        }
         setValue(event.target.value === '' ? '' : Number(event.target.value));
     };
 
-    const handleBlur = () => {
-        if (value < 1) {
-            setValue(1);
-        } else if (value > 25) {
-            setValue(25);
-        }
-    };
+    const removeLastPassenger = () => {
+        console.log("Booking before removal")
+        console.log(booking);
+        var newBooking = booking;
+        newBooking.tickets.pop();
+        setBooking(newBooking);
+        console.log("Booking after removal")
+        console.log(booking);
+    }
 
     const createDataFieldsForEachPerson = () => {
         var rows = [];
-        for (var i = 1; i < value + 1; i++) {
-            rows.push(<PassengerInfo id={i} />)
+        for (var i = 0; i < value; i++) {
+            rows.push(<PassengerInfo id={i} updateBooking={updateBooking} updateTickets={updateTickets}/>)
         }
         return <div>{rows}</div>;
     };
 
+    const updateBooking = (data) => {
+        const {value, name } = data.target;
+        var newBooking = booking;
+        newBooking[name] = value;
+        setBooking(newBooking);
+    }
 
+    const updateTickets = (data, id) => {
+        console.log("Booking before searching with .finds")
+        console.log(booking)
+        const {value, name } = data.target;
+        var newBooking = booking;
+        if (newBooking.tickets.find(x => x.id === id)){
+            newBooking.tickets[id][name] = value;
+            setBooking(newBooking);
+            console.log(booking)
+        }
+        else {
+            var newTicket = new Ticket();
+            newTicket.id = id;
+            newTicket[name] = value;
+            newBooking.tickets.push(newTicket);
+            setBooking(newBooking);
+            console.log(booking)
+        }
+    }
+
+    const sendPassengerData = () => {
+
+    }
 
     return (
         <Container component="main" maxWidth="sm">
@@ -101,7 +141,6 @@ export default function SignIn(props) {
                             value={value}
                             margin="dense"
                             onChange={handleInputChange}
-                            onBlur={handleBlur}
                             inputProps={{
                                 step: 1,
                                 min: 1,
@@ -170,7 +209,7 @@ export default function SignIn(props) {
                             fullWidth
                             variant="contained"
                             color="primary"
-                            onClick={props.nextPage}
+                            onClick={sendPassengerData()}
                         >
                             Seatpicker
                             <ArrowForwardIcon />

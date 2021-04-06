@@ -1,6 +1,6 @@
 import Login from './pages/LoginPage';
 import FlightTracker from './pages/FlightTracker'
-import Booking from './pages/Booking';
+import Booking from './pages/BookingMain';
 import Error from './pages/Error';
 import { Route, Switch } from 'react-router-dom';
 
