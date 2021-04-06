@@ -1,7 +1,7 @@
 import "../App.css";
 import React, { Component } from "react";
 import MenuAppBar from "../Components/MenuAppBar";
-import FlightSummaryList from "../Components/FlightSummaryList"
+import FlightList from "../Components/FlightList"
 import { withStyles } from "@material-ui/core";
 
 const useStyles = (theme) => ({
@@ -21,7 +21,7 @@ class FlightSummary extends Component {
             <div>
                 <MenuAppBar></MenuAppBar>
                 <div className={classes.listStyle}>
-                    <FlightSummaryList></FlightSummaryList>
+                    <FlightList></FlightList>
                 </div>
             </div>
         );
