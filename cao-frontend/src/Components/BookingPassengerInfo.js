@@ -2,6 +2,7 @@ import { Box, Container, FormControlLabel, Grid, Radio, TextField, MenuItem, For
 import React, { PureComponent } from "react";
 
 
+
 const PassengerInfo = (props) => {
     const [luggage, setLuggage] = React.useState(0);
     const handleLuggageChange = event => {
@@ -13,17 +14,6 @@ const PassengerInfo = (props) => {
         if (props.id === 1) {
             return (
                 <Grid container spacing={1}>
-                    <Grid item xs={12}>
-                        <TextField
-                            variant="outlined"
-                            margin="low"
-                            required
-                            fullWidth
-                            id="email address"
-                            label="Email Address"
-                            name="email address"
-                        />
-                    </Grid>
                     <Grid item xs={12}>
                         <TextField
                             variant="outlined"

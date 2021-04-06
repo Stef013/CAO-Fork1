@@ -53,7 +53,7 @@ export default function SignIn() {
     const history = useHistory();
 
     function navigateHome() {
-        history.push('/Bookingpassengers');
+        history.push('/Booking');
     }
 
     return (

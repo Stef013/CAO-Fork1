@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -31,31 +31,27 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function SignIn() {
+export default function SignIn(props) {
     const classes = useStyles();
     const history = useHistory();
-
-    const navigateForward = () => {
-        history.push('/Bookingoverview');
-    }
-
-    const navigateBack = () => {
-        history.push('/Bookingpassengers');
-    }
-
 
     return (
         <Container component="main" maxWidth="sm">
             <CssBaseline />
             <div className={classes.paper}>
                 <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <Typography component="h1" variant="h3">
+                            Seatpicker
+                        </Typography>
+                    </Grid>
                     <Grid item xs={12} sm={6}>
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             color="primary"
-                            onClick={navigateBack}
+                            onClick={props.previousPage}
                         >
                             <ArrowBackIcon />
                             Personal information
@@ -67,7 +63,7 @@ export default function SignIn() {
                             fullWidth
                             variant="contained"
                             color="primary"
-                            onClick={navigateForward}
+                            onClick={props.nextPage}
                         >
                             Booking overview
                             <ArrowForwardIcon />

@@ -34,18 +34,9 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function SignIn() {
+export default function SignIn(props) {
     const classes = useStyles();
     const history = useHistory();
-
-    const navigateForward = () => {
-        history.push('');
-    }
-
-    const navigateBack = () => {
-        history.push('/Bookingseatpicker');
-    }
-
 
     const createPassengersOverview = () => {
         var rows = [];
@@ -193,7 +184,7 @@ export default function SignIn() {
                             fullWidth
                             variant="contained"
                             color="primary"
-                            onClick={navigateBack}
+                            onClick={props.previousPage}
                         >
                             <ArrowBackIcon />
                             Seatpicker
@@ -205,7 +196,7 @@ export default function SignIn() {
                             fullWidth
                             variant="contained"
                             color="primary"
-                            onClick={navigateForward}
+                            onClick={props.nextPage}
                         >
                             Payment
                             <ArrowForwardIcon />

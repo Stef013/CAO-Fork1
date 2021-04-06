@@ -13,7 +13,7 @@ import { useHistory } from 'react-router-dom';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Box, Grid, Input, MenuItem, Slider } from '@material-ui/core';
-import PassengerInfo from '../Components/PassengerInfo'
+import PassengerInfo from './BookingPassengerInfo'
 
 const useStyles = makeStyles((theme) => ({
 
@@ -38,8 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
-export default function SignIn() {
+export default function SignIn(props) {
     const classes = useStyles();
     const history = useHistory();
 
@@ -60,14 +59,6 @@ export default function SignIn() {
             setValue(25);
         }
     };
-
-    const navigateForward = () => {
-        history.push('/Bookingseatpicker');
-    }
-
-    const navigateBack = () => {
-        history.push('');
-    }
 
     const createDataFieldsForEachPerson = () => {
         var rows = [];
@@ -167,7 +158,7 @@ export default function SignIn() {
                             fullWidth
                             variant="contained"
                             color="primary"
-                            onClick={navigateBack}
+                            onClick={props.previousPage}
                         >
                             <ArrowBackIcon />
                             Flight menu
@@ -179,7 +170,7 @@ export default function SignIn() {
                             fullWidth
                             variant="contained"
                             color="primary"
-                            onClick={navigateForward}
+                            onClick={props.nextPage}
                         >
                             Seatpicker
                             <ArrowForwardIcon />
