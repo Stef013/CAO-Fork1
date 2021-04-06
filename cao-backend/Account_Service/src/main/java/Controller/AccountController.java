@@ -4,17 +4,23 @@ import Logic.Registration;
 import Model.Customer;
 import Model.Employee;
 import Model.RoleUpdate;
-import Repository.CustomerRepo;
+import Utilities.Logging;
 import spark.Spark;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.util.List;
+
 import static spark.Spark.*;
 
 public class AccountController {
 
     //private CustomerRepo customerRepo;
     private Registration RL = new Registration();
-    private Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();;
+    private Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
+
+    Logging logger = new Logging();
+
 
     public AccountController(final String a) {
 
@@ -35,13 +41,13 @@ public class AccountController {
 
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
-        Spark.get("/customer", ((request, response) -> {
+        Spark.get("/customer/:id", ((request, response) -> {
 
             System.out.println("Get /");
             String json;
 
             try {
-                String email = request.queryParams("id");
+                String email = request.params("id");
                 System.out.println(email);
 
                 Customer customer = RL.getCustomer(email);
@@ -50,6 +56,25 @@ public class AccountController {
             } catch (Exception ex) {
                 System.out.println(ex);
                 json = "Cant find user.";
+            }
+
+            System.out.println(json);
+
+            return json;
+        }));
+
+        Spark.get("/customer", ((request, response) -> {
+
+            String json;
+
+            try {
+                logger.logInfo(getClass().getName(), "In /customers");
+                List<Customer> customer = RL.getAllCustomer();
+
+                json = gson.toJson(customer);
+            } catch (Exception ex) {
+                System.out.println(ex);
+                json = "No users.";
             }
 
             System.out.println(json);
@@ -137,13 +162,13 @@ public class AccountController {
 
         //////////////Employee//////////////////////
 
-        Spark.get("/employee", ((request, response) -> {
+        Spark.get("/employee/:id", ((request, response) -> {
 
             //System.out.println("Get /");
             String json;
 
             try {
-                String email = request.queryParams("id");
+                String email = request.params("id");
                 System.out.println(email);
 
 
@@ -154,6 +179,27 @@ public class AccountController {
             } catch (Exception ex) {
                 System.out.println(ex);
                 json = "Cant find user.";
+            }
+
+            System.out.println(json);
+
+            return json;
+        }));
+
+        Spark.get("/employee", ((request, response) -> {
+
+            //System.out.println("Get /");
+            String json;
+
+            try {
+
+                List<Employee> employees = RL.getAllEmployee();
+
+                json = gson.toJson(employees);
+
+            } catch (Exception ex) {
+                System.out.println(ex);
+                json = "No employees";
             }
 
             System.out.println(json);

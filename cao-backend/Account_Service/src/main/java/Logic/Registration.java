@@ -6,6 +6,8 @@ import Model.RoleUpdate;
 import Repository.CustomerRepo;
 import Repository.EmployeeRepo;
 
+import java.util.List;
+
 public class Registration {
 
      CustomerRepo CR = new CustomerRepo();
@@ -32,6 +34,16 @@ public class Registration {
         if (customerEmail != null && !customerEmail.isBlank())
         {
             return CR.get(customerEmail);
+        }
+        return null;
+    }
+
+    public List<Customer> getAllCustomer()
+    {
+        List<Customer> allCustomers = CR.getAll();
+        if (allCustomers != null && allCustomers.size() > 0)
+        {
+            return  allCustomers;
         }
         return null;
     }
@@ -88,6 +100,18 @@ public class Registration {
         if (employeeEmail != null && !employeeEmail.isBlank())
         {
             return ER.get(employeeEmail);
+        }
+        return null;
+    }
+
+    public List<Employee> getAllEmployee()
+    {
+
+        List<Employee> allEmployees = ER.getAll();
+
+        if (allEmployees != null && allEmployees.size() > 0)
+        {
+            return allEmployees;
         }
         return null;
     }
