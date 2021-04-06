@@ -72,6 +72,7 @@ public class FlightDatabaseContext implements IFlight {
 
                     returnModel.addFlight(newFlight);
                 }
+                returnModel.setSuccess(true);
 
             } catch (SQLException throwables) {
                 returnModel.setError(throwables.toString());

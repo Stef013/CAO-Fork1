@@ -55,14 +55,14 @@ public class FlightResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/flight")
-    public Response getFlights() {
+    public Response getFlights() throws JsonProcessingException {
 
         getFlightsReturnModel returnModel = service.getFlights();
         if(returnModel == null){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(returnModel).build();
         }
 
-        return Response.status(Response.Status.OK).entity(returnModel).build();
+        return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(returnModel)).build();
     }
 
 }
