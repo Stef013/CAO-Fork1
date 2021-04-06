@@ -2,18 +2,18 @@ package Resources;
 
 import Models.createFlightReturnModel;
 import Models.createFlightSubmitModel;
+import Models.getFlightsReturnModel;
 import Services.FlightService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Path("")
 public class FlightResource {
@@ -50,4 +50,19 @@ public class FlightResource {
         }
         return Response.status(Response.Status.BAD_REQUEST).entity(objectMapper.writeValueAsString(returnModel)).build();
     }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/flight")
+    public Response getFlights() {
+
+        getFlightsReturnModel returnModel = service.getFlights();
+        if(returnModel == null){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(returnModel).build();
+        }
+
+        return Response.status(Response.Status.OK).entity(returnModel).build();
+    }
+
 }

@@ -2,6 +2,9 @@ package Context;
 
 import Interface.IFlight;
 import Models.createFlightReturnModel;
+import Models.getFlightsReturnModel;
+
+import java.util.List;
 
 public class FlightLocalContext implements IFlight {
 
@@ -13,5 +16,10 @@ public class FlightLocalContext implements IFlight {
         returnModel.setSuccess(false);
         returnModel.setError("There is no local file connected yet");
         return returnModel;
+    }
+
+    @Override
+    public getFlightsReturnModel getFlights() {
+        return null;
     }
 }
