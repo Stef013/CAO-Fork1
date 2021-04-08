@@ -2,12 +2,14 @@ package models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Ticket {
-    @JsonProperty("firstName")
-    private String firstName;
+import java.util.Date;
 
-    @JsonProperty("lastName")
-    private String lastName;
+public class Ticket {
+    @JsonProperty("firstname")
+    private String firstname;
+
+    @JsonProperty("lastname")
+    private String lastname;
 
     @JsonProperty("gender")
     private String gender;
@@ -24,26 +26,29 @@ public class Ticket {
     @JsonProperty("extraLuggage")
     private int extraLuggage;
 
-    @JsonProperty("bookedHotel")
-    private boolean bookedHotel;
+    @JsonProperty("rentedHotel")
+    private boolean rentedHotel;
 
     @JsonProperty("rentedCar")
     private boolean rentedCar;
 
-    public String getFirstName() {
-        return firstName;
+    @JsonProperty("dateOfBirth")
+    private String dateOfBirth;
+
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getGender() {
@@ -78,7 +83,6 @@ public class Ticket {
         this.seat = seat;
     }
 
-
     public int getExtraLuggage() {
         return extraLuggage;
     }
@@ -87,12 +91,12 @@ public class Ticket {
         this.extraLuggage = extraLuggage;
     }
 
-    public boolean isBookedHotel() {
-        return bookedHotel;
+    public boolean isRentedHotel() {
+        return rentedHotel;
     }
 
-    public void setBookedHotel(boolean bookedHotel) {
-        this.bookedHotel = bookedHotel;
+    public void setRentedHotel(boolean rentedHotel) {
+        this.rentedHotel = rentedHotel;
     }
 
     public boolean isRentedCar() {
@@ -101,5 +105,13 @@ public class Ticket {
 
     public void setRentedCar(boolean rentedCar) {
         this.rentedCar = rentedCar;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

@@ -15,18 +15,19 @@ public class BookingRepository {
             "database=CAO_Booking;user=CaoAdmin@cao-dbserver;password=7tJzrUVGB5i8dxX;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
 
     public Booking book(Booking booking, int userId) {
-        String query = "INSERT INTO [Booking] (CustomerId, BookingDate, CustomerPhoneNumber, " +
-                "ContactPersonPhoneNumber, ContactPersonEmail) VALUES " +
-                "(?,?,?,?,?)";
+        String query = "INSERT INTO [Booking] (UserId, BookingDate, ContactPhonenumber, " +
+                "ContactEmail, EmergencyPhonenumber, EmergencyEmail) VALUES " +
+                "(?,?,?,?,?,?)";
 
         try (Connection connection = DriverManager.getConnection(connectionUrl)) {
 
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, booking.getCustomerId());
-            statement.setDate(2, new java.sql.Date(booking.getBookingDate().getTime()));
-            statement.setString(3, booking.getCustomerPhoneNumber());
-            statement.setString(4, booking.getContactPersonPhoneNumber());
-            statement.setString(5, booking.getContactPersonEmail());
+            statement.setInt(1, userId);
+            statement.setString(2, booking.getBookingDate());
+            statement.setString(3, booking.getContactPhonenumber());
+            statement.setString(4, booking.getContactEmail());
+            statement.setString(5, booking.getEmergencyPhonenumber());
+            statement.setString(6, booking.getEmergencyEmail());
 
             statement.executeUpdate();
 
@@ -48,23 +49,24 @@ public class BookingRepository {
     }
 
     private boolean addTickets(Connection connection, List<Ticket> tickets, int bookingId) {
-        String query = "INSERT INTO [Ticket] (BookingId, FlightId, FirstName, LastName, Gender, Price, Seat, " +
-                "ExtraLuggage, BookedHotel, RentedCar) VALUES " +
+        String query = "INSERT INTO [Ticket] (BookingId, FlightId, Firstname, Lastname, Gender, Price, Seat, " +
+                "ExtraLuggage, RentedHotel, RentedCar, DateOfBirth) VALUES " +
                 "(?,?,?," +
-                "?,?,?,?,?,?,?)";
+                "?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             for (Ticket ticket : tickets) {
                 statement.setInt(1, bookingId);
                 statement.setInt(2, ticket.getFlightId());
-                statement.setString(3, ticket.getFirstName());
-                statement.setString(4, ticket.getLastName());
+                statement.setString(3, ticket.getFirstname());
+                statement.setString(4, ticket.getLastname());
                 statement.setString(5, ticket.getGender());
                 statement.setFloat(6, ticket.getPrice());
                 statement.setString(7, ticket.getSeat());
                 statement.setInt(8, ticket.getExtraLuggage());
-                statement.setBoolean(9, ticket.isBookedHotel());
+                statement.setBoolean(9, ticket.isRentedHotel());
                 statement.setBoolean(10, ticket.isRentedCar());
+                statement.setString(11, ticket.getDateOfBirth());
                 statement.addBatch();
             }
             int[] affectedRows = statement.executeBatch();

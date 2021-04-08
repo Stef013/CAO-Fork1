@@ -11,6 +11,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Claims;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Booking;
+import models.Ticket;
 import services.BookingService;
 
 import java.util.Date;
@@ -30,8 +31,9 @@ public class BookingController {
     public Response book(String bookingJson, @HeaderParam("jwtToken") String jwt) throws JsonProcessingException {
         // Uncomment when a valid jwtToken is sent (for now the userId is hardcoded)
         // int userId = (int)decodeJWT(jwt).get("userId")
+        System.out.println(bookingJson);
         Booking bookingRequest = objectMapper.readValue(bookingJson, Booking.class);
-        bookingRequest.setBookingDate(new Date());
+        bookingRequest.setBookingDate("20-04-2021");
         Booking bookingResponse = bookingService.book(bookingRequest, 1);
 
         if (bookingResponse == null) {

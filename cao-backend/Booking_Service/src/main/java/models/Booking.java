@@ -9,23 +9,26 @@ public class Booking {
     @JsonProperty("bookingId")
     private int bookingId;
 
-    @JsonProperty("customerId")
-    private int customerId;
+    @JsonProperty("userId")
+    private int userId;
 
-    @JsonProperty("customerPhoneNumber")
-    private String customerPhoneNumber;
+    @JsonProperty("contactPhonenumber")
+    private String contactPhonenumber;
+
+    @JsonProperty("contactEmail")
+    private String contactEmail;
 
     @JsonProperty("bookingDate")
-    private Date bookingDate;
+    private String bookingDate;
 
     @JsonProperty("tickets")
     private List<Ticket> tickets;
 
-    @JsonProperty("contactPersonEmail")
-    private String contactPersonEmail;
+    @JsonProperty("emergencyEmail")
+    private String emergencyEmail;
 
-    @JsonProperty("contactPersonPhoneNumber")
-    private String contactPersonPhoneNumber;
+    @JsonProperty("emergencyPhonenumber")
+    private String emergencyPhonenumber;
 
     public int getBookingId() {
         return bookingId;
@@ -35,27 +38,35 @@ public class Booking {
         this.bookingId = bookingId;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getCustomerPhoneNumber() {
-        return customerPhoneNumber;
+    public String getContactPhonenumber() {
+        return contactPhonenumber;
     }
 
-    public void setCustomerPhoneNumber(String customerPhoneNumber) {
-        this.customerPhoneNumber = customerPhoneNumber;
+    public void setContactPhonenumber(String contactPhonenumber) {
+        this.contactPhonenumber = contactPhonenumber;
     }
 
-    public Date getBookingDate() {
+    public String getContactEmail() {
+        return contactEmail;
+    }
+
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
+    }
+
+    public String getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(Date bookingDate) {
+    public void setBookingDate(String bookingDate) {
         this.bookingDate = bookingDate;
     }
 
@@ -67,19 +78,19 @@ public class Booking {
         this.tickets = tickets;
     }
 
-    public String getContactPersonEmail() {
-        return contactPersonEmail;
+    public String getEmergencyEmail() {
+        return emergencyEmail;
     }
 
-    public void setContactPersonEmail(String contactPersonEmail) {
-        this.contactPersonEmail = contactPersonEmail;
+    public void setEmergencyEmail(String emergencyEmail) {
+        this.emergencyEmail = emergencyEmail;
     }
 
-    public String getContactPersonPhoneNumber() {
-        return contactPersonPhoneNumber;
+    public String getEmergencyPhonenumber() {
+        return emergencyPhonenumber;
     }
 
-    public void setContactPersonPhoneNumber(String contactPersonPhoneNumber) {
-        this.contactPersonPhoneNumber = contactPersonPhoneNumber;
+    public void setEmergencyPhonenumber(String emergencyPhonenumber) {
+        this.emergencyPhonenumber = emergencyPhonenumber;
     }
 }

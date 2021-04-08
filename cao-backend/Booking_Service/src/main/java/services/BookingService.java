@@ -5,8 +5,6 @@ import repositories.BookingRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class BookingService {
@@ -21,11 +19,11 @@ public class BookingService {
             }
         }
 
-        if (booking.getCustomerPhoneNumber() == booking.getContactPersonPhoneNumber()) {
+        if (booking.getContactPhonenumber().equals(booking.getEmergencyPhonenumber())) {
             return null;
         }
 
-        if (booking.getCustomerId() == userId) {
+        if (booking.getUserId() == userId) {
             return bookingRepository.book(booking, userId);
         }
 

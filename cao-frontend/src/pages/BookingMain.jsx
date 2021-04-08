@@ -40,11 +40,21 @@ class BookingMain extends React.Component {
     }
 
     placeBooking = () => {
+
+        var newBooking = this.state.booking; 
+        newBooking.tickets.forEach(ticket => {
+            ticket.seat = "A1";
+            ticket.price = 110;
+            ticket.flightId = 1;
+            ticket.rentedCar = false;
+            ticket.rentedHotel = false;
+        })
+
         axios(
             {
                 method: 'post',
                 url: 'http://localhost:8080/service-booking/book',
-                data: this.state.booking
+                data: newBooking
             })
             .then(function (response) {
                 console.log(response);
