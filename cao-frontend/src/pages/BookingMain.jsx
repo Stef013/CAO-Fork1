@@ -1,14 +1,10 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import BookingPassengers from '../Components/BookingPassengers'
 import BookingSeatpicker from '../Components/BookingSeatpicker'
 import BookingOverview from '../Components/BookingOverview'
 import Error from './Error'
-import { Route, Switch } from 'react-router';
-import { Button, TextField } from '@material-ui/core';
 import Booking from '../models/Booking';
-import Ticket from '../models/Ticket';
+import axios from 'axios'
 
 class BookingMain extends React.Component {
     constructor() {
@@ -19,18 +15,18 @@ class BookingMain extends React.Component {
             currentPassengers: 1
         }
     }
-    
+
     setPassengers = (newPassengers) => {
         this.state.currentPassengers = newPassengers;
     }
-    
+
     previousPage = () => {
-        this.setState({currentPage: this.state.currentPage - 1})
+        this.setState({ currentPage: this.state.currentPage - 1 })
     }
 
     storePassengerData = (data) => {
         var newBooking = this.state.booking;
-        
+
         newBooking.contactEmail = data.contactEmail;
         newBooking.contactPhonenumber = data.contactPhonenumber;
         newBooking.emergencyEmail = data.emergencyEmail;
@@ -38,21 +34,38 @@ class BookingMain extends React.Component {
         newBooking.tickets = data.tickets;
 
         console.log(data);
-        this.setState({booking: newBooking});
+        this.setState({ booking: newBooking });
         console.log(this.state.booking);
-        this.setState({currentPage: this.state.currentPage + 1})
+        this.setState({ currentPage: this.state.currentPage + 1 })
+    }
+
+    placeBooking = () => {
+        axios(
+            {
+                method: 'post',
+                url: 'http://localhost:8080/service-booking/book',
+                data: this.state.booking
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                alert(error);
+            });
     }
 
 
 
     render() {
         switch (this.state.currentPage) {
+            case 0:
+            //TODO: return to loginpage/mainpage
             case 1:
                 return (<BookingPassengers setPassengers={this.setPassengers} booking={this.state.booking} currentPassengers={this.state.currentPassengers} storePassengerData={this.storePassengerData} previousPage={this.previousPage} />);
             case 2:
-                return (<BookingSeatpicker previousPage={this.previousPage} />);
+                return (<BookingSeatpicker previousPage={this.previousPage} booking={this.state.booking} storePassengerData={this.storePassengerData} />);
             case 3:
-                return (<BookingOverview previousPage={this.previousPage} />);
+                return (<BookingOverview previousPage={this.previousPage} booking={this.state.booking} placeBooking={this.placeBooking} />);
             default:
                 return (<Error />);
         }

@@ -47,8 +47,8 @@ export default function BookingPassengers(props) {
             var deleteValue = value - newValue;
             removeLastPassenger(deleteValue);
         }
-        else if (value < event.target.value) {
-            var addValue = event.target.value - value;
+        else if (value < newValue) {
+            var addValue = newValue - value;
             addNewTickets(addValue)
         }
         setValue(newValue);
@@ -63,8 +63,16 @@ export default function BookingPassengers(props) {
             var addValue = event.target.value - value;
             addNewTickets(addValue)
         }
-        setValue(event.target.value === '' ? '' : Number(event.target.value));
+        setValue(event.target.value);
 
+    };
+
+    const handleBlur = () => {
+      if (value < 1) {
+        setValue(1);
+      } else if (value > 25) {
+        setValue(25);
+      }
     };
 
     const removeLastPassenger = (deleteValue) => {
@@ -78,7 +86,9 @@ export default function BookingPassengers(props) {
     const addNewTickets = (newValue) => {
         var newBooking = booking;
         for (var i = 1; i <= newValue; i++) {
-            newBooking.tickets.push(new Ticket());
+            var newTicket = new Ticket()
+            newTicket.id = newBooking.tickets.length+1;
+            newBooking.tickets.push(newTicket);
         }
         setBooking(newBooking);
     }
@@ -142,7 +152,7 @@ export default function BookingPassengers(props) {
                     </Grid>
                     <Grid item xs={6}>
                         <Slider
-                            value={typeof value === 'number' ? value : 0}
+                            value={value}
                             onChange={handleSliderChange}
                             min={1}
                             max={25}
@@ -156,6 +166,7 @@ export default function BookingPassengers(props) {
                             value={value}
                             margin="dense"
                             onChange={handleInputChange}
+                            onBlur={handleBlur}
                             inputProps={{
                                 step: 1,
                                 min: 1,
@@ -216,7 +227,7 @@ export default function BookingPassengers(props) {
                             fullWidth
                             variant="contained"
                             color="primary"
-                            onClick={props.previousPage}
+                            // onClick={props.previousPage}
                         >
                             <ArrowBackIcon />
                             Flight menu

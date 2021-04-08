@@ -38,34 +38,44 @@ export default function BookingOverview(props) {
     const classes = useStyles();
     const history = useHistory();
 
+    const [booking, setBooking] = React.useState(props.booking);
+
+    const nextPage = () => {
+        props.placeBooking();
+    }
+
+    const calculatePrice = () => {
+        //todo: Calculate total price with a loop through each ticket
+    }
+
     const createPassengersOverview = () => {
         var rows = [];
-        for (var i = 1; i < 3 + 1; i++) {
+        booking.tickets.forEach(ticket => {
             rows.push(
                 <Box p={2} m={0} borderRadius={16}>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
-                            First name passenger {i}
+                            Firstname: {ticket.firstname}
                         </Grid>
                         <Grid item xs={6}>
-                            Last name passenger {i}
+                            Lastname: {ticket.lastname}
                         </Grid>
                         <Grid item xs={6}>
-                            Gender
+                            Gender: {ticket.gender}
                         </Grid>
                         <Grid item xs={6}>
-                            Date of birth
+                            Date of Birth: {ticket.dateOfBirth}
                         </Grid>
                         <Grid item xs={6}>
-                            2x Luggage $20
+                            Extra Luggage: {ticket.extraLuggage} stuks
                         </Grid>
                         <Grid item xs={6}>
-                            Seat F4
+                            Seat: {ticket.seat}
                         </Grid>
                     </Grid>
                 </Box>
             )
-        }
+        });
 
         return <div>{rows}</div>;
     };
@@ -90,7 +100,7 @@ export default function BookingOverview(props) {
                                 </Grid>
                                 <Grid item xs={6}>
                                     <Typography component="h3" align="right">
-                                        <b>Total costs: $price</b>
+                                        <b>Total costs: ${calculatePrice()}</b>
                                     </Typography>
                                 </Grid>
 
@@ -98,25 +108,25 @@ export default function BookingOverview(props) {
                                     <FlightTakeoffIcon />
                                 </Grid>
                                 <Grid item xs={5}>
-                                    Departure location
+                                    PH-Departure location
                             </Grid>
                                 <Grid item xs={1}>
                                     <FlightLandIcon />
                                 </Grid>
                                 <Grid item xs={5}>
-                                    Arrival location
+                                    PH-Arrival location
                             </Grid>
                                 <Grid item xs={1}>
                                     <ChevronRightIcon />
                                 </Grid>
                                 <Grid item xs={5}>
-                                    Departure date and time
+                                    PH-Departure date and time
                             </Grid>
                                 <Grid item xs={1}>
                                     <ChevronRightIcon />
                                 </Grid>
                                 <Grid item xs={5}>
-                                    Arrival date and time
+                                    PH-Arrival date and time
                             </Grid>
                             </Grid>
                         </Box>
@@ -145,16 +155,16 @@ export default function BookingOverview(props) {
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    First Name (passenger 1)
+                                    First name: {booking.tickets[0].firstname}
                                 </Grid>
                                 <Grid item xs={6}>
-                                    Last Name (passenger 1)
+                                    Last name: {booking.tickets[0].lastname}
                                 </Grid>
                                 <Grid item xs={12}>
-                                    Email Address (passenger 1)
+                                    Email Address: {booking.contactEmail}
                                 </Grid>
                                 <Grid item xs={12}>
-                                    Phone Number (passenger 1)
+                                    Phone Number: {booking.contactPhonenumber}
                             </Grid>
                             </Grid>
                         </Box>
@@ -169,10 +179,10 @@ export default function BookingOverview(props) {
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    Email Address
+                                    Email Address: {booking.emergencyEmail}
                                 </Grid>
                                 <Grid item xs={12}>
-                                    Phone Number
+                                    Phone Number: {booking.emergencyPhonenumber}
                                 </Grid>
                             </Grid>
                         </Box>
@@ -196,7 +206,7 @@ export default function BookingOverview(props) {
                             fullWidth
                             variant="contained"
                             color="primary"
-                            onClick={props.nextPage}
+                            onClick={nextPage}
                         >
                             Payment
                             <ArrowForwardIcon />

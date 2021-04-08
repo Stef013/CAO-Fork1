@@ -35,6 +35,12 @@ export default function BookingSeatpicker(props) {
     const classes = useStyles();
     const history = useHistory();
 
+    const [booking, setBooking] = React.useState(props.booking);
+
+    const nextPage = () => {
+        props.storePassengerData(booking)
+    }
+
     return (
         <Container component="main" maxWidth="sm">
             <CssBaseline />
@@ -63,7 +69,7 @@ export default function BookingSeatpicker(props) {
                             fullWidth
                             variant="contained"
                             color="primary"
-                            onClick={props.nextPage}
+                            onClick={nextPage}
                         >
                             Booking overview
                             <ArrowForwardIcon />
