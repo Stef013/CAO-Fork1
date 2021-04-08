@@ -8,6 +8,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/API/AccountMain.java">
           <value>
             <set>
@@ -59,19 +64,19 @@
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLImtjGaX_aShGlDY" />
-                <option name="line" value="1" />
-                <option name="message" value="Rename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'." />
-                <option name="ruleKey" value="java:S120" />
-                <option name="severity" value="MINOR" />
-              </SonarIssue>
-              <SonarIssue>
-                <option name="isNew" value="false" />
                 <option name="key" value="AXimLImujGaX_aShGlDo" />
                 <option name="line" value="115" />
                 <option name="message" value="Replace this use of System.out or System.err by a logger." />
                 <option name="ruleKey" value="java:S106" />
                 <option name="severity" value="MAJOR" />
+              </SonarIssue>
+              <SonarIssue>
+                <option name="isNew" value="false" />
+                <option name="key" value="AXimLImtjGaX_aShGlDY" />
+                <option name="line" value="1" />
+                <option name="message" value="Rename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'." />
+                <option name="ruleKey" value="java:S120" />
+                <option name="severity" value="MINOR" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
@@ -91,16 +96,16 @@
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLImtjGaX_aShGlDh" />
-                <option name="line" value="52" />
+                <option name="key" value="AXimLImtjGaX_aShGlDj" />
+                <option name="line" value="63" />
                 <option name="message" value="Replace this use of System.out or System.err by a logger." />
                 <option name="ruleKey" value="java:S106" />
                 <option name="severity" value="MAJOR" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLImtjGaX_aShGlDj" />
-                <option name="line" value="63" />
+                <option name="key" value="AXimLImtjGaX_aShGlDh" />
+                <option name="line" value="52" />
                 <option name="message" value="Replace this use of System.out or System.err by a logger." />
                 <option name="ruleKey" value="java:S106" />
                 <option name="severity" value="MAJOR" />
@@ -123,19 +128,19 @@
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLImtjGaX_aShGlDa" />
-                <option name="line" value="5" />
-                <option name="message" value="Remove this unused import 'Model.Employee'." />
-                <option name="ruleKey" value="java:S1128" />
-                <option name="severity" value="MINOR" />
-              </SonarIssue>
-              <SonarIssue>
-                <option name="isNew" value="false" />
                 <option name="key" value="AXimLImtjGaX_aShGlDd" />
                 <option name="line" value="20" />
                 <option name="message" value="Remove this unused method parameter &quot;a&quot;." />
                 <option name="ruleKey" value="java:S1172" />
                 <option name="severity" value="MAJOR" />
+              </SonarIssue>
+              <SonarIssue>
+                <option name="isNew" value="false" />
+                <option name="key" value="AXimLImtjGaX_aShGlDa" />
+                <option name="line" value="5" />
+                <option name="message" value="Remove this unused import 'Model.Employee'." />
+                <option name="ruleKey" value="java:S1128" />
+                <option name="severity" value="MINOR" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
@@ -179,19 +184,19 @@
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLImtjGaX_aShGlDe" />
-                <option name="line" value="20" />
-                <option name="message" value="Refactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed." />
-                <option name="ruleKey" value="java:S3776" />
-                <option name="severity" value="CRITICAL" />
-              </SonarIssue>
-              <SonarIssue>
-                <option name="isNew" value="false" />
                 <option name="key" value="AXimLImujGaX_aShGlDp" />
                 <option name="line" value="132" />
                 <option name="message" value="Replace this use of System.out or System.err by a logger." />
                 <option name="ruleKey" value="java:S106" />
                 <option name="severity" value="MAJOR" />
+              </SonarIssue>
+              <SonarIssue>
+                <option name="isNew" value="false" />
+                <option name="key" value="AXimLImtjGaX_aShGlDe" />
+                <option name="line" value="20" />
+                <option name="message" value="Refactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed." />
+                <option name="ruleKey" value="java:S3776" />
+                <option name="severity" value="CRITICAL" />
               </SonarIssue>
             </set>
           </value>
@@ -201,16 +206,16 @@
             <set>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLIlbjGaX_aShGlDU" />
-                <option name="line" value="145" />
-                <option name="message" value="Replace this use of System.out or System.err by a logger." />
-                <option name="ruleKey" value="java:S106" />
+                <option name="key" value="AXimLIlajGaX_aShGlDI" />
+                <option name="line" value="24" />
+                <option name="message" value="Remove this conditional structure or edit its code blocks so that they're not all the same." />
+                <option name="ruleKey" value="java:S3923" />
                 <option name="severity" value="MAJOR" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLIlbjGaX_aShGlDP" />
-                <option name="line" value="86" />
+                <option name="key" value="AXimLIlbjGaX_aShGlDT" />
+                <option name="line" value="130" />
                 <option name="message" value="Replace this use of System.out or System.err by a logger." />
                 <option name="ruleKey" value="java:S106" />
                 <option name="severity" value="MAJOR" />
@@ -218,55 +223,23 @@
               <SonarIssue>
                 <option name="isNew" value="false" />
                 <option name="key" value="AXimLIlajGaX_aShGlDD" />
-                <option name="line" value="107" />
+                <option name="line" value="101" />
                 <option name="message" value="Define a constant instead of duplicating this literal &quot;Database error.&quot; 3 times." />
                 <option name="ruleKey" value="java:S1192" />
                 <option name="severity" value="CRITICAL" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLIlbjGaX_aShGlDQ" />
-                <option name="line" value="95" />
+                <option name="key" value="AXimLIlajGaX_aShGlDM" />
+                <option name="line" value="55" />
                 <option name="message" value="Replace this use of System.out or System.err by a logger." />
                 <option name="ruleKey" value="java:S106" />
                 <option name="severity" value="MAJOR" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLIlbjGaX_aShGlDT" />
-                <option name="line" value="136" />
-                <option name="message" value="Replace this use of System.out or System.err by a logger." />
-                <option name="ruleKey" value="java:S106" />
-                <option name="severity" value="MAJOR" />
-              </SonarIssue>
-              <SonarIssue>
-                <option name="isNew" value="false" />
-                <option name="key" value="AXimLIlajGaX_aShGlDG" />
-                <option name="line" value="20" />
-                <option name="message" value="Refactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed." />
-                <option name="ruleKey" value="java:S3776" />
-                <option name="severity" value="CRITICAL" />
-              </SonarIssue>
-              <SonarIssue>
-                <option name="isNew" value="false" />
-                <option name="key" value="AXimLIlbjGaX_aShGlDV" />
-                <option name="line" value="162" />
-                <option name="message" value="Replace this use of System.out or System.err by a logger." />
-                <option name="ruleKey" value="java:S106" />
-                <option name="severity" value="MAJOR" />
-              </SonarIssue>
-              <SonarIssue>
-                <option name="isNew" value="false" />
-                <option name="key" value="AXimLIlbjGaX_aShGlDS" />
-                <option name="line" value="120" />
-                <option name="message" value="Replace this use of System.out or System.err by a logger." />
-                <option name="ruleKey" value="java:S106" />
-                <option name="severity" value="MAJOR" />
-              </SonarIssue>
-              <SonarIssue>
-                <option name="isNew" value="false" />
-                <option name="key" value="AXimLIlajGaX_aShGlDH" />
-                <option name="line" value="33" />
+                <option name="key" value="AXimLIlbjGaX_aShGlDP" />
+                <option name="line" value="80" />
                 <option name="message" value="Replace this use of System.out or System.err by a logger." />
                 <option name="ruleKey" value="java:S106" />
                 <option name="severity" value="MAJOR" />
@@ -274,17 +247,17 @@
               <SonarIssue>
                 <option name="isNew" value="false" />
                 <option name="key" value="AXimLIlajGaX_aShGlDE" />
-                <option name="line" value="87" />
+                <option name="line" value="81" />
                 <option name="message" value="Define a constant instead of duplicating this literal &quot;Something went wrong.&quot; 4 times." />
                 <option name="ruleKey" value="java:S1192" />
                 <option name="severity" value="CRITICAL" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLIlajGaX_aShGlDI" />
-                <option name="line" value="24" />
-                <option name="message" value="Remove this conditional structure or edit its code blocks so that they're not all the same." />
-                <option name="ruleKey" value="java:S3923" />
+                <option name="key" value="AXimLIlajGaX_aShGlDC" />
+                <option name="line" value="1" />
+                <option name="message" value="3 duplicated blocks of code must be removed." />
+                <option name="ruleKey" value="common-java:DuplicatedBlocks" />
                 <option name="severity" value="MAJOR" />
               </SonarIssue>
               <SonarIssue>
@@ -297,32 +270,32 @@
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
+                <option name="key" value="AXimLIlbjGaX_aShGlDU" />
+                <option name="line" value="139" />
+                <option name="message" value="Replace this use of System.out or System.err by a logger." />
+                <option name="ruleKey" value="java:S106" />
+                <option name="severity" value="MAJOR" />
+              </SonarIssue>
+              <SonarIssue>
+                <option name="isNew" value="false" />
+                <option name="key" value="AXimLIlbjGaX_aShGlDV" />
+                <option name="line" value="156" />
+                <option name="message" value="Replace this use of System.out or System.err by a logger." />
+                <option name="ruleKey" value="java:S106" />
+                <option name="severity" value="MAJOR" />
+              </SonarIssue>
+              <SonarIssue>
+                <option name="isNew" value="false" />
                 <option name="key" value="AXimLIlajGaX_aShGlDL" />
-                <option name="line" value="57" />
+                <option name="line" value="51" />
                 <option name="message" value="Replace this use of System.out or System.err by a logger." />
                 <option name="ruleKey" value="java:S106" />
                 <option name="severity" value="MAJOR" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLIlajGaX_aShGlDC" />
-                <option name="line" value="1" />
-                <option name="message" value="3 duplicated blocks of code must be removed." />
-                <option name="ruleKey" value="common-java:DuplicatedBlocks" />
-                <option name="severity" value="MAJOR" />
-              </SonarIssue>
-              <SonarIssue>
-                <option name="isNew" value="false" />
-                <option name="key" value="AXimLIlajGaX_aShGlDK" />
-                <option name="line" value="49" />
-                <option name="message" value="Replace this use of System.out or System.err by a logger." />
-                <option name="ruleKey" value="java:S106" />
-                <option name="severity" value="MAJOR" />
-              </SonarIssue>
-              <SonarIssue>
-                <option name="isNew" value="false" />
-                <option name="key" value="AXimLIlajGaX_aShGlDM" />
-                <option name="line" value="61" />
+                <option name="key" value="AXimLIlbjGaX_aShGlDS" />
+                <option name="line" value="114" />
                 <option name="message" value="Replace this use of System.out or System.err by a logger." />
                 <option name="ruleKey" value="java:S106" />
                 <option name="severity" value="MAJOR" />
@@ -330,23 +303,23 @@
               <SonarIssue>
                 <option name="isNew" value="false" />
                 <option name="key" value="AXimLIlbjGaX_aShGlDO" />
-                <option name="line" value="70" />
+                <option name="line" value="64" />
                 <option name="message" value="Replace this use of System.out or System.err by a logger." />
                 <option name="ruleKey" value="java:S106" />
                 <option name="severity" value="MAJOR" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLIlajGaX_aShGlDJ" />
-                <option name="line" value="41" />
-                <option name="message" value="This block of commented-out lines of code should be removed." />
-                <option name="ruleKey" value="java:S125" />
+                <option name="key" value="AXimLIlajGaX_aShGlDN" />
+                <option name="line" value="62" />
+                <option name="message" value="Replace this use of System.out or System.err by a logger." />
+                <option name="ruleKey" value="java:S106" />
                 <option name="severity" value="MAJOR" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLIlajGaX_aShGlDN" />
-                <option name="line" value="68" />
+                <option name="key" value="AXimLIlbjGaX_aShGlDQ" />
+                <option name="line" value="89" />
                 <option name="message" value="Replace this use of System.out or System.err by a logger." />
                 <option name="ruleKey" value="java:S106" />
                 <option name="severity" value="MAJOR" />
@@ -354,7 +327,15 @@
               <SonarIssue>
                 <option name="isNew" value="false" />
                 <option name="key" value="AXimLIlbjGaX_aShGlDR" />
-                <option name="line" value="111" />
+                <option name="line" value="105" />
+                <option name="message" value="Replace this use of System.out or System.err by a logger." />
+                <option name="ruleKey" value="java:S106" />
+                <option name="severity" value="MAJOR" />
+              </SonarIssue>
+              <SonarIssue>
+                <option name="isNew" value="false" />
+                <option name="key" value="AXimLIlajGaX_aShGlDK" />
+                <option name="line" value="43" />
                 <option name="message" value="Replace this use of System.out or System.err by a logger." />
                 <option name="ruleKey" value="java:S106" />
                 <option name="severity" value="MAJOR" />
@@ -462,6 +443,11 @@
             </set>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/Interface/IJwtRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/Logic/Registration.java">
           <value>
             <set>
@@ -497,11 +483,11 @@
             <set>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLI0MjGaX_aShGlD8" />
-                <option name="line" value="9" />
-                <option name="message" value="Remove this unused &quot;password&quot; private field." />
-                <option name="ruleKey" value="java:S1068" />
-                <option name="severity" value="MAJOR" />
+                <option name="key" value="AXimLI0MjGaX_aShGlD6" />
+                <option name="line" value="1" />
+                <option name="message" value="Rename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'." />
+                <option name="ruleKey" value="java:S120" />
+                <option name="severity" value="MINOR" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
@@ -513,11 +499,11 @@
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLI0MjGaX_aShGlD6" />
-                <option name="line" value="1" />
-                <option name="message" value="Rename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'." />
-                <option name="ruleKey" value="java:S120" />
-                <option name="severity" value="MINOR" />
+                <option name="key" value="AXimLI0MjGaX_aShGlD8" />
+                <option name="line" value="9" />
+                <option name="message" value="Remove this unused &quot;password&quot; private field." />
+                <option name="ruleKey" value="java:S1068" />
+                <option name="severity" value="MAJOR" />
               </SonarIssue>
             </set>
           </value>
@@ -527,11 +513,11 @@
             <set>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLIzUjGaX_aShGlDz" />
-                <option name="line" value="16" />
-                <option name="message" value="This block of commented-out lines of code should be removed." />
-                <option name="ruleKey" value="java:S125" />
-                <option name="severity" value="MAJOR" />
+                <option name="key" value="AXimLIzUjGaX_aShGlDy" />
+                <option name="line" value="1" />
+                <option name="message" value="Rename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'." />
+                <option name="ruleKey" value="java:S120" />
+                <option name="severity" value="MINOR" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
@@ -543,11 +529,11 @@
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLIzUjGaX_aShGlDy" />
-                <option name="line" value="1" />
-                <option name="message" value="Rename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'." />
-                <option name="ruleKey" value="java:S120" />
-                <option name="severity" value="MINOR" />
+                <option name="key" value="AXimLIzUjGaX_aShGlDz" />
+                <option name="line" value="16" />
+                <option name="message" value="This block of commented-out lines of code should be removed." />
+                <option name="ruleKey" value="java:S125" />
+                <option name="severity" value="MAJOR" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
@@ -625,19 +611,19 @@
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLI0xjGaX_aShGlED" />
-                <option name="line" value="110" />
-                <option name="message" value="Use try-with-resources or close this &quot;CallableStatement&quot; in a &quot;finally&quot; clause." />
-                <option name="ruleKey" value="java:S2095" />
-                <option name="severity" value="BLOCKER" />
-              </SonarIssue>
-              <SonarIssue>
-                <option name="isNew" value="false" />
                 <option name="key" value="AXimLI0yjGaX_aShGlES" />
                 <option name="line" value="80" />
                 <option name="message" value="Replace this use of System.out or System.err by a logger." />
                 <option name="ruleKey" value="java:S106" />
                 <option name="severity" value="MAJOR" />
+              </SonarIssue>
+              <SonarIssue>
+                <option name="isNew" value="false" />
+                <option name="key" value="AXimLI0xjGaX_aShGlED" />
+                <option name="line" value="110" />
+                <option name="message" value="Use try-with-resources or close this &quot;CallableStatement&quot; in a &quot;finally&quot; clause." />
+                <option name="ruleKey" value="java:S2095" />
+                <option name="severity" value="BLOCKER" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
@@ -737,18 +723,18 @@
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLI0xjGaX_aShGlEJ" />
-                <option name="line" value="109" />
-                <option name="message" value="Extract this nested try block into a separate method." />
-                <option name="ruleKey" value="java:S1141" />
-                <option name="severity" value="MAJOR" />
-              </SonarIssue>
-              <SonarIssue>
-                <option name="isNew" value="false" />
                 <option name="key" value="AXimLI0yjGaX_aShGlEQ" />
                 <option name="line" value="45" />
                 <option name="message" value="Replace this use of System.out or System.err by a logger." />
                 <option name="ruleKey" value="java:S106" />
+                <option name="severity" value="MAJOR" />
+              </SonarIssue>
+              <SonarIssue>
+                <option name="isNew" value="false" />
+                <option name="key" value="AXimLI0xjGaX_aShGlEJ" />
+                <option name="line" value="109" />
+                <option name="message" value="Extract this nested try block into a separate method." />
+                <option name="ruleKey" value="java:S1141" />
                 <option name="severity" value="MAJOR" />
               </SonarIssue>
               <SonarIssue>
@@ -831,18 +817,18 @@
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLI2ZjGaX_aShGlEz" />
-                <option name="line" value="29" />
-                <option name="message" value="Extract this nested try block into a separate method." />
-                <option name="ruleKey" value="java:S1141" />
-                <option name="severity" value="MAJOR" />
-              </SonarIssue>
-              <SonarIssue>
-                <option name="isNew" value="false" />
                 <option name="key" value="AXimLI2ajGaX_aShGlFH" />
                 <option name="line" value="166" />
                 <option name="message" value="Replace this use of System.out or System.err by a logger." />
                 <option name="ruleKey" value="java:S106" />
+                <option name="severity" value="MAJOR" />
+              </SonarIssue>
+              <SonarIssue>
+                <option name="isNew" value="false" />
+                <option name="key" value="AXimLI2ZjGaX_aShGlEz" />
+                <option name="line" value="29" />
+                <option name="message" value="Extract this nested try block into a separate method." />
+                <option name="ruleKey" value="java:S1141" />
                 <option name="severity" value="MAJOR" />
               </SonarIssue>
               <SonarIssue>
@@ -863,18 +849,18 @@
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLI2ZjGaX_aShGlEr" />
-                <option name="line" value="1" />
-                <option name="message" value="3 duplicated blocks of code must be removed." />
-                <option name="ruleKey" value="common-java:DuplicatedBlocks" />
-                <option name="severity" value="MAJOR" />
-              </SonarIssue>
-              <SonarIssue>
-                <option name="isNew" value="false" />
                 <option name="key" value="AXimLI2ZjGaX_aShGlE3" />
                 <option name="line" value="156" />
                 <option name="message" value="Extract this nested try block into a separate method." />
                 <option name="ruleKey" value="java:S1141" />
+                <option name="severity" value="MAJOR" />
+              </SonarIssue>
+              <SonarIssue>
+                <option name="isNew" value="false" />
+                <option name="key" value="AXimLI2ZjGaX_aShGlEr" />
+                <option name="line" value="1" />
+                <option name="message" value="3 duplicated blocks of code must be removed." />
+                <option name="ruleKey" value="common-java:DuplicatedBlocks" />
                 <option name="severity" value="MAJOR" />
               </SonarIssue>
               <SonarIssue>
@@ -903,19 +889,19 @@
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLI2ZjGaX_aShGlE8" />
-                <option name="line" value="19" />
-                <option name="message" value="Complete the task associated to this TODO comment." />
-                <option name="ruleKey" value="java:S1135" />
-                <option name="severity" value="INFO" />
-              </SonarIssue>
-              <SonarIssue>
-                <option name="isNew" value="false" />
                 <option name="key" value="AXimLI2ZjGaX_aShGlEu" />
                 <option name="line" value="59" />
                 <option name="message" value="Use try-with-resources or close this &quot;CallableStatement&quot; in a &quot;finally&quot; clause." />
                 <option name="ruleKey" value="java:S2095" />
                 <option name="severity" value="BLOCKER" />
+              </SonarIssue>
+              <SonarIssue>
+                <option name="isNew" value="false" />
+                <option name="key" value="AXimLI2ZjGaX_aShGlE8" />
+                <option name="line" value="19" />
+                <option name="message" value="Complete the task associated to this TODO comment." />
+                <option name="ruleKey" value="java:S1135" />
+                <option name="severity" value="INFO" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
@@ -927,16 +913,16 @@
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLI2ZjGaX_aShGlEw" />
-                <option name="line" value="134" />
+                <option name="key" value="AXimLI2ZjGaX_aShGlEt" />
+                <option name="line" value="157" />
                 <option name="message" value="Use try-with-resources or close this &quot;CallableStatement&quot; in a &quot;finally&quot; clause." />
                 <option name="ruleKey" value="java:S2095" />
                 <option name="severity" value="BLOCKER" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLI2ZjGaX_aShGlEt" />
-                <option name="line" value="157" />
+                <option name="key" value="AXimLI2ZjGaX_aShGlEw" />
+                <option name="line" value="134" />
                 <option name="message" value="Use try-with-resources or close this &quot;CallableStatement&quot; in a &quot;finally&quot; clause." />
                 <option name="ruleKey" value="java:S2095" />
                 <option name="severity" value="BLOCKER" />
@@ -975,19 +961,19 @@
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLI2ZjGaX_aShGlEv" />
-                <option name="line" value="105" />
-                <option name="message" value="Use try-with-resources or close this &quot;CallableStatement&quot; in a &quot;finally&quot; clause." />
-                <option name="ruleKey" value="java:S2095" />
-                <option name="severity" value="BLOCKER" />
-              </SonarIssue>
-              <SonarIssue>
-                <option name="isNew" value="false" />
                 <option name="key" value="AXimLI2ajGaX_aShGlFJ" />
                 <option name="line" value="14" />
                 <option name="message" value="Remove this unused &quot;statement&quot; private field." />
                 <option name="ruleKey" value="java:S1068" />
                 <option name="severity" value="MAJOR" />
+              </SonarIssue>
+              <SonarIssue>
+                <option name="isNew" value="false" />
+                <option name="key" value="AXimLI2ZjGaX_aShGlEv" />
+                <option name="line" value="105" />
+                <option name="message" value="Use try-with-resources or close this &quot;CallableStatement&quot; in a &quot;finally&quot; clause." />
+                <option name="ruleKey" value="java:S2095" />
+                <option name="severity" value="BLOCKER" />
               </SonarIssue>
             </set>
           </value>
@@ -1005,18 +991,18 @@
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLI2FjGaX_aShGlEc" />
-                <option name="line" value="1" />
-                <option name="message" value="1 duplicated blocks of code must be removed." />
-                <option name="ruleKey" value="common-java:DuplicatedBlocks" />
-                <option name="severity" value="MAJOR" />
-              </SonarIssue>
-              <SonarIssue>
-                <option name="isNew" value="false" />
                 <option name="key" value="AXimLI2GjGaX_aShGlEi" />
                 <option name="line" value="64" />
                 <option name="message" value="A &quot;NullPointerException&quot; could be thrown; &quot;employee&quot; is nullable here." />
                 <option name="ruleKey" value="java:S2259" />
+                <option name="severity" value="MAJOR" />
+              </SonarIssue>
+              <SonarIssue>
+                <option name="isNew" value="false" />
+                <option name="key" value="AXimLI2FjGaX_aShGlEc" />
+                <option name="line" value="1" />
+                <option name="message" value="1 duplicated blocks of code must be removed." />
+                <option name="ruleKey" value="common-java:DuplicatedBlocks" />
                 <option name="severity" value="MAJOR" />
               </SonarIssue>
               <SonarIssue>
@@ -1053,11 +1039,11 @@
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLI2GjGaX_aShGlEm" />
-                <option name="line" value="34" />
-                <option name="message" value="Replace this use of System.out or System.err by a logger." />
-                <option name="ruleKey" value="java:S106" />
-                <option name="severity" value="MAJOR" />
+                <option name="key" value="AXimLI2GjGaX_aShGlEk" />
+                <option name="line" value="14" />
+                <option name="message" value="Make this final field static too." />
+                <option name="ruleKey" value="java:S1170" />
+                <option name="severity" value="MINOR" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
@@ -1069,11 +1055,11 @@
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLI2GjGaX_aShGlEk" />
-                <option name="line" value="14" />
-                <option name="message" value="Make this final field static too." />
-                <option name="ruleKey" value="java:S1170" />
-                <option name="severity" value="MINOR" />
+                <option name="key" value="AXimLI2GjGaX_aShGlEm" />
+                <option name="line" value="34" />
+                <option name="message" value="Replace this use of System.out or System.err by a logger." />
+                <option name="ruleKey" value="java:S106" />
+                <option name="severity" value="MAJOR" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />
@@ -1099,19 +1085,19 @@
             <set>
               <SonarIssue>
                 <option name="isNew" value="false" />
-                <option name="key" value="AXimLI0cjGaX_aShGlD9" />
-                <option name="line" value="1" />
-                <option name="message" value="Rename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'." />
-                <option name="ruleKey" value="java:S120" />
-                <option name="severity" value="MINOR" />
-              </SonarIssue>
-              <SonarIssue>
-                <option name="isNew" value="false" />
                 <option name="key" value="AXimLI0cjGaX_aShGlD_" />
                 <option name="line" value="28" />
                 <option name="message" value="Replace this use of System.out or System.err by a logger." />
                 <option name="ruleKey" value="java:S106" />
                 <option name="severity" value="MAJOR" />
+              </SonarIssue>
+              <SonarIssue>
+                <option name="isNew" value="false" />
+                <option name="key" value="AXimLI0cjGaX_aShGlD9" />
+                <option name="line" value="1" />
+                <option name="message" value="Rename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'." />
+                <option name="ruleKey" value="java:S120" />
+                <option name="severity" value="MINOR" />
               </SonarIssue>
               <SonarIssue>
                 <option name="isNew" value="false" />

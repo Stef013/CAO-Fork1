@@ -43,17 +43,12 @@ public class CustomerController {
 
             try {
                 String email = request.queryParams("id");
-                System.out.println(email);
-
                 Customer customer = RL.getCustomer(email);
-
                 json = gson.toJson(customer);
             } catch (Exception ex) {
                 System.out.println(ex);
                 json = "Cant find user.";
             }
-
-            System.out.println(json);
 
             return json;
         }));

@@ -3,11 +3,16 @@ package Controller;
 import Interface.IEmployeeRepository;
 import Model.Employee;
 import Model.AccountCredentials;
+import Model.JwtResponse;
 import Model.RoleUpdate;
-import Repository.EmployeeSqlRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import spark.Spark;
+
+import java.security.Key;
 
 public class EmployeeController {
     private final Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
@@ -21,24 +26,21 @@ public class EmployeeController {
         this.employeeRepository = employeeRepository;
 
         Spark.get("/login", ((request, response) -> {
+            response.type("application/json");
             AccountCredentials credentials = gson.fromJson(request.body(), AccountCredentials.class);
-
-            // Get Employee with matching email
             Employee employee = employeeRepository.get(credentials.getEmail());
+            JwtResponse jwtResponse = new JwtResponse();
 
-            //Check if credentials match
             if( credentials.isMatchingAccount(employee) ) {
-                return gson.toJson(employee);
+                Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+                String jws = Jwts.builder().setSubject("Joe").signWith(key).compact();
+                jwtResponse.setToken(jws);
             }
-            return gson.toJson(false);
-//            return new Employee(
-//                    1,
-//                    "axel@connectedairlines.com",
-//                    null,
-//                    "Axel",
-//                    "Kohler",
-//                    Roles.EMPLOYEE
-//            );
+            else {
+                response.status(401);
+                jwtResponse.setMessage("The user and password combination is incorrect");
+            }
+            return gson.toJson(jwtResponse);
         }));
 
         Spark.get("/", ((request, response) -> {
