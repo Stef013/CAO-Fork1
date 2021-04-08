@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function SignIn(props) {
+export default function BookingSeatpicker(props) {
     const classes = useStyles();
     const history = useHistory();
 

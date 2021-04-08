@@ -4,7 +4,7 @@ function Booking(userId, contactEmail, contactPhonenumber, emergencyEmail, emerg
     this.contactPhonenumber = contactPhonenumber;
     this.emergencyEmail = emergencyEmail;
     this.emergencyPhonenumber = emergencyPhonenumber;
-    this.tickets = []
+    this.tickets = [];
 }
 
 export default Booking;

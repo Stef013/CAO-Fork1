@@ -1,11 +1,7 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
+import React, { useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -14,7 +10,6 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Box, Grid, Input, MenuItem, Slider } from '@material-ui/core';
 import PassengerInfo from './BookingPassengerInfo'
-import Booking from '../models/Booking';
 import Ticket from '../models/Ticket';
 
 const useStyles = makeStyles((theme) => ({
@@ -40,74 +35,94 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function SignIn(props) {
+export default function BookingPassengers(props) {
     const classes = useStyles();
     const history = useHistory();
 
-    const [value, setValue] = React.useState(1);
-    const [booking, setBooking] = React.useState(new Booking());
+    const [value, setValue] = React.useState(props.currentPassengers);
+    const [booking, setBooking] = React.useState(props.booking);
 
     const handleSliderChange = (event, newValue) => {
         if (value > newValue) {
-            removeLastPassenger();
+            var deleteValue = value - newValue;
+            removeLastPassenger(deleteValue);
+        }
+        else if (value < event.target.value) {
+            var addValue = event.target.value - value;
+            addNewTickets(addValue)
         }
         setValue(newValue);
     };
 
     const handleInputChange = (event) => {
         if (value > event.target.value) {
-            removeLastPassenger();
+            var deleteValue = value - event.target.value;
+            removeLastPassenger(deleteValue);
+        }
+        else if (value < event.target.value) {
+            var addValue = event.target.value - value;
+            addNewTickets(addValue)
         }
         setValue(event.target.value === '' ? '' : Number(event.target.value));
+
     };
 
-    const removeLastPassenger = () => {
-        console.log("Booking before removal")
-        console.log(booking);
+    const removeLastPassenger = (deleteValue) => {
         var newBooking = booking;
-        newBooking.tickets.pop();
+        for (var i = 1; i <= deleteValue; i++) {
+            newBooking.tickets.splice(-1, deleteValue);
+        }
         setBooking(newBooking);
-        console.log("Booking after removal")
-        console.log(booking);
+    }
+
+    const addNewTickets = (newValue) => {
+        var newBooking = booking;
+        for (var i = 1; i <= newValue; i++) {
+            newBooking.tickets.push(new Ticket());
+        }
+        setBooking(newBooking);
     }
 
     const createDataFieldsForEachPerson = () => {
+        if (booking.tickets.length === 0) {
+            var newBooking = booking;
+            var newTicket = new Ticket();
+            newTicket.id = 1;
+            newBooking.tickets.push(newTicket);
+            setBooking(newBooking);
+        }
+
         var rows = [];
-        for (var i = 0; i < value; i++) {
-            rows.push(<PassengerInfo id={i} updateBooking={updateBooking} updateTickets={updateTickets}/>)
+        for (var i = 1; i <= value; i++) {
+            rows.push(<PassengerInfo id={i} booking={booking} ticket={booking.tickets[i - 1]} updateBooking={updateBooking} updateTickets={updateTickets} />)
         }
         return <div>{rows}</div>;
     };
 
     const updateBooking = (data) => {
-        const {value, name } = data.target;
+        const { value, name } = data.target;
         var newBooking = booking;
         newBooking[name] = value;
         setBooking(newBooking);
     }
 
-    const updateTickets = (data, id) => {
-        console.log("Booking before searching with .finds")
-        console.log(booking)
-        const {value, name } = data.target;
+    const updateTickets = (newTicket) => {
         var newBooking = booking;
-        if (newBooking.tickets.find(x => x.id === id)){
-            newBooking.tickets[id][name] = value;
+        let ticket = newBooking.tickets.find(ticket => ticket.id == newTicket.id);
+
+        if (ticket != undefined) {
+            newBooking.tickets.splice(newTicket.id - 1, 1, newTicket);
             setBooking(newBooking);
-            console.log(booking)
         }
         else {
-            var newTicket = new Ticket();
-            newTicket.id = id;
-            newTicket[name] = value;
-            newBooking.tickets.push(newTicket);
-            setBooking(newBooking);
-            console.log(booking)
+            alert("No ticket found")
         }
     }
 
     const sendPassengerData = () => {
-
+        console.log("DATA SEND")
+        props.setPassengers(value);
+        props.storePassengerData(booking);
     }
 
     return (
@@ -172,7 +187,9 @@ export default function SignIn(props) {
                                     fullWidth
                                     id="email address"
                                     label="Email Address"
-                                    name="email address"
+                                    defaultValue={booking.emergencyEmail}
+                                    name="emergencyEmail"
+                                    onChange={updateBooking}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -183,7 +200,9 @@ export default function SignIn(props) {
                                     fullWidth
                                     id="phone number"
                                     label="Phone Number"
-                                    name="phone number"
+                                    defaultValue={booking.emergencyPhonenumber}
+                                    name="emergencyPhonenumber"
+                                    onChange={updateBooking}
                                 />
                             </Grid>
                         </Grid>
@@ -209,7 +228,7 @@ export default function SignIn(props) {
                             fullWidth
                             variant="contained"
                             color="primary"
-                            onClick={sendPassengerData()}
+                            onClick={sendPassengerData}
                         >
                             Seatpicker
                             <ArrowForwardIcon />

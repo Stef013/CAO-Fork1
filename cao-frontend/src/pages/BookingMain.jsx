@@ -15,8 +15,13 @@ class BookingMain extends React.Component {
         super()
         this.state = {
             currentPage: 1,
-            booking: new Booking()
+            booking: new Booking(),
+            currentPassengers: 1
         }
+    }
+    
+    setPassengers = (newPassengers) => {
+        this.state.currentPassengers = newPassengers;
     }
     
     previousPage = () => {
@@ -32,14 +37,18 @@ class BookingMain extends React.Component {
         newBooking.emergencyPhonenumber = data.emergencyPhonenumber;
         newBooking.tickets = data.tickets;
 
+        console.log(data);
         this.setState({booking: newBooking});
+        console.log(this.state.booking);
         this.setState({currentPage: this.state.currentPage + 1})
     }
+
+
 
     render() {
         switch (this.state.currentPage) {
             case 1:
-                return (<BookingPassengers storePassengerData={this.storePassengerData} previousPage={this.previousPage} />);
+                return (<BookingPassengers setPassengers={this.setPassengers} booking={this.state.booking} currentPassengers={this.state.currentPassengers} storePassengerData={this.storePassengerData} previousPage={this.previousPage} />);
             case 2:
                 return (<BookingSeatpicker previousPage={this.previousPage} />);
             case 3:
