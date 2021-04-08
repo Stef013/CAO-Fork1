@@ -11,7 +11,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Claims;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Booking;
-import models.ReturnBooking;
 import services.BookingService;
 
 import java.util.Date;
@@ -31,15 +30,16 @@ public class BookingController {
     public Response book(String bookingJson, @HeaderParam("jwtToken") String jwt) throws JsonProcessingException {
         // Uncomment when a valid jwtToken is sent (for now the userId is hardcoded)
         // int userId = (int)decodeJWT(jwt).get("userId")
-        Booking booking = objectMapper.readValue(bookingJson, Booking.class);
-        booking.setBookingDate(new Date());
-        ReturnBooking returnBooking = bookingService.book(booking, 1);
+        Booking bookingRequest = objectMapper.readValue(bookingJson, Booking.class);
+        bookingRequest.setBookingDate(new Date());
+        Booking bookingResponse = bookingService.book(bookingRequest, 1);
 
-        if (returnBooking.isSuccess() == false) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(objectMapper.writeValueAsString(returnBooking)).build();
+        if (bookingResponse == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        //TODO: notify flight service that a ticket is booked (messaging)
-        return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(returnBooking)).build();
+
+        //TODO: notify flight service that a ticket is booked (RabbitMQ)
+        return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(bookingResponse)).build();
     }
 
     public Claims decodeJWT(String jwt) {

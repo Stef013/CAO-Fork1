@@ -16,13 +16,13 @@ public class Ticket {
     private int flightId;
 
     @JsonProperty("price")
-    private double price;
+    private float price;
 
     @JsonProperty("seat")
     private String seat;
 
     @JsonProperty("extraLuggage")
-    private boolean extraLuggage;
+    private int extraLuggage;
 
     @JsonProperty("bookedHotel")
     private boolean bookedHotel;
@@ -62,11 +62,11 @@ public class Ticket {
         this.flightId = flightId;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
@@ -78,11 +78,12 @@ public class Ticket {
         this.seat = seat;
     }
 
-    public boolean isExtraLuggage() {
+
+    public int getExtraLuggage() {
         return extraLuggage;
     }
 
-    public void setExtraLuggage(boolean extraLuggage) {
+    public void setExtraLuggage(int extraLuggage) {
         this.extraLuggage = extraLuggage;
     }
 

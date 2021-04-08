@@ -1,15 +1,79 @@
 package repositories;
 
-import models.ReturnBooking;
 import models.Booking;
+import models.Ticket;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.sql.*;
+import java.util.List;
 
 @ApplicationScoped
 public class BookingRepository {
 
-    public ReturnBooking book(Booking booking, int userId) {
-        //TODO: persist to database
-        return new ReturnBooking(1, true);
+    private Connection connection;
+    private String connectionUrl = "jdbc:sqlserver://cao-dbserver.database.windows.net:1433;" +
+            "database=CAO_Booking;user=CaoAdmin@cao-dbserver;password=7tJzrUVGB5i8dxX;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+
+    public Booking book(Booking booking, int userId) {
+        String query = "INSERT INTO [Booking] (CustomerId, BookingDate, CustomerPhoneNumber, " +
+                "ContactPersonPhoneNumber, ContactPersonEmail) VALUES " +
+                "(?,?,?,?,?)";
+
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+
+            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, booking.getCustomerId());
+            statement.setDate(2, new java.sql.Date(booking.getBookingDate().getTime()));
+            statement.setString(3, booking.getCustomerPhoneNumber());
+            statement.setString(4, booking.getContactPersonPhoneNumber());
+            statement.setString(5, booking.getContactPersonEmail());
+
+            statement.executeUpdate();
+
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int bookingId = generatedKeys.getInt(1);
+
+                boolean ticketsAdded = addTickets(connection, booking.getTickets(), bookingId);
+
+                if (ticketsAdded) {
+                    booking.setBookingId(bookingId);
+                    return booking;
+                }
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return null;
+    }
+
+    private boolean addTickets(Connection connection, List<Ticket> tickets, int bookingId) {
+        String query = "INSERT INTO [Ticket] (BookingId, FlightId, FirstName, LastName, Gender, Price, Seat, " +
+                "ExtraLuggage, BookedHotel, RentedCar) VALUES " +
+                "(?,?,?," +
+                "?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            for (Ticket ticket : tickets) {
+                statement.setInt(1, bookingId);
+                statement.setInt(2, ticket.getFlightId());
+                statement.setString(3, ticket.getFirstName());
+                statement.setString(4, ticket.getLastName());
+                statement.setString(5, ticket.getGender());
+                statement.setFloat(6, ticket.getPrice());
+                statement.setString(7, ticket.getSeat());
+                statement.setInt(8, ticket.getExtraLuggage());
+                statement.setBoolean(9, ticket.isBookedHotel());
+                statement.setBoolean(10, ticket.isRentedCar());
+                statement.addBatch();
+            }
+            int[] affectedRows = statement.executeBatch();
+            if (affectedRows.length == tickets.size()) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

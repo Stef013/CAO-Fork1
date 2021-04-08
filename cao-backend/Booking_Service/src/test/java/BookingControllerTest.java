@@ -18,7 +18,7 @@ public class BookingControllerTest {
         ticket1Json.put("flightId", 1);
         ticket1Json.put("price", 80.50);
         ticket1Json.put("seat", "A22");
-        ticket1Json.put("extraLuggage", false);
+        ticket1Json.put("extraLuggage", 1);
         ticket1Json.put("bookedHotel", false);
         ticket1Json.put("rentedCar", false);
 
@@ -30,7 +30,7 @@ public class BookingControllerTest {
         ticket2Json.put("flightId", 1);
         ticket2Json.put("price", 80.50);
         ticket2Json.put("seat", "A22");
-        ticket2Json.put("extraLuggage", false);
+        ticket2Json.put("extraLuggage", 1);
         ticket2Json.put("bookedHotel", false);
         ticket2Json.put("rentedCar", false);
 
@@ -41,6 +41,9 @@ public class BookingControllerTest {
         //Booking
         JSONObject bookingJson = new JSONObject();
         bookingJson.put("customerId", 1);
+        bookingJson.put("customerPhoneNumber", "0612345678");
+        bookingJson.put("contactPersonEmail", "klaas@gmail.com");
+        bookingJson.put("contactPersonPhoneNumber", "0611223344");
         bookingJson.put("tickets", new JSONArray(ticketsJson));
 
         given()
