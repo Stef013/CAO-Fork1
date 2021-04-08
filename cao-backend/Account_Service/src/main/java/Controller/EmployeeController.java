@@ -1,18 +1,20 @@
 package Controller;
 
 import Interface.IEmployeeRepository;
-import Model.Employee;
 import Model.AccountCredentials;
+import Model.Employee;
 import Model.JwtResponse;
 import Model.RoleUpdate;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import spark.Spark;
 
+import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
+import java.util.Calendar;
+import java.util.Date;
 
 public class EmployeeController {
     private final Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
@@ -28,12 +30,25 @@ public class EmployeeController {
         Spark.get("/login", ((request, response) -> {
             response.type("application/json");
             AccountCredentials credentials = gson.fromJson(request.body(), AccountCredentials.class);
-            Employee employee = employeeRepository.get(credentials.getEmail());
+            Employee employee = this.employeeRepository.get(credentials.getEmail());
             JwtResponse jwtResponse = new JwtResponse();
 
             if( credentials.isMatchingAccount(employee) ) {
-                Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-                String jws = Jwts.builder().setSubject("Joe").signWith(key).compact();
+                SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+                byte[] apiKeySecretBytes = "mnbv*9XllnLSf8Nxu4$%lbRH15cVQa^T".getBytes();
+                Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+
+                Calendar nbf = Calendar.getInstance();
+                nbf.add(Calendar.MINUTE, -10);
+                Calendar expiration = Calendar.getInstance();
+                expiration.add(Calendar.MINUTE, 60);
+                String jws = Jwts.builder()
+                        .setSubject("Joe")
+                        .setNotBefore(nbf.getTime())
+                        .setIssuedAt(new Date())
+                        .setExpiration(expiration.getTime())
+                        .signWith(signingKey)
+                        .compact();
                 jwtResponse.setToken(jws);
             }
             else {
@@ -56,7 +71,6 @@ public class EmployeeController {
                 json = gson.toJson(employee);
 
             } catch (Exception ex) {
-                System.out.println(ex.toString());
                 json = "Cant find user.";
             }
 
@@ -85,7 +99,6 @@ public class EmployeeController {
                     message = "Email already in use.";
                 }
             } catch (Exception ex) {
-                System.out.println(ex.toString());
                 message = "Something went wrong.";
             }
 
@@ -110,7 +123,6 @@ public class EmployeeController {
                 }
 
             } catch (Exception ex) {
-                System.out.println(ex.toString());
                 message = "Something went wrong.";
             }
             return message;
@@ -135,7 +147,6 @@ public class EmployeeController {
                 }
 
             } catch (Exception ex) {
-                System.out.println(ex.toString());
                 message = "Something went wrong.";
             }
             return message;
@@ -161,7 +172,6 @@ public class EmployeeController {
                 }
 
             } catch (Exception ex) {
-                System.out.println(ex.toString());
                 message = "Something went wrong.";
             }
             return message;
