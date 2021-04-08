@@ -43,7 +43,7 @@ public class EmployeeController {
                 Calendar expiration = Calendar.getInstance();
                 expiration.add(Calendar.MINUTE, 60);
                 String jws = Jwts.builder()
-                        .setSubject("Joe")
+                        .setSubject(employee.getEmail())
                         .setNotBefore(nbf.getTime())
                         .setIssuedAt(new Date())
                         .setExpiration(expiration.getTime())
