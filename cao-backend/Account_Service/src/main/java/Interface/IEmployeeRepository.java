@@ -1,8 +1,9 @@
 package Interface;
 
 import Model.Employee;
-import Model.AccountCredentials;
-import Model.RoleUpdate;
+import Model.UpdateEmployeeRole;
+
+import java.util.List;
 
 public interface IEmployeeRepository {
     /**
@@ -28,10 +29,17 @@ public interface IEmployeeRepository {
 
     /**
      * Update the role of an Employee
-     * @param newRole The new role to assign to the Employee account
+     * @param updateRole An object containing the Employee id and the new role
      * @return Whether or not the update succeeded
      */
-    boolean setRole(RoleUpdate newRole);
+    boolean updateRole(UpdateEmployeeRole updateRole);
+
+    /**
+     * Update the role of an Employee
+     * @param updateRole An object containing the Employee id and the new role
+     * @return Whether or not the update succeeded
+     */
+    boolean updateRoleAndPassword(UpdateEmployeeRole updateRole);
 
     /**
      * Delete an Employee account
@@ -47,4 +55,6 @@ public interface IEmployeeRepository {
      */
     boolean accountWithEmailExists(String email);
 
+
+    List<Employee> getAll();
 }

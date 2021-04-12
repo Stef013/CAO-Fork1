@@ -4,7 +4,7 @@ import Interface.IEmployeeRepository;
 import Model.AccountCredentials;
 import Model.Employee;
 import Model.JwtResponse;
-import Model.RoleUpdate;
+import Model.UpdateEmployeeRole;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.jsonwebtoken.Jwts;
@@ -15,6 +15,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class EmployeeController {
     private final Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
@@ -22,6 +23,7 @@ public class EmployeeController {
 
     /**
      * Handles registering and logging in Employee accounts
+     *
      * @param employeeRepository The Employee repository to be used
      */
     public EmployeeController(final IEmployeeRepository employeeRepository) {
@@ -33,7 +35,7 @@ public class EmployeeController {
             Employee employee = this.employeeRepository.get(credentials.getEmail());
             JwtResponse jwtResponse = new JwtResponse();
 
-            if( credentials.isMatchingAccount(employee) ) {
+            if (credentials.isMatchingAccount(employee)) {
                 SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
                 byte[] apiKeySecretBytes = "mnbv*9XllnLSf8Nxu4$%lbRH15cVQa^T".getBytes();
                 Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
@@ -50,40 +52,42 @@ public class EmployeeController {
                         .signWith(signingKey)
                         .compact();
                 jwtResponse.setToken(jws);
-            }
-            else {
+            } else {
                 response.status(401);
                 jwtResponse.setMessage("The user and password combination is incorrect");
             }
             return gson.toJson(jwtResponse);
         }));
 
-        Spark.get("/", ((request, response) -> {
+        Spark.get("/:id", ((request, response) -> {
             String json;
 
             try {
-                String email = request.queryParams("id");
-                System.out.println(email);
-
-
+                String email = request.params("id");
                 Employee employee = employeeRepository.get(email);
-
                 json = gson.toJson(employee);
-
             } catch (Exception ex) {
                 json = "Cant find user.";
             }
 
-            System.out.println(json);
+            return json;
+        }));
+
+        Spark.get("/employee", ((request, response) -> {
+            String json;
+
+            try {
+                List<Employee> employees = employeeRepository.getAll();
+                json = gson.toJson(employees);
+            } catch (Exception ex) {
+                json = "No employees";
+            }
 
             return json;
         }));
 
         Spark.post("/", ((request, response) -> {
-
-            System.out.println("Post /");
             String body = request.body();
-            System.out.println(body);
             String message = "";
 
             try {
@@ -106,8 +110,6 @@ public class EmployeeController {
         }));
 
         Spark.put("/", ((request, response) -> {
-
-            System.out.println("Put /");
             String body = request.body();
             String message;
 
@@ -130,15 +132,13 @@ public class EmployeeController {
         }));
 
         Spark.put("/role", ((request, response) -> {
-
-            System.out.println("Put /");
             String body = request.body();
             String message;
 
             try {
-                RoleUpdate newRole = gson.fromJson(body, RoleUpdate.class);
+                UpdateEmployeeRole updateEmployeeRole = gson.fromJson(body, UpdateEmployeeRole.class);
 
-                boolean result = employeeRepository.setRole(newRole);
+                boolean result = employeeRepository.updateRole(updateEmployeeRole);
 
                 if (result) {
                     message = "Account setting updated!";
@@ -154,8 +154,6 @@ public class EmployeeController {
         }));
 
         Spark.delete("/", ((request, response) -> {
-
-            System.out.println("Delete /");
             String body = request.body();
             String message;
 

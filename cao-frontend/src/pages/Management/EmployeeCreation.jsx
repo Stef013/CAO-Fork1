@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import MenuAppBar from "../../Components/MenuAppBar";
-import { Typography, Button, TextField, Grid, MenuItem, Card } from '@material-ui/core';
-
+import { Typography, Button, TextField, Grid, MenuItem, Paper, Container, Snackbar } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert'
+import axios from 'axios'
 import { withStyles } from '@material-ui/core/styles';
 
 const useStyles = (theme) => ({
@@ -10,13 +11,40 @@ const useStyles = (theme) => ({
         marginTop: 30,
         color: "white"
     },
-    card: {
-        width: 275,
-        height: 260,
-        margin: 10,
-        align: "center",
+    paper: {
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: 50,
+        paddingLeft: 40,
+        paddingRight: 40,
+        maxWidth: 800,
     },
+    submit: {
+        margin: theme.spacing(4, 0, 0),
+    },
+    root: {
+        width: '100%',
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        },
+    },
+    alert: {
+        marginBottom: 15
+    }
 });
+
+const roles = [
+    {
+        value: 'EMPLOYEE',
+        label: 'Employee',
+    },
+    {
+        value: 'ADMIN',
+        label: 'Admin',
+    },
+];
 
 class EmployeeCreation extends Component {
 
@@ -24,9 +52,12 @@ class EmployeeCreation extends Component {
         super(props);
 
         this.state = {
-            setConfPassword: "",
+            confPassword: "",
             showError: false,
             helperText: "",
+            role: "",
+            openSuccess: false,
+            openError: false,
         };
 
         this.account = {
@@ -36,146 +67,192 @@ class EmployeeCreation extends Component {
             lastname: "",
             role: "",
         };
-
-        // this.handleChange = this.handleChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
-    // componentDidMount() {
-    //     document.body.style.backgroundColor = "#3166b0"
-    // }
+    handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        this.setState({ openSuccess: false });
+        this.setState({ openError: false });
+    };
 
     checkPasswords() {
-        // if (account.password == confPassword) {
-        //     console.log(account.password)
-        //     console.log(confPassword)
-        //     return true;
-        // }
-        // else {
-        //     setShowError(true);
-        //     setHelperText("Passwords don't match!")
-        //     console.log(account.password)
-        //     console.log(confPassword)
-        //     return false;
-        // }
+        if (this.account.password === this.state.confPassword) {
+            return true;
+        }
+        else {
+            this.setState({ showError: true });
+            this.setState({ helperText: "Passwords don't match!" });
+            return false;
+        }
     }
 
     handleChange(event) {
         this.account[event.target.name] = event.target.value;
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
 
-        // if (checkPasswords()) {
-        //     account.nationality = country;
+        if (this.checkPasswords()) {
+            if (this.state.role !== "") {
 
-        //     const Customer = account;
-        //     console.log(Customer);
-        //     Customer.dateOfBirth = moment(Customer.dateOfBirth).format("DD/MM/YYYY");
+                this.account.role = this.state.role;
 
-        //     axios.post('http://localhost:8080/account/', Customer, {
-        //         headers: {
-        //             "Content-Type": 'application/json', 'Accept': 'application/json'
-        //         }
-        //     })
-        //         .then(res => {
-        //             console.log(res);
-        //             console.log(res.data);
-        //             handleClose();
-        //         })
-        //         .catch(error => console.log(error));
-        // }
+                var result = "";
+
+                await axios.post('http://localhost:8080/account/employee', this.account, {
+                    headers: {
+                        "Content-Type": 'application/json', 'Accept': 'application/json'
+                    }
+                }).then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                    result = res.data;
+                    document.getElementById("form").reset();
+                }).catch(error => console.log(error));
+
+                if (result === "Account created successfully!") {
+                    this.setState({ openSuccess: true });
+                    this.setState({ openError: false });
+                }
+                else {
+                    this.setState({ openError: true });
+                    this.setState({ openSuccess: false });
+                }
+            }
+        }
     }
     render() {
         const { classes } = this.props;
+        const { openSuccess, openError } = this.state;
         return (
             <div style={{ height: "100%" }}>
                 <MenuAppBar></MenuAppBar>
                 <Typography className={classes.title} align="center" variant="h3" >
                     New Employee Account
                 </Typography>
-                <Card className={classes.card} align="center">
-                    <form className={classes.form} onSubmit={(event) => this.handleSubmit(event)} >
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    autoComplete="fname"
-                                    name="firstname"
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="firstName"
-                                    label="First Name"
-                                    onInput={this.handleChange}
-                                    autoFocus
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="lastname"
-                                    label="Last Name"
-                                    name="lastName"
-                                    autoComplete="lname"
-                                    onInput={this.handleChange}
-                                />
-                            </Grid>
+                <Container align="center">
+                    <Paper className={classes.paper} >
+                        <div className={classes.root}>
+                            <Snackbar open={openSuccess} autoHideDuration={6000} onClose={this.handleClose}>
+                                <Alert onClose={this.handleClose} variant="filled" severity="success" className={classes.alert}>
+                                    Account created successfully!
+                             </Alert>
+                            </Snackbar>
+                        </div>
+                        <div className={classes.root}>
+                            <Snackbar open={openError} autoHideDuration={6000} onClose={this.handleClose}>
+                                <Alert onClose={this.handleClose} severity="error" variant="filled" className={classes.alert}>
+                                    An Error Has Occured!
+                             </Alert>
+                            </Snackbar>
+                        </div>
+                        <form id="form" onSubmit={(event) => this.handleSubmit(event)} >
+                            <Grid container spacing={3}>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        autoComplete="fname"
+                                        name="firstname"
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="firstName"
+                                        label="First Name"
+                                        onInput={this.handleChange}
+                                        autoFocus
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="lastname"
+                                        label="Last Name"
+                                        name="lastname"
+                                        autoComplete="lname"
+                                        onInput={this.handleChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        id="roleselect"
+                                        select
+                                        fullWidth
+                                        required
+                                        label="Select role"
+                                        name="role"
+                                        value={this.state.role}
+                                        onChange={e => this.setState({ role: e.target.value })}
+                                        align="left"
+                                        variant="outlined"
+                                    >
+                                        {roles.map((option) => (
+                                            <MenuItem key={option.value} value={option.value}>
+                                                {option.label}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        label="Email Address"
+                                        name="email"
+                                        autoComplete="email"
+                                        onInput={this.handleChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        label="Password"
+                                        type="password"
+                                        id="password"
+                                        autoComplete="current-password"
+                                        onInput={this.handleChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        name="confPassword"
+                                        label="Confirm Password"
+                                        type="password"
+                                        id="confPassword"
+                                        autoComplete="current-password"
+                                        helperText={this.state.helperText}
+                                        error={this.state.showError}
+                                        onInput={e => this.setState({ confPassword: e.target.value })}
+                                    />
+                                </Grid>
 
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
-                                    onInput={this.handleChange}
-                                />
                             </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="current-password"
-                                    onInput={this.handleChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    name="confPassword"
-                                    label="Confirm Password"
-                                    type="password"
-                                    id="confPassword"
-                                    autoComplete="current-password"
-                                    helperText={this.state.helperText}
-                                    error={this.state.showError}
-                                    onInput={e => this.setState({ confPassword: e.target.value })}
-                                />
-                            </Grid>
-                        </Grid>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                        >
-                            Sign Up
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                            >
+                                Create
                         </Button>
-                    </form>
-                </Card>
-            </div>
+                        </form>
+                    </Paper>
+                </Container>
+            </div >
         )
     }
 }

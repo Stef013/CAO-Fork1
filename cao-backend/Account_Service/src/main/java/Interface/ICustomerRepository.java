@@ -2,11 +2,15 @@ package Interface;
 
 import Model.Customer;
 
-public interface ICustomerRepo {
+import java.util.List;
+
+public interface ICustomerRepository {
 
     boolean create(Customer newCustomer);
 
     Customer get(String userEmail);
+
+    public List<Customer> getAll();
 
     boolean update(Customer customer);
 

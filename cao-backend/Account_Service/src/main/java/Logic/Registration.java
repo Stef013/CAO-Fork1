@@ -1,17 +1,18 @@
 package Logic;
 
-import Interface.ICustomerRepo;
+import Interface.ICustomerRepository;
 import Interface.IEmployeeRepository;
 import Model.Customer;
 import Model.Employee;
-import Model.RoleUpdate;
-import Repository.CustomerRepo;
-import Repository.EmployeeRepo;
+import Model.UpdateEmployeeRole;
+import Repository.CustomerSqlRepository;
 import Repository.EmployeeSqlRepository;
+
+import java.util.List;
 
 public class Registration {
 
-     final ICustomerRepo CR = new CustomerRepo();
+     final ICustomerRepository CR = new CustomerSqlRepository();
      final IEmployeeRepository ER = new EmployeeSqlRepository();
 
      public boolean registerCustomer(Customer newCustomer)
@@ -35,6 +36,16 @@ public class Registration {
         if (customerEmail != null && !customerEmail.isBlank())
         {
             return CR.get(customerEmail);
+        }
+        return null;
+    }
+
+    public List<Customer> getAllCustomer()
+    {
+        List<Customer> allCustomers = CR.getAll();
+        if (allCustomers != null && allCustomers.size() > 0)
+        {
+            return  allCustomers;
         }
         return null;
     }
@@ -95,7 +106,19 @@ public class Registration {
         return null;
     }
 
-    public boolean updateEmployee(Employee updateEmployee)
+    public List<Employee> getAllEmployee()
+    {
+
+        List<Employee> allEmployees = ER.getAll();
+
+        if (allEmployees != null && allEmployees.size() > 0)
+        {
+            return allEmployees;
+        }
+        return null;
+    }
+
+    public boolean update(Employee updateEmployee)
     {
         if (updateEmployee != null && updateEmployee.getEmail() != null &&
                 !updateEmployee.getEmail().isBlank() && updateEmployee.getPassword() != null &&
@@ -107,14 +130,18 @@ public class Registration {
         return false;
     }
 
-    public boolean updateRole(RoleUpdate updateRole)
+    public boolean updateEmployee(UpdateEmployeeRole employeeToUpdate)
     {
-        if (updateRole != null && updateRole.getUserId() != 0 &&
-                updateRole.getRole() != null)
-        {
-            return ER.setRole(updateRole);
+        if (employeeToUpdate == null || employeeToUpdate.getUserId() == 0 || employeeToUpdate.getRole() != null) {
+            return false;
         }
-        return false;
+
+        if (!employeeToUpdate.getPassword().isEmpty() && employeeToUpdate.getPassword() != null)
+        {
+            return ER.updateRole(employeeToUpdate);
+        }
+
+        return ER.updateRoleAndPassword(employeeToUpdate);
     }
 
     public boolean deleteEmployee(int id)

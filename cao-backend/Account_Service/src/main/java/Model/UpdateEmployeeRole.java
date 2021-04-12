@@ -1,10 +1,11 @@
 package Model;
 import Enum.Roles;
 
-public class RoleUpdate {
+public class UpdateEmployeeRole {
 
     private int userId;
     private Roles role;
+    private String password;
 
     public int getUserId() {
         return userId;
@@ -22,6 +23,14 @@ public class RoleUpdate {
         this.role = role;
     }
 
-    public RoleUpdate() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public UpdateEmployeeRole() {
     }
 }
