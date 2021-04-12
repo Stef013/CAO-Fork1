@@ -20,6 +20,8 @@ import java.util.List;
 public class EmployeeController {
     private final Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
     private final IEmployeeRepository employeeRepository;
+    private static final String ERROR_MESSAGE = "Something went wrong.";
+    private static final String DATABASE_ERROR_MESSAGE = "Database error.";
 
     /**
      * Handles registering and logging in Employee accounts
@@ -93,20 +95,16 @@ public class EmployeeController {
             try {
                 Employee employee = gson.fromJson(body, Employee.class);
 
-                if (!employeeRepository.accountWithEmailExists(employee.getEmail())) {
-                    boolean result = employeeRepository.create(employee);
-
-                    if (result) {
-                        message = "Account created successfully!";
-                    }
-                } else {
-                    message = "Email already in use.";
+                if (employeeRepository.accountWithEmailExists(employee.getEmail())) {
+                    return "Email already in use.";
+                }
+                else if(employeeRepository.create(employee)) {
+                    return "Account created successfully!";
                 }
             } catch (Exception ex) {
-                message = "Something went wrong.";
+                return ERROR_MESSAGE;
             }
-
-            return message;
+            return ERROR_MESSAGE;
         }));
 
         Spark.put("/", ((request, response) -> {
@@ -121,11 +119,11 @@ public class EmployeeController {
                 if (result) {
                     message = "Account setting updated!";
                 } else {
-                    message = "Database error.";
+                    message = DATABASE_ERROR_MESSAGE;
                 }
 
             } catch (Exception ex) {
-                message = "Something went wrong.";
+                message = ERROR_MESSAGE;
             }
             return message;
 
@@ -143,11 +141,11 @@ public class EmployeeController {
                 if (result) {
                     message = "Account setting updated!";
                 } else {
-                    message = "Database error.";
+                    message = DATABASE_ERROR_MESSAGE;
                 }
 
             } catch (Exception ex) {
-                message = "Something went wrong.";
+                message = ERROR_MESSAGE;
             }
             return message;
 
@@ -166,11 +164,11 @@ public class EmployeeController {
                 if (result) {
                     message = "Account deleted!";
                 } else {
-                    message = "Database error.";
+                    message = DATABASE_ERROR_MESSAGE;
                 }
 
             } catch (Exception ex) {
-                message = "Something went wrong.";
+                message = ERROR_MESSAGE;
             }
             return message;
 

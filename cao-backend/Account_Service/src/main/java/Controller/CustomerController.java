@@ -17,8 +17,9 @@ public class CustomerController {
     private final Registration registration = new Registration();
     private final Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
     private final Logging logger = new Logging();
+    private static final String ERROR_MESSAGE = "Something went wrong.";
 
-    public CustomerController(final String a) {
+    public CustomerController() {
 
         options("/*", (request, response) -> {
 
@@ -48,8 +49,6 @@ public class CustomerController {
                 response.status(404);
                 json = "Cant find user.";
             }
-
-            System.out.println(json);
 
             return json;
         }));
@@ -88,7 +87,7 @@ public class CustomerController {
                     message = "Email already in use.";
                 }
             } catch (Exception ex) {
-                message = "Something went wrong.";
+                message = ERROR_MESSAGE;
             }
 
             return message;
@@ -110,7 +109,7 @@ public class CustomerController {
                 }
 
             } catch (Exception ex) {
-                message = "Something went wrong.";
+                message = ERROR_MESSAGE;
             }
             return message;
 
@@ -126,7 +125,7 @@ public class CustomerController {
                 message = result ? "Account deleted!" : "Database error.";
             } catch (Exception ex) {
                 response.status(404);
-                message = "Something went wrong.";
+                message = ERROR_MESSAGE;
             }
             return message;
 
