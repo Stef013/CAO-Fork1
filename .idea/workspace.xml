@@ -10,7 +10,9 @@
     </loaded-modules>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ff813a3-d6ba-4cba-b014-481c79650406" name="Default Changelist" comment="" />
+    <list default="true" id="8ff813a3-d6ba-4cba-b014-481c79650406" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/cao-frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/cao-frontend/src/App.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,19 +63,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="backend-cao" type="QuarkusRunConfigurationType" factoryName="Quarkus">
       <module name="backend-cao" />
       <QsMavenRunConfiguration>
@@ -117,6 +106,7 @@
       <workItem from="1616075757235" duration="602000" />
       <workItem from="1616425800169" duration="116000" />
       <workItem from="1616425931026" duration="278000" />
+      <workItem from="1617101105228" duration="599000" />
     </task>
     <servers />
   </component>

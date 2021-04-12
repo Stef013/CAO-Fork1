@@ -13,7 +13,7 @@ public class AccountMain {
         String ip = Inet4Address.getLocalHost().getHostAddress();
         Spark.ipAddress("127.0.0.1");
 
-        new AccountController();
+        new AccountController(new String());
     }
 
 }
