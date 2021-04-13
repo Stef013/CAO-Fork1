@@ -65,8 +65,8 @@ const PassengerInfo = (props) => {
 
     return (
         <Paper>
-            <Box border={1} p={3} m={0} mb={2} mt={1} borderRadius={16} color="white">
-                <Grid container spacing={1} color="white">
+            <Box p={3} m={0} mb={2} mt={1}>
+                <Grid container spacing={1}>
                     <Grid item xs={12}>
                         <Typography component="h1" variant="h6">
                             <b>Passenger {props.id}</b>

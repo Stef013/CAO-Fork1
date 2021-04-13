@@ -1,0 +1,46 @@
+{
+    "loginpage": {
+        "log in header": "Log in",
+        "log in button": "Log in",
+        "email address": "Email Address",
+        "password": "Password",
+        "remember me": "Remember me",
+        "forgot password": "Forgot password?",
+        "no account sign up": "Don't have an account? Sign up!"
+    },
+
+    "registerpage": {
+        "sign up header": "Sign up",
+        "first name": "First Name",
+        "last name": "Last Name",
+        "date of birth": "Date of Birth",
+        "country placeholder": "Country",
+        "country description": "Please select your country",
+        "email address": "Email Address",
+        "password": "Password",
+        "repeat password": "Repeat password",
+        "sign up button": "Sign up"
+    },
+
+    "airplaneinfo": {
+        "take off place": "Origin",
+        "landing place": "Destination",
+        "ETA": "ETA"
+    },
+
+    "flightplanner": {
+        "departure": "Departure",
+        "arrival": "Arrival",
+        "departure time": "Departure Time",
+        "arrival time": "Arrival Time",
+        "ticket price": "Ticket Price",
+        "location": "Location",
+        "set date and time": "Set Date & Time",
+        "amount": "Amount",
+        "create button": "Create"
+    },
+
+    "languageselector": {
+        "language": "Language"
+    }
+}

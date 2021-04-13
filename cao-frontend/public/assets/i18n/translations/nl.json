@@ -1,0 +1,46 @@
+{
+    "loginpage": {
+        "log in header": "Log in",
+        "log in button": "Inloggen",
+        "email address": "Emailadres",
+        "password": "Wachtwoord",
+        "remember me": "Onthoud mij",
+        "forgot password": "Wachtwoord vergeten?",
+        "no account sign up": "Nog geen account? Maak nu!"
+    },
+
+    "registerpage": {
+        "sign up header": "Account aanmaken",
+        "first name": "Voornaam",
+        "last name": "Achternaam",
+        "date of birth": "Geboortedatum",
+        "country placeholder": "Land",
+        "country description": "Kies jouw land",
+        "email address": "Emailadres",
+        "password": "Wachtwoord",
+        "repeat password": "Herhaal wachtwoord",
+        "sign up button": "Maak nieuw account"
+    },
+
+    "airplaneinfo": {
+        "take off place": "Vertrekplaats",
+        "landing place": "Bestemming",
+        "ETA": "ETA"
+    },
+
+    "flightplanner": {
+        "departure": "Vertrekplaats",
+        "arrival": "Aankomstplaats",
+        "departure time": "Vertrektijd",
+        "arrival time": "Aankomsttijd",
+        "ticket price": "Ticket prijs",
+        "location": "Locatie",
+        "set date and time": "Plaats datum & tijd",
+        "amount": "Prijs",
+        "create button": "Aanmaken"
+    },
+
+    "languageselector": {
+        "language": "Taal"
+    }
+}

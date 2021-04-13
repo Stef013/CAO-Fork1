@@ -5,6 +5,7 @@ import { CountryRegionData } from 'react-country-region-selector';
 
 import axios from 'axios'
 import moment from 'moment';
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -42,6 +43,7 @@ export default function FormDialog() {
         nationality: " ",
         dateOfBirth: " "
     });
+    const { t } = useTranslation()
 
 
     const handleClickOpen = () => {
@@ -97,10 +99,10 @@ export default function FormDialog() {
     return (
         <div>
             <Link href="#" variant="body2" onClick={handleClickOpen}>
-                Don't have an account? Sign Up
+                {t('loginpage.no account sign up')}
             </Link>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>
+                <DialogTitle id="form-dialog-title">{t('registerpage.sign up header')}</DialogTitle>
                 <DialogContent>
                     <form className={classes.form} onSubmit={(event) => handleSubmit(event)} >
                         <Grid container spacing={2}>
@@ -151,11 +153,11 @@ export default function FormDialog() {
                                     required
                                     id="CountrySelect"
                                     select
-                                    label="Country"
+                                    label={t('registerpage.country placeholder')}
                                     fullWidth
                                     value={country}
                                     onChange={e => setCountry(e.target.value)}
-                                    helperText="Please select your Country"
+                                    helperText={t('registerpage.country description')}
                                 >
                                     {CountryRegionData.map((option) => (
                                         <MenuItem key={option[0]} value={option[0]}>
@@ -170,7 +172,7 @@ export default function FormDialog() {
                                     required
                                     fullWidth
                                     id="email"
-                                    label="Email Address"
+                                    label={t('registerpage.email address')}
                                     name="email"
                                     autoComplete="email"
                                     onInput={handleChange}
@@ -182,7 +184,7 @@ export default function FormDialog() {
                                     required
                                     fullWidth
                                     name="password"
-                                    label="Password"
+                                    label={t('registerpage.password')}
                                     type="password"
                                     id="password"
                                     autoComplete="current-password"
@@ -212,7 +214,7 @@ export default function FormDialog() {
                             color="primary"
                             className={classes.submit}
                         >
-                            Sign Up
+                            {t('registerpage.sign up button')}
                         </Button>
                     </form>
                 </DialogContent>

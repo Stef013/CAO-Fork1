@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, Grid, Typography } from "@material-ui/core";
+import { Box, Container, Grid, Paper, Typography } from "@material-ui/core";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
@@ -86,106 +86,114 @@ export default function BookingOverview(props) {
             <div className={classes.paper}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <Typography component="h1" variant="h3">
+                        <Typography component="h1" variant="h3" style={{ color: "white" }}>
                             Booking overview
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Box border={1} p={2} m={0} borderRadius={16}>
-                            <Grid container spacing={1}>
-                                <Grid item xs={6}>
-                                    <Typography component="h3">
-                                        <b>Flight overview</b>
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Typography component="h3" align="right">
-                                        <b>Total costs: ${calculatePrice()}</b>
-                                    </Typography>
-                                </Grid>
+                        <Paper>
+                            <Box p={2} m={0}>
+                                <Grid container spacing={1}>
+                                    <Grid item xs={6}>
+                                        <Typography component="h3">
+                                            <b>Flight overview</b>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <Typography component="h3" align="right">
+                                            <b>Total costs: ${calculatePrice()}</b>
+                                        </Typography>
+                                    </Grid>
 
-                                <Grid item xs={1}>
-                                    <FlightTakeoffIcon />
+                                    <Grid item xs={1}>
+                                        <FlightTakeoffIcon />
+                                    </Grid>
+                                    <Grid item xs={5}>
+                                        PH-Departure location
+                            </Grid>
+                                    <Grid item xs={1}>
+                                        <FlightLandIcon />
+                                    </Grid>
+                                    <Grid item xs={5}>
+                                        PH-Arrival location
+                            </Grid>
+                                    <Grid item xs={1}>
+                                        <ChevronRightIcon />
+                                    </Grid>
+                                    <Grid item xs={5}>
+                                        PH-Departure date and time
+                            </Grid>
+                                    <Grid item xs={1}>
+                                        <ChevronRightIcon />
+                                    </Grid>
+                                    <Grid item xs={5}>
+                                        PH-Arrival date and time
+                            </Grid>
                                 </Grid>
-                                <Grid item xs={5}>
-                                    PH-Departure location
-                            </Grid>
-                                <Grid item xs={1}>
-                                    <FlightLandIcon />
-                                </Grid>
-                                <Grid item xs={5}>
-                                    PH-Arrival location
-                            </Grid>
-                                <Grid item xs={1}>
-                                    <ChevronRightIcon />
-                                </Grid>
-                                <Grid item xs={5}>
-                                    PH-Departure date and time
-                            </Grid>
-                                <Grid item xs={1}>
-                                    <ChevronRightIcon />
-                                </Grid>
-                                <Grid item xs={5}>
-                                    PH-Arrival date and time
-                            </Grid>
-                            </Grid>
-                        </Box>
+                            </Box>
+                        </Paper>
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Box border={1} p={2} m={0} borderRadius={16}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                    <Typography component="h3">
-                                        <b>Passenger overview</b>
-                                    </Typography>
-                                </Grid>
+                        <Paper>
+                            <Box p={2} m={0}>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12}>
+                                        <Typography component="h3">
+                                            <b>Passenger overview</b>
+                                        </Typography>
+                                    </Grid>
 
-                                {createPassengersOverview()}
-                            </Grid>
-                        </Box>
+                                    {createPassengersOverview()}
+                                </Grid>
+                            </Box>
+                        </Paper>
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Box border={1} p={2} m={0} borderRadius={16}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                    <Typography component="h3">
-                                        <b>Contact overview</b>
-                                    </Typography>
+                        <Paper>
+                            <Box p={2} m={0}>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12}>
+                                        <Typography component="h3">
+                                            <b>Contact overview</b>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        First name: {booking.tickets[0].firstname}
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        Last name: {booking.tickets[0].lastname}
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        Email Address: {booking.contactEmail}
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        Phone Number: {booking.contactPhonenumber}
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={6}>
-                                    First name: {booking.tickets[0].firstname}
-                                </Grid>
-                                <Grid item xs={6}>
-                                    Last name: {booking.tickets[0].lastname}
-                                </Grid>
-                                <Grid item xs={12}>
-                                    Email Address: {booking.contactEmail}
-                                </Grid>
-                                <Grid item xs={12}>
-                                    Phone Number: {booking.contactPhonenumber}
-                            </Grid>
-                            </Grid>
-                        </Box>
+                            </Box>
+                        </Paper>
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Box border={1} p={2} m={0} borderRadius={16}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                    <Typography component="h3">
-                                        <b>Emergency Contact overview</b>
-                                    </Typography>
+                        <Paper>
+                            <Box p={2} m={0}>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12}>
+                                        <Typography component="h3">
+                                            <b>Emergency Contact overview</b>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        Email Address: {booking.emergencyEmail}
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        Phone Number: {booking.emergencyPhonenumber}
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={12}>
-                                    Email Address: {booking.emergencyEmail}
-                                </Grid>
-                                <Grid item xs={12}>
-                                    Phone Number: {booking.emergencyPhonenumber}
-                                </Grid>
-                            </Grid>
-                        </Box>
+                            </Box>
+                        </Paper>
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
@@ -193,7 +201,6 @@ export default function BookingOverview(props) {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            color="primary"
                             onClick={props.previousPage}
                         >
                             <ArrowBackIcon />
@@ -205,7 +212,6 @@ export default function BookingOverview(props) {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            color="primary"
                             onClick={nextPage}
                         >
                             Payment
