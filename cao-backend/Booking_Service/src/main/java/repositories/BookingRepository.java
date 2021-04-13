@@ -22,7 +22,7 @@ public class BookingRepository {
         try (Connection connection = DriverManager.getConnection(connectionUrl)) {
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, userId);
-            statement.setString(2, booking.getBookingDate());
+            statement.setDate(2, new java.sql.Date(booking.getBookingDate().getTime()));
             statement.setString(3, booking.getContactPhonenumber());
             statement.setString(4, booking.getContactEmail());
             statement.setString(5, booking.getEmergencyPhonenumber());
@@ -71,7 +71,7 @@ public class BookingRepository {
                 statement.setInt(8, ticket.getExtraLuggage());
                 statement.setBoolean(9, ticket.isRentedHotel());
                 statement.setBoolean(10, ticket.isRentedCar());
-                statement.setString(11, ticket.getDateOfBirth());
+                statement.setDate(11, new java.sql.Date(ticket.getDateOfBirth().getTime()));
                 statement.addBatch();
             }
             int[] affectedRows = statement.executeBatch();

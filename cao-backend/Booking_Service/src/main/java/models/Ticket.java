@@ -1,5 +1,6 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.quarkus.runtime.annotations.IgnoreProperty;
 
@@ -37,7 +38,8 @@ public class Ticket {
     private boolean rentedCar;
 
     @JsonProperty("dateOfBirth")
-    private String dateOfBirth;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date dateOfBirth;
 
     public int getTicketId() {
         return ticketId;
@@ -119,11 +121,11 @@ public class Ticket {
         this.rentedCar = rentedCar;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

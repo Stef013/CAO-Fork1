@@ -1,5 +1,6 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
@@ -19,7 +20,8 @@ public class Booking {
     private String contactEmail;
 
     @JsonProperty("bookingDate")
-    private String bookingDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date bookingDate;
 
     @JsonProperty("tickets")
     private List<Ticket> tickets;
@@ -62,11 +64,11 @@ public class Booking {
         this.contactEmail = contactEmail;
     }
 
-    public String getBookingDate() {
+    public Date getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(String bookingDate) {
+    public void setBookingDate(Date bookingDate) {
         this.bookingDate = bookingDate;
     }
 

@@ -14,6 +14,9 @@ import models.Booking;
 import models.Ticket;
 import services.BookingService;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Path("/")
@@ -32,7 +35,7 @@ public class BookingController {
         // Uncomment when a valid jwtToken is sent (for now the userId is hardcoded)
         // int userId = (int)decodeJWT(jwt).get("userId")
         Booking bookingRequest = objectMapper.readValue(bookingJson, Booking.class);
-        bookingRequest.setBookingDate("20-04-2021");
+        bookingRequest.setBookingDate(new Date());
         Booking bookingResponse = bookingService.book(bookingRequest, 1);
 
         if (bookingResponse == null) {

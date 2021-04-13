@@ -23,7 +23,7 @@ public class BookingControllerTest {
         ticket1Json.put("extraLuggage", 1);
         ticket1Json.put("rentedHotel", false);
         ticket1Json.put("rentedCar", false);
-        ticket1Json.put("dateOfBirth", "20-04-2008");
+        ticket1Json.put("dateOfBirth", "2010-05-22");
 
         //Second ticket
         JSONObject ticket2Json = new JSONObject();
@@ -36,7 +36,7 @@ public class BookingControllerTest {
         ticket2Json.put("extraLuggage", 1);
         ticket2Json.put("rentedHotel", false);
         ticket2Json.put("rentedCar", false);
-        ticket2Json.put("dateOfBirth", "20-04-2008");
+        ticket2Json.put("dateOfBirth", "2010-05-22");
 
         JSONArray ticketsJson = new JSONArray();
         ticketsJson.put(ticket1Json);
