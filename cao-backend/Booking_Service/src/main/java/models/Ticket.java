@@ -39,6 +39,22 @@ public class Ticket {
         return firstname;
     }
 
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", gender='" + gender + '\'' +
+                ", flightId=" + flightId +
+                ", price=" + price +
+                ", seat='" + seat + '\'' +
+                ", extraLuggage=" + extraLuggage +
+                ", rentedHotel=" + rentedHotel +
+                ", rentedCar=" + rentedCar +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                '}';
+    }
+
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }

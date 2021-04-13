@@ -53,7 +53,7 @@ public class BookingControllerTest {
 
         given()
                 .body(bookingJson.toString())
-                .when().post("/booking-service/book")
+                .when().post("/book")
                 .then()
                     .statusCode(200);
     }

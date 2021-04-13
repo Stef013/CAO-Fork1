@@ -16,7 +16,7 @@ import services.BookingService;
 
 import java.util.Date;
 
-@Path("/booking-service")
+@Path("/")
 public class BookingController {
 
     @Inject
@@ -32,13 +32,18 @@ public class BookingController {
         // Uncomment when a valid jwtToken is sent (for now the userId is hardcoded)
         // int userId = (int)decodeJWT(jwt).get("userId")
         System.out.println(bookingJson);
+        System.out.println("1");
         Booking bookingRequest = objectMapper.readValue(bookingJson, Booking.class);
+        System.out.println("2");
         bookingRequest.setBookingDate("20-04-2021");
+        System.out.println("3");
         Booking bookingResponse = bookingService.book(bookingRequest, 1);
+        System.out.println("4");
 
         if (bookingResponse == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
+        System.out.println("5");
 
         //TODO: notify flight service that a ticket is booked (RabbitMQ)
         return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(bookingResponse)).build();
