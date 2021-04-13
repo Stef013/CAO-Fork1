@@ -12,16 +12,18 @@ import { Suspense } from 'react';
 function App() {
   return (
     <main>
-      <Switch>
-        <Route path="/" component={Login} exact />
-        <Route path="/FlightTracker" component={FlightTracker} />
-        <Route path="/EmployeeLogin" component={EmployeeLogin} />
-        <Route path="/EmployeePortal" component={EmployeePortal} />
-        <Route path="/EmployeeCreation" component={EmployeeCreation} />
-        <Route path="/EmployeeList" component={EmployeeList} />
-        <Route path="/Booking" component={Booking} />
-        <Route component={Error} />
-      </Switch>
+      <Suspense fallback={<h1>Loading...</h1>}>
+        <Switch>
+          <Route path="/" component={Login} exact />
+          <Route path="/FlightTracker" component={FlightTracker} />
+          <Route path="/EmployeeLogin" component={EmployeeLogin} />
+          <Route path="/EmployeePortal" component={EmployeePortal} />
+          <Route path="/EmployeeCreation" component={EmployeeCreation} />
+          <Route path="/EmployeeList" component={EmployeeList} />
+          <Route path="/Booking" component={Booking} />
+          <Route component={Error} />
+        </Switch>
+      </Suspense>
     </main>
   );
 }

@@ -1,12 +1,14 @@
-import { Box, Container, FormControlLabel, Grid, Radio, TextField, MenuItem, FormControl, InputLabel, Select, FormHelperText, RadioGroup, Typography, Paper } from "@material-ui/core";
-import React, { PureComponent, useEffect } from "react";
+import { Box, FormControlLabel, Grid, Radio, TextField, MenuItem, FormControl, InputLabel, Select, FormHelperText, RadioGroup, Typography, Paper } from "@material-ui/core";
+import React from "react";
 import Booking from '../models/Booking';
 import Ticket from '../models/Ticket';
-
+import { useTranslation } from 'react-i18next';
 
 
 
 const PassengerInfo = (props) => {
+    const { t } = useTranslation();
+
     const [luggage, setLuggage] = React.useState(0);
     const [ticket, setTicket] = React.useState(new Ticket());
     const [booking] = React.useState(new Booking());
@@ -39,7 +41,7 @@ const PassengerInfo = (props) => {
                             required
                             fullWidth
                             id="email address"
-                            label="Email Address"
+                            label={t('bookingpassengers.email address')}
                             defaultValue={props.booking.contactEmail}
                             name="contactEmail"
                             onChange={handleBookingChange}
@@ -52,7 +54,7 @@ const PassengerInfo = (props) => {
                             required
                             fullWidth
                             id="phone number"
-                            label="Phone Number"
+                            label={t('bookingpassengers.phone number')}
                             defaultValue={props.booking.contactPhonenumber}
                             name="contactPhonenumber"
                             onChange={handleBookingChange}
@@ -69,19 +71,19 @@ const PassengerInfo = (props) => {
                 <Grid container spacing={1}>
                     <Grid item xs={12}>
                         <Typography component="h1" variant="h6">
-                            <b>Passenger {props.id}</b>
+                            <b>{t('bookingpassengers.passenger')} {props.id}</b>
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <b> Gender: * </b>
+                        <b> {t('bookingpassengers.gender')}: * </b>
                     </Grid>
                     <Grid item xs={12}>
                         <RadioGroup aria-label="gender" name="gender1" defaultValue={props.ticket.gender} row>
                             <Grid item xs={6}>
-                                <FormControlLabel value="male" onChange={handleTicketChange} name="gender" control={<Radio />} label="Male" />
+                                <FormControlLabel value="male" onChange={handleTicketChange} name="gender" control={<Radio />} label={t('bookingpassengers.male')} />
                             </Grid>
                             <Grid item xs={6}>
-                                <FormControlLabel value="female" onChange={handleTicketChange} name="gender" control={<Radio />} label="Female" />
+                                <FormControlLabel value="female" onChange={handleTicketChange} name="gender" control={<Radio />} label={t('bookingpassengers.female')} />
                             </Grid>
                         </RadioGroup>
                     </Grid>
@@ -92,7 +94,7 @@ const PassengerInfo = (props) => {
                             required
                             fullWidth
                             id="first name"
-                            label="First Name"
+                            label={t('bookingpassengers.first name')}
                             defaultValue={props.ticket.firstname}
                             name="firstname"
                             onChange={handleTicketChange}
@@ -106,7 +108,7 @@ const PassengerInfo = (props) => {
                             required
                             fullWidth
                             id="last name"
-                            label="Last Name"
+                            label={t('bookingpassengers.last name')}
                             defaultValue={props.ticket.lastname}
                             name="lastname"
                             onChange={handleTicketChange}
@@ -117,7 +119,7 @@ const PassengerInfo = (props) => {
                         <TextField
                             variant="outlined"
                             id="date"
-                            label="Date of birth"
+                            label={t('bookingpassengers.date of birth')}
                             defaultValue={props.ticket.dateOfBirth}
                             type="date"
                             name="dateOfBirth"
@@ -131,7 +133,7 @@ const PassengerInfo = (props) => {
                     </Grid>
                     <Grid item xs={6}>
                         <FormControl required>
-                            <InputLabel>Luggage</InputLabel>
+                            <InputLabel>{t('bookingpassengers.luggage')}</InputLabel>
                             <Select
                                 onChange={handleTicketChange}
                                 defaultValue={props.ticket.extraLuggage}
@@ -141,7 +143,7 @@ const PassengerInfo = (props) => {
                                 <MenuItem name="extraLuggage" value={1}>1 extra bags + $10</MenuItem>
                                 <MenuItem name="extraLuggage" value={2}>2 extra bags + $20</MenuItem>
                             </Select>
-                            <FormHelperText>Please select your amount of luggage</FormHelperText>
+                            <FormHelperText>{t('bookingpassengers.luggage description')}</FormHelperText>
                         </FormControl>
                     </Grid>
 

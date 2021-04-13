@@ -28,6 +28,10 @@
         "ETA": "ETA"
     },
 
+    "errorpage": {
+        "page not found": "Oeps! Page not found!"
+    },
+
     "flightplanner": {
         "departure": "Departure",
         "arrival": "Arrival",
@@ -42,5 +46,55 @@
 
     "languageselector": {
         "language": "Language"
+    },
+
+    "bookingmain": {
+        "fields empty error": "Some fields were empty, please try again"  
+    },
+    
+    "bookingpassengers": {
+        "passenger information": "Passengers information",
+        "number of passengers": "Number of passengers",
+        "passenger": "Passenger",
+        "gender": "Gender",
+        "male": "Male",
+        "female": "Female",
+        "first name": "First Name",
+        "last name": "Last Name",
+        "date of birth": "Date of Birth",
+        "luggage": "Luggage",
+        "luggage description": "Please select your amount of luggage",
+        "email address": "Email Address",
+        "phone number": "Phone Number",
+        "emergency contact person": "Emergency Contact Person",
+        "flight menu": "Flight Menu",
+        "seatpicker": "Seatpicker" 
+    },
+    
+    "bookingseatpicker": {
+        "seatpicker": "Seatpicker",
+        "passenger information": "Passenger Information",
+        "booking overview": "Booking Overview",
+        "to be implemented": "To be implemented"
+    },
+    
+    "bookingoverview": {
+        "booking overview": "Booking overview",
+        "flight overview": "Flight overview",
+        "total costs": "Total costs",
+        "passenger overview": "Passengers overview",
+        "first name": "First Name",
+        "last name": "Last Name",
+        "gender": "Gender",
+        "date of birth": "Date of Birth",
+        "extra luggage": "Extra luggage",
+        "pieces": "pieces",
+        "seat": "Seat",
+        "contact overview": "Contact overview",
+        "email address": "Email Address",
+        "phone number": "Phone Number",
+        "emergency contact person": "Emergency Contact",
+        "payment": "Payment",
+        "seatpicker": "Seatpicker" 
     }
 }

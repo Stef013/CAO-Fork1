@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Grid, Button, Typography } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 export default function BookingSeatpicker(props) {
     const classes = useStyles();
     const history = useHistory();
+    const { t } = useTranslation();
 
     const [booking, setBooking] = React.useState(props.booking);
 
@@ -48,12 +50,12 @@ export default function BookingSeatpicker(props) {
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Typography component="h1" variant="h3" style={{color:"white"}}>
-                            Seatpicker
+                            {t('bookingseatpicker.seatpicker')}
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <Typography component="h1" variant="h5" style={{color:"white"}}>
-                            To be implemented...
+                            {t('bookingseatpicker.to be implemented')}
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -64,7 +66,7 @@ export default function BookingSeatpicker(props) {
                             onClick={props.previousPage}
                         >
                             <ArrowBackIcon />
-                            Personal information
+                            {t('bookingseatpicker.passenger information')}
                     </Button>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -74,7 +76,7 @@ export default function BookingSeatpicker(props) {
                             variant="contained"
                             onClick={nextPage}
                         >
-                            Booking overview
+                            {t('bookingseatpicker.booking overview')}
                             <ArrowForwardIcon />
                         </Button>
                     </Grid>

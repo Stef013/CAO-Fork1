@@ -114,7 +114,7 @@ export default function FormDialog() {
                                     required
                                     fullWidth
                                     id="firstName"
-                                    label="First Name"
+                                    label={t('registerpage.first name')}
                                     onInput={handleChange}
                                     autoFocus
                                 />
@@ -125,7 +125,7 @@ export default function FormDialog() {
                                     required
                                     fullWidth
                                     id="lastname"
-                                    label="Last Name"
+                                    label={t('registerpage.last name')}
                                     name="lastName"
                                     autoComplete="lname"
                                     onInput={handleChange}
@@ -137,7 +137,7 @@ export default function FormDialog() {
                                     required
                                     id="date"
                                     name="dateOfBirth"
-                                    label="Date of birth"
+                                    label={t('registerpage.date of birth')}
                                     type="date"
                                     format="DD-MM-YYYY"
                                     fullWidth
@@ -197,7 +197,7 @@ export default function FormDialog() {
                                     required
                                     fullWidth
                                     name="confPassword"
-                                    label="Confirm Password"
+                                    label={t('registerpage.repeat password')}
                                     type="password"
                                     id="confPassword"
                                     autoComplete="current-password"

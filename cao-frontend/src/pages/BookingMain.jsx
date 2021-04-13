@@ -5,9 +5,11 @@ import BookingOverview from '../Components/BookingOverview'
 import Error from './Error'
 import Booking from '../models/Booking';
 import axios from 'axios'
-import { Paper } from '@material-ui/core';
+import MenuAppBar from '../Components/MenuAppBar'
+import i18n from '../Components/i18n'
 
 class BookingMain extends React.Component {
+
     constructor() {
         super()
         this.state = {
@@ -26,23 +28,37 @@ class BookingMain extends React.Component {
     }
 
     storePassengerData = (data) => {
-        var newBooking = this.state.booking;
+        var invalidBookingData = !(data.contactEmail || data.contactPhonenumber || data.emergencyEmail || data.emergencyPhonenumber || data.tickets.length)
+        var invalidTicketData;
+        data.tickets.forEach(ticket => {
+            invalidTicketData = !(ticket.firstname);
+            invalidTicketData = !(ticket.lastname);
+            invalidTicketData = !(ticket.gender);
+            invalidTicketData = !(ticket.dateOfBirth);
+            invalidTicketData = !(ticket.extraLuggage);
+        });
+        
+        if (invalidBookingData || invalidTicketData) {
+            alert(i18n.t('bookingmain.fields empty error'));
+        } else {
+            var newBooking = this.state.booking;
 
-        newBooking.contactEmail = data.contactEmail;
-        newBooking.contactPhonenumber = data.contactPhonenumber;
-        newBooking.emergencyEmail = data.emergencyEmail;
-        newBooking.emergencyPhonenumber = data.emergencyPhonenumber;
-        newBooking.tickets = data.tickets;
+            newBooking.contactEmail = data.contactEmail;
+            newBooking.contactPhonenumber = data.contactPhonenumber;
+            newBooking.emergencyEmail = data.emergencyEmail;
+            newBooking.emergencyPhonenumber = data.emergencyPhonenumber;
+            newBooking.tickets = data.tickets;
 
-        console.log(data);
-        this.setState({ booking: newBooking });
-        console.log(this.state.booking);
-        this.setState({ currentPage: this.state.currentPage + 1 })
+            console.log(data);
+            this.setState({ booking: newBooking });
+            console.log(this.state.booking);
+            this.setState({ currentPage: this.state.currentPage + 1 })
+        }
     }
 
     placeBooking = () => {
 
-        var newBooking = this.state.booking; 
+        var newBooking = this.state.booking;
         newBooking.tickets.forEach(ticket => {
             ticket.seat = "A1";
             ticket.price = 110;
@@ -53,6 +69,7 @@ class BookingMain extends React.Component {
 
         // TODO: use jwt token
         console.log(newBooking)
+
 
         axios(
             {
@@ -71,9 +88,7 @@ class BookingMain extends React.Component {
             });
     }
 
-
-
-    render() {
+    selectPage = () => {
         switch (this.state.currentPage) {
             case 0:
             //TODO: return to loginpage/mainpage
@@ -86,6 +101,17 @@ class BookingMain extends React.Component {
             default:
                 return (<Error />);
         }
+    }
+
+
+
+    render() {
+        return (
+            <div>
+                <MenuAppBar></MenuAppBar>
+                {this.selectPage()}
+            </div>
+        )
     }
 }
 

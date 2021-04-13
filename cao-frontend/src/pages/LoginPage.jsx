@@ -16,7 +16,7 @@ import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
 import RegisterPopup from '../Components/RegisterPopup'
 import { useTranslation } from 'react-i18next'
-import LanguageSelector from '../Components/LanguageSelector';
+import MenuAppBar from "../Components/MenuAppBar";
 
 function Copyright() {
     return (
@@ -64,67 +64,70 @@ export default function SignIn() {
     }
 
     return (
-        <Container component="main" maxWidth="sm">
-            <CssBaseline />
-            <Paper className={classes.paper} >
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Sign in
+        <div>
+            <MenuAppBar></MenuAppBar>
+            <Container component="main" maxWidth="sm">
+                <CssBaseline />
+                <Paper className={classes.paper} >
+                    <Avatar className={classes.avatar}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        {t('loginpage.log in header')}
                 </Typography>
-                <form className={classes.form} noValidate>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                    />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
-                    />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        onClick={navigateHome}
-                    >
-                        Sign In
+                    <form className={classes.form} noValidate>
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label={t('loginpage.email address')}
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label={t('loginpage.password')}
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                        />
+                        <FormControlLabel
+                            control={<Checkbox value="remember" color="primary" />}
+                            label={t('loginpage.remember me')}
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                            onClick={navigateHome}
+                        >
+                            {t('loginpage.log in button')}
                     </Button>
-                    <Grid container>
-                        <Grid item xs>
-                            <Link href="#" variant="body2">
-                                Forgot password?
+                        <Grid container>
+                            <Grid item xs>
+                                <Link href="#" variant="body2">
+                                    {t('loginpage.forgot password')}
                             </Link>
+                            </Grid>
+                            <Grid item>
+                                <RegisterPopup />
+                            </Grid>
                         </Grid>
-                        <Grid item>
-                            <RegisterPopup />
-                        </Grid>
-                    </Grid>
-                </form>
-            </Paper>
-            <Box mt={8}>
-                <Copyright />
-            </Box>
-        </Container>
+                    </form>
+                </Paper>
+                <Box mt={8}>
+                    <Copyright />
+                </Box>
+            </Container>
+        </div>
     );
 }

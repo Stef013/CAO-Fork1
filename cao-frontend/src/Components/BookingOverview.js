@@ -9,6 +9,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import FlightLandIcon from '@material-ui/icons/FlightLand';
 import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -37,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 export default function BookingOverview(props) {
     const classes = useStyles();
     const history = useHistory();
+    const { t } = useTranslation();
 
     const [booking, setBooking] = React.useState(props.booking);
 
@@ -55,22 +57,22 @@ export default function BookingOverview(props) {
                 <Box p={2} m={0} borderRadius={16}>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
-                            Firstname: {ticket.firstname}
+                            {t('bookingoverview.first name')}: {ticket.firstname}
                         </Grid>
                         <Grid item xs={6}>
-                            Lastname: {ticket.lastname}
+                            {t('bookingoverview.last name')}: {ticket.lastname}
                         </Grid>
                         <Grid item xs={6}>
-                            Gender: {ticket.gender}
+                            {t('bookingoverview.gender')}: {ticket.gender}
                         </Grid>
                         <Grid item xs={6}>
-                            Date of Birth: {ticket.dateOfBirth}
+                            {t('bookingoverview.date of birth')}: {ticket.dateOfBirth}
                         </Grid>
                         <Grid item xs={6}>
-                            Extra Luggage: {ticket.extraLuggage} stuks
+                            {t('bookingoverview.extra luggage')}: {ticket.extraLuggage} {t('bookingoverview.pieces')}
                         </Grid>
                         <Grid item xs={6}>
-                            Seat: {ticket.seat}
+                            {t('bookingoverview.seat')}: {ticket.seat}
                         </Grid>
                     </Grid>
                 </Box>
@@ -87,7 +89,7 @@ export default function BookingOverview(props) {
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Typography component="h1" variant="h3" style={{ color: "white" }}>
-                            Booking overview
+                            {t('bookingoverview.booking overview')}
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
@@ -96,12 +98,12 @@ export default function BookingOverview(props) {
                                 <Grid container spacing={1}>
                                     <Grid item xs={6}>
                                         <Typography component="h3">
-                                            <b>Flight overview</b>
+                                            <b>{t('bookingoverview.flight overview')}</b>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6}>
                                         <Typography component="h3" align="right">
-                                            <b>Total costs: ${calculatePrice()}</b>
+                                            <b>{t('bookingoverview.total costs')}: ${calculatePrice()}</b>
                                         </Typography>
                                     </Grid>
 
@@ -109,26 +111,26 @@ export default function BookingOverview(props) {
                                         <FlightTakeoffIcon />
                                     </Grid>
                                     <Grid item xs={5}>
-                                        PH-Departure location
-                            </Grid>
+                                        Brussel, Belgium
+                                    </Grid>
                                     <Grid item xs={1}>
                                         <FlightLandIcon />
                                     </Grid>
                                     <Grid item xs={5}>
-                                        PH-Arrival location
-                            </Grid>
+                                        Madrid, Spain
+                                    </Grid>
                                     <Grid item xs={1}>
                                         <ChevronRightIcon />
                                     </Grid>
                                     <Grid item xs={5}>
-                                        PH-Departure date and time
-                            </Grid>
+                                        01-05-2021 15:00
+                                    </Grid>
                                     <Grid item xs={1}>
                                         <ChevronRightIcon />
                                     </Grid>
                                     <Grid item xs={5}>
-                                        PH-Arrival date and time
-                            </Grid>
+                                        01-05-2021 16:00
+                                    </Grid>
                                 </Grid>
                             </Box>
                         </Paper>
@@ -140,7 +142,7 @@ export default function BookingOverview(props) {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <Typography component="h3">
-                                            <b>Passenger overview</b>
+                                            <b>{t('bookingoverview.passenger overview')}</b>
                                         </Typography>
                                     </Grid>
 
@@ -156,20 +158,20 @@ export default function BookingOverview(props) {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <Typography component="h3">
-                                            <b>Contact overview</b>
+                                            <b>{t('bookingoverview.contact overview')}</b>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        First name: {booking.tickets[0].firstname}
+                                    {t('bookingoverview.first name')}: {booking.tickets[0].firstname}
                                     </Grid>
                                     <Grid item xs={6}>
-                                        Last name: {booking.tickets[0].lastname}
+                                    {t('bookingoverview.last name')}: {booking.tickets[0].lastname}
                                     </Grid>
                                     <Grid item xs={12}>
-                                        Email Address: {booking.contactEmail}
+                                    {t('bookingoverview.email address')}: {booking.contactEmail}
                                     </Grid>
                                     <Grid item xs={12}>
-                                        Phone Number: {booking.contactPhonenumber}
+                                    {t('bookingoverview.phone number')}: {booking.contactPhonenumber}
                                     </Grid>
                                 </Grid>
                             </Box>
@@ -182,14 +184,14 @@ export default function BookingOverview(props) {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <Typography component="h3">
-                                            <b>Emergency Contact overview</b>
+                                            <b>{t('bookingoverview.emergency contact person')}</b>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        Email Address: {booking.emergencyEmail}
+                                    {t('bookingoverview.email address')}: {booking.emergencyEmail}
                                     </Grid>
                                     <Grid item xs={12}>
-                                        Phone Number: {booking.emergencyPhonenumber}
+                                    {t('bookingoverview.phone number')}: {booking.emergencyPhonenumber}
                                     </Grid>
                                 </Grid>
                             </Box>
@@ -204,7 +206,7 @@ export default function BookingOverview(props) {
                             onClick={props.previousPage}
                         >
                             <ArrowBackIcon />
-                            Seatpicker
+                            {t('bookingoverview.seatpicker')}
                         </Button>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -214,7 +216,7 @@ export default function BookingOverview(props) {
                             variant="contained"
                             onClick={nextPage}
                         >
-                            Payment
+                            {t('bookingoverview.payment')}
                             <ArrowForwardIcon />
                         </Button>
                     </Grid>

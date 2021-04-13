@@ -9,8 +9,9 @@ import { useHistory } from 'react-router-dom';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Box, Grid, Input, MenuItem, Paper, Slider } from '@material-ui/core';
-import PassengerInfo from './BookingPassengerInfo'
+import PassengerInfo from './BookingPassengerInfo';
 import Ticket from '../models/Ticket';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 export default function BookingPassengers(props) {
     const classes = useStyles();
     const history = useHistory();
+    const { t } = useTranslation();
 
     const [value, setValue] = React.useState(props.currentPassengers);
     const [booking, setBooking] = React.useState(props.booking);
@@ -141,18 +143,18 @@ export default function BookingPassengers(props) {
             <div className={classes.paper}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <Typography component="h1" variant="h3" style={{color:"white"}}>
-                            Passengers information
+                        <Typography component="h1" variant="h3" style={{ color: "white" }}>
+                            {t('bookingpassengers.passenger information')}
                         </Typography>
                     </Grid>
                     <Grid item xs={4}>
-                        <Typography component="h3" style={{color:"white"}}>
-                            Number of passengers:
+                        <Typography component="h3" style={{ color: "white" }}>
+                            {t('bookingpassengers.number of passengers')}:
                         </Typography>
                     </Grid>
                     <Grid item xs={6}>
                         <Slider
-                            style={{color:"white"}}
+                            style={{ color: "white" }}
                             value={value}
                             onChange={handleSliderChange}
                             min={1}
@@ -163,7 +165,7 @@ export default function BookingPassengers(props) {
                     </Grid>
                     <Grid item xs={2}>
                         <Input
-                            style={{color:"white"}}
+                            style={{ color: "white" }}
                             className={classes.input}
                             value={value}
                             margin="dense"
@@ -191,7 +193,7 @@ export default function BookingPassengers(props) {
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
                                     <Typography component="h1" variant="h6">
-                                        <b>Emergency Contact Person</b>
+                                        <b>{t('bookingpassengers.emergency contact person')}</b>
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
@@ -201,7 +203,7 @@ export default function BookingPassengers(props) {
                                         required
                                         fullWidth
                                         id="email address"
-                                        label="Email Address"
+                                        label={t('bookingpassengers.email address')}
                                         defaultValue={booking.emergencyEmail}
                                         name="emergencyEmail"
                                         onChange={updateBooking}
@@ -214,7 +216,7 @@ export default function BookingPassengers(props) {
                                         required
                                         fullWidth
                                         id="phone number"
-                                        label="Phone Number"
+                                        label={t('bookingpassengers.phone number')}
                                         defaultValue={booking.emergencyPhonenumber}
                                         name="emergencyPhonenumber"
                                         onChange={updateBooking}
@@ -234,8 +236,8 @@ export default function BookingPassengers(props) {
                         // onClick={props.previousPage}
                         >
                             <ArrowBackIcon />
-                            Flight menu
-                    </Button>
+                            {t('bookingpassengers.flight menu')}
+                        </Button>
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <Button
@@ -244,7 +246,7 @@ export default function BookingPassengers(props) {
                             variant="contained"
                             onClick={sendPassengerData}
                         >
-                            Seatpicker
+                            {t('bookingpassengers.seatpicker')}
                             <ArrowForwardIcon />
                         </Button>
                     </Grid>

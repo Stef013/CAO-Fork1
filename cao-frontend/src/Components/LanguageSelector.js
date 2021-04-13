@@ -32,7 +32,8 @@ const LanguageSelector = () => {
         <InputLabel>{t("languageselector.language")}</InputLabel>
         <Select
           defaultValue={Cookies.get("locale") || "en"}
-          onChange={changeLanguage}>
+          onChange={changeLanguage}
+          >
 
           <MenuItem value="en">English</MenuItem>
           <MenuItem value="nl">Nederlands</MenuItem>
