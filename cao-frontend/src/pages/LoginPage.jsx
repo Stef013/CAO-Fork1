@@ -15,6 +15,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
 import RegisterPopup from '../Components/RegisterPopup'
+import { useTranslation } from 'react-i18next'
+import LanguageSelector from '../Components/LanguageSelector';
 
 function Copyright() {
     return (
@@ -55,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
     const classes = useStyles();
     const history = useHistory();
+    const { t } = useTranslation()
 
     function navigateHome() {
         history.push('/Booking');

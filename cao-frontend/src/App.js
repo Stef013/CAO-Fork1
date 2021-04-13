@@ -7,6 +7,7 @@ import EmployeeList from './pages/Management/EmployeeList'
 import Error from './pages/Error'
 import Booking from './pages/BookingMain';
 import { Route, Switch } from 'react-router-dom';
+import { Suspense } from 'react';
 
 function App() {
   return (
