@@ -50,14 +50,20 @@ class BookingMain extends React.Component {
             ticket.rentedHotel = false;
         })
 
+        // TODO: use jwt token
+        console.log(newBooking)
+
         axios(
             {
                 method: 'post',
-                url: 'http://localhost:8080/service-booking/book',
+                url: 'http://localhost:8080/booking/book',
                 data: newBooking
             })
             .then(function (response) {
                 console.log(response);
+                if (response.status === 200) {
+                    alert("Booking succesfull!")
+                }
             })
             .catch(function (error) {
                 alert(error);

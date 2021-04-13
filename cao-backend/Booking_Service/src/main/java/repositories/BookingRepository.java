@@ -5,33 +5,21 @@ import models.Ticket;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
 public class BookingRepository {
 
-    private Connection connection;
-//    private String connectionUrl = "jdbc:sqlserver://cao-dbserver.database.windows.net:1433;" +
-//            "database=CAO_Booking;user=CaoAdmin@cao-dbserver;password=7tJzrUVGB5i8dxX;encrypt=true;" +
-//            "trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
     private final String connectionUrl = "jdbc:sqlserver://cao-dbserver.database.windows.net:1433;" +
             "database=CAO_Booking;user=CaoAdmin@cao-dbserver;password=7tJzrUVGB5i8dxX;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
 
     public Booking book(Booking booking, int userId) {
-        System.out.println(booking.toString());
         String query = "INSERT INTO [Booking] (UserId, BookingDate, ContactPhonenumber, " +
                 "ContactEmail, EmergencyPhonenumber, EmergencyEmail) VALUES " +
                 "(?,?,?,?,?,?)";
 
-//        try {
-//            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-//        } catch (ClassNotFoundException e) {
-//            System.out.println("classfornameerror");
-//            e.printStackTrace();
-//        }
-
         try (Connection connection = DriverManager.getConnection(connectionUrl)) {
-            System.out.println("erin");
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, userId);
             statement.setString(2, booking.getBookingDate());
@@ -44,21 +32,24 @@ public class BookingRepository {
 
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
+                Booking newBooking = booking;
                 int bookingId = generatedKeys.getInt(1);
 
                 boolean ticketsAdded = addTickets(connection, booking.getTickets(), bookingId);
 
                 if (ticketsAdded) {
-                    booking.setBookingId(bookingId);
-                    return booking;
+                    newBooking.setBookingId(bookingId);
+                    newBooking.setUserId(userId);
+                    for (Ticket t : newBooking.getTickets()) {
+                        t.setTicketId(-1);
+                    }
+                    return newBooking;
                 }
             }
         } catch (Exception e) {
-            System.out.println("Exception book");
             System.out.println(e);
             return null;
         }
-        System.out.println("nada");
         return null;
     }
 
@@ -68,7 +59,7 @@ public class BookingRepository {
                 "(?,?,?," +
                 "?,?,?,?,?,?,?,?)";
         try {
-            PreparedStatement statement = connection.prepareStatement(query);
+            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             for (Ticket ticket : tickets) {
                 statement.setInt(1, bookingId);
                 statement.setInt(2, ticket.getFlightId());
@@ -87,10 +78,8 @@ public class BookingRepository {
             if (affectedRows.length == tickets.size()) {
                 return true;
             }
-            System.out.println("False1");
             return false;
         } catch (Exception e) {
-            System.out.println("False2");
             System.out.println(e);
             return false;
         }

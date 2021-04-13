@@ -1,10 +1,14 @@
 package models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.quarkus.runtime.annotations.IgnoreProperty;
 
 import java.util.Date;
 
 public class Ticket {
+    @JsonProperty("id")
+    private int ticketId;
+
     @JsonProperty("firstname")
     private String firstname;
 
@@ -35,24 +39,16 @@ public class Ticket {
     @JsonProperty("dateOfBirth")
     private String dateOfBirth;
 
-    public String getFirstname() {
-        return firstname;
+    public int getTicketId() {
+        return ticketId;
     }
 
-    @Override
-    public String toString() {
-        return "Ticket{" +
-                "firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", gender='" + gender + '\'' +
-                ", flightId=" + flightId +
-                ", price=" + price +
-                ", seat='" + seat + '\'' +
-                ", extraLuggage=" + extraLuggage +
-                ", rentedHotel=" + rentedHotel +
-                ", rentedCar=" + rentedCar +
-                ", dateOfBirth='" + dateOfBirth + '\'' +
-                '}';
+    public void setTicketId(int ticketId) {
+        this.ticketId = ticketId;
+    }
+
+    public String getFirstname() {
+        return firstname;
     }
 
     public void setFirstname(String firstname) {
@@ -129,5 +125,22 @@ public class Ticket {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "ticketId=" + ticketId +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", gender='" + gender + '\'' +
+                ", flightId=" + flightId +
+                ", price=" + price +
+                ", seat='" + seat + '\'' +
+                ", extraLuggage=" + extraLuggage +
+                ", rentedHotel=" + rentedHotel +
+                ", rentedCar=" + rentedCar +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                '}';
     }
 }

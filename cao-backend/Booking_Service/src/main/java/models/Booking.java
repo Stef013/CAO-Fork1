@@ -9,20 +9,6 @@ public class Booking {
     @JsonProperty("bookingId")
     private int bookingId;
 
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "bookingId=" + bookingId +
-                ", userId=" + userId +
-                ", contactPhonenumber='" + contactPhonenumber + '\'' +
-                ", contactEmail='" + contactEmail + '\'' +
-                ", bookingDate='" + bookingDate + '\'' +
-                ", tickets=" + tickets.toString() +
-                ", emergencyEmail='" + emergencyEmail + '\'' +
-                ", emergencyPhonenumber='" + emergencyPhonenumber + '\'' +
-                '}';
-    }
-
     @JsonProperty("userId")
     private int userId;
 
@@ -106,5 +92,19 @@ public class Booking {
 
     public void setEmergencyPhonenumber(String emergencyPhonenumber) {
         this.emergencyPhonenumber = emergencyPhonenumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "bookingId=" + bookingId +
+                ", userId=" + userId +
+                ", contactPhonenumber='" + contactPhonenumber + '\'' +
+                ", contactEmail='" + contactEmail + '\'' +
+                ", bookingDate='" + bookingDate + '\'' +
+                ", tickets=" + tickets.toString() +
+                ", emergencyEmail='" + emergencyEmail + '\'' +
+                ", emergencyPhonenumber='" + emergencyPhonenumber + '\'' +
+                '}';
     }
 }
