@@ -5,6 +5,7 @@ import BookingOverview from '../Components/BookingOverview'
 import Error from './Error'
 import Booking from '../models/Booking';
 import axios from 'axios'
+import { Paper } from '@material-ui/core';
 
 class BookingMain extends React.Component {
     constructor() {

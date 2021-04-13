@@ -47,8 +47,13 @@ export default function BookingSeatpicker(props) {
             <div className={classes.paper}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <Typography component="h1" variant="h3">
+                        <Typography component="h1" variant="h3" style={{color:"white"}}>
                             Seatpicker
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography component="h1" variant="h5" style={{color:"white"}}>
+                            To be implemented...
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -56,7 +61,6 @@ export default function BookingSeatpicker(props) {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            color="primary"
                             onClick={props.previousPage}
                         >
                             <ArrowBackIcon />
@@ -68,7 +72,6 @@ export default function BookingSeatpicker(props) {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            color="primary"
                             onClick={nextPage}
                         >
                             Booking overview

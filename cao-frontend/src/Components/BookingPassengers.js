@@ -8,7 +8,7 @@ import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { Box, Grid, Input, MenuItem, Slider } from '@material-ui/core';
+import { Box, Grid, Input, MenuItem, Paper, Slider } from '@material-ui/core';
 import PassengerInfo from './BookingPassengerInfo'
 import Ticket from '../models/Ticket';
 
@@ -68,11 +68,11 @@ export default function BookingPassengers(props) {
     };
 
     const handleBlur = () => {
-      if (value < 1) {
-        setValue(1);
-      } else if (value > 25) {
-        setValue(25);
-      }
+        if (value < 1) {
+            setValue(1);
+        } else if (value > 25) {
+            setValue(25);
+        }
     };
 
     const removeLastPassenger = (deleteValue) => {
@@ -87,7 +87,7 @@ export default function BookingPassengers(props) {
         var newBooking = booking;
         for (var i = 1; i <= newValue; i++) {
             var newTicket = new Ticket()
-            newTicket.id = newBooking.tickets.length+1;
+            newTicket.id = newBooking.tickets.length + 1;
             newBooking.tickets.push(newTicket);
         }
         setBooking(newBooking);
@@ -141,17 +141,18 @@ export default function BookingPassengers(props) {
             <div className={classes.paper}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <Typography component="h1" variant="h3">
+                        <Typography component="h1" variant="h3" style={{color:"white"}}>
                             Passengers information
                         </Typography>
                     </Grid>
                     <Grid item xs={4}>
-                        <Typography component="h3">
+                        <Typography component="h3" style={{color:"white"}}>
                             Number of passengers:
                         </Typography>
                     </Grid>
                     <Grid item xs={6}>
                         <Slider
+                            style={{color:"white"}}
                             value={value}
                             onChange={handleSliderChange}
                             min={1}
@@ -162,6 +163,7 @@ export default function BookingPassengers(props) {
                     </Grid>
                     <Grid item xs={2}>
                         <Input
+                            style={{color:"white"}}
                             className={classes.input}
                             value={value}
                             margin="dense"
@@ -182,42 +184,45 @@ export default function BookingPassengers(props) {
                     {createDataFieldsForEachPerson()}
                 </Grid>
 
+
                 <Grid item xs={12}>
-                    <Box border={1} p={2} m={0} mb={2} borderRadius={16}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <Typography component="h1" variant="h6">
-                                    <b>Emergency Contact Person</b>
-                                </Typography>
+                    <Paper>
+                        <Box p={2} m={0} mb={2}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <Typography component="h1" variant="h6">
+                                        <b>Emergency Contact Person</b>
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        margin="low"
+                                        required
+                                        fullWidth
+                                        id="email address"
+                                        label="Email Address"
+                                        defaultValue={booking.emergencyEmail}
+                                        name="emergencyEmail"
+                                        onChange={updateBooking}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        margin="low"
+                                        required
+                                        fullWidth
+                                        id="phone number"
+                                        label="Phone Number"
+                                        defaultValue={booking.emergencyPhonenumber}
+                                        name="emergencyPhonenumber"
+                                        onChange={updateBooking}
+                                    />
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    margin="low"
-                                    required
-                                    fullWidth
-                                    id="email address"
-                                    label="Email Address"
-                                    defaultValue={booking.emergencyEmail}
-                                    name="emergencyEmail"
-                                    onChange={updateBooking}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    margin="low"
-                                    required
-                                    fullWidth
-                                    id="phone number"
-                                    label="Phone Number"
-                                    defaultValue={booking.emergencyPhonenumber}
-                                    name="emergencyPhonenumber"
-                                    onChange={updateBooking}
-                                />
-                            </Grid>
-                        </Grid>
-                    </Box>
+                        </Box>
+                    </Paper>
                 </Grid>
 
                 <Grid container spacing={2} >
@@ -226,8 +231,7 @@ export default function BookingPassengers(props) {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            color="primary"
-                            // onClick={props.previousPage}
+                        // onClick={props.previousPage}
                         >
                             <ArrowBackIcon />
                             Flight menu
@@ -238,7 +242,6 @@ export default function BookingPassengers(props) {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            color="primary"
                             onClick={sendPassengerData}
                         >
                             Seatpicker
