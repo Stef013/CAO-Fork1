@@ -13,7 +13,7 @@ import java.util.List;
 
 import static spark.Spark.*;
 
-public class AccountController {
+public class CustomerController {
 
     //private CustomerRepo customerRepo;
     private Registration RL = new Registration();
@@ -22,7 +22,7 @@ public class AccountController {
     Logging logger = new Logging();
 
 
-    public AccountController(final String a) {
+    public CustomerController() {
 
         options("/*", (request, response) -> {
 
@@ -54,11 +54,26 @@ public class AccountController {
 
                 json = gson.toJson(customer);
             } catch (Exception ex) {
-                System.out.println(ex);
+                response.status(404);
                 json = "Cant find user.";
             }
 
-            System.out.println(json);
+            return json;
+        }));
+
+        Spark.get("/", ((request, response) -> {
+            response.type("application/json");
+            String json;
+
+            try {
+                logger.logInfo(getClass().getName(), "In /customers");
+                List<Customer> customer = registration.getAllCustomer();
+
+                json = gson.toJson(customer);
+            } catch (Exception ex) {
+                response.status(404);
+                json = "No users.";
+            }
 
             return json;
         }));
@@ -86,7 +101,6 @@ public class AccountController {
 
             System.out.println("Post /");
             String body = request.body();
-            System.out.println(body);
             String message = "";
 
             try {
@@ -102,8 +116,7 @@ public class AccountController {
                     message = "Email already in use.";
                 }
             } catch (Exception ex) {
-                System.out.println(ex);
-                message = "Something went wrong.";
+                message = ERROR_MESSAGE;
             }
 
             return message;
@@ -127,8 +140,7 @@ public class AccountController {
                 }
 
             } catch (Exception ex) {
-                System.out.println(ex);
-                message = "Something went wrong.";
+                message = ERROR_MESSAGE;
             }
             return message;
 
@@ -305,8 +317,8 @@ public class AccountController {
                 }
 
             } catch (Exception ex) {
-                System.out.println(ex);
-                message = "Something went wrong.";
+                response.status(404);
+                message = ERROR_MESSAGE;
             }
             return message;
 

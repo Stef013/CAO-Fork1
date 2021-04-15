@@ -1,0 +1,6 @@
+projectKey=org.example:Account_Service
+serverUrl=http://localhost:9000
+serverVersion=8.8.0.42792
+dashboardUrl=http://localhost:9000/dashboard?id=org.example%3AAccount_Service
+ceTaskId=AXimLHskbbjQfGHBt_Kw
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AXimLHskbbjQfGHBt_Kw
