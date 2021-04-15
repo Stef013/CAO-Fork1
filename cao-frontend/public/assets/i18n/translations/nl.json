@@ -1,0 +1,100 @@
+{
+    "loginpage": {
+        "log in header": "Log in",
+        "log in button": "Inloggen",
+        "email address": "Emailadres",
+        "password": "Wachtwoord",
+        "remember me": "Onthoud mij",
+        "forgot password": "Wachtwoord vergeten?",
+        "no account sign up": "Nog geen account? Maak nu!"
+    },
+
+    "registerpage": {
+        "sign up header": "Account aanmaken",
+        "first name": "Voornaam",
+        "last name": "Achternaam",
+        "date of birth": "Geboortedatum",
+        "country placeholder": "Land",
+        "country description": "Kies jouw land",
+        "email address": "Emailadres",
+        "password": "Wachtwoord",
+        "repeat password": "Herhaal wachtwoord",
+        "sign up button": "Maak nieuw account"
+    },
+
+    "airplaneinfo": {
+        "take off place": "Vertrekplaats",
+        "landing place": "Bestemming",
+        "ETA": "ETA"
+    },
+
+    "errorpage": {
+        "page not found": "Oeps! Pagina niet gevonden!"
+    },
+
+    "flightplanner": {
+        "departure": "Vertrekplaats",
+        "arrival": "Aankomstplaats",
+        "departure time": "Vertrektijd",
+        "arrival time": "Aankomsttijd",
+        "ticket price": "Ticket prijs",
+        "location": "Locatie",
+        "set date and time": "Plaats datum & tijd",
+        "amount": "Prijs",
+        "create button": "Aanmaken"
+    },
+
+    "languageselector": {
+        "language": "Taal"
+    },
+
+    "bookingmain": {
+        "fields empty error": "Sommige velden zijn niet ingevuld, probeer opnieuw"  
+    },
+    
+    "bookingpassengers": {
+        "passenger information": "Passagiers informatie",
+        "number of passengers": "Aantal passagiers",
+        "passenger": "Passagier",
+        "gender": "Geslacht",
+        "male": "Man",
+        "female": "Vrouw",
+        "first name": "Voornaam",
+        "last name": "Achternaam",
+        "date of birth": "Geboortedatum",
+        "luggage": "Bagage",
+        "luggage description": "Selecteer de hoeveelheid bagage",
+        "email address": "Emailadres",
+        "phone number": "Telefoonnummer",
+        "emergency contact person": "Contactpersoon voor noodgevallen",
+        "flight menu": "Vluchten overzicht",
+        "seatpicker": "Stoelkeuze" 
+    },
+    
+    "bookingseatpicker": {
+        "seatpicker": "Stoelkeuze",
+        "passenger information": "Passagiers informatie",
+        "booking overview": "Boeking overzicht",
+        "to be implemented": "Nog te implementeren"
+    },
+    
+    "bookingoverview": {
+        "booking overview": "Boeking overzicht",
+        "flight overview": "Vlucht overzicht",
+        "total costs": "Totale kosten",
+        "passenger overview": "Passagiers overzicht",
+        "first name": "Voornaam",
+        "last name": "Achternaam",
+        "gender": "Geslacht",
+        "date of birth": "Geboortedatum",
+        "extra luggage": "Extra bagage",
+        "pieces": "stuks",
+        "seat": "Stoel",
+        "contact overview": "Contact overzicht",
+        "email address": "Emailadres",
+        "phone number": "Telefoonnummer",
+        "emergency contact person": "Contactpersoon voor noodgevallen",
+        "payment": "Betalen",
+        "seatpicker": "Stoelkeuze" 
+    }
+}
