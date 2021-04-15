@@ -14,7 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
-import RegisterPopup from '../Components/RegisterPopup'
+import RegisterPopup from '../Components/RegisterPopup';
+import TopButton from '../Components/TopButton';
 
 function Copyright() {
     return (
@@ -56,12 +57,9 @@ export default function SignIn() {
     const classes = useStyles();
     const history = useHistory();
 
-    function navigateHome() {
-        history.push('/FlightTracker');
-    }
-
     return (
         <Container component="main" maxWidth="sm">
+            <TopButton text="Employee login" onClick={() => history.push('/employeeLogin')}></TopButton>
             <CssBaseline />
             <Paper className={classes.paper} >
                 <Avatar className={classes.avatar}>
@@ -103,7 +101,7 @@ export default function SignIn() {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        onClick={navigateHome}
+                        onClick={() => history.push('/FlightTracker')}
                     >
                         Sign In
                     </Button>

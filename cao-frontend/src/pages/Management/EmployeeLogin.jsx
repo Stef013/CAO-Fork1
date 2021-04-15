@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
+import TopButton from '../../Components/TopButton';
 
 function Copyright() {
     return (
@@ -58,6 +59,7 @@ export default function EmployeeLogin() {
 
     return (
         <Container component="main" maxWidth="sm">
+            <TopButton text="Customer login" onClick={() => history.push('/')}></TopButton>
             <Paper className={classes.paper} >
                 <CssBaseline />
 
