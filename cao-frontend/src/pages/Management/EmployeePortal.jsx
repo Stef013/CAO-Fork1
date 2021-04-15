@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import MenuAppBar from "../../Components/MenuAppBar";
-import { Typography } from '@material-ui/core';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
+import { Typography, Card, CardContent, Button, Grid } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from "react-router-dom";
@@ -38,14 +34,18 @@ class EmployeePortal extends Component {
 
         this.state = {
         }
-        this.navigateHome = this.navigateHome.bind(this);
+        this.navigateCreation = this.navigateCreation.bind(this);
+        this.navigateList = this.navigateList.bind(this);
     }
 
     componentDidMount() {
         document.body.style.backgroundColor = "#3166b0"
     }
-    navigateHome() {
+    navigateCreation() {
         this.props.history.push('/EmployeeCreation');
+    }
+    navigateList() {
+        this.props.history.push('/EmployeeList');
     }
     render() {
         const { classes } = this.props;
@@ -55,21 +55,37 @@ class EmployeePortal extends Component {
                 <Typography className={classes.title} align="center" variant="h3" >
                     Management Portal
                 </Typography>
-                <Card className={classes.card} align="center">
-                    <CardContent>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6} md={4} lg={3} xl={2} >
+                        <Card className={classes.card} align="center">
+                            <CardContent>
+                                <Typography className={classes.cardTitle} variant="h6" gutterBottom>
+                                    New Employee Account
+                                </Typography>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.createButton}
+                                    onClick={this.navigateCreation}>Create</Button>
+                            </CardContent>
+                        </Card>
+                    </Grid>
 
-                        <Typography className={classes.cardTitle} variant="h6" gutterBottom>
-                            New Employee Account
-                        </Typography>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.createButton}
-                            onClick={this.navigateHome}>Create</Button>
-                    </CardContent>
-
-                </Card>
-
+                    <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                        <Card className={classes.card} align="center">
+                            <CardContent>
+                                <Typography className={classes.cardTitle} variant="h6" gutterBottom>
+                                    Employee Overview
+                                </Typography>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.createButton}
+                                    onClick={this.navigateList}>View</Button>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                </Grid>
             </div>
         )
     }

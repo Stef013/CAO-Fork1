@@ -1,8 +1,9 @@
 package Model;
 
 import Enum.Roles;
+import Interface.IAccount;
 
-public class Employee {
+public class Employee implements IAccount {
 
     private int id;
     private String email;
