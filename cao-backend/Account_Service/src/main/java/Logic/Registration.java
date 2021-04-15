@@ -4,16 +4,16 @@ import Interface.ICustomerRepository;
 import Interface.IEmployeeRepository;
 import Model.Customer;
 import Model.Employee;
-import Model.UpdateEmployeeRole;
-import Repository.CustomerSqlRepository;
-import Repository.EmployeeSqlRepository;
+import Model.UpdateEmployee;
+import Repository.CustomerRepo;
+import Repository.EmployeeRepo;
 
 import java.util.List;
 
 public class Registration {
 
-     final ICustomerRepository CR = new CustomerSqlRepository();
-     final IEmployeeRepository ER = new EmployeeSqlRepository();
+     CustomerRepo CR = new CustomerRepo();
+     EmployeeRepo ER = new EmployeeRepo();
 
      public boolean registerCustomer(Customer newCustomer)
      {
@@ -130,18 +130,22 @@ public class Registration {
         return false;
     }
 
-    public boolean updateEmployee(UpdateEmployeeRole employeeToUpdate)
+    public boolean updateEmployee(UpdateEmployee employeeToUpdate)
     {
-        if (employeeToUpdate == null || employeeToUpdate.getUserId() == 0 || employeeToUpdate.getRole() != null) {
-            return false;
-        }
-
-        if (!employeeToUpdate.getPassword().isEmpty() && employeeToUpdate.getPassword() != null)
+        if (employeeToUpdate != null && employeeToUpdate.getUserId() != 0 &&
+                employeeToUpdate.getRole() != null)
         {
-            return ER.updateRole(employeeToUpdate);
-        }
+            if (!employeeToUpdate.getPassword().isEmpty() && employeeToUpdate.getPassword() != null)
+            {
+                return ER.updateEmployee(employeeToUpdate);
+            }
+            else
+            {
+                return ER.updateRole(employeeToUpdate);
+            }
 
-        return ER.updateRoleAndPassword(employeeToUpdate);
+        }
+        return false;
     }
 
     public boolean deleteEmployee(int id)
@@ -157,7 +161,7 @@ public class Registration {
     {
         if (employeeEmail != null && !employeeEmail.isBlank())
         {
-            return ER.accountWithEmailExists(employeeEmail);
+            return ER.checkEmail(employeeEmail);
         }
         return false;
     }
