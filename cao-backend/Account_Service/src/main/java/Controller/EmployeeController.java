@@ -31,7 +31,7 @@ public class EmployeeController {
     public EmployeeController(final IEmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
 
-        Spark.get("/login", ((request, response) -> {
+        Spark.get("/employee/login", ((request, response) -> {
             response.type("application/json");
             AccountCredentials credentials = gson.fromJson(request.body(), AccountCredentials.class);
             Employee employee = this.employeeRepository.get(credentials.getEmail());
@@ -46,13 +46,8 @@ public class EmployeeController {
                 nbf.add(Calendar.MINUTE, -10);
                 Calendar expiration = Calendar.getInstance();
                 expiration.add(Calendar.MINUTE, 60);
-                String jws = Jwts.builder()
-                        .setSubject(employee.getEmail())
-                        .setNotBefore(nbf.getTime())
-                        .setIssuedAt(new Date())
-                        .setExpiration(expiration.getTime())
-                        .signWith(signingKey)
-                        .compact();
+                String jws = Jwts.builder().setSubject(employee.getEmail()).setNotBefore(nbf.getTime())
+                        .setIssuedAt(new Date()).setExpiration(expiration.getTime()).signWith(signingKey).compact();
                 jwtResponse.setToken(jws);
             } else {
                 response.status(401);
@@ -61,7 +56,7 @@ public class EmployeeController {
             return gson.toJson(jwtResponse);
         }));
 
-        Spark.get("/:id", ((request, response) -> {
+        Spark.get("/employee/:id", ((request, response) -> {
             String json;
 
             try {
@@ -88,7 +83,7 @@ public class EmployeeController {
             return json;
         }));
 
-        Spark.post("/", ((request, response) -> {
+        Spark.post("/employee", ((request, response) -> {
             String body = request.body();
             String message = "";
 
@@ -97,8 +92,7 @@ public class EmployeeController {
 
                 if (employeeRepository.accountWithEmailExists(employee.getEmail())) {
                     return "Email already in use.";
-                }
-                else if(employeeRepository.create(employee)) {
+                } else if (employeeRepository.create(employee)) {
                     return "Account created successfully!";
                 }
             } catch (Exception ex) {
@@ -107,7 +101,7 @@ public class EmployeeController {
             return ERROR_MESSAGE;
         }));
 
-        Spark.put("/", ((request, response) -> {
+        Spark.put("/employee", ((request, response) -> {
             String body = request.body();
             String message;
 
@@ -129,7 +123,7 @@ public class EmployeeController {
 
         }));
 
-        Spark.put("/role", ((request, response) -> {
+        Spark.put("/employee/role", ((request, response) -> {
             String body = request.body();
             String message;
 
@@ -151,13 +145,12 @@ public class EmployeeController {
 
         }));
 
-        Spark.delete("/", ((request, response) -> {
+        Spark.delete("/employee", ((request, response) -> {
             String body = request.body();
             String message;
 
             try {
                 Employee employee = gson.fromJson(body, Employee.class);
-
 
                 boolean result = employeeRepository.delete(employee.getId());
 
