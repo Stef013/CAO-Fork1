@@ -25,17 +25,22 @@ public class FlightDatabaseContext implements IFlight {
     }
 
     @Override
-    public createFlightReturnModel createFlight(int airport_id, String ticket_price, String destination, String origin, String departure_time, String arrival_time) throws ParseException {
+    public createFlightReturnModel createFlight(int airport_id, String ticket_price, String destination, String origin, String departure_time, String arrival_time, String longStartPos, String latStartPos, String longEndPos, String latEndPos) throws ParseException {
         createFlightReturnModel returnModel = new createFlightReturnModel();
         try (Connection connection = DriverManager.getConnection(connectionUrl)){
             try {
-                CallableStatement cstmnt = connection.prepareCall("{CALL createFlight(?,?,?,?,?,?)}");
+                CallableStatement cstmnt = connection.prepareCall("{CALL createFlight(?,?,?,?,?,?,?,?,?,?)}");
                 cstmnt.setInt(1, airport_id);
                 cstmnt.setString(2, ticket_price);
                 cstmnt.setString(3, destination);
                 cstmnt.setString(4, origin);
                 cstmnt.setString(5, departure_time);
                 cstmnt.setString(6, arrival_time);
+                cstmnt.setString(7, longStartPos);
+                cstmnt.setString(8, latStartPos);
+                cstmnt.setString(9, longEndPos);
+                cstmnt.setString(10, latEndPos);
+
 
                 cstmnt.executeUpdate();
 

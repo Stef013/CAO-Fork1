@@ -13,7 +13,11 @@ public interface IFlight {
             String destination,
             String origin,
             String departure_time,
-            String arrival_time) throws ParseException;
+            String arrival_time,
+            String longStartPos,
+            String latStartPos,
+            String longEndPos,
+            String latEndpos) throws ParseException;
 
     getFlightsReturnModel getFlights();
 }

@@ -39,6 +39,8 @@ public class FlightResource {
         String departure_time = createFlightSubmitModel.getDeparture_time();
         String arrival_time = createFlightSubmitModel.getArrival_time();
 
+
+
         if (airport_id == 0 || ticket_price.isEmpty() || destination.isEmpty() || origin.isEmpty() ||
                 departure_time.isEmpty() || arrival_time.isEmpty()) {
             return Response.status(Response.Status.BAD_REQUEST).build();
