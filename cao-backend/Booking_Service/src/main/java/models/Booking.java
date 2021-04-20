@@ -80,6 +80,8 @@ public class Booking {
         this.tickets = tickets;
     }
 
+    public void addTicket(Ticket ticket) { this.tickets.add(ticket); }
+
     public String getEmergencyEmail() {
         return emergencyEmail;
     }
@@ -94,6 +96,21 @@ public class Booking {
 
     public void setEmergencyPhonenumber(String emergencyPhonenumber) {
         this.emergencyPhonenumber = emergencyPhonenumber;
+    }
+
+    public Booking(int bookingId, int userId, String contactPhonenumber, String contactEmail, Date bookingDate, List<Ticket> tickets, String emergencyEmail, String emergencyPhonenumber) {
+        this.bookingId = bookingId;
+        this.userId = userId;
+        this.contactPhonenumber = contactPhonenumber;
+        this.contactEmail = contactEmail;
+        this.bookingDate = bookingDate;
+        this.tickets = tickets;
+        this.emergencyEmail = emergencyEmail;
+        this.emergencyPhonenumber = emergencyPhonenumber;
+    }
+
+    public Booking() {
+
     }
 
     @Override

@@ -17,6 +17,7 @@ import services.BookingService;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Path("/")
@@ -29,7 +30,7 @@ public class BookingController {
     ObjectMapper objectMapper = new ObjectMapper();
 
     @POST
-    @Path("/book")
+    @Path("/booking")
     @Produces(MediaType.APPLICATION_JSON)
     public Response book(String bookingJson, @HeaderParam("jwtToken") String jwt) throws JsonProcessingException {
         // Uncomment when a valid jwtToken is sent (for now the userId is hardcoded)
@@ -44,6 +45,31 @@ public class BookingController {
 
         //TODO: notify flight service that a ticket is booked (RabbitMQ)
         return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(bookingResponse)).build();
+    }
+
+    @GET
+    @Path("/booking/users/{userId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getBookingsByUserID(@PathParam("userId") int userId) {
+        int jwtUserId = userId; // TODO: get jwtUserId from jwt token
+        if (userId != jwtUserId) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
+        ArrayList<Booking> returnBookings;
+        try {
+            returnBookings = bookingService.getBookingsByUserID(userId);
+            return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(returnBookings)).build();
+        } catch(Exception e) {
+            return Response.status(Response.Status.fromStatusCode(409)).build();
+        }
+    }
+
+    @GET
+    @Path("/booking/{bookingId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getBookingByID(@PathParam("bookingId") int bookingId) {
+        return null;
     }
 
     public Claims decodeJWT(String jwt) {

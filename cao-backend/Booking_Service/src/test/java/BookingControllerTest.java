@@ -57,4 +57,11 @@ public class BookingControllerTest {
                 .then()
                     .statusCode(200);
     }
+
+    @Test
+    public void getBookingsByUserIdTest() {
+        given()
+                .when().get("/booking/users/1")
+                .then().statusCode(200);
+    }
 }

@@ -53,6 +53,34 @@ public class BookingRepository {
         return null;
     }
 
+    public ArrayList<Booking> getBookingsByUserID(int userId) {
+        String query = "SELECT DISTINCT * FROM [Booking] b INNER JOIN [Ticket] t on (b.BookingId = t.BookingId) " +
+                "WHERE b.UserId = ?";
+
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, userId);
+            ResultSet rs = statement.executeQuery();
+
+            ArrayList<Booking> allBookings = new ArrayList<Booking>();
+            Booking currentBooking = new Booking();
+            while (rs.next()) {
+                int bookingId = rs.getInt("BookingId");
+                if (bookingId != currentBooking.getBookingId()) {
+                    if (currentBooking.getBookingId() != 0) {
+                        allBookings.add(currentBooking);
+                    }
+                    currentBooking = bookingFromResultSet(rs);
+                }
+                currentBooking.addTicket(ticketFromResultSet(rs));
+            }
+            allBookings.add(currentBooking);
+            return allBookings;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     private boolean addTickets(Connection connection, List<Ticket> tickets, int bookingId) {
         String query = "INSERT INTO [Ticket] (BookingId, FlightId, Firstname, Lastname, Gender, Price, Seat, " +
                 "ExtraLuggage, RentedHotel, RentedCar, DateOfBirth) VALUES " +
@@ -83,5 +111,36 @@ public class BookingRepository {
             System.out.println(e);
             return false;
         }
+    }
+
+    private Booking bookingFromResultSet(ResultSet rs) throws SQLException {
+        Booking booking = new Booking(
+                rs.getInt("BookingId"),
+                rs.getInt("UserId"),
+                rs.getString("ContactPhonenumber"),
+                rs.getString("ContactEmail"),
+                rs.getDate("BookingDate"),
+                new ArrayList<Ticket>(),
+                rs.getString("EmergencyEmail"),
+                rs.getString("EmergencyPhonenumber")
+        );
+        return booking;
+    }
+
+    private Ticket ticketFromResultSet(ResultSet rs) throws SQLException {
+        Ticket ticket = new Ticket(
+                rs.getInt("TicketId"),
+                rs.getString("Firstname"),
+                rs.getString("Lastname"),
+                rs.getString("Gender"),
+                rs.getInt("FlightId"),
+                rs.getFloat("Price"),
+                rs.getString("Seat"),
+                rs.getInt("ExtraLuggage"),
+                rs.getBoolean("RentedHotel"),
+                rs.getBoolean("RentedCar"),
+                rs.getDate("DateOfBirth")
+        );
+        return ticket;
     }
 }
