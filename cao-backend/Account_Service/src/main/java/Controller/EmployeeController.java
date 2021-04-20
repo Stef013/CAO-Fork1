@@ -31,7 +31,7 @@ public class EmployeeController {
     public EmployeeController(final IEmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
 
-        Spark.get("/login", ((request, response) -> {
+        Spark.post("/login", ((request, response) -> {
             response.type("application/json");
             AccountCredentials credentials = gson.fromJson(request.body(), AccountCredentials.class);
             Employee employee = this.employeeRepository.get(credentials.getEmail());

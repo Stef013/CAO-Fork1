@@ -1,34 +1,20 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
+import PropTypes from 'prop-types';
+import { Avatar, Button, Container, CssBaseline, LinearProgress, Paper, TextField, Typography } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import { useHistory } from 'react-router-dom';
+import { withStyles } from '@material-ui/styles';
 import TopButton from '../../Components/TopButton';
+import axios from 'axios';
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-      </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
     paper: {
         marginTop: theme.spacing(8),
+        padding: 0,
+        position: 'relative',
+        overflow: 'hidden',
+    },
+    paperContainer: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -45,68 +31,126 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(1),
     },
     submit: {
-        margin: theme.spacing(3, 0, 2),
+        margin: theme.spacing(3, 0, 0),
     },
-}));
+    linearProgress: {
+        width: '100%',
+    }
+});
 
-export default function EmployeeLogin() {
-    const classes = useStyles();
-    const history = useHistory();
-
-    function navigateHome() {
-        history.push('/EmployeePortal');
+class EmployeeLogin extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            password: '',
+            error: null,
+            isLoading: false,
+        };
+        this.handleSubmitevents = this.handleSubmitevents.bind(this);
     }
 
-    return (
-        <Container component="main" maxWidth="sm">
-            <TopButton text="Customer login" onClick={() => history.push('/')}></TopButton>
-            <Paper className={classes.paper} >
-                <CssBaseline />
+    handleSubmitevents(event) {
+        event.preventDefault();
+        const credentials = {
+            email: this.state.email,
+            password: this.state.password,
+        }
+        this.setState({
+            isLoading: true,
+            error: null,
+        });
+        axios.post('http://localhost:8080/account/employee/login', credentials, {
+            headers: {
+                "Content-Type": 'application/json', 'Accept': 'application/json'
+            }
+        })
+            .then(res => {
+                
+                console.log(res);
+                console.log(res.status);
+                console.log(res.data);
+                this.setState({ isLoading: false });
+            })
+            .catch(error => {
+                console.log(error.response.data.message);
+                this.setState({
+                    error: error.response.data.message,
+                });
+            })
+            .then(() => {
+                this.setState({ isLoading: false });
+            });
+    }
 
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    CAO Management Portal
-                    </Typography>
-                <form className={classes.form} noValidate>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="username"
-                        label="User name"
-                        name="username"
-                        autoComplete="username"
-                        autoFocus
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                    />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        onClick={navigateHome}
-                    >
-                        Sign In
-                    </Button>
-                </form>
-            </Paper>
-            <Box mt={8}>
-                <Copyright />
-            </Box>
-        </Container>
-    );
+    render() {
+        const { classes } = this.props;
+        return (
+            <Container component="main" maxWidth="sm">
+                <TopButton text="Customer login" onClick={() => this.props.history.push('/')}></TopButton>
+                <CssBaseline />
+                <Paper className={classes.paper} >
+                    {this.state.isLoading && <LinearProgress className={classes.linearProgress} color="secondary" />}
+                    <div className={classes.paperContainer}>
+                        {this.state.error != null && (
+                            <div style={{ width: "100%", marginBottom: "1rem" }}>
+                                <Alert severity="error">{this.state.error}</Alert>
+                            </div>
+                        )}
+
+                        <Avatar className={classes.avatar}>
+                            <LockOutlinedIcon />
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
+                            CAO Management Portal
+                        </Typography>
+
+                        <form className={classes.form} onSubmit={this.handleSubmitevents} noValidate>
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
+                                value={this.state.email}
+                                onChange={(e) => { this.setState({ email: e.target.value }); }}
+                            />
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                value={this.state.password}
+                                onChange={(e) => { this.setState({ password: e.target.value }); }}
+                            />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                            >
+                                Sign In
+                        </Button>
+                        </form>
+                    </div>
+                </Paper>
+            </Container>
+        );
+    }
 }
+
+EmployeeLogin.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(EmployeeLogin);

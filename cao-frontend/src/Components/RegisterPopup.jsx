@@ -3,7 +3,7 @@ import { Button, TextField, Dialog, DialogContent, DialogTitle, Link, Grid, Menu
 import { makeStyles } from '@material-ui/core/styles';
 import { CountryRegionData } from 'react-country-region-selector';
 
-import axios from 'axios'
+import axios from 'axios';
 import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
@@ -53,7 +53,7 @@ export default function FormDialog() {
     };
 
     function checkPasswords() {
-        if (account.password == confPassword) {
+        if (account.password === confPassword) {
             console.log(account.password)
             console.log(confPassword)
             return true;
