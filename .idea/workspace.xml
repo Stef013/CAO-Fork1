@@ -107,6 +107,7 @@
       <workItem from="1616425931026" duration="278000" />
       <workItem from="1617101105228" duration="599000" />
       <workItem from="1617695661068" duration="33000" />
+      <workItem from="1618921212250" duration="220000" />
     </task>
     <servers />
   </component>
@@ -127,11 +128,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="1820" y="280" key="FileChooserDialogImpl" timestamp="1617695692494">
-      <screen x="1080" y="0" width="1920" height="1050" />
-    </state>
-    <state x="1820" y="280" key="FileChooserDialogImpl/0.0.1080.1890/1080.0.1920.1050@1080.0.1920.1050" timestamp="1617695692494" />
   </component>
 </project>
