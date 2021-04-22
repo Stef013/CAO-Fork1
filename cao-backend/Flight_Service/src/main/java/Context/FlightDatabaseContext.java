@@ -74,6 +74,10 @@ public class FlightDatabaseContext implements IFlight {
                     newFlight.setDestination(rs.getString("destination"));
                     newFlight.setOrigin(rs.getString("origin"));
                     newFlight.setTicket_price(rs.getString("ticket_price"));
+                    newFlight.setLatStartPos(rs.getString("lat_start"));
+                    newFlight.setLongStartPos(rs.getString("long_start"));
+                    newFlight.setLatEndPos(rs.getString("lat_end"));
+                    newFlight.setLongEndPos(rs.getString("long_end"));
 
                     returnModel.addFlight(newFlight);
                 }
