@@ -1,14 +1,14 @@
 import React from 'react';
-import BookingPassengers from '../Components/BookingPassengers'
-import BookingSeatpicker from '../Components/BookingSeatpicker'
-import BookingOverview from '../Components/BookingOverview'
+import BookingPassengers from '../Components/CreateBookingPassengers'
+import BookingSeatpicker from '../Components/CreateBookingSeatpicker'
+import BookingOverview from '../Components/CreateBookingOverview'
 import Error from './Error'
 import Booking from '../models/Booking';
 import axios from 'axios'
 import MenuAppBar from '../Components/MenuAppBar'
 import i18n from '../Components/i18n'
 
-class BookingMain extends React.Component {
+class CreateBookingMain extends React.Component {
 
     constructor() {
         super()
@@ -28,9 +28,20 @@ class BookingMain extends React.Component {
     }
 
     storePassengerData = (data) => {
-        var invalidBookingData = !(data.contactEmail || data.contactPhonenumber || data.emergencyEmail || data.emergencyPhonenumber || data.tickets.length)
+        var newBooking = this.state.booking;
+
+        newBooking.contactEmail = data.contactEmail;
+        newBooking.contactPhonenumber = data.contactPhonenumber;
+        newBooking.emergencyEmail = data.emergencyEmail;
+        newBooking.emergencyPhonenumber = data.emergencyPhonenumber;
+        newBooking.tickets = data.tickets;
+
+        console.log(data);
+        this.setState({ booking: newBooking });
+
+        var invalidBookingData = !(this.state.booking.contactEmail || this.state.booking.contactPhonenumber || this.state.booking.emergencyEmail || this.state.booking.emergencyPhonenumber || this.state.booking.tickets.length)
         var invalidTicketData;
-        data.tickets.forEach(ticket => {
+        this.state.booking.tickets.forEach(ticket => {
             invalidTicketData = !(ticket.firstname);
             invalidTicketData = !(ticket.lastname);
             invalidTicketData = !(ticket.gender);
@@ -41,16 +52,6 @@ class BookingMain extends React.Component {
         if (invalidBookingData || invalidTicketData) {
             alert(i18n.t('bookingmain.fields empty error'));
         } else {
-            var newBooking = this.state.booking;
-
-            newBooking.contactEmail = data.contactEmail;
-            newBooking.contactPhonenumber = data.contactPhonenumber;
-            newBooking.emergencyEmail = data.emergencyEmail;
-            newBooking.emergencyPhonenumber = data.emergencyPhonenumber;
-            newBooking.tickets = data.tickets;
-
-            console.log(data);
-            this.setState({ booking: newBooking });
             console.log(this.state.booking);
             this.setState({ currentPage: this.state.currentPage + 1 })
         }
@@ -74,7 +75,7 @@ class BookingMain extends React.Component {
         axios(
             {
                 method: 'post',
-                url: 'http://localhost:8080/booking/book',
+                url: 'http://localhost:8080/booking/booking',
                 data: newBooking
             })
             .then(function (response) {
@@ -115,4 +116,4 @@ class BookingMain extends React.Component {
     }
 }
 
-export default BookingMain
+export default CreateBookingMain

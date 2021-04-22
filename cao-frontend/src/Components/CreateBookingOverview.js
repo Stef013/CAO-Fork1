@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function BookingOverview(props) {
+export default function CreateBookingOverview(props) {
     const classes = useStyles();
     const history = useHistory();
     const { t } = useTranslation();

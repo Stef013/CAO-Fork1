@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 
 
-const PassengerInfo = (props) => {
+const CreateBookingPassengerInfo = (props) => {
     const { t } = useTranslation();
 
     const [luggage, setLuggage] = React.useState(0);
@@ -154,4 +154,4 @@ const PassengerInfo = (props) => {
     );
 }
 
-export default PassengerInfo;
+export default CreateBookingPassengerInfo;

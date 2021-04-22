@@ -5,7 +5,8 @@ import EmployeePortal from './pages/Management/EmployeePortal'
 import EmployeeCreation from './pages/Management/EmployeeCreation'
 import EmployeeList from './pages/Management/EmployeeList'
 import Error from './pages/Error'
-import Booking from './pages/BookingMain';
+import CreateBookingMain from './pages/CreateBookingMain';
+import BookingOverview from './pages/BookingOverview';
 import { Route, Switch } from 'react-router-dom';
 import { Suspense } from 'react';
 
@@ -20,7 +21,8 @@ function App() {
           <Route path="/EmployeePortal" component={EmployeePortal} />
           <Route path="/EmployeeCreation" component={EmployeeCreation} />
           <Route path="/EmployeeList" component={EmployeeList} />
-          <Route path="/Booking" component={Booking} />
+          <Route path="/CreateBooking" component={CreateBookingMain} />
+          <Route path="/BookingOverview" component={BookingOverview} />
           <Route component={Error} />
         </Switch>
       </Suspense>
