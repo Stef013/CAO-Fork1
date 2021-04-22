@@ -1,24 +1,23 @@
 import logo from './logo.svg';
+import Login from './pages/LoginPage'
+import Portal from './pages/Portal'
+import PoliceReport from './pages/PoliceReport'
 import './App.css';
+import { Route, Switch } from "react-router-dom";
+import { Suspense } from "react";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <Suspense fallback={<h1>Loading...</h1>}>
+        <Switch>
+          <Route path="/" component={Login} exact />
+          <Route path="/portal" component={Portal} />
+          <Route path="/policereport" component={PoliceReport} />
+          <Route component={Error} />
+        </Switch>
+      </Suspense>
+    </main>
   );
 }
 

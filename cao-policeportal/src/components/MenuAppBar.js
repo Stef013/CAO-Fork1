@@ -8,7 +8,6 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import logo from "../Images/logo.png";
-import LanguageSelector from "./LanguageSelector"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -82,7 +81,6 @@ export default function MenuAppBar() {
             </div>
           )}
 
-          <LanguageSelector />
         </Toolbar>
       </AppBar>
     </div>
