@@ -45,7 +45,6 @@ class PoliceReport extends Component {
             confPassword: "",
             showError: false,
             helperText: "",
-            role: "",
             openSuccess: false,
             openError: false,
             country: "",
@@ -70,13 +69,13 @@ class PoliceReport extends Component {
     };
 
     handleChange(event) {
-        this.account[event.target.name] = event.target.value;
+        this.report[event.target.name] = event.target.value;
     }
 
     async handleSubmit(event) {
         event.preventDefault();
 
-        if (this.checkPasswords()) {
+        
             if (this.state.country !== "") {
 
                 this.report.nationality = this.state.country;
@@ -105,7 +104,7 @@ class PoliceReport extends Component {
                     this.setState({ openSuccess: false });
                 }
             }
-        }
+        
     }
     render() {
         const { classes } = this.props;
