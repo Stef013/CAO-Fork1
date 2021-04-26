@@ -40,7 +40,7 @@ public class PoliceController {
 
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
-        Spark.put("/police/report", ((request, response) -> {
+        Spark.post("/report", ((request, response) -> {
 
             //Zoeken van een person
             String json;
@@ -51,24 +51,6 @@ public class PoliceController {
                 FoundPersonModel person = PL.searchPerson(personToFind);
 
                 json = gson.toJson(person);
-            } catch (Exception ex) {
-                response.status(404);
-                json = "Cant find user.";
-            }
-
-            return json;
-        }));
-
-        Spark.post("/police/report", ((request, response) -> {
-            //Aanmaken van een warrant
-            String json;
-
-            try {
-                SearchModel personToFind = gson.fromJson(request.body(), SearchModel.class);
-
-                boolean result = PL.createWarrant(personToFind);
-
-                json = gson.toJson(result);
             } catch (Exception ex) {
                 response.status(404);
                 json = "Cant find user.";
