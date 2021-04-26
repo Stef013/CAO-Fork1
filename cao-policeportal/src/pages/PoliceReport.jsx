@@ -36,17 +36,6 @@ const useStyles = (theme) => ({
     }
 });
 
-const roles = [
-    {
-        value: 'EMPLOYEE',
-        label: 'Employee',
-    },
-    {
-        value: 'ADMIN',
-        label: 'Admin',
-    },
-];
-
 class PoliceReport extends Component {
 
     constructor(props) {
@@ -205,7 +194,7 @@ class PoliceReport extends Component {
                                         select
                                         label='Select nationality'
                                         fullWidth
-                                        value={country}
+                                        value={this.state.country}
                                         onChange={e => this.setState({ country: e.target.value })}
                                     >
                                         {CountryRegionData.map((option) => (
