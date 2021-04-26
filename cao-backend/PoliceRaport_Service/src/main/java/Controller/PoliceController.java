@@ -1,6 +1,7 @@
 package Controller;
 
 import Logic.PoliceLogic;
+import Model.FoundPersonModel;
 import Model.SearchModel;
 import Model.UserModel;
 import Utilities.Logging;
@@ -47,7 +48,7 @@ public class PoliceController {
             try {
                 SearchModel personToFind = gson.fromJson(request.body(), SearchModel.class);
 
-                UserModel person = PL.searchPerson(personToFind);
+                FoundPersonModel person = PL.searchPerson(personToFind);
 
                 json = gson.toJson(person);
             } catch (Exception ex) {

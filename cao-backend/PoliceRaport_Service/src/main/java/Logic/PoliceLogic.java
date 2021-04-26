@@ -1,15 +1,17 @@
 package Logic;
 
+import Model.FoundPersonModel;
 import Model.SearchModel;
 import Model.UserModel;
 import Repository.PoliceRepo;
+
+import java.io.IOException;
 
 public class PoliceLogic {
 
     PoliceRepo PR = new PoliceRepo();
 
-    public UserModel searchPerson(SearchModel personToFind)
-    {
+    public FoundPersonModel searchPerson(SearchModel personToFind) throws IOException {
         if (personToFind != null && personToFind.getFirstname() != null && !personToFind.getFirstname().isEmpty() &&
                 personToFind.getLastname() != null && !personToFind.getLastname().isEmpty() &&
                 personToFind.getDateOfBirth() != null && !personToFind.getDateOfBirth().isEmpty() &&
