@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import Login from './pages/LoginPage'
 import Portal from './pages/Portal'
 import PoliceReport from './pages/PoliceReport'
+import Error from './pages/Error'
 import './App.css';
 import { Route, Switch } from "react-router-dom";
 import { Suspense } from "react";

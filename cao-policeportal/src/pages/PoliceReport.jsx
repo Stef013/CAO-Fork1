@@ -36,17 +36,6 @@ const useStyles = (theme) => ({
     }
 });
 
-const roles = [
-    {
-        value: 'EMPLOYEE',
-        label: 'Employee',
-    },
-    {
-        value: 'ADMIN',
-        label: 'Admin',
-    },
-];
-
 class PoliceReport extends Component {
 
     constructor(props) {
@@ -62,12 +51,11 @@ class PoliceReport extends Component {
             country: "",
         };
 
-        this.account = {
-            email: "",
-            password: "",
+        this.report = {
             firstname: "",
             lastname: "",
-            role: "",
+            dateOfBirth: "",
+            nationality: "",
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -81,17 +69,6 @@ class PoliceReport extends Component {
         this.setState({ openError: false });
     };
 
-    checkPasswords() {
-        if (this.account.password === this.state.confPassword) {
-            return true;
-        }
-        else {
-            this.setState({ showError: true });
-            this.setState({ helperText: "Passwords don't match!" });
-            return false;
-        }
-    }
-
     handleChange(event) {
         this.account[event.target.name] = event.target.value;
     }
@@ -100,13 +77,15 @@ class PoliceReport extends Component {
         event.preventDefault();
 
         if (this.checkPasswords()) {
-            if (this.state.role !== "") {
+            if (this.state.country !== "") {
 
-                this.account.role = this.state.role;
+                this.report.nationality = this.state.country;
 
                 var result = "";
 
-                await axios.post('http://localhost:8080/account/employee', this.account, {
+                console.log(this.report);
+
+                await axios.post('http://localhost:8080/police/report', this.report, {
                     headers: {
                         "Content-Type": 'application/json', 'Accept': 'application/json'
                     }
@@ -205,7 +184,7 @@ class PoliceReport extends Component {
                                         select
                                         label='Select nationality'
                                         fullWidth
-                                        value={country}
+                                        value={this.state.country}
                                         onChange={e => this.setState({ country: e.target.value })}
                                     >
                                         {CountryRegionData.map((option) => (
