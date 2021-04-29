@@ -7,9 +7,9 @@ public class InterpolFlightTicket {
     @JsonProperty("ticket")
     private Ticket ticket;
     @JsonProperty("flight")
-    private String flight;
+    private Object flight;
 
-    public InterpolFlightTicket(Ticket ticket, String flight) {
+    public InterpolFlightTicket(Ticket ticket, Object flight) {
         this.ticket = ticket;
         this.flight = flight;
     }
@@ -22,11 +22,11 @@ public class InterpolFlightTicket {
         this.ticket = ticket;
     }
 
-    public String getFlight() {
+    public Object getFlight() {
         return flight;
     }
 
-    public void setFlight(String flight) {
+    public void setFlight(Object flight) {
         this.flight = flight;
     }
 }

@@ -14,13 +14,19 @@ import models.Booking;
 import models.InterpolFlightTicket;
 import models.InterpolRequest;
 import models.Ticket;
+import org.json.JSONObject;
 import services.BookingService;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 @Path("/")
 public class BookingController {
@@ -94,8 +100,20 @@ public class BookingController {
         } else {
             ArrayList<InterpolFlightTicket> interpolFlightTickets = new ArrayList<>();
             for (Ticket ticket : tickets) {
-                // TODO: call getFlight endpoint
-                InterpolFlightTicket interpolFlightTicket = new InterpolFlightTicket(ticket, "");
+                var flight = new Object();
+                try {
+                    URL url = new URL("http://localhost:5678/flight/" + ticket.getFlightId());
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestProperty("accept", "application/json");
+                    InputStream responseStream = connection.getInputStream();
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    Map<String, Object> jsonMap = objectMapper.readValue(responseStream, Map.class);
+                    flight = jsonMap.get("flight");
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+
+                InterpolFlightTicket interpolFlightTicket = new InterpolFlightTicket(ticket, flight);
                 interpolFlightTickets.add(interpolFlightTicket);
             }
             return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(interpolFlightTickets)).build();
