@@ -2,6 +2,7 @@ package Context;
 
 import Interface.IFlight;
 import Models.createFlightReturnModel;
+import Models.flightReturnModel;
 import Models.getFlightsReturnModel;
 
 import java.text.ParseException;
@@ -24,4 +25,5 @@ public class FlightLocalContext implements IFlight {
         return null;
     }
     public getFlightsReturnModel CurrentFlights() {return null;}
+    public flightReturnModel FlightById(int FlightId) {return null;}
 }

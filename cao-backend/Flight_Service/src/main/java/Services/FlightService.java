@@ -3,6 +3,7 @@ package Services;
 import Context.FlightDatabaseContext;
 import Interface.IFlight;
 import Models.createFlightReturnModel;
+import Models.flightReturnModel;
 import Models.getFlightsReturnModel;
 import io.smallrye.mutiny.tuples.Tuple;
 import io.vertx.core.json.JsonArray;
@@ -46,6 +47,7 @@ public class FlightService {
         return context.getFlights();
     }
     public getFlightsReturnModel CurrentFlights () {return context.CurrentFlights();}
+    public flightReturnModel FlightById (int FlightId) {return context.FlightById(FlightId);}
 
     public Double[] getLatLng(String location) {
         String call= "http://open.mapquestapi.com/geocoding/v1/address?key=tfeYapd5em98p1WiUDnI5iy3z67tgnUO&location="+ location;
