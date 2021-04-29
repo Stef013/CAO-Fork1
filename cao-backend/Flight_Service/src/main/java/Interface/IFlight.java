@@ -1,6 +1,7 @@
 package Interface;
 
 import Models.createFlightReturnModel;
+import Models.flightReturnModel;
 import Models.getFlightsReturnModel;
 
 import java.text.ParseException;
@@ -21,4 +22,5 @@ public interface IFlight {
 
     getFlightsReturnModel getFlights();
     getFlightsReturnModel CurrentFlights();
+    flightReturnModel FlightById(int FlightId);
 }

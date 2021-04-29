@@ -2,6 +2,7 @@ package Resources;
 
 import Models.createFlightReturnModel;
 import Models.createFlightSubmitModel;
+import Models.flightReturnModel;
 import Models.getFlightsReturnModel;
 import Services.FlightService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,6 +16,8 @@ import javax.ws.rs.core.Response;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import org.jboss.resteasy.annotations.jaxrs.PathParam;
+
 
 @Path("")
 public class FlightResource {
@@ -73,6 +76,13 @@ public class FlightResource {
     @Path("/flight/current")
     public Response CurrentFlights() throws JsonProcessingException{
         getFlightsReturnModel returnModel = service.CurrentFlights();
+        return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(returnModel)).build();
+    }
+
+    @GET
+    @Path("/flight/{id}")
+    public Response FlightyById(@PathParam int id) throws JsonProcessingException {
+        flightReturnModel returnModel = service.FlightById(id);
         return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(returnModel)).build();
     }
 }
