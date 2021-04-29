@@ -102,7 +102,7 @@ public class FlightDatabaseContext implements IFlight {
         getFlightsReturnModel returnModel = new getFlightsReturnModel();
         try (Connection connection = DriverManager.getConnection(connectionUrl)){
             try {
-                CallableStatement cstmt = connection.prepareCall("{CALL getCurrentFlights)}");
+                CallableStatement cstmt = connection.prepareCall("{CALL getCurrentFlights}");
                 cstmt.execute();
 
                 ResultSet rs = cstmt.getResultSet();
@@ -138,11 +138,12 @@ public class FlightDatabaseContext implements IFlight {
         flightReturnModel returnModel = new flightReturnModel();
         try (Connection connection = DriverManager.getConnection(connectionUrl)){
             try {
-                CallableStatement cstmt = connection.prepareCall("{CALL FlightById(Id)}");
+                CallableStatement cstmt = connection.prepareCall("{CALL FlightById(?)}");
+                cstmt.setInt(1, Id);
                 cstmt.execute();
 
                 ResultSet rs = cstmt.getResultSet();
-                while (rs.next()) {
+                if (rs.next()) {
                     flight newFlight = new flight();
                     newFlight.setAirport_id(rs.getInt("airport_id"));
                     newFlight.setArrival_time(rs.getString("arrival_time"));
