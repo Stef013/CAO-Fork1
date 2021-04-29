@@ -80,7 +80,6 @@ class FlightPlannerForm extends PureComponent {
     this.setState({
       [name]: value,
     });
-    console.log(this.state);
   }
 
   render() {
