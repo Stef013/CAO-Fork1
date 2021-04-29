@@ -45,6 +45,7 @@ public class FlightService {
     public getFlightsReturnModel getFlights (){
         return context.getFlights();
     }
+    public getFlightsReturnModel CurrentFlights () {return context.CurrentFlights();}
 
     public Double[] getLatLng(String location) {
         String call= "http://open.mapquestapi.com/geocoding/v1/address?key=tfeYapd5em98p1WiUDnI5iy3z67tgnUO&location="+ location;

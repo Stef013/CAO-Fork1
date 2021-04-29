@@ -20,4 +20,5 @@ public interface IFlight {
             String latEndpos) throws ParseException;
 
     getFlightsReturnModel getFlights();
+    getFlightsReturnModel CurrentFlights();
 }

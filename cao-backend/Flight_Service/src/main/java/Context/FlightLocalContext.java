@@ -23,4 +23,5 @@ public class FlightLocalContext implements IFlight {
     public getFlightsReturnModel getFlights() {
         return null;
     }
+    public getFlightsReturnModel CurrentFlights() {return null;}
 }

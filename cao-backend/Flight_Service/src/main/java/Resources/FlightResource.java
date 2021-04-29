@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.inject.Inject;
+import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -63,8 +64,15 @@ public class FlightResource {
         if(returnModel == null){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(returnModel).build();
         }
-
         return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(returnModel)).build();
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/flight/current")
+    public Response CurrentFlights() throws JsonProcessingException{
+        getFlightsReturnModel returnModel = service.CurrentFlights();
+        return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(returnModel)).build();
+    }
 }
