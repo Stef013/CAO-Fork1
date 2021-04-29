@@ -16,7 +16,6 @@ import javax.ws.rs.core.Response;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 
 @Path("")
@@ -81,7 +80,10 @@ public class FlightResource {
 
     @GET
     @Path("/flight/{id}")
-    public Response FlightyById(@PathParam int id) throws JsonProcessingException {
+    public Response FlightyById(@PathParam("id") int id) throws JsonProcessingException {
+        if (id == 0) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
         flightReturnModel returnModel = service.FlightById(id);
         return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(returnModel)).build();
     }
