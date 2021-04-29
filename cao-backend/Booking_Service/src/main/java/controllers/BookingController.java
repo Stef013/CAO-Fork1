@@ -11,6 +11,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Claims;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Booking;
+import models.InterpolFlightTicket;
+import models.InterpolRequest;
 import models.Ticket;
 import services.BookingService;
 
@@ -77,5 +79,25 @@ public class BookingController {
                 .setSigningKey(DatatypeConverter.parseBase64Binary(jwtSecretKey))
                 .parseClaimsJws(jwt).getBody();
         return claims;
+    }
+
+    @POST
+    @Path("/booking/interpolrequest")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTicketByUser(String interpolJson) throws JsonProcessingException {
+        InterpolRequest interpolRequest = objectMapper.readValue(interpolJson, InterpolRequest.class);
+        ArrayList<Ticket> tickets = bookingService.getTicketByUser(interpolRequest);
+
+        if (tickets.isEmpty()) {
+            return Response.status(Response.Status.OK).entity("No tickets found.").build();
+        } else {
+            ArrayList<InterpolFlightTicket> interpolFlightTickets = new ArrayList<>();
+            for (Ticket ticket : tickets) {
+                // TODO: call getFlight endpoint
+                InterpolFlightTicket interpolFlightTicket = new InterpolFlightTicket(ticket, "");
+                interpolFlightTickets.add(interpolFlightTicket);
+            }
+            return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(interpolFlightTickets)).build();
+        }
     }
 }

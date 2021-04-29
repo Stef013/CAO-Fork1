@@ -1,6 +1,7 @@
 package repositories;
 
 import models.Booking;
+import models.InterpolRequest;
 import models.Ticket;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -142,5 +143,26 @@ public class BookingRepository {
                 rs.getDate("DateOfBirth")
         );
         return ticket;
+    }
+
+    public ArrayList<Ticket> getTicketByUser(InterpolRequest interpolRequest) {
+        String query = "SELECT * FROM [Ticket] WHERE Firstname = ? AND Lastname = ? AND DateOfBirth = ?";
+
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, interpolRequest.getFirstname());
+            statement.setString(2, interpolRequest.getLastname());
+            statement.setDate(3, new java.sql.Date(interpolRequest.getDateOfBirth().getTime()));
+            ResultSet rs = statement.executeQuery();
+
+            ArrayList<Ticket> allTickets = new ArrayList<Ticket>();
+            while (rs.next()) {
+                allTickets.add(ticketFromResultSet(rs));
+            }
+
+            return allTickets;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

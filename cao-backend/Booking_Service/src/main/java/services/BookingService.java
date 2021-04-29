@@ -30,4 +30,8 @@ public class BookingService {
     public ArrayList<Booking> getBookingsByUserID(int userId) {
         return bookingRepository.getBookingsByUserID(userId);
     }
+
+    public ArrayList<Ticket> getTicketByUser(InterpolRequest interpolRequest) {
+        return bookingRepository.getTicketByUser(interpolRequest);
+    }
 }
