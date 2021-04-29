@@ -6,57 +6,44 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import moment from "moment";
 import i18n from './i18n';
+import TableBody from '@material-ui/core/TableBody';
 
 export default class AirplaneInfo extends PureComponent {
-  state = {
-    currentTime: null,
-  };
 
+  constructor(props) {
+    super(props);
+  }
   render() {
-    const { info } = this.props;
-
-    this.setState({
-      currentTime: moment()
-        .add(info.minutesToFly / 600, "m")
-        .format("HH:mm:ss"),
-    });
-
     const popUpStyle = {
       padding: "10px 15px",
     };
 
     return (
       <div style={{ ...popUpStyle }}>
-        <h2>{info.Airplane}</h2>
-
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
+          <TableBody>
             <TableRow>
               <TableCell>
                 <b>{i18n.t('airplaneinfo.take off place')}</b>
               </TableCell>
-              <TableCell>{info.TakeOffPlace}</TableCell>
+              <TableCell>{this.props.info.origin}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
                 <b>{i18n.t('airplaneinfo.landing place')}</b>
               </TableCell>
-              <TableCell>{info.LandingPlace}</TableCell>
+              <TableCell>{this.props.info.destination}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
                 <b>{i18n.t('airplaneinfo.ETA')}</b>
               </TableCell>
-              <TableCell>{this.state.currentTime}</TableCell>
+              <TableCell>{this.props.info.arrival_time}</TableCell>
             </TableRow>
+            </TableBody>
           </Table>
         </TableContainer>
-        <br></br>
-        <img
-          style={{ borderRadius: "10px", width: "100%" }}
-          src={info.Image}
-          alt="airplane"
-        ></img>
       </div>
     );
   }

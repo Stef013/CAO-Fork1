@@ -9,6 +9,8 @@ import CreateBookingMain from './pages/CreateBookingMain';
 import BookingOverview from './pages/BookingOverview';
 import { Route, Switch } from 'react-router-dom';
 import { Suspense } from 'react';
+import FlightSummary from "./pages/FlightSummary";
+import FlightPlanner from "./pages/FlightPlanner";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="/EmployeePortal" component={EmployeePortal} />
           <Route path="/EmployeeCreation" component={EmployeeCreation} />
           <Route path="/EmployeeList" component={EmployeeList} />
+          <Route path="/FlightSummary" component={FlightSummary} />
+          <Route path="/FlightPlanner" component={FlightPlanner} />
           <Route path="/CreateBooking" component={CreateBookingMain} />
           <Route path="/BookingOverview" component={BookingOverview} />
           <Route component={Error} />
