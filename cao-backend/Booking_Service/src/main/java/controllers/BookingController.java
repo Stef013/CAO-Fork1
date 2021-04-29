@@ -61,6 +61,7 @@ public class BookingController {
         ArrayList<Booking> returnBookings;
         try {
             returnBookings = bookingService.getBookingsByUserID(userId);
+            System.out.println(returnBookings.get(0).isCheckedIn());
             return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(returnBookings)).build();
         } catch(Exception e) {
             return Response.status(Response.Status.fromStatusCode(409)).build();
@@ -98,6 +99,17 @@ public class BookingController {
                 interpolFlightTickets.add(interpolFlightTicket);
             }
             return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(interpolFlightTickets)).build();
+        }
+    }
+
+    @PUT
+    @Path("/booking/checkin/{bookingId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response checkInBooking(@PathParam("bookingId") int bookingId) throws JsonProcessingException {
+        if (bookingService.checkInBooking(bookingId)) {
+            return Response.status(Response.Status.OK).build();
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }
 }

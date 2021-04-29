@@ -32,6 +32,9 @@ public class Booking {
     @JsonProperty("emergencyPhonenumber")
     private String emergencyPhonenumber;
 
+    @JsonProperty("checkedIn")
+    private boolean checkedIn;
+
     public int getBookingId() {
         return bookingId;
     }
@@ -98,7 +101,15 @@ public class Booking {
         this.emergencyPhonenumber = emergencyPhonenumber;
     }
 
-    public Booking(int bookingId, int userId, String contactPhonenumber, String contactEmail, Date bookingDate, List<Ticket> tickets, String emergencyEmail, String emergencyPhonenumber) {
+    public boolean isCheckedIn() {
+        return checkedIn;
+    }
+
+    public void setCheckedIn(boolean checkedIn) {
+        this.checkedIn = checkedIn;
+    }
+
+    public Booking(int bookingId, int userId, String contactPhonenumber, String contactEmail, Date bookingDate, List<Ticket> tickets, String emergencyEmail, String emergencyPhonenumber, boolean checkedIn) {
         this.bookingId = bookingId;
         this.userId = userId;
         this.contactPhonenumber = contactPhonenumber;
@@ -107,6 +118,7 @@ public class Booking {
         this.tickets = tickets;
         this.emergencyEmail = emergencyEmail;
         this.emergencyPhonenumber = emergencyPhonenumber;
+        this.checkedIn = checkedIn;
     }
 
     public Booking() {

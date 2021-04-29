@@ -5,6 +5,7 @@ import models.InterpolRequest;
 import models.Ticket;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.ws.rs.core.Response;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +18,8 @@ public class BookingRepository {
 
     public Booking book(Booking booking, int userId) {
         String query = "INSERT INTO [Booking] (UserId, BookingDate, ContactPhonenumber, " +
-                "ContactEmail, EmergencyPhonenumber, EmergencyEmail) VALUES " +
-                "(?,?,?,?,?,?)";
+                "ContactEmail, EmergencyPhonenumber, EmergencyEmail, CheckedIn) VALUES " +
+                "(?,?,?,?,?,?,?)";
 
         try (Connection connection = DriverManager.getConnection(connectionUrl)) {
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -28,6 +29,7 @@ public class BookingRepository {
             statement.setString(4, booking.getContactEmail());
             statement.setString(5, booking.getEmergencyPhonenumber());
             statement.setString(6, booking.getEmergencyEmail());
+            statement.setBoolean(7, booking.isCheckedIn());
 
             statement.executeUpdate();
 
@@ -123,7 +125,8 @@ public class BookingRepository {
                 rs.getDate("BookingDate"),
                 new ArrayList<Ticket>(),
                 rs.getString("EmergencyEmail"),
-                rs.getString("EmergencyPhonenumber")
+                rs.getString("EmergencyPhonenumber"),
+                rs.getBoolean("CheckedIn")
         );
         return booking;
     }
@@ -163,6 +166,24 @@ public class BookingRepository {
             return allTickets;
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    public boolean checkInBooking(int bookingId) {
+        String query = "UPDATE [Booking] SET CheckedIn = ? WHERE BookingId = ?";
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setBoolean(1, true);
+            statement.setInt(2, bookingId);
+            int rowsChanged = statement.executeUpdate();
+
+            if (rowsChanged == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
         }
     }
 }

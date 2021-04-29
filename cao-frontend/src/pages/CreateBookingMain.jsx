@@ -60,6 +60,7 @@ class CreateBookingMain extends React.Component {
     placeBooking = () => {
 
         var newBooking = this.state.booking;
+        newBooking.checkedIn = false;
         newBooking.tickets.forEach(ticket => {
             ticket.seat = "A1";
             ticket.price = 110;
