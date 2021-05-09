@@ -10,7 +10,7 @@ const useStyles = (theme) => ({
     },
 });
 
-class BookingOverview extends Component {
+class BookingListPage extends Component {
     constructor(props) {
         super(props);
 
@@ -31,4 +31,4 @@ class BookingOverview extends Component {
     }
 }
 
-export default withStyles(useStyles)(BookingOverview);
+export default withStyles(useStyles)(BookingListPage);

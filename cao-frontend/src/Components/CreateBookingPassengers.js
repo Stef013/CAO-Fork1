@@ -120,9 +120,9 @@ export default function CreateBookingPassengers(props) {
 
     const updateTickets = (newTicket) => {
         var newBooking = booking;
-        let ticket = newBooking.tickets.find(ticket => ticket.id == newTicket.id);
+        let ticket = newBooking.tickets.find(ticket => ticket.id === newTicket.id);
 
-        if (ticket != undefined) {
+        if (ticket !== undefined) {
             newBooking.tickets.splice(newTicket.id - 1, 1, newTicket);
             setBooking(newBooking);
         }

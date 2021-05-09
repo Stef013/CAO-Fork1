@@ -64,7 +64,7 @@ class CreateBookingMain extends React.Component {
         newBooking.tickets.forEach(ticket => {
             ticket.seat = "A1";
             ticket.price = 110;
-            ticket.flightId = 1;
+            ticket.flightId = 3;
             ticket.rentedCar = false;
             ticket.rentedHotel = false;
         })

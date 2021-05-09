@@ -6,11 +6,12 @@ import EmployeeCreation from './pages/Management/EmployeeCreation'
 import EmployeeList from './pages/Management/EmployeeList'
 import Error from './pages/Error'
 import CreateBookingMain from './pages/CreateBookingMain';
-import BookingOverview from './pages/BookingOverview';
+import BookingListPage from './pages/BookingListPage';
 import { Route, Switch } from 'react-router-dom';
 import { Suspense } from 'react';
 import FlightSummary from "./pages/FlightSummary";
 import FlightPlanner from "./pages/FlightPlanner";
+import BookingOverview from './Components/BookingOverview'
 
 function App() {
   return (
@@ -26,7 +27,8 @@ function App() {
           <Route path="/FlightSummary" component={FlightSummary} />
           <Route path="/FlightPlanner" component={FlightPlanner} />
           <Route path="/CreateBooking" component={CreateBookingMain} />
-          <Route path="/BookingOverview" component={BookingOverview} />
+          <Route path="/BookingListPage" component={BookingListPage} />
+          <Route path="/BookingOverview" component={BookingOverview}/>
           <Route component={Error} />
         </Switch>
       </Suspense>

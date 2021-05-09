@@ -1,8 +1,9 @@
 import React from "react";
-import MUIDataTable from "mui-datatables";
 import axios from "axios";
 import { Component } from "react";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { withRouter } from 'react-router'
 
 const columns = [
     { label: "Departure location" },
@@ -21,8 +22,11 @@ class BookingList extends Component {
         }
     }
 
-    handleBookingClick = (booking) => {
-        console.log(booking);
+    handleBookingClick = (bookingFlightCombo) => {
+        //changepage
+
+        // this.props.history.push('/BookingOverview')
+
     }
 
     async componentDidMount() {
@@ -30,46 +34,58 @@ class BookingList extends Component {
         axios.get("http://localhost:8080/booking/booking/users/1").then((response) => {
 
             response.data.forEach(booking => {
-                // axios.get("Toekomstige flightCall a.k.a. huppeldepup + flightId").then((response) => {
+                console.log("flightID:" + booking.tickets[0].flightId);
+                axios.get("http://localhost:5678/flight/" + booking.tickets[0].flightId).then((response) => {
+                    var flight = response.data.flight;
+                    console.log(flight);
+                    var combiFlightBooking = [];
 
+                    combiFlightBooking.push(flight);
+                    combiFlightBooking.push(booking);
 
-                var combiFlightBooking = [];
-                combiFlightBooking.push("Eindhoven Airport"); //Departure
-                combiFlightBooking.push("11:15"); //Departure time
-                combiFlightBooking.push("Madrid Airport"); //Destination
-                combiFlightBooking.push(booking.tickets.length); //Amount of tickets
-                combiFlightBooking.push("€1100"); //Total price
-                combiFlightBooking.push(booking);
+                    var tempBookingList = this.state.bookingList;
+                    tempBookingList.push(combiFlightBooking);
 
-                var tempBookingList = this.state.bookingList;
-                tempBookingList.push(combiFlightBooking);
-                this.setState({
-                    bookingList: tempBookingList,
-                    isLoaded: "true"
+                    this.setState({
+                        bookingList: tempBookingList,
+                        isLoaded: "true"
+                    })
+                    console.log(this.state.bookingList)
                 })
-                // })
             });
         });
     }
 
 
     render() {
-        var bookinglist = this.state.bookingList.map((booking) => (
-            <TableRow hover onClick={() => this.handleBookingClick(booking)} style={{cursor:"pointer"}}>
+        var bookinglist = this.state.bookingList.map((bookingFlightCombo) => (
+            <TableRow
+                hover
+                component={Link}
+                to={{
+                    pathname: '/BookingOverview',
+                    state: {
+                        bookingFlightCombo: bookingFlightCombo,
+                    },
+                }}
+                key={bookingFlightCombo}
+                style={{ textDecoration: 'none', cursor: "pointer" }}
+            >
+
                 <TableCell>
-                    {booking[0]}
+                    {bookingFlightCombo[0].origin}
                 </TableCell>
                 <TableCell>
-                    {booking[1]}
+                    {bookingFlightCombo[0].departure_time.substr(0, 11) + " -> " + bookingFlightCombo[0].departure_time.substr(11, 5)}
                 </TableCell>
                 <TableCell>
-                    {booking[2]}
+                    {bookingFlightCombo[0].destination}
                 </TableCell>
                 <TableCell>
-                    {booking[3]}
+                    {bookingFlightCombo[1].tickets.length}
                 </TableCell>
                 <TableCell>
-                    {booking[4]}
+                    €{(bookingFlightCombo[1].tickets.length * bookingFlightCombo[0].ticket_price)}
                 </TableCell>
             </TableRow>
         ))
