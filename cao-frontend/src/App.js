@@ -30,7 +30,7 @@ function App() {
   return (
     <main>
       <Suspense fallback={<h1>Loading...</h1>}>
-        <MenuAppBar />
+        <MenuAppBar auth={!!token} setToken={setToken} />
         {
           !token ?
             <Login setToken={setToken} /> :
