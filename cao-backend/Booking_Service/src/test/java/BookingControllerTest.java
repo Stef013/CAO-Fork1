@@ -50,11 +50,19 @@ public class BookingControllerTest {
         bookingJson.put("emergencyEmail", "klaashoi@gmail.com");
         bookingJson.put("emergencyPhonenumber", "0611223344");
         bookingJson.put("tickets", new JSONArray(ticketsJson));
+        bookingJson.put("checkedIn", false);
 
         given()
                 .body(bookingJson.toString())
-                .when().post("/book")
+                .when().post("/booking")
                 .then()
                     .statusCode(200);
+    }
+
+    @Test
+    public void getBookingsByUserIdTest() {
+        given()
+                .when().get("/booking/users/1")
+                .then().statusCode(200);
     }
 }

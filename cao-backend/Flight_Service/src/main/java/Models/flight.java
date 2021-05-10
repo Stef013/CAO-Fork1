@@ -13,6 +13,14 @@ public class flight {
 
     private String arrival_time;
 
+    public  String longStartPos;
+
+    public String latStartPos;
+
+    public String longEndPos;
+
+    public String latEndPos;
+
     public String getTicket_price() {
         return ticket_price;
     }
@@ -59,5 +67,36 @@ public class flight {
 
     public void setArrival_time(String arrival_time) {
         this.arrival_time = arrival_time;
+    }
+    public String getLongStartPos() {
+        return longStartPos;
+    }
+
+    public void setLongStartPos(String longStartPos) {
+        this.longStartPos = longStartPos;
+    }
+
+    public String getLatStartPos() {
+        return latStartPos;
+    }
+
+    public void setLatStartPos(String latStartPos) {
+        this.latStartPos = latStartPos;
+    }
+
+    public String getLongEndPos() {
+        return longEndPos;
+    }
+
+    public void setLongEndPos(String longEndPos) {
+        this.longEndPos = longEndPos;
+    }
+
+    public String getLatEndPos() {
+        return latEndPos;
+    }
+
+    public void setLatEndPos(String latEndPos) {
+        this.latEndPos = latEndPos;
     }
 }

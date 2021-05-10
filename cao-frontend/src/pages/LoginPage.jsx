@@ -60,7 +60,7 @@ export default function SignIn() {
     const { t } = useTranslation()
 
     function navigateHome() {
-        history.push('/Booking');
+        history.push('/');
     }
 
     return (

@@ -96,5 +96,13 @@
         "emergency contact person": "Emergency Contact",
         "payment": "Payment",
         "seatpicker": "Seatpicker" 
+    },
+
+    "bookinglist": {
+        "departure location": "Departure Location",
+        "departure time": "Departure Time",
+        "destination": "Destination",
+        "tickets": "Tickets",
+        "total price": "Total Price"
     }
 }

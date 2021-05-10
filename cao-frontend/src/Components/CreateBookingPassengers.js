@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Box, Grid, Input, MenuItem, Paper, Slider } from '@material-ui/core';
-import PassengerInfo from './BookingPassengerInfo';
+import PassengerInfo from './CreateBookingPassengerInfo';
 import Ticket from '../models/Ticket';
 import { useTranslation } from 'react-i18next';
 
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function BookingPassengers(props) {
+export default function CreateBookingPassengers(props) {
     const classes = useStyles();
     const history = useHistory();
     const { t } = useTranslation();
@@ -120,9 +120,9 @@ export default function BookingPassengers(props) {
 
     const updateTickets = (newTicket) => {
         var newBooking = booking;
-        let ticket = newBooking.tickets.find(ticket => ticket.id == newTicket.id);
+        let ticket = newBooking.tickets.find(ticket => ticket.id === newTicket.id);
 
-        if (ticket != undefined) {
+        if (ticket !== undefined) {
             newBooking.tickets.splice(newTicket.id - 1, 1, newTicket);
             setBooking(newBooking);
         }

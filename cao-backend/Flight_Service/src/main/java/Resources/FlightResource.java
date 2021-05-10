@@ -2,18 +2,21 @@ package Resources;
 
 import Models.createFlightReturnModel;
 import Models.createFlightSubmitModel;
+import Models.flightReturnModel;
 import Models.getFlightsReturnModel;
 import Services.FlightService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.inject.Inject;
+import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Path("")
 public class FlightResource {
@@ -39,6 +42,8 @@ public class FlightResource {
         String departure_time = createFlightSubmitModel.getDeparture_time();
         String arrival_time = createFlightSubmitModel.getArrival_time();
 
+
+
         if (airport_id == 0 || ticket_price.isEmpty() || destination.isEmpty() || origin.isEmpty() ||
                 departure_time.isEmpty() || arrival_time.isEmpty()) {
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -61,8 +66,25 @@ public class FlightResource {
         if(returnModel == null){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(returnModel).build();
         }
-
         return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(returnModel)).build();
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/flight/current")
+    public Response CurrentFlights() throws JsonProcessingException{
+        getFlightsReturnModel returnModel = service.CurrentFlights();
+        return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(returnModel)).build();
+    }
+
+    @GET
+    @Path("/flight/{id}")
+    public Response FlightyById(@PathParam("id") int id) throws JsonProcessingException {
+        if (id == 0) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        flightReturnModel returnModel = service.FlightById(id);
+        return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(returnModel)).build();
+    }
 }

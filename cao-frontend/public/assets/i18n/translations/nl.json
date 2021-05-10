@@ -96,5 +96,13 @@
         "emergency contact person": "Contactpersoon voor noodgevallen",
         "payment": "Betalen",
         "seatpicker": "Stoelkeuze" 
+    },
+
+    "bookinglist": {
+        "departure location": "Vertrek Locatie",
+        "departure time": "Vertrektijd",
+        "destination": "Bestemming",
+        "tickets": "Kaartjes",
+        "total price": "Totale prijs"
     }
 }

@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function BookingSeatpicker(props) {
+export default function CreateBookingSeatpicker(props) {
     const classes = useStyles();
     const history = useHistory();
     const { t } = useTranslation();

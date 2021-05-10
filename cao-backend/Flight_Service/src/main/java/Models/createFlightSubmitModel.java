@@ -24,6 +24,51 @@ public class createFlightSubmitModel {
     @JsonProperty("arrival_time")
     String arrival_time;
 
+    @JsonProperty("longStartPos")
+    String longStartPos;
+
+    @JsonProperty("latStartPos")
+    String latStartPos;
+
+    @JsonProperty("longEndPos")
+    String longEndPos;
+
+    @JsonProperty("latEndPos")
+    String latEndPos;
+
+    public String getLongStartPos() {
+        return longStartPos;
+    }
+
+    public void setLongStartPos(String longStartPos) {
+        this.longStartPos = longStartPos;
+    }
+
+    public String getLatStartPos() {
+        return latStartPos;
+    }
+
+    public void setLatStartPos(String latStartPos) {
+        this.latStartPos = latStartPos;
+    }
+
+    public String getLongEndPos() {
+        return longEndPos;
+    }
+
+    public void setLongEndPos(String longEndPos) {
+        this.longEndPos = longEndPos;
+    }
+
+    public String getLatEndPos() {
+        return latEndPos;
+    }
+
+    public void setLatEndPos(String latEndPos) {
+        this.latEndPos = latEndPos;
+    }
+
+
     public int getAirport_id() {
         return airport_id;
     }
@@ -71,4 +116,6 @@ public class createFlightSubmitModel {
     public void setArrival_time(String arrival_time) {
         this.arrival_time = arrival_time;
     }
+
+
 }

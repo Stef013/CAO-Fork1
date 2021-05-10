@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import FlightLandIcon from '@material-ui/icons/FlightLand';
 import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -33,22 +35,24 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function BookingOverview(props) {
+export default function CreateBookingOverview(props) {
     const classes = useStyles();
     const history = useHistory();
     const { t } = useTranslation();
 
-    const [bookingFlightCombo, setBookingFlightCombo] = React.useState(props.bookingFlightCombo);
+    const [booking, setBooking] = React.useState(props.booking);
+
+    const nextPage = () => {
+        props.placeBooking();
+    }
 
     const calculatePrice = () => {
         //todo: Calculate total price with a loop through each ticket
     }
 
     const createPassengersOverview = () => {
-        var bookingFlightCombo = props.bookingFlightCombo
-        console.log(bookingFlightCombo)
         var rows = [];
-        props.bookingFlightCombo.booking.tickets.forEach(ticket => {
+        booking.tickets.forEach(ticket => {
             rows.push(
                 <Box p={2} m={0} borderRadius={16}>
                     <Grid container spacing={2}>
@@ -147,7 +151,7 @@ export default function BookingOverview(props) {
                             </Box>
                         </Paper>
                     </Grid>
-{/* 
+
                     <Grid item xs={12}>
                         <Paper>
                             <Box p={2} m={0}>
@@ -192,7 +196,30 @@ export default function BookingOverview(props) {
                                 </Grid>
                             </Box>
                         </Paper>
-                    </Grid> */}
+                    </Grid>
+
+                    <Grid item xs={12} sm={6}>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            onClick={props.previousPage}
+                        >
+                            <ArrowBackIcon />
+                            {t('bookingoverview.seatpicker')}
+                        </Button>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            onClick={nextPage}
+                        >
+                            {t('bookingoverview.payment')}
+                            <ArrowForwardIcon />
+                        </Button>
+                    </Grid>
                 </Grid>
             </div>
         </Container>
