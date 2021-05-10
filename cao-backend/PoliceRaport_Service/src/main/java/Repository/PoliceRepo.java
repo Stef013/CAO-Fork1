@@ -56,11 +56,10 @@ public class PoliceRepo {
     public boolean createWarrant(SearchModel personToFind) {
 
         try (Connection connection = DriverManager.getConnection(connectionUrl);
-             CallableStatement cstmnt = connection.prepareCall("{call createWarrent(?,?,?,?)}")) {
+             CallableStatement cstmnt = connection.prepareCall("{call createWarrent(?,?,?)}")) {
             cstmnt.setString(1, personToFind.getFirstname());
             cstmnt.setString(2, personToFind.getLastname());
             cstmnt.setString(3, personToFind.getDateOfBirth());
-            cstmnt.setString(4, personToFind.getNationality());
             cstmnt.executeUpdate();
 
             cstmnt.close();

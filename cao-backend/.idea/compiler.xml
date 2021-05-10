@@ -6,17 +6,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Flight_Service" />
+        <module name="FlightTracker_Service" />
+        <module name="booking-service" />
         <module name="Seatpicker_Service" />
         <module name="Account_Service" />
         <module name="PoliceRaport_Service" />
         <module name="backend-cao" />
-        <module name="Flight_Service" />
-        <module name="FlightTracker_Service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Account_Service" target="14" />
       <module name="backend-cao" target="11" />
+      <module name="booking-service" target="11" />
       <module name="Booking_Service" target="14" />
       <module name="Flight_Service" target="1.8" />
       <module name="FlightTracker_Service" target="14" />
