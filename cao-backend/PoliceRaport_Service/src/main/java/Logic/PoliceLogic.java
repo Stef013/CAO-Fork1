@@ -14,8 +14,7 @@ public class PoliceLogic {
     public FoundPersonModel searchPerson(SearchModel personToFind) throws IOException {
         if (personToFind != null && personToFind.getFirstname() != null && !personToFind.getFirstname().isEmpty() &&
                 personToFind.getLastname() != null && !personToFind.getLastname().isEmpty() &&
-                personToFind.getDateOfBirth() != null && !personToFind.getDateOfBirth().isEmpty() &&
-                personToFind.getNationality() != null && !personToFind.getNationality().isEmpty())
+                personToFind.getDateOfBirth() != null && !personToFind.getDateOfBirth().isEmpty())
         {
             return PR.searchPerson(personToFind);
         }
@@ -27,8 +26,7 @@ public class PoliceLogic {
     {
         if (personToFind != null && personToFind.getFirstname() != null && !personToFind.getFirstname().isEmpty() &&
                 personToFind.getLastname() != null && !personToFind.getLastname().isEmpty() &&
-                personToFind.getDateOfBirth() != null && !personToFind.getDateOfBirth().isEmpty() &&
-                personToFind.getNationality() != null && !personToFind.getNationality().isEmpty())
+                personToFind.getDateOfBirth() != null && !personToFind.getDateOfBirth().isEmpty())
         {
             return PR.createWarrant(personToFind);
         }

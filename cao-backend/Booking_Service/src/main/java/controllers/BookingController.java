@@ -95,7 +95,7 @@ public class BookingController {
         InterpolRequest interpolRequest = objectMapper.readValue(interpolJson, InterpolRequest.class);
         ArrayList<Ticket> tickets = bookingService.getTicketByUser(interpolRequest);
 
-        if (tickets.isEmpty()) {
+        if (tickets == null || tickets.isEmpty()) {
             return Response.status(Response.Status.OK).entity("No tickets found.").build();
         } else {
             ArrayList<InterpolFlightTicket> interpolFlightTickets = new ArrayList<>();
