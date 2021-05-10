@@ -35,7 +35,7 @@ export default function FormDialog() {
     const [confPassword, setConfPassword] = React.useState('');
     const [showError, setShowError] = React.useState(false);
     const [helperText, setHelperText] = React.useState();
-    const [account, setAccount] = React.useState({
+    const [account] = React.useState({
         email: " ",
         password: " ",
         firstname: " ",

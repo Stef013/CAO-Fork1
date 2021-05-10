@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import MenuAppBar from "../../Components/MenuAppBar";
 import { Typography, Button, TextField, Grid, MenuItem, Paper, Container, Snackbar } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert'
 import axios from 'axios'
@@ -131,7 +130,6 @@ class EmployeeCreation extends Component {
         const { openSuccess, openError } = this.state;
         return (
             <div style={{ height: "100%" }}>
-                <MenuAppBar></MenuAppBar>
                 <Typography className={classes.title} align="center" variant="h3" >
                     New Employee Account
                 </Typography>
@@ -256,7 +254,5 @@ class EmployeeCreation extends Component {
         )
     }
 }
-
-
 
 export default (withStyles(useStyles)(EmployeeCreation))

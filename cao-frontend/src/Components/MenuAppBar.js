@@ -8,7 +8,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import logo from "../Images/logo.png";
-import LanguageSelector from "./LanguageSelector"
+import LanguageSelector from "./LanguageSelector";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,22 +27,23 @@ const useStyles = makeStyles((theme) => ({
     height: "36px",
     padding: "20px",
     display: "block",
+    boxSizing: "content-box",
   },
 }));
 
 export default function MenuAppBar() {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
+  const [auth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
 
   return (
     <div className={classes.root}>
@@ -52,7 +53,7 @@ export default function MenuAppBar() {
             <img src={logo} alt="Logo" className={classes.logo}></img>
           </Typography>
           {auth && (
-            <div>
+            <MenuItem onClick={handleProfileMenuOpen}>
               <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
@@ -78,8 +79,9 @@ export default function MenuAppBar() {
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleClose}>Logout</MenuItem>
               </Menu>
-            </div>
+            </MenuItem>
           )}
           
           <LanguageSelector />

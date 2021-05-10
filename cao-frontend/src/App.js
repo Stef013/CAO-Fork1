@@ -11,6 +11,7 @@ import FlightPlanner from "./pages/FlightPlanner";
 import Booking from "./pages/BookingMain";
 import { Suspense } from "react";
 import jwt_decode from "jwt-decode";
+import MenuAppBar from './Components/MenuAppBar';
 
 function App() {
   const [token, setToken] = useState(() => {
@@ -29,6 +30,7 @@ function App() {
   return (
     <main>
       <Suspense fallback={<h1>Loading...</h1>}>
+        <MenuAppBar />
         {
           !token ?
             <Login setToken={setToken} /> :

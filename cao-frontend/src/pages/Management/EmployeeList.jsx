@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Accordion, AccordionDetails, AccordionSummary, AccordionActions, Typography, Button, Divider, Container, Paper, TextField, MenuItem } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MenuAppBar from "../../Components/MenuAppBar";
 import axios from 'axios';
 
 const useStyles = (theme) => ({
@@ -137,7 +136,6 @@ class EmployeeList extends Component {
 
         return (
             <div>
-                <MenuAppBar></MenuAppBar>
                 <Typography className={classes.title} align="center" variant="h3" >
                     Edit Employees
                 </Typography>

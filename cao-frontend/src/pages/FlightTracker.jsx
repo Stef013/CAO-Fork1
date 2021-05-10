@@ -1,6 +1,5 @@
 import "../App.css";
 import React, { Component } from "react";
-import MenuAppBar from "../Components/MenuAppBar";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import AirplanePin from "../Components/AirplanePin";
 import AirplaneInfo from "../Components/AirplaneInfo";
@@ -111,23 +110,20 @@ class App extends Component {
     render() {
         const { viewport } = this.state;
         return (
-            <div>
-                <MenuAppBar></MenuAppBar>
-                <ReactMapGL
-                    {...viewport}
-                    width="100%"
-                    height="100vh"
-                    minZoom={2}
-                    maxZoom={10}
-                    mapStyle="mapbox://styles/mapbox/outdoors-v11"
-                    onViewportChange={(viewport) => this.setState({ viewport })}
-                    mapboxApiAccessToken={APIKey}
-                    style={{ top: "0" }}
-                >
-                    {this.state.MockAirplaneInfo.map(this.rAirplaneMarker)}
-                    {this.renderPopup()}
-                </ReactMapGL>
-            </div>
+            <ReactMapGL
+                {...viewport}
+                width="100%"
+                height="100vh"
+                minZoom={2}
+                maxZoom={10}
+                mapStyle="mapbox://styles/mapbox/outdoors-v11"
+                onViewportChange={(viewport) => this.setState({ viewport })}
+                mapboxApiAccessToken={APIKey}
+                style={{ top: "0" }}
+            >
+                {this.state.MockAirplaneInfo.map(this.rAirplaneMarker)}
+                {this.renderPopup()}
+            </ReactMapGL>
         );
     }
 }

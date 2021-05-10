@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import MenuAppBar from "../../Components/MenuAppBar";
 import { Typography, Card, CardContent, Button, Grid } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -51,7 +50,6 @@ class EmployeePortal extends Component {
         const { classes } = this.props;
         return (
             <div style={{ height: "100%" }}>
-                <MenuAppBar></MenuAppBar>
                 <Typography className={classes.title} align="center" variant="h3" >
                     Management Portal
                 </Typography>
