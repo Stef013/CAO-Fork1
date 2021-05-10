@@ -25,8 +25,6 @@ const useStyles = makeStyles((theme) => ({
 export default function ResultPopup() {
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
-    
-
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -35,8 +33,6 @@ export default function ResultPopup() {
     const handleClose = () => {
         setOpen(false);
     };
-
-    
 
     return (
         <div>

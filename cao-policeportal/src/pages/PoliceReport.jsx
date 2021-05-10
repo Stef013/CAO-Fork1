@@ -74,7 +74,6 @@ class PoliceReport extends Component {
 
     async handleSubmit(event) {
         event.preventDefault();
-
         
             if (this.state.country !== "") {
 

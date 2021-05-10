@@ -28,10 +28,9 @@ public class PoliceRepo {
 
             FoundPersonModel foundPerson = null;
 
-            URL url = new URL("https://postman-echo.com/post"); //TODO: call naar boeking microservice
+            URL url = new URL("http://localhost:8081/booking/interpolrequest"); //TODO: call naar boeking microservice
 
             String body = gson.toJson(personToFind);
-
 
             URLConnection conn = url.openConnection();
             conn.setDoOutput(true);
