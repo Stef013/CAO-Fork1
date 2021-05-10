@@ -3,7 +3,7 @@ import axios from "axios";
 import { Component } from "react";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { withRouter } from 'react-router'
+import BookingOverview from "./BookingOverview"
 
 const columns = [
     { label: "Departure location" },
@@ -20,13 +20,6 @@ class BookingList extends Component {
             isLoaded: "false",
             bookingList: []
         }
-    }
-
-    handleBookingClick = (bookingFlightCombo) => {
-        //changepage
-
-        // this.props.history.push('/BookingOverview')
-
     }
 
     async componentDidMount() {
@@ -61,15 +54,7 @@ class BookingList extends Component {
         var bookinglist = this.state.bookingList.map((bookingFlightCombo) => (
             <TableRow
                 hover
-                component={Link}
-                to={{
-                    pathname: '/BookingOverview',
-                    state: {
-                        bookingFlightCombo: bookingFlightCombo,
-                    },
-                }}
                 key={bookingFlightCombo}
-                style={{ textDecoration: 'none', cursor: "pointer" }}
             >
 
                 <TableCell>
@@ -86,6 +71,9 @@ class BookingList extends Component {
                 </TableCell>
                 <TableCell>
                     €{(bookingFlightCombo[1].tickets.length * bookingFlightCombo[0].ticket_price)}
+                </TableCell>
+                <TableCell>
+                    <BookingOverview bookingFlightCombo={bookingFlightCombo}></BookingOverview>
                 </TableCell>
             </TableRow>
         ))
@@ -127,6 +115,11 @@ class BookingList extends Component {
                                 <TableCell>
                                     <Typography variant="h6">
                                         <b>Total price</b>
+                                    </Typography>
+                                </TableCell>
+                                <TableCell>
+                                    <Typography variant="h6">
+                                        <b>More info</b>
                                     </Typography>
                                 </TableCell>
                             </TableRow>

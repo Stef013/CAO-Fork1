@@ -1,200 +1,103 @@
 import React from 'react';
-import { Box, Container, Grid, Paper, Typography } from "@material-ui/core";
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom';
-import FlightLandIcon from '@material-ui/icons/FlightLand';
-import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { useTranslation } from 'react-i18next';
+import Dialog from '@material-ui/core/Dialog';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogActions';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Typography from '@material-ui/core/Typography';
+import FlightIcon from '@material-ui/icons/Flight';
+import { Icon, InlineIcon } from '@iconify/react';
+import baselineFlight from '@iconify-icons/ic/baseline-flight';
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(2),
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+});
 
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        flexGrow: 1,
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-}));
+const DialogTitle = withStyles(styles)((props) => {
+  const { children, classes, onClose, ...other } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+      <Typography variant="h6">{children}</Typography>
+      {onClose ? (
+        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
+  );
+});
 
+const DialogContent = withStyles((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+}))(MuiDialogContent);
 
+const DialogActions = withStyles((theme) => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(1),
+  },
+}))(MuiDialogActions);
 
-export default function BookingOverview(props) {
-    const classes = useStyles();
-    const history = useHistory();
-    const { t } = useTranslation();
+export default function CustomizedDialogs(props) {
+  const [open, setOpen] = React.useState(false);
 
-    const [bookingFlightCombo, setBookingFlightCombo] = React.useState(props.bookingFlightCombo);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-    const calculatePrice = () => {
-        //todo: Calculate total price with a loop through each ticket
-    }
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-    const createPassengersOverview = () => {
-        var bookingFlightCombo = props.bookingFlightCombo
-        console.log(bookingFlightCombo)
-        var rows = [];
-        props.bookingFlightCombo.booking.tickets.forEach(ticket => {
-            rows.push(
-                <Box p={2} m={0} borderRadius={16}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={6}>
-                            {t('bookingoverview.first name')}: {ticket.firstname}
-                        </Grid>
-                        <Grid item xs={6}>
-                            {t('bookingoverview.last name')}: {ticket.lastname}
-                        </Grid>
-                        <Grid item xs={6}>
-                            {t('bookingoverview.gender')}: {ticket.gender}
-                        </Grid>
-                        <Grid item xs={6}>
-                            {t('bookingoverview.date of birth')}: {ticket.dateOfBirth}
-                        </Grid>
-                        <Grid item xs={6}>
-                            {t('bookingoverview.extra luggage')}: {ticket.extraLuggage} {t('bookingoverview.pieces')}
-                        </Grid>
-                        <Grid item xs={6}>
-                            {t('bookingoverview.seat')}: {ticket.seat}
-                        </Grid>
-                    </Grid>
-                </Box>
-            )
-        });
+  const handleCheckIn = () => {
+    alert("Checked in")
 
-        return <div>{rows}</div>;
-    };
+    //TODO: API CALL
+  };
 
-    return (
-        <Container component="main" maxWidth="sm">
-            <CssBaseline />
-            <div className={classes.paper}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <Typography component="h1" variant="h3" style={{ color: "white" }}>
-                            {t('bookingoverview.booking overview')}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Paper>
-                            <Box p={2} m={0}>
-                                <Grid container spacing={1}>
-                                    <Grid item xs={6}>
-                                        <Typography component="h3">
-                                            <b>{t('bookingoverview.flight overview')}</b>
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Typography component="h3" align="right">
-                                            <b>{t('bookingoverview.total costs')}: ${calculatePrice()}</b>
-                                        </Typography>
-                                    </Grid>
-
-                                    <Grid item xs={1}>
-                                        <FlightTakeoffIcon />
-                                    </Grid>
-                                    <Grid item xs={5}>
-                                        Brussel, Belgium
-                                    </Grid>
-                                    <Grid item xs={1}>
-                                        <FlightLandIcon />
-                                    </Grid>
-                                    <Grid item xs={5}>
-                                        Madrid, Spain
-                                    </Grid>
-                                    <Grid item xs={1}>
-                                        <ChevronRightIcon />
-                                    </Grid>
-                                    <Grid item xs={5}>
-                                        01-05-2021 15:00
-                                    </Grid>
-                                    <Grid item xs={1}>
-                                        <ChevronRightIcon />
-                                    </Grid>
-                                    <Grid item xs={5}>
-                                        01-05-2021 16:00
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </Paper>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Paper>
-                            <Box p={2} m={0}>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12}>
-                                        <Typography component="h3">
-                                            <b>{t('bookingoverview.passenger overview')}</b>
-                                        </Typography>
-                                    </Grid>
-
-                                    {createPassengersOverview()}
-                                </Grid>
-                            </Box>
-                        </Paper>
-                    </Grid>
-{/* 
-                    <Grid item xs={12}>
-                        <Paper>
-                            <Box p={2} m={0}>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12}>
-                                        <Typography component="h3">
-                                            <b>{t('bookingoverview.contact overview')}</b>
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                    {t('bookingoverview.first name')}: {booking.tickets[0].firstname}
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                    {t('bookingoverview.last name')}: {booking.tickets[0].lastname}
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                    {t('bookingoverview.email address')}: {booking.contactEmail}
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                    {t('bookingoverview.phone number')}: {booking.contactPhonenumber}
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </Paper>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Paper>
-                            <Box p={2} m={0}>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12}>
-                                        <Typography component="h3">
-                                            <b>{t('bookingoverview.emergency contact person')}</b>
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                    {t('bookingoverview.email address')}: {booking.emergencyEmail}
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                    {t('bookingoverview.phone number')}: {booking.emergencyPhonenumber}
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </Paper>
-                    </Grid> */}
-                </Grid>
-            </div>
-        </Container>
-    );
+  return (
+    <div>
+      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        Open dialog
+      </Button>
+      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+          {props.bookingFlightCombo[0].origin} <Icon icon={baselineFlight} rotate="90deg" /> {props.bookingFlightCombo[0].destination}
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography gutterBottom>
+            {props.bookingFlightCombo[0].destination}
+          </Typography>
+          <Typography gutterBottom>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
+            lacus vel augue laoreet rutrum faucibus dolor auctor.
+          </Typography>
+          <Typography gutterBottom>
+            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
+            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
+            auctor fringilla.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleCheckIn} color="primary">
+            Check in
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
 }
