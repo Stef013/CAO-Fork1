@@ -4,7 +4,6 @@ import { Avatar, Button, Container, CssBaseline, LinearProgress, Paper, TextFiel
 import Alert from '@material-ui/lab/Alert';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/styles';
-import TopButton from '../../Components/TopButton';
 import axios from 'axios';
 
 const styles = theme => ({
@@ -50,7 +49,7 @@ class EmployeeLogin extends React.Component {
         this.handleSubmitevents = this.handleSubmitevents.bind(this);
     }
 
-    handleSubmitevents(event) {
+    async handleSubmitevents(event) {
         event.preventDefault();
         const credentials = {
             email: this.state.email,
@@ -60,34 +59,29 @@ class EmployeeLogin extends React.Component {
             isLoading: true,
             error: null,
         });
+        let responseToken = '';
         axios.post('http://localhost:8080/account/employee/login', credentials, {
             headers: {
                 "Content-Type": 'application/json', 'Accept': 'application/json'
             }
         })
-            .then(res => {
-                
-                console.log(res);
-                console.log(res.status);
-                console.log(res.data);
-                this.setState({ isLoading: false });
-            })
+            .then(res => responseToken = res.data.token)
             .catch(error => {
-                console.log(error.response.data.message);
+                console.dir(error);
                 this.setState({
-                    error: error.response.data.message,
+                    error: error.response?.data?.message || "Er is een netwerkfout opgetreden",
                 });
             })
-            .then(() => {
+            .then(res => {
                 this.setState({ isLoading: false });
+                this.props.setToken(responseToken);
             });
     }
-
+    
     render() {
         const { classes } = this.props;
         return (
             <Container component="main" maxWidth="sm">
-                <TopButton text="Customer login" onClick={() => this.props.history.push('/')}></TopButton>
                 <CssBaseline />
                 <Paper className={classes.paper} >
                     {this.state.isLoading && <LinearProgress className={classes.linearProgress} color="secondary" />}
@@ -151,6 +145,7 @@ class EmployeeLogin extends React.Component {
 
 EmployeeLogin.propTypes = {
     classes: PropTypes.object.isRequired,
+    setToken: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(EmployeeLogin);
