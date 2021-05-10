@@ -8,7 +8,6 @@ export default function Login(props) {
     const [showEmployeeLogin, setShowEmployeeLogin] = useState(false);
 
     const switchLogin = () => {
-        console.log("Switching login screens");
         setShowEmployeeLogin(!showEmployeeLogin);
     }
 

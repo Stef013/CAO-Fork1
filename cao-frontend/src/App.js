@@ -10,9 +10,21 @@ import FlightSummary from "./pages/FlightSummary";
 import FlightPlanner from "./pages/FlightPlanner";
 import Booking from "./pages/BookingMain";
 import { Suspense } from "react";
+import jwt_decode from "jwt-decode";
 
 function App() {
-  const [token, setToken] = useState();
+  const [token, setToken] = useState(() => {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      return null;
+    }
+    const decoded = jwt_decode(token);
+    const now = new Date().getTime();
+    return decoded.nbf * 1000 > now || decoded.exp * 1000 < now ? null : localStorage.getItem('accessToken');
+  });
+  React.useEffect(() => {
+    token ? localStorage.setItem('accessToken', token) : localStorage.removeItem('accessToken');
+  }, [token]);
 
   return (
     <main>
@@ -28,13 +40,12 @@ function App() {
               <Route path="/FlightSummary" component={FlightSummary} />
               <Route path="/FlightPlanner" component={FlightPlanner} />
               <Route path="/Booking" component={Booking} />
-              
+
               {/* TODO: check if user has employee rights, redirect accordingly */}
               <Redirect from='/' to="/EmployeePortal" />
               <Route component={Error} />
             </Switch>
         }
-
       </Suspense>
     </main>
   );
