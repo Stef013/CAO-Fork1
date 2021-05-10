@@ -12,8 +12,13 @@ import Booking from "./pages/BookingMain";
 import { Suspense } from "react";
 import jwt_decode from "jwt-decode";
 import MenuAppBar from './Components/MenuAppBar';
+import axios from 'axios';
 
 function App() {
+  const authAxios = axios.create({
+    baseURL: 'http://localhost:8080',
+  });
+
   const [token, setToken] = useState(() => {
     const token = localStorage.getItem('accessToken');
     if (!token) {
@@ -27,19 +32,26 @@ function App() {
     token ? localStorage.setItem('accessToken', token) : localStorage.removeItem('accessToken');
   }, [token]);
 
+  if(token) {
+    authAxios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  }
+  else {
+    delete axios.defaults.headers.common['Authorization'];
+  }
+
   return (
     <main>
       <Suspense fallback={<h1>Loading...</h1>}>
         <MenuAppBar auth={!!token} setToken={setToken} />
         {
           !token ?
-            <Login setToken={setToken} /> :
+            <Login setToken={setToken} axios={authAxios} /> :
             <Switch>
               <Route path="/FlightTracker" component={FlightTracker} />
               <Route path="/EmployeePortal" component={EmployeePortal} />
               <Route path="/EmployeeCreation" component={EmployeeCreation} />
-              <Route path="/EmployeeList" component={EmployeeList} />
-              <Route path="/FlightSummary" component={FlightSummary} />
+              <Route path="/EmployeeList" component={() => <EmployeeList axios={authAxios} />} />
+              <Route path="/FlightSummary" component={() => <FlightSummary axios={authAxios} />} />
               <Route path="/FlightPlanner" component={FlightPlanner} />
               <Route path="/Booking" component={Booking} />
 

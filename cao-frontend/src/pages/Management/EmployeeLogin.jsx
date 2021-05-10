@@ -4,7 +4,6 @@ import { Avatar, Button, Container, CssBaseline, LinearProgress, Paper, TextFiel
 import Alert from '@material-ui/lab/Alert';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/styles';
-import axios from 'axios';
 import { Trans, withTranslation } from 'react-i18next';
 
 const styles = theme => ({
@@ -62,7 +61,7 @@ class EmployeeLogin extends React.Component {
             error: null,
         });
         let responseToken = '';
-        axios.post('http://localhost:8080/account/employee/login', credentials, {
+        this.props.axios.post('/account/employee/login', credentials, {
             headers: {
                 "Content-Type": 'application/json', 'Accept': 'application/json'
             }

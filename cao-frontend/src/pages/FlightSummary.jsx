@@ -14,7 +14,7 @@ class FlightSummary extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.listStyle}>
-                <FlightList />
+                <FlightList axios={this.props.axios} />
             </div>
         );
     }

@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
     const classes = useStyles();
     const history = useHistory();
     const { t } = useTranslation();
@@ -88,7 +88,7 @@ export default function SignIn() {
                             </Link>
                         </Grid>
                         <Grid item>
-                            <RegisterPopup />
+                            <RegisterPopup axios={props.axios} />
                         </Grid>
                     </Grid>
                 </form>

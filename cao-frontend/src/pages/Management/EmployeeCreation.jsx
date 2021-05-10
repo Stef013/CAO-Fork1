@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Typography, Button, TextField, Grid, MenuItem, Paper, Container, Snackbar } from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert'
-import axios from 'axios'
+import Alert from '@material-ui/lab/Alert';
 import { withStyles } from '@material-ui/core/styles';
 
 const useStyles = (theme) => ({
@@ -103,7 +102,7 @@ class EmployeeCreation extends Component {
 
                 var result = "";
 
-                await axios.post('http://localhost:8080/account/employee', this.account, {
+                await this.props.axios.post('/account/employee/', this.account, {
                     headers: {
                         "Content-Type": 'application/json', 'Accept': 'application/json'
                     }

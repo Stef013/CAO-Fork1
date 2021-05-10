@@ -1,6 +1,5 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
-import axios from "axios";
 import { Component } from "react";
 
 
@@ -21,7 +20,7 @@ class FlightList extends Component {
   }
 
   async componentDidMount() {
-    axios.get("http://localhost:5678/flight").then((response) => {
+    this.props.axios.get("/flight/").then((response) => {
       this.setState({
         flightlist: response.data.flightList,
         isLoaded: "true"

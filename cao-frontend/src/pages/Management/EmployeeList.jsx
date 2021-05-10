@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Accordion, AccordionDetails, AccordionSummary, AccordionActions, Typography, Button, Divider, Container, Paper, TextField, MenuItem } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import axios from 'axios';
 
 const useStyles = (theme) => ({
     maincolumn1: {
@@ -90,15 +89,12 @@ class EmployeeList extends Component {
     }
 
     async componentDidMount() {
-        console.log("begin");
-        await axios.get('http://localhost:8080/account/employee',
+        console.info("Making call");
+        await this.props.axios.get('/account/employee/',
         ).then(res => {
-            console.log(res);
-            console.log(res.data);
             this.accounts = res.data;
             this.setState({ gotUsers: true });
         }).catch(error => console.log(error));
-        console.log("end");
     }
 
     handleExpand = (panel) => (event, isExpanded) => {
@@ -113,17 +109,13 @@ class EmployeeList extends Component {
 
     async handleSubmit(id, event) {
         event.preventDefault();
-
         this.account.userId = id;
 
-        console.log(this.account);
-        await axios.put('http://localhost:8080/account/employee/role', this.account, {
+        await this.props.axios.put('/account/employee/role', this.account, {
             headers: {
                 "Content-Type": 'application/json', 'Accept': 'application/json'
             }
         }).then(res => {
-            console.log(res);
-            console.log(res.data);
             // document.getElementById("form" + id).reset();
             window.location.reload();
 
@@ -146,7 +138,7 @@ class EmployeeList extends Component {
 
                                 {this.accounts.map((user) => (
 
-                                    <Accordion className={classes.accordion} expanded={expanded === user.email} onChange={this.handleExpand(user.email)}>
+                                    <Accordion key={user.id} className={classes.accordion} expanded={expanded === user.email} onChange={this.handleExpand(user.email)}>
                                         <AccordionSummary
                                             expandIcon={<ExpandMoreIcon />}
                                             aria-controls="panel1c-content"
