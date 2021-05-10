@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { Box, Container, Grid, Paper, Typography } from "@material-ui/core";
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
@@ -7,10 +8,15 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
 import FlightIcon from '@material-ui/icons/Flight';
 import { Icon, InlineIcon } from '@iconify/react';
 import baselineFlight from '@iconify-icons/ic/baseline-flight';
+import { useTranslation } from 'react-i18next';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import FlightLandIcon from '@material-ui/icons/FlightLand';
+import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 const styles = (theme) => ({
   root: {
@@ -54,6 +60,7 @@ const DialogActions = withStyles((theme) => ({
 
 export default function CustomizedDialogs(props) {
   const [open, setOpen] = React.useState(false);
+  const { t } = useTranslation();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -69,28 +76,156 @@ export default function CustomizedDialogs(props) {
     //TODO: API CALL
   };
 
+  const createPassengersOverview = () => {
+    var rows = [];
+    props.bookingFlightCombo[1].tickets.forEach(ticket => {
+      rows.push(
+        <Box p={2} m={0} borderRadius={16}>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              {t('bookingoverview.first name')}: {ticket.firstname}
+            </Grid>
+            <Grid item xs={6}>
+              {t('bookingoverview.last name')}: {ticket.lastname}
+            </Grid>
+            <Grid item xs={6}>
+              {t('bookingoverview.gender')}: {ticket.gender}
+            </Grid>
+            <Grid item xs={6}>
+              {t('bookingoverview.date of birth')}: {ticket.dateOfBirth}
+            </Grid>
+            <Grid item xs={6}>
+              {t('bookingoverview.extra luggage')}: {ticket.extraLuggage} {t('bookingoverview.pieces')}
+            </Grid>
+            <Grid item xs={6}>
+              {t('bookingoverview.seat')}: {ticket.seat}
+            </Grid>
+          </Grid>
+        </Box>
+      )
+    });
+
+    return <div>{rows}</div>;
+  };
+
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open dialog
+        View booking
       </Button>
-      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} maxWidth="md">
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           {props.bookingFlightCombo[0].origin} <Icon icon={baselineFlight} rotate="90deg" /> {props.bookingFlightCombo[0].destination}
         </DialogTitle>
         <DialogContent dividers>
-          <Typography gutterBottom>
-            {props.bookingFlightCombo[0].destination}
-          </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-            lacus vel augue laoreet rutrum faucibus dolor auctor.
-          </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-            auctor fringilla.
-          </Typography>
+
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Paper>
+                <Box p={2} m={0}>
+                  <Grid container spacing={1}>
+                    <Grid item xs={6}>
+                      <Typography component="h3">
+                        <b>{t('bookingoverview.flight overview')}</b>
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography component="h3" align="right">
+                        <b>{t('bookingoverview.total costs')}: ${props.bookingFlightCombo[0].ticket_price * props.bookingFlightCombo[1].tickets.length}</b>
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xs={1}>
+                      <FlightTakeoffIcon />
+                    </Grid>
+                    <Grid item xs={5}>
+                      {props.bookingFlightCombo[0].origin}
+                    </Grid>
+                    <Grid item xs={1}>
+                      <FlightLandIcon />
+                    </Grid>
+                    <Grid item xs={5}>
+                      {props.bookingFlightCombo[0].destination}
+                    </Grid>
+                    <Grid item xs={1}>
+                      <ChevronRightIcon />
+                    </Grid>
+                    <Grid item xs={5}>
+                      {props.bookingFlightCombo[0].departure_time.substr(0, 16)}
+                    </Grid>
+                    <Grid item xs={1}>
+                      <ChevronRightIcon />
+                    </Grid>
+                    <Grid item xs={5}>
+                      {props.bookingFlightCombo[0].arrival_time.substr(0, 16)}
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Paper>
+            </Grid>
+
+            <Grid item xs={12}>
+              <Paper>
+                <Box p={2} m={0}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Typography component="h3">
+                        <b>{t('bookingoverview.passenger overview')}</b>
+                      </Typography>
+                    </Grid>
+
+                    {createPassengersOverview()}
+                  </Grid>
+                </Box>
+              </Paper>
+            </Grid>
+
+            <Grid item xs={12}>
+              <Paper>
+                <Box p={2} m={0}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Typography component="h3">
+                        <b>{t('bookingoverview.contact overview')}</b>
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      {t('bookingoverview.first name')}: {props.bookingFlightCombo[1].tickets[0].firstname}
+                    </Grid>
+                    <Grid item xs={6}>
+                      {t('bookingoverview.last name')}: {props.bookingFlightCombo[1].tickets[0].lastname}
+                    </Grid>
+                    <Grid item xs={6}>
+                      {t('bookingoverview.email address')}: {props.bookingFlightCombo[1].contactEmail}
+                    </Grid>
+                    <Grid item xs={6}>
+                      {t('bookingoverview.phone number')}: {props.bookingFlightCombo[1].contactPhonenumber}
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Paper>
+            </Grid>
+
+            <Grid item xs={12}>
+              <Paper>
+                <Box p={2} m={0}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Typography component="h3">
+                        <b>{t('bookingoverview.emergency contact person')}</b>
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      {t('bookingoverview.email address')}: {props.bookingFlightCombo[1].emergencyEmail}
+                    </Grid>
+                    <Grid item xs={6}>
+                      {t('bookingoverview.phone number')}: {props.bookingFlightCombo[1].emergencyPhonenumber}
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Paper>
+            </Grid>
+          </Grid>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleCheckIn} color="primary">

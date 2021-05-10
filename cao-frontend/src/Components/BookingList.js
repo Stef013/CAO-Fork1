@@ -61,7 +61,7 @@ class BookingList extends Component {
                     {bookingFlightCombo[0].origin}
                 </TableCell>
                 <TableCell>
-                    {bookingFlightCombo[0].departure_time.substr(0, 11) + " -> " + bookingFlightCombo[0].departure_time.substr(11, 5)}
+                    {bookingFlightCombo[0].departure_time.substr(0, 11) + " [" + bookingFlightCombo[0].departure_time.substr(11, 5)+ "] "}
                 </TableCell>
                 <TableCell>
                     {bookingFlightCombo[0].destination}
