@@ -3,9 +3,11 @@ import { Container } from '@material-ui/core';
 import TopButton from '../Components/TopButton';
 import CustomerLogin from './CustomerLogin';
 import EmployeeLogin from './Management/EmployeeLogin';
+import { useTranslation } from 'react-i18next';
 
 export default function Login(props) {
     const [showEmployeeLogin, setShowEmployeeLogin] = useState(false);
+    const { t } = useTranslation();
 
     const switchLogin = () => {
         setShowEmployeeLogin(!showEmployeeLogin);
@@ -13,8 +15,7 @@ export default function Login(props) {
 
     return (
         <Container component="main" maxWidth="sm">
-            <span>{showEmployeeLogin}</span>
-            <TopButton text={showEmployeeLogin ? 'Customer login' : 'Employee login'} onClick={() => switchLogin()}></TopButton>
+            <TopButton text={showEmployeeLogin ? t('loginpage.Customer login') : t('loginpage.Employee login')} onClick={() => switchLogin()}></TopButton>
             {showEmployeeLogin ? (
                 <EmployeeLogin setToken={props.setToken} />
             ) : (

@@ -4,6 +4,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import RegisterPopup from '../Components/RegisterPopup';
+import { Trans, useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
     const classes = useStyles();
     const history = useHistory();
+    const { t } = useTranslation();
 
     return (
         <Container component="main" maxWidth="sm">
@@ -40,7 +42,7 @@ export default function SignIn() {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign in
+                    <Trans t={t} i18nKey="loginpage.Sign in" />
                 </Typography>
                 <form className={classes.form} noValidate>
                     <TextField
@@ -49,7 +51,7 @@ export default function SignIn() {
                         required
                         fullWidth
                         id="email"
-                        label="Email Address"
+                        label={t('loginpage.email address')}
                         name="email"
                         autoComplete="email"
                         autoFocus
@@ -60,14 +62,14 @@ export default function SignIn() {
                         required
                         fullWidth
                         name="password"
-                        label="Password"
+                        label={t('loginpage.password')}
                         type="password"
                         id="password"
                         autoComplete="current-password"
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
+                        label={t('loginpage.remember me')}
                     />
                     <Button
                         type="submit"
@@ -77,12 +79,12 @@ export default function SignIn() {
                         className={classes.submit}
                         onClick={() => history.push('/FlightTracker')}
                     >
-                        Sign In
+                        <Trans t={t} i18nKey="loginpage.Sign in" />
                     </Button>
                     <Grid container>
                         <Grid item xs>
                             <Link href="#" variant="body2">
-                                Forgot password?
+                                <Trans t={t} i18nKey="loginpage.forgot password" />
                             </Link>
                         </Grid>
                         <Grid item>

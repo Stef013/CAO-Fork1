@@ -5,6 +5,7 @@ import Alert from '@material-ui/lab/Alert';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/styles';
 import axios from 'axios';
+import { Trans, withTranslation } from 'react-i18next';
 
 const styles = theme => ({
     paper: {
@@ -47,6 +48,7 @@ class EmployeeLogin extends React.Component {
             isLoading: false,
         };
         this.handleSubmitevents = this.handleSubmitevents.bind(this);
+        this.t = this.props.t;
     }
 
     async handleSubmitevents(event) {
@@ -69,7 +71,7 @@ class EmployeeLogin extends React.Component {
             .catch(error => {
                 console.dir(error);
                 this.setState({
-                    error: error.response?.data?.message || "Er is een netwerkfout opgetreden",
+                    error: error.response?.data?.message || this.t('loginpage.network error'),
                 });
             })
             .then(res => {
@@ -77,9 +79,9 @@ class EmployeeLogin extends React.Component {
                 this.props.setToken(responseToken);
             });
     }
-    
+
     render() {
-        const { classes } = this.props;
+        const { classes, t } = this.props;
         return (
             <Container component="main" maxWidth="sm">
                 <CssBaseline />
@@ -106,7 +108,7 @@ class EmployeeLogin extends React.Component {
                                 required
                                 fullWidth
                                 id="email"
-                                label="Email Address"
+                                label={t('loginpage.email address')}
                                 name="email"
                                 autoComplete="email"
                                 autoFocus
@@ -119,7 +121,7 @@ class EmployeeLogin extends React.Component {
                                 required
                                 fullWidth
                                 name="password"
-                                label="Password"
+                                label={t('loginpage.password')}
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
@@ -133,7 +135,7 @@ class EmployeeLogin extends React.Component {
                                 color="primary"
                                 className={classes.submit}
                             >
-                                Sign In
+                                <Trans t={t} i18nKey="loginpage.Sign in" />
                         </Button>
                         </form>
                     </div>
@@ -148,4 +150,4 @@ EmployeeLogin.propTypes = {
     setToken: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(EmployeeLogin);
+export default withTranslation()(withStyles(styles)(EmployeeLogin));

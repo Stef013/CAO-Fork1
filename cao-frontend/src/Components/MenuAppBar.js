@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, { useState } from "react";
 import { AppBar, ClickAwayListener, IconButton, makeStyles, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import logo from "../Images/logo.png";
 import LanguageSelector from "./LanguageSelector";
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,26 +28,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MenuAppBar(props) {
   const classes = useStyles();
+  const { t } = useTranslation();
   const [auth] = React.useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const isProfileMenuOpen = Boolean(anchorEl);
-  
-  // For debugging purposes:
-  useEffect(() => {
-    console.log(anchorEl);
-  }, [anchorEl]);
 
-  const handleClose = () => {
-    console.log("Closing menu");
+  const handleClose = (event) => {
     setAnchorEl(null);
+    event.stopPropagation();
   };
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   }
 
-  const handleLogout = () => {
-    handleClose();
+  const handleLogout = (event) => {
+    handleClose(event);
     props.setToken(null);
   }
 
@@ -83,9 +80,9 @@ export default function MenuAppBar(props) {
                   open={isProfileMenuOpen}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleClose}>My account</MenuItem>
-                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  <MenuItem onClick={handleClose}>{t('menuappbar.profile')}</MenuItem>
+                  <MenuItem onClick={handleClose}>{t('menuappbar.my account')}</MenuItem>
+                  <MenuItem onClick={handleLogout}>{t("menuappbar.logout")}</MenuItem>
                 </Menu>
               </MenuItem>
             </ClickAwayListener>
