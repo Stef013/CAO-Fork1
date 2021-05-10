@@ -21,8 +21,6 @@ function App() {
           !token ?
             <Login setToken={setToken} /> :
             <Switch>
-              // TODO: check if user has employee rights, redirect accordingly
-              <Redirect from='/' to="/EmployeePortal/" />
               <Route path="/FlightTracker" component={FlightTracker} />
               <Route path="/EmployeePortal" component={EmployeePortal} />
               <Route path="/EmployeeCreation" component={EmployeeCreation} />
@@ -30,6 +28,9 @@ function App() {
               <Route path="/FlightSummary" component={FlightSummary} />
               <Route path="/FlightPlanner" component={FlightPlanner} />
               <Route path="/Booking" component={Booking} />
+              
+              {/* TODO: check if user has employee rights, redirect accordingly */}
+              <Redirect from='/' to="/EmployeePortal" />
               <Route component={Error} />
             </Switch>
         }
