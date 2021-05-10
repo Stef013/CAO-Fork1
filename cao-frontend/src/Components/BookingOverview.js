@@ -8,15 +8,13 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import FlightIcon from '@material-ui/icons/Flight';
 import { Icon, InlineIcon } from '@iconify/react';
 import baselineFlight from '@iconify-icons/ic/baseline-flight';
 import { useTranslation } from 'react-i18next';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import FlightLandIcon from '@material-ui/icons/FlightLand';
 import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import axios from "axios";
 
 const styles = (theme) => ({
   root: {
@@ -71,9 +69,15 @@ export default function CustomizedDialogs(props) {
   };
 
   const handleCheckIn = () => {
-    alert("Checked in")
 
-    //TODO: API CALL
+    axios.put("http://localhost:8080/booking/booking/checkin/" + props.bookingFlightCombo[1].bookingId).then((response) => {
+      if (response.status === 200) {
+        window.location.reload();
+      }
+      else {
+        alert(response.status)
+      }
+    })
   };
 
   const createPassengersOverview = () => {
@@ -228,7 +232,13 @@ export default function CustomizedDialogs(props) {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleCheckIn} color="primary">
+          <Button
+            autoFocus
+            onClick={handleCheckIn}
+            type="submit"
+            color="primary"
+            variant="contained"
+            disabled={props.bookingFlightCombo[1].checkedIn}>
             Check in
           </Button>
         </DialogActions>

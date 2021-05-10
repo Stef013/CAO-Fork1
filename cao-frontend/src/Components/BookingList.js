@@ -1,17 +1,13 @@
 import React from "react";
 import axios from "axios";
 import { Component } from "react";
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import BookingOverview from "./BookingOverview"
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
+import BookingOverview from "./BookingOverview";
+import { Icon, InlineIcon } from '@iconify/react';
+import checkIcon from '@iconify-icons/akar-icons/check';
+import crossIcon from '@iconify-icons/akar-icons/cross';
 
-const columns = [
-    { label: "Departure location" },
-    { label: "Departure time" },
-    { label: "Destination" },
-    { label: "Amound of tickets" },
-    { label: "Total price" },
-];
+
 
 class BookingList extends Component {
     constructor(props) {
@@ -23,14 +19,13 @@ class BookingList extends Component {
     }
 
     async componentDidMount() {
-        //TODO: fix user id
+        //TODO: fix user id cause hardcoded right now
         axios.get("http://localhost:8080/booking/booking/users/1").then((response) => {
 
             response.data.forEach(booking => {
                 console.log("flightID:" + booking.tickets[0].flightId);
                 axios.get("http://localhost:5678/flight/" + booking.tickets[0].flightId).then((response) => {
                     var flight = response.data.flight;
-                    console.log(flight);
                     var combiFlightBooking = [];
 
                     combiFlightBooking.push(flight);
@@ -43,7 +38,6 @@ class BookingList extends Component {
                         bookingList: tempBookingList,
                         isLoaded: "true"
                     })
-                    console.log(this.state.bookingList)
                 })
             });
         });
@@ -51,6 +45,13 @@ class BookingList extends Component {
 
 
     render() {
+        var checkedInIcon = (bookingFlightCombo) => {
+            if (bookingFlightCombo[1].checkedIn) {
+                return (<Icon icon={checkIcon} />)
+            } else {
+                return (<Icon icon={crossIcon} />)
+            }
+        }
         var bookinglist = this.state.bookingList.map((bookingFlightCombo) => (
             <TableRow
                 hover
@@ -71,6 +72,9 @@ class BookingList extends Component {
                 </TableCell>
                 <TableCell>
                     €{(bookingFlightCombo[1].tickets.length * bookingFlightCombo[0].ticket_price)}
+                </TableCell>
+                <TableCell>
+                    {checkedInIcon(bookingFlightCombo)}
                 </TableCell>
                 <TableCell>
                     <BookingOverview bookingFlightCombo={bookingFlightCombo}></BookingOverview>
@@ -115,6 +119,11 @@ class BookingList extends Component {
                                 <TableCell>
                                     <Typography variant="h6">
                                         <b>Total price</b>
+                                    </Typography>
+                                </TableCell>
+                                <TableCell>
+                                    <Typography variant="h6">
+                                        <b>Checked in</b>
                                     </Typography>
                                 </TableCell>
                                 <TableCell>
