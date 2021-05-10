@@ -5,6 +5,7 @@ import Alert from '@material-ui/lab/Alert'
 import axios from 'axios'
 import { withStyles } from '@material-ui/core/styles';
 import { CountryRegionData } from 'react-country-region-selector';
+import ResultPopup from '../components/ResultPopup';
 
 const useStyles = (theme) => ({
 
@@ -94,9 +95,10 @@ class PoliceReport extends Component {
                     document.getElementById("form").reset();
                 }).catch(error => console.log(error));
 
-                if (result === "Account created successfully!") {
+                if (result ==! "No tickets found.") {
                     this.setState({ openSuccess: true });
                     this.setState({ openError: false });
+
                 }
                 else {
                     this.setState({ openError: true });
