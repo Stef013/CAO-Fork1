@@ -2,6 +2,7 @@ package Repository;
 
 import Interface.ICustomerRepository;
 import Model.Customer;
+import Model.Employee;
 import Utilities.Cryptography;
 import Utilities.Logging;
 
@@ -17,7 +18,7 @@ public class CustomerSqlRepository implements ICustomerRepository {
     private final String connectionUrl = "jdbc:sqlserver://cao-dbserver.database.windows.net:1433;database=CAO_Account;user=CaoAdmin@cao-dbserver;password=7tJzrUVGB5i8dxX;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
     private static Statement statement;
 
-    final Cryptography cryptography = new Cryptography();
+    Cryptography cryptography = new Cryptography();
     Logging logger = new Logging();
 
     public void closeConnection() {
@@ -31,25 +32,31 @@ public class CustomerSqlRepository implements ICustomerRepository {
 
         boolean exist = false;
 
-        try (
-                Connection connection = DriverManager.getConnection(connectionUrl);
-                CallableStatement cstmnt = connection.prepareCall("{call createCustomer(?,?,?,?,?,?)}")
-        ) {
+        try (Connection connection = DriverManager.getConnection(connectionUrl);) {
+
             if (!checkEmail(newCustomer.getEmail())) {
-                cstmnt.setString(1, newCustomer.getEmail());
-                cstmnt.setString(2, hashedPassword);
-                cstmnt.setString(3, newCustomer.getFirstname());
-                cstmnt.setString(4, newCustomer.getLastname());
-                cstmnt.setString(5, newCustomer.getNationality());
-                cstmnt.setString(6, new SimpleDateFormat("dd/MM/yyyy").format(newCustomer.getDateOfBirth()));
-                cstmnt.executeUpdate();
+                try {
+                    CallableStatement cstmnt = connection.prepareCall("{call createCustomer(?,?,?,?,?,?)}");
+                    cstmnt.setString(1, newCustomer.getEmail());
+                    cstmnt.setString(2, hashedPassword);
+                    cstmnt.setString(3, newCustomer.getFirstname());
+                    cstmnt.setString(4, newCustomer.getLastname());
+                    cstmnt.setString(5, newCustomer.getNationality());
+                    cstmnt.setString(6, new SimpleDateFormat("dd/MM/yyyy").format(newCustomer.getDateOfBirth()));
+                    cstmnt.executeUpdate();
 
-                newCustomer = null;
-                hashedPassword = null;
+                    newCustomer = null;
+                    hashedPassword = null;
 
-                cstmnt.close();
-                return true;
+                    cstmnt.close();
+                    return true;
+                } catch (SQLException e) {
+                    System.out.println(e.toString());
+                }
+            } else {
+                return false;
             }
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -62,10 +69,8 @@ public class CustomerSqlRepository implements ICustomerRepository {
 
         Customer customer = null;
 
-        try (
-                Connection connection = DriverManager.getConnection(connectionUrl);
-                CallableStatement cstmnt = connection.prepareCall("{call getOneCustomer(?)}")
-        ) {
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                CallableStatement cstmnt = connection.prepareCall("{call getOneCustomer(?)}")) {
             cstmnt.setString(1, userEmail);
             ResultSet rs = cstmnt.executeQuery();
 
@@ -162,10 +167,8 @@ public class CustomerSqlRepository implements ICustomerRepository {
 
         String hashedPassword = cryptography.hash(customer.getPassword());
 
-        try (
-                Connection connection = DriverManager.getConnection(connectionUrl);
-                CallableStatement cstmnt = connection.prepareCall("{call updateCustomer(?,?,?,?,?,?,?)}")
-        ) {
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                CallableStatement cstmnt = connection.prepareCall("{call updateCustomer(?,?,?,?,?,?,?)}")) {
             cstmnt.setInt(1, customer.getId());
             cstmnt.setString(2, customer.getEmail());
             cstmnt.setString(3, hashedPassword);
@@ -184,14 +187,14 @@ public class CustomerSqlRepository implements ICustomerRepository {
         }
 
         return false;
+
     }
 
     @Override
     public boolean delete(int id) {
-        try (
-                Connection connection = DriverManager.getConnection(connectionUrl);
-                CallableStatement cstmnt = connection.prepareCall("{call deleteCustomer(?)}")
-        ) {
+
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                CallableStatement cstmnt = connection.prepareCall("{call deleteCustomer(?)}")) {
             cstmnt.setInt(1, 4);
             cstmnt.executeUpdate();
 
@@ -202,5 +205,6 @@ public class CustomerSqlRepository implements ICustomerRepository {
             throwable.printStackTrace();
         }
         return false;
+
     }
 }

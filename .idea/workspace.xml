@@ -10,9 +10,7 @@
     </loaded-modules>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ff813a3-d6ba-4cba-b014-481c79650406" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/cao-frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/cao-frontend/src/App.js" afterDir="false" />
-    </list>
+    <list default="true" id="8ff813a3-d6ba-4cba-b014-481c79650406" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,6 +34,7 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="JupyterTrust" id="28449f8a-56bb-4054-8c3b-761fe40dab7e" />
   <component name="ProjectId" id="1pvPg3Sfzrq2oPup1AQIwOo5ukn" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -51,7 +50,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/cao-backend" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -107,6 +106,7 @@
       <workItem from="1616425800169" duration="116000" />
       <workItem from="1616425931026" duration="278000" />
       <workItem from="1617101105228" duration="599000" />
+      <workItem from="1617695661068" duration="33000" />
     </task>
     <servers />
   </component>
@@ -127,5 +127,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1820" y="280" key="FileChooserDialogImpl" timestamp="1617695692494">
+      <screen x="1080" y="0" width="1920" height="1050" />
+    </state>
+    <state x="1820" y="280" key="FileChooserDialogImpl/0.0.1080.1890/1080.0.1920.1050@1080.0.1920.1050" timestamp="1617695692494" />
   </component>
 </project>
