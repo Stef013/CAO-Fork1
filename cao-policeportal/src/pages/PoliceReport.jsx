@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MenuAppBar from "../components/MenuAppBar";
-import { Typography, Button, TextField, Grid, MenuItem, Paper, Container, Snackbar } from '@material-ui/core';
+import { Typography, Button, TextField, Grid, MenuItem, Paper, Container, Snackbar, Dialog, DialogTitle, DialogContent } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert'
 import axios from 'axios'
 import { withStyles } from '@material-ui/core/styles';
@@ -49,6 +49,7 @@ class PoliceReport extends Component {
             openSuccess: false,
             openError: false,
             country: "",
+            open: false
         };
 
         this.report = {
@@ -73,39 +74,48 @@ class PoliceReport extends Component {
         this.report[event.target.name] = event.target.value;
     }
 
+    handlePopupOpen = () => {
+        this.setState({ open: true });
+    };
+
+    handlePopupClose = () => {
+        this.setState({ open: false });
+    };
+
     async handleSubmit(event) {
         event.preventDefault();
-        
-            if (this.state.country !== "") {
 
-                this.report.nationality = this.state.country;
+        if (this.state.country !== "") {
 
-                var result = "";
+            this.report.nationality = this.state.country;
 
-                console.log(this.report);
+            var result = "";
 
-                await axios.post('http://localhost:8080/police/report', this.report, {
-                    headers: {
-                        "Content-Type": 'application/json', 'Accept': 'application/json'
-                    }
-                }).then(res => {
-                    console.log(res);
-                    console.log(res.data);
-                    result = res.data;
-                    document.getElementById("form").reset();
-                }).catch(error => console.log(error));
+            console.log(this.report);
 
-                if (result ==! "No tickets found.") {
-                    this.setState({ openSuccess: true });
-                    this.setState({ openError: false });
-
+            await axios.post('http://localhost:8080/police/report', this.report, {
+                headers: {
+                    "Content-Type": 'application/json', 'Accept': 'application/json'
                 }
-                else {
-                    this.setState({ openError: true });
-                    this.setState({ openSuccess: false });
-                }
+            }).then(res => {
+                console.log(res);
+                console.log(res.data);
+                result = res.data;
+                document.getElementById("form").reset();
+            }).catch(error => console.log(error));
+
+            if (result) {
+                this.handlePopupOpen();
+                this.setState({ openSuccess: true });
+                this.setState({ openError: false });
+
             }
-        
+            else {
+                this.setState({ openError: true });
+                this.setState({ openSuccess: false });
+            }
+        }
+
     }
     render() {
         const { classes } = this.props;
@@ -207,6 +217,12 @@ class PoliceReport extends Component {
                         </form>
                     </Paper>
                 </Container>
+                <Dialog open={this.state.open} onClose={this.handlePopupClose} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title">abc</DialogTitle>
+                    <DialogContent>
+                        lol
+                </DialogContent>
+                </Dialog>
             </div >
         )
     }

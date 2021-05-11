@@ -24,39 +24,41 @@ public class PoliceRepo {
 
     Gson gson = new Gson();
 
-    public FoundPersonModel searchPerson(SearchModel personToFind) throws IOException {
+    public String searchPerson(SearchModel personToFind) throws IOException {
 
-            FoundPersonModel foundPerson = null;
+        String foundPerson = null;
 
-            URL url = new URL("http://localhost:8081/booking/interpolrequest"); //TODO: call naar boeking microservice
+        URL url = new URL("http://localhost:8081/booking/interpolrequest"); // TODO: call naar boeking
+                                                                            // microservice
 
-            String body = gson.toJson(personToFind);
+        String body = gson.toJson(personToFind);
 
-            URLConnection conn = url.openConnection();
-            conn.setDoOutput(true);
-            conn.setRequestProperty("Content-Type", "application/json");
-            conn.setRequestProperty("Content-Length", Integer.toString(body.length()));
+        URLConnection conn = url.openConnection();
+        conn.setDoOutput(true);
+        conn.setRequestProperty("Content-Type", "application/json");
+        conn.setRequestProperty("Content-Length", Integer.toString(body.length()));
 
-            try (DataOutputStream dos = new DataOutputStream(conn.getOutputStream())) {
-                dos.writeBytes(body);
+        try (DataOutputStream dos = new DataOutputStream(conn.getOutputStream())) {
+            dos.writeBytes(body);
+        }
+
+        try (BufferedReader bf = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+            String line;
+            while ((line = bf.readLine()) != null) {
+                System.out.println(line);
+                foundPerson = line;
             }
 
-            try (BufferedReader bf = new BufferedReader(new InputStreamReader(
-                    conn.getInputStream()))) {
-                String line;
-                while ((line = bf.readLine()) != null) {
-                    System.out.println(line);
-                }
-
-                foundPerson =  gson.fromJson(line, FoundPersonModel.class);
-            }
-            return foundPerson;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return foundPerson;
     }
 
     public boolean createWarrant(SearchModel personToFind) {
 
         try (Connection connection = DriverManager.getConnection(connectionUrl);
-             CallableStatement cstmnt = connection.prepareCall("{call createWarrent(?,?,?)}")) {
+                CallableStatement cstmnt = connection.prepareCall("{call createWarrent(?,?,?)}")) {
             cstmnt.setString(1, personToFind.getFirstname());
             cstmnt.setString(2, personToFind.getLastname());
             cstmnt.setString(3, personToFind.getDateOfBirth());

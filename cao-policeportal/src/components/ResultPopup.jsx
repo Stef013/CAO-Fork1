@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ResultPopup() {
+export default function ResultPopup(props) {
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
 
@@ -37,11 +37,11 @@ export default function ResultPopup() {
     return (
         <div>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">{t('registerpage.sign up header')}</DialogTitle>
+                <DialogTitle id="form-dialog-title">abc</DialogTitle>
                 <DialogContent>
                     lol
                 </DialogContent>
             </Dialog>
-        </div >
+        </div>
     );
 }

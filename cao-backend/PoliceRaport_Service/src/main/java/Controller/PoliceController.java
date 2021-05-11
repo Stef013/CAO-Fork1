@@ -42,23 +42,21 @@ public class PoliceController {
 
         Spark.post("/report", ((request, response) -> {
 
-            //Zoeken van een person
+            // Zoeken van een person
             String json;
 
             try {
                 SearchModel personToFind = gson.fromJson(request.body(), SearchModel.class);
 
-                FoundPersonModel person = PL.searchPerson(personToFind);
+                json = PL.searchPerson(personToFind);
 
-                json = gson.toJson(person);
+                // json = gson.toJson(person);
             } catch (Exception ex) {
                 response.status(404);
                 json = "Cant find user.";
             }
 
-          return json;
+            return json;
         }));
-
-
     }
 }
