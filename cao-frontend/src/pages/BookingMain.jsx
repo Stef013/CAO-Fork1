@@ -5,22 +5,21 @@ import BookingOverview from '../Components/BookingOverview'
 import Error from './Error'
 import Booking from '../models/Booking';
 import axios from 'axios'
-import MenuAppBar from '../Components/MenuAppBar'
 import i18n from '../Components/i18n'
 
 class BookingMain extends React.Component {
 
     constructor() {
         super()
-        this.state = {
+        this.setState({
             currentPage: 1,
             booking: new Booking(),
-            currentPassengers: 1
-        }
+            currentPassengers: 1,
+        });
     }
 
     setPassengers = (newPassengers) => {
-        this.state.currentPassengers = newPassengers;
+        this.setState({currentPassengers: newPassengers});
     }
 
     previousPage = () => {
@@ -37,7 +36,7 @@ class BookingMain extends React.Component {
             invalidTicketData = !(ticket.dateOfBirth);
             invalidTicketData = !(ticket.extraLuggage);
         });
-        
+
         if (invalidBookingData || invalidTicketData) {
             alert(i18n.t('bookingmain.fields empty error'));
         } else {
@@ -67,7 +66,7 @@ class BookingMain extends React.Component {
             ticket.rentedHotel = false;
         })
 
-        // TODO: use jwt token
+        // TODO: use jwt
         console.log(newBooking)
 
 
@@ -92,6 +91,7 @@ class BookingMain extends React.Component {
         switch (this.state.currentPage) {
             case 0:
             //TODO: return to loginpage/mainpage
+                break;
             case 1:
                 return (<BookingPassengers setPassengers={this.setPassengers} booking={this.state.booking} currentPassengers={this.state.currentPassengers} storePassengerData={this.storePassengerData} previousPage={this.previousPage} />);
             case 2:
@@ -106,12 +106,7 @@ class BookingMain extends React.Component {
 
 
     render() {
-        return (
-            <div>
-                <MenuAppBar></MenuAppBar>
-                {this.selectPage()}
-            </div>
-        )
+        return this.selectPage();
     }
 }
 

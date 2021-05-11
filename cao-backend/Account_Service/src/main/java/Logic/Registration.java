@@ -1,9 +1,7 @@
 package Logic;
 
-import Interface.IEmployeeRepository;
 import Model.Customer;
 import Model.Employee;
-import Model.UpdateEmployee;
 import Model.UpdateEmployeeRole;
 import Repository.CustomerSqlRepository;
 import Repository.EmployeeSqlRepository;
