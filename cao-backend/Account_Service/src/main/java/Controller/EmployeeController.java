@@ -31,7 +31,7 @@ public class EmployeeController {
     public EmployeeController(final IEmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
 
-        Spark.get("/employee/login", ((request, response) -> {
+        Spark.post("/login", ((request, response) -> {
             response.type("application/json");
             AccountCredentials credentials = gson.fromJson(request.body(), AccountCredentials.class);
             Employee employee = this.employeeRepository.get(credentials.getEmail());
@@ -56,7 +56,7 @@ public class EmployeeController {
             return gson.toJson(jwtResponse);
         }));
 
-        Spark.get("/employee/:id", ((request, response) -> {
+        Spark.get("/:id", ((request, response) -> {
             String json;
 
             try {
@@ -70,7 +70,7 @@ public class EmployeeController {
             return json;
         }));
 
-        Spark.get("/employee", ((request, response) -> {
+        Spark.get("/", ((request, response) -> {
             String json;
 
             try {
@@ -83,7 +83,7 @@ public class EmployeeController {
             return json;
         }));
 
-        Spark.post("/employee", ((request, response) -> {
+        Spark.post("/", ((request, response) -> {
             String body = request.body();
             String message = "";
 
@@ -101,7 +101,7 @@ public class EmployeeController {
             return ERROR_MESSAGE;
         }));
 
-        Spark.put("/employee", ((request, response) -> {
+        Spark.put("/", ((request, response) -> {
             String body = request.body();
             String message;
 
@@ -123,7 +123,7 @@ public class EmployeeController {
 
         }));
 
-        Spark.put("/employee/role", ((request, response) -> {
+        Spark.put("/role", ((request, response) -> {
             String body = request.body();
             String message;
 
@@ -145,7 +145,7 @@ public class EmployeeController {
 
         }));
 
-        Spark.delete("/employee", ((request, response) -> {
+        Spark.delete("/", ((request, response) -> {
             String body = request.body();
             String message;
 
