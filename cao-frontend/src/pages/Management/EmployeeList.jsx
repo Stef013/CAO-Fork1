@@ -89,7 +89,6 @@ class EmployeeList extends Component {
     }
 
     async componentDidMount() {
-        console.info("Making call");
         await this.props.axios.get('/account/employee/',
         ).then(res => {
             this.accounts = res.data;
