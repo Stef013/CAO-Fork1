@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import MenuAppBar from "../components/MenuAppBar";
-import { Typography, Button, TextField, Grid, MenuItem, Paper, Container, Snackbar, Dialog, DialogTitle, DialogContent } from '@material-ui/core';
+import { Typography, Button, TextField, Grid, Paper, Container, Snackbar, Dialog, DialogTitle, DialogContent, Divider } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert'
 import axios from 'axios'
 import { withStyles } from '@material-ui/core/styles';
-import { CountryRegionData } from 'react-country-region-selector';
-import ResultPopup from '../components/ResultPopup';
 
 const useStyles = (theme) => ({
 
@@ -21,7 +19,7 @@ const useStyles = (theme) => ({
         padding: 50,
         paddingLeft: 40,
         paddingRight: 40,
-        maxWidth: 800,
+        maxWidth: 600,
     },
     submit: {
         margin: theme.spacing(4, 0, 0),
@@ -34,7 +32,8 @@ const useStyles = (theme) => ({
     },
     alert: {
         marginBottom: 15
-    }
+    },
+
 });
 
 class PoliceReport extends Component {
@@ -48,16 +47,17 @@ class PoliceReport extends Component {
             helperText: "",
             openSuccess: false,
             openError: false,
-            country: "",
-            open: false
+            open: false,
+            foundSuspect: false,
         };
 
         this.report = {
             firstname: "",
             lastname: "",
             dateOfBirth: "",
-            nationality: "",
         };
+
+        this.suspect = [];
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -85,41 +85,39 @@ class PoliceReport extends Component {
     async handleSubmit(event) {
         event.preventDefault();
 
-        if (this.state.country !== "") {
+        var result = "";
 
-            this.report.nationality = this.state.country;
+        console.log(this.report);
 
-            var result = "";
+        await axios.post('http://localhost:8080/police/report', this.report, {
+            headers: {
+                "Content-Type": 'application/json', 'Accept': 'application/json'
+            }
+        }).then(res => {
+            console.log(res);
+            console.log(res.data);
+            result = res.data;
+            document.getElementById("form").reset();
+        }).catch(error => console.log(error));
 
-            console.log(this.report);
-
-            await axios.post('http://localhost:8080/police/report', this.report, {
-                headers: {
-                    "Content-Type": 'application/json', 'Accept': 'application/json'
-                }
-            }).then(res => {
-                console.log(res);
-                console.log(res.data);
-                result = res.data;
-                document.getElementById("form").reset();
-            }).catch(error => console.log(error));
-
-            if (result) {
-                this.handlePopupOpen();
-                this.setState({ openSuccess: true });
-                this.setState({ openError: false });
-
+        if (result) {
+            if (result === "No tickets found.") {
+                this.setState({ openError: true });
             }
             else {
-                this.setState({ openError: true });
-                this.setState({ openSuccess: false });
+                this.suspect = result;
+                this.setState({ foundSuspect: true });
+                this.handlePopupOpen();
+                this.setState({ openError: false });
             }
         }
-
+        else {
+            this.setState({ openError: true });
+        }
     }
     render() {
         const { classes } = this.props;
-        const { openSuccess, openError } = this.state;
+        const { openSuccess, openError, foundSuspect } = this.state;
         return (
             <div style={{ height: "100%" }}>
                 <MenuAppBar></MenuAppBar>
@@ -128,17 +126,11 @@ class PoliceReport extends Component {
                 </Typography>
                 <Container align="center">
                     <Paper className={classes.paper} >
-                        <div className={classes.root}>
-                            <Snackbar open={openSuccess} autoHideDuration={6000} onClose={this.handleClose}>
-                                <Alert onClose={this.handleClose} variant="filled" severity="success" className={classes.alert}>
-                                    Report created successfully!
-                             </Alert>
-                            </Snackbar>
-                        </div>
+
                         <div className={classes.root}>
                             <Snackbar open={openError} autoHideDuration={6000} onClose={this.handleClose}>
                                 <Alert onClose={this.handleClose} severity="error" variant="filled" className={classes.alert}>
-                                    An Error Has Occured!
+                                    No suspect found.
                              </Alert>
                             </Snackbar>
                         </div>
@@ -186,24 +178,6 @@ class PoliceReport extends Component {
                                         }}
                                     />
                                 </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        variant="outlined"
-                                        required
-                                        id="CountrySelect"
-                                        select
-                                        label='Select nationality'
-                                        fullWidth
-                                        value={this.state.country}
-                                        onChange={e => this.setState({ country: e.target.value })}
-                                    >
-                                        {CountryRegionData.map((option) => (
-                                            <MenuItem key={option[0]} value={option[0]}>
-                                                {option[0]}
-                                            </MenuItem>
-                                        ))}
-                                    </TextField>
-                                </Grid>
                             </Grid>
                             <Button
                                 type="submit"
@@ -213,16 +187,80 @@ class PoliceReport extends Component {
                                 className={classes.submit}
                             >
                                 Create
-                        </Button>
+                            </Button>
                         </form>
                     </Paper>
                 </Container>
-                <Dialog open={this.state.open} onClose={this.handlePopupClose} aria-labelledby="form-dialog-title">
-                    <DialogTitle id="form-dialog-title">abc</DialogTitle>
-                    <DialogContent>
-                        lol
-                </DialogContent>
-                </Dialog>
+                {foundSuspect ?
+                    (
+                        <Dialog open={this.state.open} maxWidth="md" onClose={this.handlePopupClose} aria-labelledby="form-dialog-title">
+                            <DialogTitle style={{ padding: 10, marginTop: 30, marginLeft: 20 }} id="form-dialog-title">SUSPECT FOUND</DialogTitle>
+                            <DialogContent style={{ padding: 10, marginLeft: 20, marginBottom: 30 }}>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={5}>
+                                        <Typography style={{ display: 'inline-block', marginRight: 10, fontWeight: 600 }} >Firstname: </Typography>
+                                        <Typography style={{ display: 'inline-block' }}>{this.suspect[0].ticket.firstname}</Typography>
+                                    </Grid>
+
+                                    <Grid item xs={7}>
+                                        <Typography style={{ display: 'inline-block', marginRight: 10, fontWeight: 600 }} >Lastname: </Typography>
+                                        <Typography style={{ display: 'inline-block' }}>{this.suspect[0].ticket.lastname}</Typography>
+                                    </Grid>
+
+                                    <Grid item xs={5}>
+                                        <Typography style={{ display: 'inline-block', marginRight: 10, fontWeight: 600 }}>Gender: </Typography>
+                                        <Typography style={{ display: 'inline-block' }}>{this.suspect[0].ticket.gender}</Typography>
+                                    </Grid>
+                                    <Grid item xs={7}>
+                                        <Typography style={{ display: 'inline-block', marginRight: 10, fontWeight: 600 }}>DateOfBirth: </Typography>
+                                        <Typography style={{ display: 'inline-block' }}>{this.suspect[0].ticket.dateOfBirth}</Typography>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <Divider fullWidth style={{ marginTop: 20, marginBottom: 20 }} />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Typography variant="h6">Ticket / Flight:</Typography>
+                                    </Grid>
+
+                                    <Grid item xs={5}>
+                                        <Typography style={{ display: 'inline-block', marginRight: 10, fontWeight: 600 }}>Departure: </Typography>
+                                        <Typography style={{ display: 'inline-block' }}>{this.suspect[0].flight.origin} </Typography>
+                                    </Grid>
+                                    <Grid item xs={7}>
+                                        <Typography style={{ display: 'inline-block', marginRight: 10, fontWeight: 600 }}>Destination: </Typography>
+                                        <Typography style={{ display: 'inline-block' }}>{this.suspect[0].flight.destination} </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={5}>
+                                        <Typography style={{ display: 'inline-block', marginRight: 10, fontWeight: 600 }}>Departure Time: </Typography>
+                                        <Typography style={{ display: 'inline-block' }}> {this.suspect[0].flight.departure_time} </Typography>
+                                    </Grid>
+                                    <Grid item xs={7}>
+                                        <Typography style={{ display: 'inline-block', marginRight: 10, fontWeight: 600 }}>Arrival Time: </Typography>
+                                        <Typography style={{ display: 'inline-block' }}> {this.suspect[0].flight.arrival_time} </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={5}>
+                                        <Typography style={{ display: 'inline-block', marginRight: 10, fontWeight: 600 }}>Seat: </Typography>
+                                        <Typography style={{ display: 'inline-block' }}> {this.suspect[0].ticket.seat} </Typography>
+                                    </Grid>
+                                    <Grid item xs={7}>
+                                        <Typography style={{ display: 'inline-block', marginRight: 10, fontWeight: 600 }}>Extra Luggage: </Typography>
+                                        <Typography style={{ display: 'inline-block' }}>{this.suspect[0].ticket.extraLuggage} </Typography>
+                                    </Grid>
+                                </Grid>
+                            </DialogContent>
+                        </Dialog>
+                    )
+                    :
+                    (
+                        <Typography className={classes.title} align="center" variant="h4" >
+
+                        </Typography>
+                    )
+                }
+
             </div >
         )
     }
