@@ -41,7 +41,7 @@ public class CustomerController {
 
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
-        Spark.get("/customer/:id", ((request, response) -> {
+        Spark.get("/:id", ((request, response) -> {
 
             System.out.println("Get /");
             String json;
@@ -61,7 +61,7 @@ public class CustomerController {
             return json;
         }));
 
-        Spark.get("/customer", ((request, response) -> {
+        Spark.get("/", ((request, response) -> {
             response.type("application/json");
             String json;
 
@@ -78,7 +78,7 @@ public class CustomerController {
             return json;
         }));
 
-        Spark.post("/customer", ((request, response) -> {
+        Spark.post("/", ((request, response) -> {
 
             System.out.println("Post /");
             String body = request.body();
@@ -103,7 +103,7 @@ public class CustomerController {
             return message;
         }));
 
-        Spark.put("/customer", ((request, response) -> {
+        Spark.put("/", ((request, response) -> {
 
             System.out.println("Put /");
             String body = request.body();
@@ -127,7 +127,7 @@ public class CustomerController {
 
         }));
 
-        Spark.delete("/customer", ((request, response) -> {
+        Spark.delete("/", ((request, response) -> {
 
             System.out.println("Delete /");
             String body = request.body();

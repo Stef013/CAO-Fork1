@@ -3,7 +3,8 @@ import { Box, Container, Grid, Paper, Typography } from "@material-ui/core";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import FlightLandIcon from '@material-ui/icons/FlightLand';
 import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -31,14 +32,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
-
 export default function BookingOverview(props) {
     const classes = useStyles();
-    const history = useHistory();
     const { t } = useTranslation();
 
-    const [bookingFlightCombo, setBookingFlightCombo] = React.useState(props.bookingFlightCombo);
+    const [booking] = React.useState(props.booking);
+
+    const nextPage = () => {
+        props.placeBooking();
+    }
 
     const calculatePrice = () => {
         //todo: Calculate total price with a loop through each ticket

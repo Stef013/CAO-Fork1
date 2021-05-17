@@ -52,7 +52,7 @@ class FlightPlannerForm extends PureComponent {
 
   async handleSubmit(event) {
     event.preventDefault();
-    const response = await axios({
+    await axios({
       method: "post",
       url: `http://localhost:5678/flight`,
       data: {

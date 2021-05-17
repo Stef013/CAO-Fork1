@@ -1,14 +1,9 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
+import React, { useState } from "react";
+import { AppBar, ClickAwayListener, IconButton, makeStyles, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
 import logo from "../Images/logo.png";
-import LanguageSelector from "./LanguageSelector"
+import LanguageSelector from "./LanguageSelector";
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,22 +22,30 @@ const useStyles = makeStyles((theme) => ({
     height: "36px",
     padding: "20px",
     display: "block",
+    boxSizing: "content-box",
   },
 }));
 
-export default function MenuAppBar() {
+export default function MenuAppBar(props) {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  const { t } = useTranslation();
+  const [auth] = React.useState(true);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const isProfileMenuOpen = Boolean(anchorEl);
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
-
-  const handleClose = () => {
+  const handleClose = (event) => {
     setAnchorEl(null);
+    event.stopPropagation();
   };
+
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  }
+
+  const handleLogout = (event) => {
+    handleClose(event);
+    props.setToken(null);
+  }
 
   return (
     <div className={classes.root}>
@@ -52,34 +55,37 @@ export default function MenuAppBar() {
             <img src={logo} alt="Logo" className={classes.logo}></img>
           </Typography>
           {auth && (
-            <div>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                color="primary"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={open}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-              </Menu>
-            </div>
+            <ClickAwayListener onClickAway={handleClose}>
+              <MenuItem onClick={handleProfileMenuOpen}>
+                <IconButton
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  color="primary"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={isProfileMenuOpen}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={handleClose}>{t('menuappbar.profile')}</MenuItem>
+                  <MenuItem onClick={handleClose}>{t('menuappbar.my account')}</MenuItem>
+                  <MenuItem onClick={handleLogout}>{t("menuappbar.logout")}</MenuItem>
+                </Menu>
+              </MenuItem>
+            </ClickAwayListener>
           )}
 
           <LanguageSelector />

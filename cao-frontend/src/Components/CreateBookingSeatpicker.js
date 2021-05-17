@@ -2,7 +2,6 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useHistory } from 'react-router-dom';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Grid, Button, Typography } from '@material-ui/core';
@@ -34,10 +33,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CreateBookingSeatpicker(props) {
     const classes = useStyles();
-    const history = useHistory();
     const { t } = useTranslation();
 
-    const [booking, setBooking] = React.useState(props.booking);
+    const [booking] = React.useState(props.booking);
 
     const nextPage = () => {
         props.storePassengerData(booking)

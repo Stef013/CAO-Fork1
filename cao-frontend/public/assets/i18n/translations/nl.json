@@ -1,14 +1,20 @@
 {
+    "menuappbar": {
+        "profile": "Profiel",
+        "my account": "Mijn account",
+        "logout": "Uitloggen"
+    },
     "loginpage": {
-        "log in header": "Log in",
-        "log in button": "Inloggen",
-        "email address": "Emailadres",
+        "Customer login": "Klanten login",
+        "Employee login": "Medewerkers login",
+        "Sign in": "Inloggen",
+        "email address": "E-mailadres",
         "password": "Wachtwoord",
         "remember me": "Onthoud mij",
         "forgot password": "Wachtwoord vergeten?",
-        "no account sign up": "Nog geen account? Maak nu!"
+        "no account sign up": "Nog geen account? Registreer nu!",
+        "networ error": "Er is een netwerkfout opgetreden"
     },
-
     "registerpage": {
         "sign up header": "Account aanmaken",
         "first name": "Voornaam",
@@ -21,17 +27,14 @@
         "repeat password": "Herhaal wachtwoord",
         "sign up button": "Maak nieuw account"
     },
-
     "airplaneinfo": {
         "take off place": "Vertrekplaats",
         "landing place": "Bestemming",
         "ETA": "ETA"
     },
-
     "errorpage": {
         "page not found": "Oeps! Pagina niet gevonden!"
     },
-
     "flightplanner": {
         "departure": "Vertrekplaats",
         "arrival": "Aankomstplaats",
@@ -43,15 +46,12 @@
         "amount": "Prijs",
         "create button": "Aanmaken"
     },
-
     "languageselector": {
         "language": "Taal"
     },
-
     "bookingmain": {
-        "fields empty error": "Sommige velden zijn niet ingevuld, probeer opnieuw"  
+        "fields empty error": "Sommige velden zijn niet ingevuld, probeer opnieuw"
     },
-    
     "bookingpassengers": {
         "passenger information": "Passagiers informatie",
         "number of passengers": "Aantal passagiers",
@@ -68,16 +68,14 @@
         "phone number": "Telefoonnummer",
         "emergency contact person": "Contactpersoon voor noodgevallen",
         "flight menu": "Vluchten overzicht",
-        "seatpicker": "Stoelkeuze" 
+        "seatpicker": "Stoelkeuze"
     },
-    
     "bookingseatpicker": {
         "seatpicker": "Stoelkeuze",
         "passenger information": "Passagiers informatie",
         "booking overview": "Boeking overzicht",
         "to be implemented": "Nog te implementeren"
     },
-    
     "bookingoverview": {
         "booking overview": "Boeking overzicht",
         "flight overview": "Vlucht overzicht",
@@ -95,14 +93,6 @@
         "phone number": "Telefoonnummer",
         "emergency contact person": "Contactpersoon voor noodgevallen",
         "payment": "Betalen",
-        "seatpicker": "Stoelkeuze" 
-    },
-
-    "bookinglist": {
-        "departure location": "Vertrek Locatie",
-        "departure time": "Vertrektijd",
-        "destination": "Bestemming",
-        "tickets": "Kaartjes",
-        "total price": "Totale prijs"
+        "seatpicker": "Stoelkeuze"
     }
 }
