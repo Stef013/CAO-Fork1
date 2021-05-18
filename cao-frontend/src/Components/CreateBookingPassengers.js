@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useHistory } from 'react-router-dom';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { Box, Grid, Input, MenuItem, Paper, Slider } from '@material-ui/core';
+import { Box, Grid, Input, Paper, Slider } from '@material-ui/core';
 import PassengerInfo from './CreateBookingPassengerInfo';
 import Ticket from '../models/Ticket';
 import { useTranslation } from 'react-i18next';
@@ -38,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CreateBookingPassengers(props) {
     const classes = useStyles();
-    const history = useHistory();
     const { t } = useTranslation();
 
     const [value, setValue] = React.useState(props.currentPassengers);

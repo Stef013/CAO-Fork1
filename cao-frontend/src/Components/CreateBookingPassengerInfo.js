@@ -1,6 +1,5 @@
 import { Box, FormControlLabel, Grid, Radio, TextField, MenuItem, FormControl, InputLabel, Select, FormHelperText, RadioGroup, Typography, Paper } from "@material-ui/core";
 import React from "react";
-import Booking from '../models/Booking';
 import Ticket from '../models/Ticket';
 import { useTranslation } from 'react-i18next';
 
@@ -9,12 +8,7 @@ import { useTranslation } from 'react-i18next';
 const CreateBookingPassengerInfo = (props) => {
     const { t } = useTranslation();
 
-    const [luggage, setLuggage] = React.useState(0);
     const [ticket, setTicket] = React.useState(new Ticket());
-    const [booking] = React.useState(new Booking());
-    const handleLuggageChange = event => {
-        setLuggage(event.target.value);
-    };
 
     const handleBookingChange = (e) => {
         props.updateBooking(e);

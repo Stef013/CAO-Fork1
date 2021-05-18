@@ -1,9 +1,8 @@
 import React from "react";
-import axios from "axios";
 import { Component } from "react";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
 import BookingOverview from "./BookingOverview";
-import { Icon, InlineIcon } from '@iconify/react';
+import { Icon } from '@iconify/react';
 import checkIcon from '@iconify-icons/akar-icons/check';
 import crossIcon from '@iconify-icons/akar-icons/cross';
 
@@ -20,11 +19,11 @@ class BookingList extends Component {
 
     async componentDidMount() {
         //TODO: fix user id cause hardcoded right now
-        axios.get("http://localhost:8080/booking/booking/users/1").then((response) => {
+        this.props.axios.get("booking/booking/users/1").then((response) => {
 
             response.data.forEach(booking => {
                 console.log("flightID:" + booking.tickets[0].flightId);
-                axios.get("http://localhost:5678/flight/" + booking.tickets[0].flightId).then((response) => {
+                this.props.axios.get("/flight/flight/" + booking.tickets[0].flightId).then((response) => {
                     var flight = response.data.flight;
                     var combiFlightBooking = [];
 
@@ -38,6 +37,8 @@ class BookingList extends Component {
                         bookingList: tempBookingList,
                         isLoaded: "true"
                     })
+
+                    console.log(this.state.bookingList);
                 })
             });
         });
@@ -77,7 +78,7 @@ class BookingList extends Component {
                     {checkedInIcon(bookingFlightCombo)}
                 </TableCell>
                 <TableCell>
-                    <BookingOverview bookingFlightCombo={bookingFlightCombo}></BookingOverview>
+                    <BookingOverview bookingFlightCombo={bookingFlightCombo} axios={this.props.axios} ></BookingOverview>
                 </TableCell>
             </TableRow>
         ))

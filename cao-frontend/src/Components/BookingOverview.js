@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Box, Container, Grid, Paper, Typography } from "@material-ui/core";
+import { Box, Grid, Paper, Typography } from "@material-ui/core";
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
@@ -8,7 +8,7 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import { Icon, InlineIcon } from '@iconify/react';
+import { Icon } from '@iconify/react';
 import baselineFlight from '@iconify-icons/ic/baseline-flight';
 import { useTranslation } from 'react-i18next';
 import FlightLandIcon from '@material-ui/icons/FlightLand';
@@ -70,7 +70,7 @@ export default function CustomizedDialogs(props) {
 
   const handleCheckIn = () => {
 
-    axios.put("http://localhost:8080/booking/booking/checkin/" + props.bookingFlightCombo[1].bookingId).then((response) => {
+    props.axios.put("booking/booking/checkin/" + props.bookingFlightCombo[1].bookingId).then((response) => {
       if (response.status === 200) {
         window.location.reload();
       }

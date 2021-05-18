@@ -18,7 +18,8 @@ public class AccountCredentials implements IAccountCredentials {
     }
 
     public boolean isMatchingAccount(IAccount account) {
-        return this.email.equals(account.getEmail()) &&
+        return account != null &&
+                this.email.equals(account.getEmail()) &&
                 cryptography.hash(this.password).equals(account.getPassword());
     }
 }

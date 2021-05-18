@@ -3,7 +3,6 @@ import { Button, TextField, Dialog, DialogContent, DialogTitle, Link, Grid, Menu
 import { makeStyles } from '@material-ui/core/styles';
 import { CountryRegionData } from 'react-country-region-selector';
 
-import axios from 'axios'
 import moment from 'moment';
 import { useTranslation } from 'react-i18next'
 
@@ -28,14 +27,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function FormDialog() {
+export default function FormDialog(props) {
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
     const [country, setCountry] = React.useState('');
     const [confPassword, setConfPassword] = React.useState('');
     const [showError, setShowError] = React.useState(false);
     const [helperText, setHelperText] = React.useState();
-    const [account, setAccount] = React.useState({
+    const [account] = React.useState({
         email: " ",
         password: " ",
         firstname: " ",
@@ -55,7 +54,7 @@ export default function FormDialog() {
     };
 
     function checkPasswords() {
-        if (account.password == confPassword) {
+        if (account.password === confPassword) {
             console.log(account.password)
             console.log(confPassword)
             return true;
@@ -83,7 +82,7 @@ export default function FormDialog() {
             console.log(Customer);
             Customer.dateOfBirth = moment(Customer.dateOfBirth).format("DD/MM/YYYY");
 
-            axios.post('http://localhost:8080/account/customer', Customer, {
+            props.axios.post('/account/customer/', Customer, {
                 headers: {
                     "Content-Type": 'application/json', 'Accept': 'application/json'
                 }

@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/PoliceRaport_Service/PoliceRaport_Service.iml" filepath="$PROJECT_DIR$/PoliceRaport_Service/PoliceRaport_Service.iml" />
       <module fileurl="file://$PROJECT_DIR$/Seatpicker_Service/Seatpicker_Service.iml" filepath="$PROJECT_DIR$/Seatpicker_Service/Seatpicker_Service.iml" />
       <module fileurl="file://$PROJECT_DIR$/Gateway/backend-cao.iml" filepath="$PROJECT_DIR$/Gateway/backend-cao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Booking_Service/booking-service.iml" filepath="$PROJECT_DIR$/Booking_Service/booking-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/cao-backend.iml" filepath="$PROJECT_DIR$/.idea/cao-backend.iml" />
     </modules>
   </component>
