@@ -8,14 +8,13 @@ import axios from 'axios'
 import i18n from '../Components/i18n'
 
 class CreateBookingMain extends React.Component {
-
     constructor() {
         super()
-        this.setState({
+        this.state = {
             currentPage: 1,
             booking: new Booking(),
-            currentPassengers: 1,
-        });
+            currentPassengers: 1
+        };
     }
 
     setPassengers = (newPassengers) => {
@@ -90,10 +89,10 @@ class CreateBookingMain extends React.Component {
     }
 
     selectPage = () => {
+        console.log(this)
         switch (this.state.currentPage) {
             case 0:
-            //TODO: return to loginpage/mainpage
-                break;
+                return(<p>failed page load</p>)
             case 1:
                 return (<BookingPassengers setPassengers={this.setPassengers} booking={this.state.booking} currentPassengers={this.state.currentPassengers} storePassengerData={this.storePassengerData} previousPage={this.previousPage} />);
             case 2:

@@ -67,7 +67,6 @@ public class BookingController {
         ArrayList<Booking> returnBookings;
         try {
             returnBookings = bookingService.getBookingsByUserID(userId);
-            System.out.println(returnBookings.get(0).isCheckedIn());
             return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(returnBookings)).build();
         } catch(Exception e) {
             return Response.status(Response.Status.fromStatusCode(409)).build();

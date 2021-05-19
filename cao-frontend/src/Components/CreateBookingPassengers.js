@@ -8,7 +8,7 @@ import Container from '@material-ui/core/Container';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Box, Grid, Input, Paper, Slider } from '@material-ui/core';
-import PassengerInfo from './BookingPassengerInfo';
+import PassengerInfo from './CreateBookingPassengerInfo';
 import Ticket from '../models/Ticket';
 import { useTranslation } from 'react-i18next';
 

@@ -13,21 +13,19 @@ const useStyles = (theme) => ({
 class BookingListPage extends Component {
     constructor(props) {
         super(props);
-
     }
     
     render() {
         const { classes } = this.props;
+
         return (
-            <div>
-            <MenuAppBar></MenuAppBar>
             <Container component="main" maxWidth="lg">
                 <div className={classes.listStyle}>
-                    <BookingList></BookingList>
+                    <BookingList axios={this.props.axios}/>
                 </div>
             </Container>
-            </div>
         );
+
     }
 }
 

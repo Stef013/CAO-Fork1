@@ -8,7 +8,8 @@ import Error from './pages/Error';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import FlightSummary from "./pages/FlightSummary";
 import FlightPlanner from "./pages/FlightPlanner";
-// import Booking from "./pages/BookingMain";
+import CreateBookingMain from "./pages/CreateBookingMain";
+import BookingListPage from "./pages/BookingListPage";
 import { Suspense } from "react";
 import jwt_decode from "jwt-decode";
 import MenuAppBar from './Components/MenuAppBar';
@@ -54,7 +55,8 @@ function App() {
               <Route path="/EmployeeList" component={() => <EmployeeList axios={authAxios} />} />
               <Route path="/FlightSummary" component={() => <FlightSummary axios={authAxios} />} />
               <Route path="/FlightPlanner" component={FlightPlanner} />
-              {/* <Route path="/Booking" component={Booking} /> */}
+              <Route path="/CreateBooking" component={CreateBookingMain}/>
+              <Route path="/BookingList" component={() => <BookingListPage axios={authAxios}/>} />
 
               {/* TODO: check if user has employee rights, redirect accordingly */}
               <Redirect from='/' to="/EmployeePortal" />
