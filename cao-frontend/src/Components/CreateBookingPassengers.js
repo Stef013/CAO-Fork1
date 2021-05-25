@@ -7,10 +7,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { Box, Grid, Input, Paper, Slider } from '@material-ui/core';
+import { Box, FormControl, FormControlLabel, FormGroup, Grid, Input, InputLabel, MenuItem, Paper, Select, Slider, Switch } from '@material-ui/core';
 import PassengerInfo from './CreateBookingPassengerInfo';
 import Ticket from '../models/Ticket';
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
+import CarRentalReservationModel from '../models/CarRentalReservationModel';
+
+
 
 const useStyles = makeStyles((theme) => ({
 
@@ -41,6 +45,27 @@ export default function CreateBookingPassengers(props) {
 
     const [value, setValue] = React.useState(props.currentPassengers);
     const [booking, setBooking] = React.useState(props.booking);
+
+    const [carRentalChecked, setCarRentalChecked] = React.useState(false);
+    const [selectedCarRentalCompany, setSelectedCarRentalCompany] = React.useState(props.carRentalReservation.carRentalCompany);
+    const [carRentalCompanyList, setCarRentalCompanyList] = React.useState([]);
+    const [carRentalReservation, setCarRentalReservation] = React.useState(props.carRentalReservation);
+    
+    const [hotelChecked, setHotelChecked] = React.useState(false);
+
+    useEffect(() => {
+        if (carRentalCompanyList.length === 0) {
+            props.axios.get("carRental/carRentalCompany").then((response) => {
+                if (response.status === 200) {
+                    setCarRentalCompanyList(response.data);
+                }
+                else {
+                    alert(response.status)
+                }
+            })
+        }
+    });
+
 
     const handleSliderChange = (event, newValue) => {
         if (value > newValue) {
@@ -131,9 +156,48 @@ export default function CreateBookingPassengers(props) {
 
     const sendPassengerData = () => {
         console.log("DATA SEND")
+        fillCarRentalBooking();
+
         props.setPassengers(value);
         props.storePassengerData(booking);
+        if (carRentalChecked){
+            props.setCarRentalReservation(carRentalReservation);
+        }
     }
+
+    const fillCarRentalBooking = () => {
+        var newCarRentalReservation = carRentalReservation;
+        newCarRentalReservation.nameBooker = booking.tickets[0].firstname + " " + booking.tickets[0].lastname;
+        newCarRentalReservation.emailBooker = booking.contactEmail;
+    }
+
+    //Hotel/car methods
+    const toggleChecked = () => {
+        setCarRentalChecked((prev) => !prev);
+    };
+
+    const handleCarRentalCompanyChange = (event) => {
+        setSelectedCarRentalCompany(event.target.value);
+        carRentalReservation.carRentalCompany = event.target.value;
+    };
+
+    const generateDropDownCarRental = () => {
+        if (carRentalCompanyList.length > 0) {
+            var rows = [];
+            carRentalCompanyList.forEach(carRentalCompany => {
+                rows.push(<MenuItem value={carRentalCompany}>{carRentalCompany.name + " || " + carRentalCompany.location + " || $" + carRentalCompany.price + "/day"}</MenuItem>)
+            });
+            return rows;
+        }
+    }
+
+    const updateCarRentalReservation = (data) => {
+        const { value, name } = data.target;
+        var newCarRentalReservation = carRentalReservation;
+        newCarRentalReservation[name] = value;
+        setCarRentalReservation(newCarRentalReservation);
+    }
+
 
     return (
         <Container component="main" maxWidth="sm">
@@ -189,9 +253,93 @@ export default function CreateBookingPassengers(props) {
                     <Paper>
                         <Box p={2} m={0} mb={2}>
                             <Grid container spacing={2}>
+                                <Grid item xs={10}>
+                                    <Typography component="h1" variant="h6">
+                                        <b>Huurauto boeking</b>
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <Switch
+                                        checked={carRentalChecked}
+                                        onChange={toggleChecked}
+                                        color="primary"
+                                        name="checkedA"
+                                        inputProps={{ 'aria-label': 'primary checkbox' }}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <FormControl variant="outlined" style={{ minWidth: '100%' }}>
+                                        <InputLabel>Car Selection</InputLabel>
+                                        <Select
+                                            disabled={(!carRentalChecked)}
+                                            label="Car Selection"
+                                            value={carRentalReservation.carRentalCompany}
+                                            onChange={handleCarRentalCompanyChange}
+                                        >
+                                            {generateDropDownCarRental()}
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+
+
+                                <Grid item xs={12}>
+                                    <TextField
+                                        disabled={(!carRentalChecked)}
+                                        variant="outlined"
+                                        margin="low"
+                                        fullWidth
+                                        type="number"
+                                        label="Car Rental Guest Amount"
+                                        defaultValue={carRentalReservation.guestAmount}
+                                        name="guestAmount"
+                                        onChange={updateCarRentalReservation}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        disabled={(!carRentalChecked)}
+                                        variant="outlined"
+                                        margin="low"
+                                        fullWidth
+                                        type="date"
+                                        label="Pick Up Date"
+                                        defaultValue={carRentalReservation.pickUpDate}
+                                        name="pickUpDate"
+                                        onChange={updateCarRentalReservation}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        disabled={(!carRentalChecked)}
+                                        variant="outlined"
+                                        margin="low"
+                                        fullWidth
+                                        type="date"
+                                        label="Drop Off Date"
+                                        defaultValue={carRentalReservation.dropOffDate}
+                                        name="dropOffDate"
+                                        onChange={updateCarRentalReservation}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    </Paper>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Paper>
+                        <Box p={2} m={0} mb={2}>
+                            <Grid container spacing={2}>
                                 <Grid item xs={12}>
                                     <Typography component="h1" variant="h6">
-                                        <b>{t('bookingpassengers.emergency contact person')}</b>
+                                        <b>Extra hotel boeking</b>
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
@@ -200,7 +348,6 @@ export default function CreateBookingPassengers(props) {
                                         margin="low"
                                         required
                                         fullWidth
-                                        id="email address"
                                         label={t('bookingpassengers.email address')}
                                         defaultValue={booking.emergencyEmail}
                                         name="emergencyEmail"
@@ -213,7 +360,46 @@ export default function CreateBookingPassengers(props) {
                                         margin="low"
                                         required
                                         fullWidth
-                                        id="phone number"
+                                        label={t('bookingpassengers.phone number')}
+                                        defaultValue={booking.emergencyPhonenumber}
+                                        name="emergencyPhonenumber"
+                                        onChange={updateBooking}
+                                    />
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    </Paper>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Paper>
+                        <Box p={2} m={0} mb={2}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <Typography component="h1" variant="h6">
+                                        <b>{t('bookingpassengers.emergency contact person')}</b>
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        margin="low"
+                                        required
+                                        fullWidth
+                                        id="emergency email address"
+                                        label={t('bookingpassengers.email address')}
+                                        defaultValue={booking.emergencyEmail}
+                                        name="emergencyEmail"
+                                        onChange={updateBooking}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        margin="low"
+                                        required
+                                        fullWidth
+                                        id="emergency phone number"
                                         label={t('bookingpassengers.phone number')}
                                         defaultValue={booking.emergencyPhonenumber}
                                         name="emergencyPhonenumber"

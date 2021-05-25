@@ -4,6 +4,7 @@ import BookingSeatpicker from '../Components/CreateBookingSeatpicker'
 import BookingOverview from '../Components/CreateBookingOverview'
 import Error from './Error'
 import Booking from '../models/Booking';
+import CarRentalReservationModel from '../models/CarRentalReservationModel';
 import axios from 'axios'
 import i18n from '../Components/i18n'
 
@@ -13,6 +14,7 @@ class CreateBookingMain extends React.Component {
         this.state = {
             currentPage: 1,
             booking: new Booking(),
+            carRentalReservation: new CarRentalReservationModel(),
             currentPassengers: 1
         };
     }
@@ -56,6 +58,8 @@ class CreateBookingMain extends React.Component {
     }
 
     placeBooking = () => {
+        var carRentalId;
+        //Send data to CarRental API with ID response expected
 
         var newBooking = this.state.booking;
         newBooking.checkedIn = false;
@@ -88,13 +92,22 @@ class CreateBookingMain extends React.Component {
             });
     }
 
+
+
+    //CarRental
+    setCarRentalReservation = (newCarRentalReservation) => {
+        this.setState({carRentalReservation: newCarRentalReservation});
+    }
+
+
+    //Page navigation
     selectPage = () => {
         console.log(this)
         switch (this.state.currentPage) {
             case 0:
                 return(<p>failed page load</p>)
             case 1:
-                return (<BookingPassengers setPassengers={this.setPassengers} booking={this.state.booking} currentPassengers={this.state.currentPassengers} storePassengerData={this.storePassengerData} previousPage={this.previousPage} />);
+                return (<BookingPassengers axios={this.props.axios} carRentalReservation={this.state.carRentalReservation} setPassengers={this.setPassengers} setCarRentalReservation={this.setCarRentalReservation} booking={this.state.booking} currentPassengers={this.state.currentPassengers} storePassengerData={this.storePassengerData} previousPage={this.previousPage} />);
             case 2:
                 return (<BookingSeatpicker previousPage={this.previousPage} booking={this.state.booking} storePassengerData={this.storePassengerData} />);
             case 3:
@@ -103,8 +116,6 @@ class CreateBookingMain extends React.Component {
                 return (<Error />);
         }
     }
-
-
 
     render() {
         return this.selectPage();

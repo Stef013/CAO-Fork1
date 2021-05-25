@@ -55,7 +55,7 @@ function App() {
               <Route path="/EmployeeList" component={() => <EmployeeList axios={authAxios} />} />
               <Route path="/FlightSummary" component={() => <FlightSummary axios={authAxios} />} />
               <Route path="/FlightPlanner" component={FlightPlanner} />
-              <Route path="/CreateBooking" component={CreateBookingMain}/>
+              <Route path="/CreateBooking" component={() => <CreateBookingMain axios={authAxios}/>}/>
               <Route path="/BookingList" component={() => <BookingListPage axios={authAxios}/>} />
 
               {/* TODO: check if user has employee rights, redirect accordingly */}
