@@ -3,6 +3,7 @@ import { DataGrid } from "@material-ui/data-grid";
 import axios from "axios";
 import { makeStyles, Button } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
+import FlightInfoPopup from "../Components/FlightInfoPopup";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,11 +12,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function renderButton(params) {
-  return (
-    <Button variant="contained" color="primary">
-      <InfoIcon />
-    </Button>
-  );
+  return <FlightInfoPopup flightId={params.value}></FlightInfoPopup>;
 }
 
 export default function ValueGetterGrid(props) {
@@ -39,6 +36,7 @@ export default function ValueGetterGrid(props) {
             departure_time: flight.departure_time,
             arrival_time: flight.arrival_time,
             ticket_price: flight.ticket_price,
+            get_info: flight.id,
           };
 
           dataRows.push(flight);
@@ -52,7 +50,6 @@ export default function ValueGetterGrid(props) {
       });
 
     console.log(dataRows);
-    console.log(defaultRows);
   }, []);
 
   const [rows, setRows] = React.useState(dataRows);
@@ -134,11 +131,3 @@ const columns = [
 ];
 
 const dataRows = [];
-
-const defaultRows = [
-  { id: 1, origin: "Snow", destination: "Jon" },
-  { id: 2, origin: "Lannister", destination: "Cersei" },
-  { id: 3, origin: "Lannister", destination: "Jaime" },
-  { id: 4, origin: "Stark", destination: "Arya" },
-  { id: 5, origin: "Targaryen", destination: "Daenerys" },
-];
