@@ -58,7 +58,7 @@ public class CarRentalRepository {
             statement.setString(2, reservationModel.getNameBooker());
             statement.setString(3, reservationModel.getEmailBooker());
             statement.setInt(4, reservationModel.getGuestAmount());
-            statement.setDate(5, new java.sql.Date(reservationModel.getPickupDate().getTime()));
+            statement.setDate(5, new java.sql.Date(reservationModel.getPickUpDate().getTime()));
             statement.setDate(6, new java.sql.Date(reservationModel.getDropOffDate().getTime()));
 
             statement.executeUpdate();

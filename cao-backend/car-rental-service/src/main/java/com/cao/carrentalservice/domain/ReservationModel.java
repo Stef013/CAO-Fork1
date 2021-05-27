@@ -8,19 +8,19 @@ public class ReservationModel {
     private String nameBooker;
     private String emailBooker;
     private int guestAmount;
-    private Date pickupDate;
+    private Date pickUpDate;
     private Date dropOffDate;
 
     public ReservationModel() {
     }
 
-    public ReservationModel(int id, CarRentalCompanyModel carRentalCompanyModel, String nameBooker, String emailBooker, int guestAmount, Date pickupDate, Date dropOffDate) {
+    public ReservationModel(int id, CarRentalCompanyModel carRentalCompanyModel, String nameBooker, String emailBooker, int guestAmount, Date pickUpDate, Date dropOffDate) {
         this.id = id;
         this.carRentalCompanyModel = carRentalCompanyModel;
         this.nameBooker = nameBooker;
         this.emailBooker = emailBooker;
         this.guestAmount = guestAmount;
-        this.pickupDate = pickupDate;
+        this.pickUpDate = pickUpDate;
         this.dropOffDate = dropOffDate;
     }
 
@@ -64,12 +64,12 @@ public class ReservationModel {
         this.guestAmount = guestAmount;
     }
 
-    public Date getPickupDate() {
-        return pickupDate;
+    public Date getPickUpDate() {
+        return pickUpDate;
     }
 
-    public void setPickupDate(Date pickupDate) {
-        this.pickupDate = pickupDate;
+    public void setPickUpDate(Date pickUpDate) {
+        this.pickUpDate = pickUpDate;
     }
 
     public Date getDropOffDate() {

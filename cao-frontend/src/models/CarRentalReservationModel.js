@@ -1,5 +1,5 @@
-function CarRentalReservationModel(carRentalCompany, nameBooker, emailBooker, guestAmount, pickUpDate, dropOffDate) {
-    this.carRentalCompany = carRentalCompany;
+function CarRentalReservationModel(carRentalCompanyModel, nameBooker, emailBooker, guestAmount, pickUpDate, dropOffDate) {
+    this.carRentalCompanyModel = carRentalCompanyModel;
     this.nameBooker = nameBooker;
     this.emailBooker = emailBooker;
     this.guestAmount = guestAmount;

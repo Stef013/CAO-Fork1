@@ -5,22 +5,24 @@ import BookingOverview from '../Components/CreateBookingOverview'
 import Error from './Error'
 import Booking from '../models/Booking';
 import CarRentalReservationModel from '../models/CarRentalReservationModel';
+import HotelReservation from '../models/HotelReservation';
 import axios from 'axios'
 import i18n from '../Components/i18n'
 
 class CreateBookingMain extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             currentPage: 1,
             booking: new Booking(),
             carRentalReservation: new CarRentalReservationModel(),
+            hotelReservation: new HotelReservation(),
             currentPassengers: 1
         };
     }
 
     setPassengers = (newPassengers) => {
-        this.setState({currentPassengers: newPassengers});
+        this.setState({ currentPassengers: newPassengers });
     }
 
     previousPage = () => {
@@ -58,24 +60,53 @@ class CreateBookingMain extends React.Component {
     }
 
     placeBooking = () => {
-        var carRentalId;
         //Send data to CarRental API with ID response expected
+        var finalCarRentalReservation = this.state.carRentalReservation
+        finalCarRentalReservation.guestAmount = parseInt(finalCarRentalReservation.guestAmount)
+        this.setState({carRentalReservation: finalCarRentalReservation})
 
+        console.log(this.state.carRentalReservation.nameBooker)
+
+        if (this.state.carRentalReservation.nameBooker !== undefined) {
+            console.log("inside car rental")
+            this.props.axios(
+                {
+                    method: 'post',
+                    url: 'carRental/reserveCarRental',
+                    data: this.state.carRentalReservation
+                }
+            ).then((response) => {
+                if (response.status === 200) {
+                    console.log(response.data.id)
+                    var carRentalReservationId = response.data.id
+                    if (carRentalReservationId > 0) {
+                        this.placeFinalBooking(carRentalReservationId)
+                    }
+                }
+                else {
+                    console.log(response.status)
+                }
+            })
+        } else {
+            console.log("else")
+            this.placeFinalBooking(0)
+        }
+
+    }
+
+    placeFinalBooking = (carRentalReservationId) => {
+        console.log("binnen")
         var newBooking = this.state.booking;
         newBooking.checkedIn = false;
         newBooking.tickets.forEach(ticket => {
             ticket.seat = "A1";
             ticket.price = 110;
             ticket.flightId = 3;
-            ticket.rentedCar = false;
-            ticket.rentedHotel = false;
+            ticket.rentedCar = carRentalReservationId;
+            ticket.rentedHotel = 0;
         })
 
-        // TODO: use jwt
-        console.log(newBooking)
-
-
-        axios(
+        this.props.axios(
             {
                 method: 'post',
                 url: 'http://localhost:8080/booking/booking',
@@ -96,7 +127,7 @@ class CreateBookingMain extends React.Component {
 
     //CarRental
     setCarRentalReservation = (newCarRentalReservation) => {
-        this.setState({carRentalReservation: newCarRentalReservation});
+        this.setState({ carRentalReservation: newCarRentalReservation });
     }
 
 
@@ -105,9 +136,9 @@ class CreateBookingMain extends React.Component {
         console.log(this)
         switch (this.state.currentPage) {
             case 0:
-                return(<p>failed page load</p>)
+                return (<p>failed page load</p>)
             case 1:
-                return (<BookingPassengers axios={this.props.axios} carRentalReservation={this.state.carRentalReservation} setPassengers={this.setPassengers} setCarRentalReservation={this.setCarRentalReservation} booking={this.state.booking} currentPassengers={this.state.currentPassengers} storePassengerData={this.storePassengerData} previousPage={this.previousPage} />);
+                return (<BookingPassengers axios={this.props.axios} carRentalReservation={this.state.carRentalReservation} hotelReservation={this.state.hotelReservation} setPassengers={this.setPassengers} setCarRentalReservation={this.setCarRentalReservation} booking={this.state.booking} currentPassengers={this.state.currentPassengers} storePassengerData={this.storePassengerData} previousPage={this.previousPage} />);
             case 2:
                 return (<BookingSeatpicker previousPage={this.previousPage} booking={this.state.booking} storePassengerData={this.storePassengerData} />);
             case 3:

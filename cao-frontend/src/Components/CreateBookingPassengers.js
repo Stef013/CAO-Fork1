@@ -12,7 +12,6 @@ import PassengerInfo from './CreateBookingPassengerInfo';
 import Ticket from '../models/Ticket';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
-import CarRentalReservationModel from '../models/CarRentalReservationModel';
 
 
 
@@ -39,25 +38,41 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function CreateBookingPassengers(props) {
+const CreateBookingPassengers = (props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     const [value, setValue] = React.useState(props.currentPassengers);
     const [booking, setBooking] = React.useState(props.booking);
 
+    // Car
     const [carRentalChecked, setCarRentalChecked] = React.useState(false);
-    const [selectedCarRentalCompany, setSelectedCarRentalCompany] = React.useState(props.carRentalReservation.carRentalCompany);
+    const [selectedCarRentalCompany, setSelectedCarRentalCompany] = React.useState(props.carRentalReservation.carRentalCompanyModel);
     const [carRentalCompanyList, setCarRentalCompanyList] = React.useState([]);
     const [carRentalReservation, setCarRentalReservation] = React.useState(props.carRentalReservation);
-    
+
+    // Hotel
     const [hotelChecked, setHotelChecked] = React.useState(false);
+    const [selectedHotel, setSelectedHotel] = React.useState(props.hotelReservation.hotel);
+    const [hotelList, setHotelList] = React.useState([]);
+    const [hotelReservation, setHotelReservation] = React.useState(props.hotelReservation);
 
     useEffect(() => {
         if (carRentalCompanyList.length === 0) {
             props.axios.get("carRental/carRentalCompany").then((response) => {
                 if (response.status === 200) {
                     setCarRentalCompanyList(response.data);
+                }
+                else {
+                    alert(response.status)
+                }
+            })
+        }
+
+        if (carRentalCompanyList.length === 0) {
+            props.axios.get("hotels/hotels").then((response) => {
+                if (response.status === 200) {
+                    setHotelList(response.data);
                 }
                 else {
                     alert(response.status)
@@ -156,11 +171,10 @@ export default function CreateBookingPassengers(props) {
 
     const sendPassengerData = () => {
         console.log("DATA SEND")
-        fillCarRentalBooking();
-
         props.setPassengers(value);
         props.storePassengerData(booking);
-        if (carRentalChecked){
+        if (carRentalChecked) {
+            fillCarRentalBooking();
             props.setCarRentalReservation(carRentalReservation);
         }
     }
@@ -171,17 +185,18 @@ export default function CreateBookingPassengers(props) {
         newCarRentalReservation.emailBooker = booking.contactEmail;
     }
 
-    //Hotel/car methods
-    const toggleChecked = () => {
+    //Car methods
+    const toggleCarChecked = () => {
         setCarRentalChecked((prev) => !prev);
     };
 
     const handleCarRentalCompanyChange = (event) => {
         setSelectedCarRentalCompany(event.target.value);
-        carRentalReservation.carRentalCompany = event.target.value;
+        carRentalReservation.carRentalCompanyModel = event.target.value;
     };
 
     const generateDropDownCarRental = () => {
+        console.log("CAR STATE UPDATED")
         if (carRentalCompanyList.length > 0) {
             var rows = [];
             carRentalCompanyList.forEach(carRentalCompany => {
@@ -198,6 +213,49 @@ export default function CreateBookingPassengers(props) {
         setCarRentalReservation(newCarRentalReservation);
     }
 
+    //Hotel methods
+    const toggleHotelChecked = () => {
+        setHotelChecked((prev) => !prev);
+    };
+
+    const handleHotelChange = (event) => {
+        const newHotelReservation = hotelReservation
+        newHotelReservation.hotel = event.target.value
+        setHotelReservation(newHotelReservation)
+        setSelectedHotel(event.target.value)
+    }
+
+    const generateHotels = () => {
+        if (hotelList.length > 0) {
+            var rows = [];
+            hotelList.forEach(hotel => {
+                rows.push(<MenuItem value={hotel}>{hotel.name + " || " + hotel.stars + "✩ || " + hotel.location}</MenuItem>)
+            });
+            return rows;
+        }
+    }
+
+    const generateHotelRooms = () => {
+        console.log("helloerferf")
+        console.log(hotelReservation.hotel)
+        if (hotelReservation.hotel !== undefined) {
+            return (
+                <div>
+                    <MenuItem value={1}>Single Room || ${hotelReservation.hotel.soloRoomPrice}</MenuItem>
+                    <MenuItem value={2}>Double Room || ${hotelReservation.hotel.doubleRoomPrice}</MenuItem>
+                    <MenuItem value={3}>Triple Room || ${hotelReservation.hotel.tripleRoomPrice}</MenuItem>
+                    <MenuItem value={4}>Quadruple Room || ${hotelReservation.hotel.quadrupleRoomPrice}</MenuItem>
+                </div>
+            )
+        }
+    }
+
+    const handleHotelRoomChange = (event) => {
+        var newHotelReservation = hotelReservation
+        hotelReservation.hotel.roomType = event.target.value
+        setHotelReservation(newHotelReservation)
+        setSelectedHotel(event.target.value)
+    }
 
     return (
         <Container component="main" maxWidth="sm">
@@ -261,7 +319,7 @@ export default function CreateBookingPassengers(props) {
                                 <Grid item xs={2}>
                                     <Switch
                                         checked={carRentalChecked}
-                                        onChange={toggleChecked}
+                                        onChange={toggleCarChecked}
                                         color="primary"
                                         name="checkedA"
                                         inputProps={{ 'aria-label': 'primary checkbox' }}
@@ -274,7 +332,7 @@ export default function CreateBookingPassengers(props) {
                                         <Select
                                             disabled={(!carRentalChecked)}
                                             label="Car Selection"
-                                            value={carRentalReservation.carRentalCompany}
+                                            value={carRentalReservation.carRentalCompanyModel}
                                             onChange={handleCarRentalCompanyChange}
                                         >
                                             {generateDropDownCarRental()}
@@ -337,33 +395,79 @@ export default function CreateBookingPassengers(props) {
                     <Paper>
                         <Box p={2} m={0} mb={2}>
                             <Grid container spacing={2}>
-                                <Grid item xs={12}>
+                                <Grid item xs={10}>
                                     <Typography component="h1" variant="h6">
                                         <b>Extra hotel boeking</b>
                                     </Typography>
                                 </Grid>
+                                <Grid item xs={2}>
+                                    <Switch
+                                        checked={hotelChecked}
+                                        onChange={toggleHotelChecked}
+                                        color="primary"
+                                        name="checkedA"
+                                        inputProps={{ 'aria-label': 'primary checkbox' }}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <FormControl variant="outlined" style={{ minWidth: '100%' }}>
+                                        <InputLabel>Hotel Selection</InputLabel>
+                                        <Select
+                                            disabled={(!hotelChecked)}
+                                            label="Hotel Selection"
+                                            // value={hotelReservation.hotel}
+                                            onChange={handleHotelChange}
+                                        >
+                                            {generateHotels()}
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+
+
+                                <Grid item xs={12}>
+                                    <FormControl variant="outlined" style={{ minWidth: '100%' }}>
+                                        <InputLabel>Hotel Room</InputLabel>
+                                        <Select
+                                            disabled={(!hotelChecked) || selectedHotel === undefined}
+                                            label="Hotel Selection"
+                                            // value={""}
+                                            onChange={handleHotelRoomChange}
+                                        >
+                                            {generateHotelRooms()}
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
                                 <Grid item xs={12}>
                                     <TextField
+                                        disabled={(!hotelChecked)}
                                         variant="outlined"
                                         margin="low"
-                                        required
                                         fullWidth
-                                        label={t('bookingpassengers.email address')}
-                                        defaultValue={booking.emergencyEmail}
-                                        name="emergencyEmail"
-                                        onChange={updateBooking}
+                                        type="date"
+                                        label="Pick Up Date"
+                                        defaultValue={carRentalReservation.pickUpDate}
+                                        name="pickUpDate"
+                                        onChange={updateCarRentalReservation}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField
+                                        disabled={(!hotelChecked)}
                                         variant="outlined"
                                         margin="low"
-                                        required
                                         fullWidth
-                                        label={t('bookingpassengers.phone number')}
-                                        defaultValue={booking.emergencyPhonenumber}
-                                        name="emergencyPhonenumber"
-                                        onChange={updateBooking}
+                                        type="date"
+                                        label="Drop Off Date"
+                                        defaultValue={carRentalReservation.dropOffDate}
+                                        name="dropOffDate"
+                                        onChange={updateCarRentalReservation}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
                                     />
                                 </Grid>
                             </Grid>
@@ -439,3 +543,5 @@ export default function CreateBookingPassengers(props) {
         </Container>
     );
 }
+
+export default CreateBookingPassengers;
