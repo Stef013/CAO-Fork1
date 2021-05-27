@@ -129,6 +129,24 @@ public class Ticket {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public Ticket(int ticketId, String firstname, String lastname, String gender, int flightId, float price, String seat, int extraLuggage, boolean rentedHotel, boolean rentedCar, Date dateOfBirth) {
+        this.ticketId = ticketId;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.gender = gender;
+        this.flightId = flightId;
+        this.price = price;
+        this.seat = seat;
+        this.extraLuggage = extraLuggage;
+        this.rentedHotel = rentedHotel;
+        this.rentedCar = rentedCar;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Ticket() {
+
+    }
+
     @Override
     public String toString() {
         return "Ticket{" +

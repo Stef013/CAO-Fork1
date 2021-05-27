@@ -32,6 +32,9 @@ public class Booking {
     @JsonProperty("emergencyPhonenumber")
     private String emergencyPhonenumber;
 
+    @JsonProperty("checkedIn")
+    private boolean checkedIn;
+
     public int getBookingId() {
         return bookingId;
     }
@@ -80,6 +83,8 @@ public class Booking {
         this.tickets = tickets;
     }
 
+    public void addTicket(Ticket ticket) { this.tickets.add(ticket); }
+
     public String getEmergencyEmail() {
         return emergencyEmail;
     }
@@ -94,6 +99,30 @@ public class Booking {
 
     public void setEmergencyPhonenumber(String emergencyPhonenumber) {
         this.emergencyPhonenumber = emergencyPhonenumber;
+    }
+
+    public boolean isCheckedIn() {
+        return checkedIn;
+    }
+
+    public void setCheckedIn(boolean checkedIn) {
+        this.checkedIn = checkedIn;
+    }
+
+    public Booking(int bookingId, int userId, String contactPhonenumber, String contactEmail, Date bookingDate, List<Ticket> tickets, String emergencyEmail, String emergencyPhonenumber, boolean checkedIn) {
+        this.bookingId = bookingId;
+        this.userId = userId;
+        this.contactPhonenumber = contactPhonenumber;
+        this.contactEmail = contactEmail;
+        this.bookingDate = bookingDate;
+        this.tickets = tickets;
+        this.emergencyEmail = emergencyEmail;
+        this.emergencyPhonenumber = emergencyPhonenumber;
+        this.checkedIn = checkedIn;
+    }
+
+    public Booking() {
+
     }
 
     @Override

@@ -31,7 +31,7 @@ public class EmployeeController {
     public EmployeeController(final IEmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
 
-        Spark.get("/login", ((request, response) -> {
+        Spark.post("/login", ((request, response) -> {
             response.type("application/json");
             AccountCredentials credentials = gson.fromJson(request.body(), AccountCredentials.class);
             Employee employee = this.employeeRepository.get(credentials.getEmail());
@@ -46,13 +46,8 @@ public class EmployeeController {
                 nbf.add(Calendar.MINUTE, -10);
                 Calendar expiration = Calendar.getInstance();
                 expiration.add(Calendar.MINUTE, 60);
-                String jws = Jwts.builder()
-                        .setSubject(employee.getEmail())
-                        .setNotBefore(nbf.getTime())
-                        .setIssuedAt(new Date())
-                        .setExpiration(expiration.getTime())
-                        .signWith(signingKey)
-                        .compact();
+                String jws = Jwts.builder().setSubject(employee.getEmail()).setNotBefore(nbf.getTime())
+                        .setIssuedAt(new Date()).setExpiration(expiration.getTime()).signWith(signingKey).compact();
                 jwtResponse.setToken(jws);
             } else {
                 response.status(401);
@@ -75,7 +70,7 @@ public class EmployeeController {
             return json;
         }));
 
-        Spark.get("/employee", ((request, response) -> {
+        Spark.get("/", ((request, response) -> {
             String json;
 
             try {
@@ -97,8 +92,7 @@ public class EmployeeController {
 
                 if (employeeRepository.accountWithEmailExists(employee.getEmail())) {
                     return "Email already in use.";
-                }
-                else if(employeeRepository.create(employee)) {
+                } else if (employeeRepository.create(employee)) {
                     return "Account created successfully!";
                 }
             } catch (Exception ex) {
@@ -157,7 +151,6 @@ public class EmployeeController {
 
             try {
                 Employee employee = gson.fromJson(body, Employee.class);
-
 
                 boolean result = employeeRepository.delete(employee.getId());
 

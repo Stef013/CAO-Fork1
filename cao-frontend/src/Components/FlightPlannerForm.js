@@ -52,7 +52,7 @@ class FlightPlannerForm extends PureComponent {
 
   async handleSubmit(event) {
     event.preventDefault();
-    const response = await axios({
+    await axios({
       method: "post",
       url: `http://localhost:5678/flight`,
       data: {
@@ -60,8 +60,8 @@ class FlightPlannerForm extends PureComponent {
         ticket_price: this.state.ticket_price,
         destination: this.state.destination,
         origin: this.state.origin,
-        departure_time: this.state.departure_time,
-        arrival_time: this.state.arrival_time,
+        departure_time: new Date(new Date(this.state.departure_time).toISOString().slice(0, 19).replace('T', ' ')),
+        arrival_time: new Date(new Date(this.state.arrival_time).toISOString().slice(0, 19).replace('T', ' ')),
       },
     });
     alert(
@@ -80,7 +80,6 @@ class FlightPlannerForm extends PureComponent {
     this.setState({
       [name]: value,
     });
-    console.log(this.state);
   }
 
   render() {

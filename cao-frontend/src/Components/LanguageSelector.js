@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 const LanguageSelector = () => {  
   const classes = useStyles();
-  const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslation();
 
   const changeLanguage = (event) => {
     i18n.changeLanguage(event.target.value)

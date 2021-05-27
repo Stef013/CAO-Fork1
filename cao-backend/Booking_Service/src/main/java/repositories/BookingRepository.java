@@ -1,9 +1,11 @@
 package repositories;
 
 import models.Booking;
+import models.InterpolRequest;
 import models.Ticket;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.ws.rs.core.Response;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +18,8 @@ public class BookingRepository {
 
     public Booking book(Booking booking, int userId) {
         String query = "INSERT INTO [Booking] (UserId, BookingDate, ContactPhonenumber, " +
-                "ContactEmail, EmergencyPhonenumber, EmergencyEmail) VALUES " +
-                "(?,?,?,?,?,?)";
+                "ContactEmail, EmergencyPhonenumber, EmergencyEmail, CheckedIn) VALUES " +
+                "(?,?,?,?,?,?,?)";
 
         try (Connection connection = DriverManager.getConnection(connectionUrl)) {
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -27,6 +29,7 @@ public class BookingRepository {
             statement.setString(4, booking.getContactEmail());
             statement.setString(5, booking.getEmergencyPhonenumber());
             statement.setString(6, booking.getEmergencyEmail());
+            statement.setBoolean(7, booking.isCheckedIn());
 
             statement.executeUpdate();
 
@@ -51,6 +54,34 @@ public class BookingRepository {
             return null;
         }
         return null;
+    }
+
+    public ArrayList<Booking> getBookingsByUserID(int userId) {
+        String query = "SELECT DISTINCT * FROM [Booking] b INNER JOIN [Ticket] t on (b.BookingId = t.BookingId) " +
+                "WHERE b.UserId = ?";
+
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, userId);
+            ResultSet rs = statement.executeQuery();
+
+            ArrayList<Booking> allBookings = new ArrayList<Booking>();
+            Booking currentBooking = new Booking();
+            while (rs.next()) {
+                int bookingId = rs.getInt("BookingId");
+                if (bookingId != currentBooking.getBookingId()) {
+                    if (currentBooking.getBookingId() != 0) {
+                        allBookings.add(currentBooking);
+                    }
+                    currentBooking = bookingFromResultSet(rs);
+                }
+                currentBooking.addTicket(ticketFromResultSet(rs));
+            }
+            allBookings.add(currentBooking);
+            return allBookings;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private boolean addTickets(Connection connection, List<Ticket> tickets, int bookingId) {
@@ -81,6 +112,77 @@ public class BookingRepository {
             return false;
         } catch (Exception e) {
             System.out.println(e);
+            return false;
+        }
+    }
+
+    private Booking bookingFromResultSet(ResultSet rs) throws SQLException {
+        Booking booking = new Booking(
+                rs.getInt("BookingId"),
+                rs.getInt("UserId"),
+                rs.getString("ContactPhonenumber"),
+                rs.getString("ContactEmail"),
+                rs.getDate("BookingDate"),
+                new ArrayList<Ticket>(),
+                rs.getString("EmergencyEmail"),
+                rs.getString("EmergencyPhonenumber"),
+                rs.getBoolean("CheckedIn")
+        );
+        return booking;
+    }
+
+    private Ticket ticketFromResultSet(ResultSet rs) throws SQLException {
+        Ticket ticket = new Ticket(
+                rs.getInt("TicketId"),
+                rs.getString("Firstname"),
+                rs.getString("Lastname"),
+                rs.getString("Gender"),
+                rs.getInt("FlightId"),
+                rs.getFloat("Price"),
+                rs.getString("Seat"),
+                rs.getInt("ExtraLuggage"),
+                rs.getBoolean("RentedHotel"),
+                rs.getBoolean("RentedCar"),
+                rs.getDate("DateOfBirth")
+        );
+        return ticket;
+    }
+
+    public ArrayList<Ticket> getTicketByUser(InterpolRequest interpolRequest) {
+        String query = "SELECT * FROM [Ticket] WHERE Firstname = ? AND Lastname = ? AND DateOfBirth = ?";
+
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, interpolRequest.getFirstname());
+            statement.setString(2, interpolRequest.getLastname());
+            statement.setDate(3, new java.sql.Date(interpolRequest.getDateOfBirth().getTime()));
+            ResultSet rs = statement.executeQuery();
+
+            ArrayList<Ticket> allTickets = new ArrayList<Ticket>();
+            while (rs.next()) {
+                allTickets.add(ticketFromResultSet(rs));
+            }
+
+            return allTickets;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public boolean checkInBooking(int bookingId) {
+        String query = "UPDATE [Booking] SET CheckedIn = ? WHERE BookingId = ?";
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setBoolean(1, true);
+            statement.setInt(2, bookingId);
+            int rowsChanged = statement.executeUpdate();
+
+            if (rowsChanged == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
             return false;
         }
     }
