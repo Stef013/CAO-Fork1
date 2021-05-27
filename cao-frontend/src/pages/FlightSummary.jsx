@@ -1,7 +1,8 @@
 import "../App.css";
 import React, { Component } from "react";
-import FlightList from "../Components/FlightList"
 import { withStyles } from "@material-ui/core";
+import FunctionalFlightList from "../Components/FunctionalFlightList"
+
 
 const useStyles = (theme) => ({
     listStyle: {
@@ -14,7 +15,7 @@ class FlightSummary extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.listStyle}>
-                <FlightList axios={this.props.axios} />
+                <FunctionalFlightList></FunctionalFlightList>
             </div>
         );
     }
