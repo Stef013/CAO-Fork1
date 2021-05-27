@@ -22,7 +22,6 @@ public class PoliceController {
     Logging logger = new Logging();
 
     public PoliceController() {
-
         options("/*", (request, response) -> {
 
             String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
@@ -43,20 +42,25 @@ public class PoliceController {
         Spark.post("/report", ((request, response) -> {
 
             // Zoeken van een person
-            String json;
+            String json = "";
 
             try {
                 SearchModel personToFind = gson.fromJson(request.body(), SearchModel.class);
 
-                json = PL.searchPerson(personToFind);
+                json = gson.toJson(PL.searchPerson(personToFind));
 
                 // json = gson.toJson(person);
             } catch (Exception ex) {
-                response.status(404);
-                json = "Cant find user.";
+                response.status(403);
+                return json;
             }
-
+            if (json == "null" || json == "") {
+                response.status(403);
+                return json;
+            }
+            response.status(200);
             return json;
+
         }));
     }
 }

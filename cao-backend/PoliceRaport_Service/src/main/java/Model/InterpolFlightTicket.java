@@ -1,13 +1,13 @@
-package models;
+package Model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class InterpolFlightTicket {
 
     @JsonProperty("ticket")
-    public Ticket ticket;
+    private Ticket ticket;
     @JsonProperty("flight")
-    public Object flight;
+    private Object flight;
 
     public InterpolFlightTicket(Ticket ticket, Object flight) {
         this.ticket = ticket;

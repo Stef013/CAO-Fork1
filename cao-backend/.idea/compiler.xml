@@ -16,7 +16,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Account_Service" target="14" />
+      <module name="Account_Service" target="11" />
       <module name="backend-cao" target="11" />
       <module name="booking-service" target="11" />
       <module name="Booking_Service" target="14" />
