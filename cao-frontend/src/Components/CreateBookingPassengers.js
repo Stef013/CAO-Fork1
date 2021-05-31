@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { Box, FormControl, FormControlLabel, FormGroup, Grid, Input, InputLabel, MenuItem, Paper, Select, Slider, Switch } from '@material-ui/core';
+import { Box, FormControl, Grid, Input, InputLabel, MenuItem, Paper, Select, Slider, Switch } from '@material-ui/core';
 import PassengerInfo from './CreateBookingPassengerInfo';
 import Ticket from '../models/Ticket';
 import { useTranslation } from 'react-i18next';
@@ -170,12 +170,15 @@ const CreateBookingPassengers = (props) => {
     }
 
     const sendPassengerData = () => {
-        console.log("DATA SEND")
         props.setPassengers(value);
         props.storePassengerData(booking);
         if (carRentalChecked) {
             fillCarRentalBooking();
             props.setCarRentalReservation(carRentalReservation);
+        }
+        if (hotelChecked) {
+            fillHotelBooking();
+            props.setHotelReservation(hotelReservation);
         }
     }
 
@@ -183,6 +186,12 @@ const CreateBookingPassengers = (props) => {
         var newCarRentalReservation = carRentalReservation;
         newCarRentalReservation.nameBooker = booking.tickets[0].firstname + " " + booking.tickets[0].lastname;
         newCarRentalReservation.emailBooker = booking.contactEmail;
+    }
+
+    const fillHotelBooking = () => {
+        var newHotelReservation = hotelReservation;
+        newHotelReservation.nameBooker = booking.tickets[0].firstname + " " + booking.tickets[0].lastname;
+        newHotelReservation.emailBooker = booking.contactEmail;
     }
 
     //Car methods
@@ -225,6 +234,12 @@ const CreateBookingPassengers = (props) => {
         setSelectedHotel(event.target.value)
     }
 
+    const handleHotelRoomChange = (event) => {
+        var newHotelReservation = hotelReservation
+        hotelReservation.roomType = event.target.value
+        setHotelReservation(newHotelReservation)
+    }
+
     const generateHotels = () => {
         if (hotelList.length > 0) {
             var rows = [];
@@ -237,24 +252,21 @@ const CreateBookingPassengers = (props) => {
 
     const generateHotelRooms = () => {
         console.log("helloerferf")
-        console.log(hotelReservation.hotel)
         if (hotelReservation.hotel !== undefined) {
-            return (
-                <div>
-                    <MenuItem value={1}>Single Room || ${hotelReservation.hotel.soloRoomPrice}</MenuItem>
-                    <MenuItem value={2}>Double Room || ${hotelReservation.hotel.doubleRoomPrice}</MenuItem>
-                    <MenuItem value={3}>Triple Room || ${hotelReservation.hotel.tripleRoomPrice}</MenuItem>
-                    <MenuItem value={4}>Quadruple Room || ${hotelReservation.hotel.quadrupleRoomPrice}</MenuItem>
-                </div>
-            )
+            var rows = [];
+            rows.push(<MenuItem value={1}>Single Room || ${hotelReservation.hotel.soloRoomPrice}/day</MenuItem>)
+            rows.push(<MenuItem value={2}>Double Room || ${hotelReservation.hotel.doubleRoomPrice}/day</MenuItem>)
+            rows.push(<MenuItem value={3}>Triple Room || ${hotelReservation.hotel.tripleRoomPrice}/day</MenuItem>)
+            rows.push(<MenuItem value={4}>Quadruple Room || ${hotelReservation.hotel.quadrupleRoomPrice}/day</MenuItem>)
+            return rows;
         }
     }
 
-    const handleHotelRoomChange = (event) => {
-        var newHotelReservation = hotelReservation
-        hotelReservation.hotel.roomType = event.target.value
-        setHotelReservation(newHotelReservation)
-        setSelectedHotel(event.target.value)
+    const updateHotelReservation = (data) => {
+        const { value, name } = data.target;
+        var newHotelReservation = hotelReservation;
+        newHotelReservation[name] = value;
+        setHotelReservation(newHotelReservation);
     }
 
     return (
@@ -416,7 +428,7 @@ const CreateBookingPassengers = (props) => {
                                         <Select
                                             disabled={(!hotelChecked)}
                                             label="Hotel Selection"
-                                            // value={hotelReservation.hotel}
+                                            value={hotelReservation.hotel}
                                             onChange={handleHotelChange}
                                         >
                                             {generateHotels()}
@@ -431,7 +443,7 @@ const CreateBookingPassengers = (props) => {
                                         <Select
                                             disabled={(!hotelChecked) || selectedHotel === undefined}
                                             label="Hotel Selection"
-                                            // value={""}
+                                            value={hotelReservation.roomType}
                                             onChange={handleHotelRoomChange}
                                         >
                                             {generateHotelRooms()}
@@ -445,10 +457,10 @@ const CreateBookingPassengers = (props) => {
                                         margin="low"
                                         fullWidth
                                         type="date"
-                                        label="Pick Up Date"
+                                        label="Check In Date"
                                         defaultValue={carRentalReservation.pickUpDate}
-                                        name="pickUpDate"
-                                        onChange={updateCarRentalReservation}
+                                        name="checkInDate"
+                                        onChange={updateHotelReservation}
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
@@ -461,10 +473,10 @@ const CreateBookingPassengers = (props) => {
                                         margin="low"
                                         fullWidth
                                         type="date"
-                                        label="Drop Off Date"
+                                        label="Check Out Date"
                                         defaultValue={carRentalReservation.dropOffDate}
-                                        name="dropOffDate"
-                                        onChange={updateCarRentalReservation}
+                                        name="checkOutDate"
+                                        onChange={updateHotelReservation}
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
