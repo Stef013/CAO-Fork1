@@ -44,6 +44,7 @@ export default function FLightInfoPopup(props) {
     const [open, setOpen] = React.useState(false);
     const [tickets, setTickets] = React.useState();
     const [loading, setLoading] = React.useState(false);
+    const [gotTickets, setGotTickets] = React.useState(false);
     const classes = useStyles();
 
 
@@ -54,11 +55,15 @@ export default function FLightInfoPopup(props) {
                 console.log(res.data);
                 setTickets(res.data);
                 setLoading(true);
-
+                setGotTickets(true);
                 handleOpen();
             })
             .catch((err) => {
                 console.log(err);
+                setLoading(true);
+                setGotTickets(false);
+
+                handleOpen();
             });
     }
 
@@ -77,39 +82,49 @@ export default function FLightInfoPopup(props) {
             </Button>
             <Dialog open={open} maxWidth="lg" onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle style={{ padding: 10, marginTop: 30, marginLeft: 20 }} id="form-dialog-title">Passengers:</DialogTitle>
-                {loading ? (
-                    <DialogContent style={{ padding: 10, marginLeft: 20, marginBottom: 30 }}>
-                        <TableContainer>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell><b>Firstname</b></TableCell>
-                                        <TableCell><b>Lastname</b></TableCell>
-                                        <TableCell><b>Gender</b></TableCell>
-                                        <TableCell><b>Date of Birth</b></TableCell>
-                                        <TableCell><b>Seat</b></TableCell>
-                                        <TableCell><b>Luggage</b></TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {tickets.map((ticket) => (
-                                        <TableRow key={ticket.id}>
-                                            <TableCell>{ticket.firstname}</TableCell>
-                                            <TableCell>{ticket.lastname}</TableCell>
-                                            <TableCell>{ticket.gender}</TableCell>
-                                            <TableCell>{ticket.dateOfBirth}</TableCell>
-                                            <TableCell>{ticket.seat}</TableCell>
-                                            <TableCell>{ticket.extraLuggage}</TableCell>
+                {loading ? ( 
+
+                    gotTickets ? (
+                        <DialogContent style={{ padding: 10, marginLeft: 20, marginBottom: 30 }}>
+                            <TableContainer>
+                                <Table>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell><b>Firstname</b></TableCell>
+                                            <TableCell><b>Lastname</b></TableCell>
+                                            <TableCell><b>Gender</b></TableCell>
+                                            <TableCell><b>Date of Birth</b></TableCell>
+                                            <TableCell><b>Seat</b></TableCell>
+                                            <TableCell><b>Luggage</b></TableCell>
                                         </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </DialogContent>
+                                    </TableHead>
+                                    <TableBody>
+                                        {tickets.map((ticket) => (
+                                            <TableRow key={ticket.id}>
+                                                <TableCell>{ticket.firstname}</TableCell>
+                                                <TableCell>{ticket.lastname}</TableCell>
+                                                <TableCell>{ticket.gender}</TableCell>
+                                                <TableCell>{ticket.dateOfBirth}</TableCell>
+                                                <TableCell>{ticket.seat}</TableCell>
+                                                <TableCell>{ticket.extraLuggage}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </DialogContent>
+                    )
+                    :
+                    (
+                        <DialogContent style={{ padding: 10, marginLeft: 20, marginBottom: 30, marginRight: 20 }}>
+                            <Typography >No Passengers on this flight</Typography>
+                        </DialogContent>
+                    )   
+
                 ) :
                     (
                         <Typography >Loading</Typography>
-                    )};
+                    )}
             </Dialog>
         </div >
     );

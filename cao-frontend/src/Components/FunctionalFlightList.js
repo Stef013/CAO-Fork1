@@ -79,7 +79,7 @@ export default function ValueGetterGrid(props) {
   );
 
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div style={{ height: 800, width: "100%" }}>
       {loading ? (
         <DataGrid
           className={classes.root}
