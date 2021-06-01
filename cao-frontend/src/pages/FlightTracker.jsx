@@ -33,7 +33,7 @@ class App extends Component {
     async getAirplaneInfo() {
         const mockData = await axios({
             method: 'get',
-            url: `http://localhost:5678/flight/current`
+            url: `http://localhost:8080/flight/flight/current`
         })
         this.setState({
             MockAirplaneInfo: mockData.data.flightList,

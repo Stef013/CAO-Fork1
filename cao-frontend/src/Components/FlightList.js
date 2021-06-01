@@ -20,7 +20,7 @@ class FlightList extends Component {
   }
 
   async componentDidMount() {
-    this.props.axios.get("/flight/").then((response) => {
+    this.props.axios.get("/flight/flight").then((response) => {
       this.setState({
         flightlist: response.data.flightList,
         isLoaded: "true"
