@@ -13,8 +13,6 @@ import Ticket from '../models/Ticket';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 
-
-
 const useStyles = makeStyles((theme) => ({
 
     paper: {
@@ -268,6 +266,18 @@ const CreateBookingPassengers = (props) => {
         newHotelReservation[name] = value;
         setHotelReservation(newHotelReservation);
     }
+
+    const createOrder = (data, actions) => {
+        return actions.order.create({
+            purchase_units: [
+                {
+                    amount: {
+                        value: "0.01",
+                    },
+                },
+            ],
+        });
+    };
 
     return (
         <Container component="main" maxWidth="sm">

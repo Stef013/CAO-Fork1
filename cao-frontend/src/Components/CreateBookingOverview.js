@@ -9,6 +9,8 @@ import FlightLandIcon from '@material-ui/icons/FlightLand';
 import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { useTranslation } from 'react-i18next';
+import ReactDOM from "react-dom"
+import { PayPalButton } from "react-paypal-button-v2";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -32,8 +34,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
-
 export default function CreateBookingOverview(props) {
     const classes = useStyles();
     const { t } = useTranslation();
@@ -45,6 +45,22 @@ export default function CreateBookingOverview(props) {
     const nextPage = () => {
         props.placeBooking();
     }
+
+    const createOrder = (data, actions) => {
+        return actions.order.create({
+            purchase_units: [
+                {
+                    amount: {
+                        value: "0.01",
+                    },
+                },
+            ],
+        });
+    };
+
+    const onApprove = (data, actions) => {
+        return actions.order.capture();
+    };
 
     const calculatePrice = () => {
         //todo: Calculate total price with a loop through each ticket
@@ -138,10 +154,10 @@ export default function CreateBookingOverview(props) {
         }
     }
 
-        
+
     const generateHotelOverview = () => {
-        if (hotelReservation.nameBooker !== undefined){
-            return(
+        if (hotelReservation.nameBooker !== undefined) {
+            return (
                 <Grid item xs={12}>
                     <Paper>
                         <Box p={2} m={0}>
@@ -256,16 +272,16 @@ export default function CreateBookingOverview(props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6}>
-                                    {t('bookingoverview.first name')}: {booking.tickets[0].firstname}
+                                        {t('bookingoverview.first name')}: {booking.tickets[0].firstname}
                                     </Grid>
                                     <Grid item xs={6}>
-                                    {t('bookingoverview.last name')}: {booking.tickets[0].lastname}
+                                        {t('bookingoverview.last name')}: {booking.tickets[0].lastname}
                                     </Grid>
                                     <Grid item xs={12}>
-                                    {t('bookingoverview.email address')}: {booking.contactEmail}
+                                        {t('bookingoverview.email address')}: {booking.contactEmail}
                                     </Grid>
                                     <Grid item xs={12}>
-                                    {t('bookingoverview.phone number')}: {booking.contactPhonenumber}
+                                        {t('bookingoverview.phone number')}: {booking.contactPhonenumber}
                                     </Grid>
                                 </Grid>
                             </Box>
@@ -273,7 +289,7 @@ export default function CreateBookingOverview(props) {
                     </Grid>
 
                     {generateCarRentalOverview()}
-                    
+
                     {generateHotelOverview()}
 
                     <Grid item xs={12}>
@@ -286,10 +302,10 @@ export default function CreateBookingOverview(props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12}>
-                                    {t('bookingoverview.email address')}: {booking.emergencyEmail}
+                                        {t('bookingoverview.email address')}: {booking.emergencyEmail}
                                     </Grid>
                                     <Grid item xs={12}>
-                                    {t('bookingoverview.phone number')}: {booking.emergencyPhonenumber}
+                                        {t('bookingoverview.phone number')}: {booking.emergencyPhonenumber}
                                     </Grid>
                                 </Grid>
                             </Box>
@@ -308,15 +324,24 @@ export default function CreateBookingOverview(props) {
                         </Button>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            onClick={nextPage}
-                        >
-                            {t('bookingoverview.payment')}
-                            <ArrowForwardIcon />
-                        </Button>
+                        <PayPalButton
+                            createOrder={(data, actions) => createOrder(data, actions)}
+                            onApprove={(data, actions) => {
+                                // Capture the funds from the transaction
+                                return actions.order.capture().then(function (details) {
+                                    // Show a success message to your buyer
+                                    console.log("Transaction completed by " + details.payer.name.given_name);
+                                    console.log(data.orderID)
+
+                                    // Call own API
+                                    nextPage();
+                                });
+                            }}
+                            options={{
+                                clientId: "sb",
+                                disableFunding: "credit,card,ideal"
+                            }}
+                        />
                     </Grid>
                 </Grid>
             </div>

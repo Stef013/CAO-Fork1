@@ -145,6 +145,7 @@ class CreateBookingMain extends React.Component {
                 console.log(response);
                 if (response.status === 200) {
                     alert("Booking succesfull!")
+                    window.location.href="/bookingList"
                 }
             })
             .catch(function (error) {
