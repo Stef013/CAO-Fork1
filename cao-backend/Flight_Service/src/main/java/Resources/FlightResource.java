@@ -1,9 +1,6 @@
 package Resources;
 
-import Models.createFlightReturnModel;
-import Models.createFlightSubmitModel;
-import Models.flightReturnModel;
-import Models.getFlightsReturnModel;
+import Models.*;
 import Services.FlightService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -86,5 +83,23 @@ public class FlightResource {
         }
         flightReturnModel returnModel = service.FlightById(id);
         return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(returnModel)).build();
+    }
+
+    @PUT
+    @Path("/flight/updateFlightPrice")
+    public Response updateFlightPrice(String json)throws JsonProcessingException {
+        priceUpdateModel model = objectMapper.readValue(json, priceUpdateModel.class);
+        int id = model.getId();
+        String ticket_price = model.getTicket_price();
+
+        if (id == 0 || ticket_price.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        try {
+            service.updateFlightPrice(model);
+            return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(model)).build();
+        }catch (Exception ex) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(objectMapper.writeValueAsString(model)).build();
+        }
     }
 }

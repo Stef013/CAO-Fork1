@@ -187,4 +187,20 @@ public class BookingRepository {
             return false;
         }
     }
+    public ArrayList<Ticket> getTicketsFromFlightId(int flightId) {
+        String query = "SELECT * FROM [Ticket] WHERE [FlightId] = ?";
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, flightId);
+            ResultSet rs = statement.executeQuery();
+
+            ArrayList<Ticket> allTickets = new ArrayList<Ticket>();
+            while (rs.next()) {
+                allTickets.add(ticketFromResultSet(rs));
+            }
+            return allTickets;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

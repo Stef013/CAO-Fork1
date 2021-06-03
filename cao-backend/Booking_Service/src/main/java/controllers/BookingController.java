@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import services.BookingService;
 
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Path("/")
@@ -124,6 +126,18 @@ public class BookingController {
     public Response checkInBooking(@PathParam("bookingId") int bookingId) throws JsonProcessingException {
         if (bookingService.checkInBooking(bookingId)) {
             return Response.status(Response.Status.OK).build();
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    @GET
+    @Path("/booking/flight/{flightId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTicketsFromFlightId(@PathParam("flightId") int flightId) throws JsonProcessingException {
+        ArrayList<Ticket> tickets = bookingService.getTicketsFromFlightId(flightId);
+        if (!tickets.isEmpty()) {
+            return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(tickets)).build();
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }

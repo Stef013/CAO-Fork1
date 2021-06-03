@@ -5,6 +5,7 @@ import Interface.IFlight;
 import Models.createFlightReturnModel;
 import Models.flightReturnModel;
 import Models.getFlightsReturnModel;
+import Models.priceUpdateModel;
 import io.smallrye.mutiny.tuples.Tuple;
 import io.vertx.core.json.JsonArray;
 import org.apache.http.HttpEntity;
@@ -46,6 +47,9 @@ public class FlightService {
     public getFlightsReturnModel getFlights (){
         return context.getFlights();
     }
+
+    public boolean updateFlightPrice(priceUpdateModel model) {return context.updateFlightPrice(model);}
+
     public getFlightsReturnModel CurrentFlights () {return context.CurrentFlights();}
     public flightReturnModel FlightById (int FlightId) {return context.FlightById(FlightId);}
 

@@ -39,4 +39,9 @@ public class BookingService {
     public boolean checkInBooking(int bookingId) {
         return bookingRepository.checkInBooking(bookingId);
     }
+
+    public ArrayList<Ticket> getTicketsFromFlightId(int flightId) {
+        return bookingRepository.getTicketsFromFlightId(flightId);
+    }
+
 }
