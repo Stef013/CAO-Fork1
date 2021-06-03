@@ -1,10 +1,7 @@
 package Context;
 
 import Interface.IFlight;
-import Models.createFlightReturnModel;
-import Models.flight;
-import Models.flightReturnModel;
-import Models.getFlightsReturnModel;
+import Models.*;
 
 import java.sql.*;
 import java.text.DateFormat;
@@ -71,6 +68,7 @@ public class FlightDatabaseContext implements IFlight {
                 ResultSet rs = cstmt.getResultSet();
                 while (rs.next()) {
                     flight newFlight = new flight();
+                    newFlight.setId(rs.getInt("id"));
                     newFlight.setAirport_id(rs.getInt("airport_id"));
                     newFlight.setArrival_time(rs.getString("arrival_time"));
                     newFlight.setDeparture_time(rs.getString("departure_time"));
@@ -108,6 +106,7 @@ public class FlightDatabaseContext implements IFlight {
                 ResultSet rs = cstmt.getResultSet();
                 while (rs.next()) {
                     flight newFlight = new flight();
+
                     newFlight.setAirport_id(rs.getInt("airport_id"));
                     newFlight.setArrival_time(rs.getString("arrival_time"));
                     newFlight.setDeparture_time(rs.getString("departure_time"));
@@ -169,5 +168,21 @@ public class FlightDatabaseContext implements IFlight {
             returnModel.setSuccess(false);
         }
         return returnModel;
+    }
+
+    public boolean updateFlightPrice(priceUpdateModel model) {
+        try (Connection connection = DriverManager.getConnection(connectionUrl)){
+            try {
+                CallableStatement cstmnt = connection.prepareCall("{CALL updateFlightPrice(?,?)}");
+                cstmnt.setInt(1, model.getId());
+                cstmnt.setString(2, model.getTicket_price());
+                cstmnt.executeUpdate();
+                return true;
+            } catch (SQLException throwables) {
+                return false;
+            }
+        } catch (SQLException e) {
+            return false;
+        }
     }
 }

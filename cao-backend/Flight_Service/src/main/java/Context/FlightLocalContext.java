@@ -4,6 +4,7 @@ import Interface.IFlight;
 import Models.createFlightReturnModel;
 import Models.flightReturnModel;
 import Models.getFlightsReturnModel;
+import Models.priceUpdateModel;
 
 import java.text.ParseException;
 import java.util.List;
@@ -26,4 +27,5 @@ public class FlightLocalContext implements IFlight {
     }
     public getFlightsReturnModel CurrentFlights() {return null;}
     public flightReturnModel FlightById(int FlightId) {return null;}
+    public boolean updateFlightPrice(priceUpdateModel model){return false;}
 }
