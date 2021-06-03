@@ -46,7 +46,9 @@ public class EmployeeController {
                 nbf.add(Calendar.MINUTE, -10);
                 Calendar expiration = Calendar.getInstance();
                 expiration.add(Calendar.MINUTE, 60);
-                String jws = Jwts.builder().setSubject(employee.getEmail()).setNotBefore(nbf.getTime())
+                String jws = Jwts.builder().setSubject(employee.getEmail())
+                        .claim("userId", employee.getId())
+                        .setNotBefore(nbf.getTime())
                         .setIssuedAt(new Date()).setExpiration(expiration.getTime()).signWith(signingKey).compact();
                 jwtResponse.setToken(jws);
             } else {

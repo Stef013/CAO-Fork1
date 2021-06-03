@@ -5,7 +5,6 @@ import models.InterpolRequest;
 import models.Ticket;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.ws.rs.core.Response;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +56,7 @@ public class BookingRepository {
     }
 
     public ArrayList<Booking> getBookingsByUserID(int userId) {
-        String query = "SELECT DISTINCT * FROM [Booking] b INNER JOIN [Ticket] t on (b.BookingId = t.BookingId) " +
+        String query = "SELECT * FROM [Booking] b INNER JOIN [Ticket] t on (b.BookingId = t.BookingId) " +
                 "WHERE b.UserId = ?";
 
         try (Connection connection = DriverManager.getConnection(connectionUrl)) {
@@ -77,7 +76,9 @@ public class BookingRepository {
                 }
                 currentBooking.addTicket(ticketFromResultSet(rs));
             }
-            allBookings.add(currentBooking);
+            if (currentBooking.getBookingId() > 0) {
+                allBookings.add(currentBooking);
+            }
             return allBookings;
         } catch (Exception e) {
             return null;
@@ -100,8 +101,8 @@ public class BookingRepository {
                 statement.setFloat(6, ticket.getPrice());
                 statement.setString(7, ticket.getSeat());
                 statement.setInt(8, ticket.getExtraLuggage());
-                statement.setBoolean(9, ticket.isRentedHotel());
-                statement.setBoolean(10, ticket.isRentedCar());
+                statement.setInt(9, ticket.getRentedHotel());
+                statement.setInt(10, ticket.getRentedCar());
                 statement.setDate(11, new java.sql.Date(ticket.getDateOfBirth().getTime()));
                 statement.addBatch();
             }
@@ -141,8 +142,8 @@ public class BookingRepository {
                 rs.getFloat("Price"),
                 rs.getString("Seat"),
                 rs.getInt("ExtraLuggage"),
-                rs.getBoolean("RentedHotel"),
-                rs.getBoolean("RentedCar"),
+                rs.getInt("RentedHotel"),
+                rs.getInt("RentedCar"),
                 rs.getDate("DateOfBirth")
         );
         return ticket;

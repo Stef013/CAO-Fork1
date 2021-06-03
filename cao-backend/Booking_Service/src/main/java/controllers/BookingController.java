@@ -14,6 +14,7 @@ import models.Booking;
 import models.InterpolFlightTicket;
 import models.InterpolRequest;
 import models.Ticket;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import services.BookingService;
 
@@ -26,6 +27,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -42,12 +44,12 @@ public class BookingController {
     @POST
     @Path("/booking")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response book(String bookingJson, @HeaderParam("jwtToken") String jwt) throws JsonProcessingException {
-        // Uncomment when a valid jwtToken is sent (for now the userId is hardcoded)
-        // int userId = (int)decodeJWT(jwt).get("userId")
+    public Response book(String bookingJson, @HeaderParam("authorization") String jwt) throws JsonProcessingException {
+        int userId = getUserIdFromJwt(jwt);
+
         Booking bookingRequest = objectMapper.readValue(bookingJson, Booking.class);
         bookingRequest.setBookingDate(new Date());
-        Booking bookingResponse = bookingService.book(bookingRequest, 1);
+        Booking bookingResponse = bookingService.book(bookingRequest, userId);
 
         if (bookingResponse == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -58,13 +60,10 @@ public class BookingController {
     }
 
     @GET
-    @Path("/booking/users/{userId}")
+    @Path("/booking/users")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getBookingsByUserID(@PathParam("userId") int userId) {
-        int jwtUserId = userId; // TODO: get jwtUserId from jwt token
-        if (userId != jwtUserId) {
-            return Response.status(Response.Status.FORBIDDEN).build();
-        }
+    public Response getBookingsByUserID(@HeaderParam("authorization") String jwt) {
+        int userId = getUserIdFromJwt(jwt);
 
         ArrayList<Booking> returnBookings;
         try {
@@ -142,5 +141,15 @@ public class BookingController {
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
+    }
+
+    private int getUserIdFromJwt(String jwt) {
+        jwt = jwt.replace("Bearer ", "");
+        String[] chunks = jwt.split("\\.");
+        Base64.Decoder decoder = Base64.getDecoder();
+        String payload = new String(decoder.decode(chunks[1]));
+        JSONObject payloadObject = new JSONObject(payload);
+        int userId = payloadObject.getInt("userId");
+        return userId;
     }
 }

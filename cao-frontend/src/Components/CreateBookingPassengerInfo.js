@@ -130,7 +130,7 @@ const CreateBookingPassengerInfo = (props) => {
                             <InputLabel>{t('bookingpassengers.luggage')}</InputLabel>
                             <Select
                                 onChange={handleTicketChange}
-                                defaultValue={props.ticket.extraLuggage}
+                                defaultValue={props.ticket.extraLuggage || 0}
                                 name="extraLuggage"
                             >
                                 <MenuItem name="extraLuggage" value={0}>0 extra bags + $0</MenuItem>

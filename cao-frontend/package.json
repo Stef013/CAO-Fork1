@@ -27,6 +27,7 @@
     "react-i18next": "^11.8.10",
     "react-map-gl": "^6.1.7",
     "react-moment": "^1.1.1",
+    "react-paypal-button-v2": "^2.6.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
     "react-simple-maps": "^2.3.0",
