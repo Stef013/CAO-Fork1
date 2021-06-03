@@ -66,6 +66,12 @@
     <artifactId>slf4j-api</artifactId>
     <version>1.7.9</version>
 </dependency>
+        <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>5.7.3</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <properties>

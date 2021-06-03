@@ -6,18 +6,23 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 import com.rabbitmq.client.AMQP;
+import io.quarkus.runtime.Startup;
 import models.InterpolFlightTicket;
 import services.BookingService;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.concurrent.TimeoutException;
 
+@Startup
+@ApplicationScoped
 public class Receiver {
     private final static String QUEUE_NAME = "PoliceReport";
     private static final String RPC_QUEUE_NAME = "PoliceReport1";
 
-    public static void main(String[] argv) throws Exception {
+    public static void listen() throws Exception {
+        System.out.println("Messaging gestart");
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
 

@@ -1,30 +1,25 @@
 package main;
 
+import io.quarkus.runtime.Quarkus;
+import io.quarkus.runtime.QuarkusApplication;
+import io.quarkus.runtime.annotations.QuarkusMain;
+import messaging.Receiver;
+
+@QuarkusMain
 public class main {
 
-    public static void main(String[] args) throws InterruptedException
-    {
-
-        //Starting the blacklister
-        /*
-        Quarkusmain Quarkus = new Quarkusmain("QuarkusMain");
-        Quarkus.start();
-
-        blackListUtil blacklister = blackListUtil.getInstance();
-
-        //Starting the API
-        sparkAPI threadAPI = new sparkAPI("API", blacklister);
-        threadAPI.start();
-
-        //Creating the blacklist controller
-        blackListController controller = new blackListController("BlackListController");
-        controller.start();
-
-        //Let the controller check every minute if a adress on the blacklist can be removed from the blacklist
-        ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
-        exec.scheduleAtFixedRate(controller , 0, 1, TimeUnit.MINUTES);*/
-
+    public static void main(String... args) {
+        Quarkus.run(MyApp.class, args);
     }
 
-
+    public static class MyApp implements QuarkusApplication {
+        Receiver receiver = new Receiver();
+        @Override
+        public int run(String... args) throws Exception {
+            System.out.println("Do startup logic here");
+            receiver.listen();
+            Quarkus.waitForExit();
+            return 0;
+        }
+    }
 }

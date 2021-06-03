@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeoutException;
 
-@QuarkusMain
+
 public class a {
     private static final String RPC_QUEUE_NAME = "PoliceReport1";
 
