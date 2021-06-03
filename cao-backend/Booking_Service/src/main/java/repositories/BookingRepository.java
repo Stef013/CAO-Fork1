@@ -56,7 +56,7 @@ public class BookingRepository {
     }
 
     public ArrayList<Booking> getBookingsByUserID(int userId) {
-        String query = "SELECT DISTINCT * FROM [Booking] b INNER JOIN [Ticket] t on (b.BookingId = t.BookingId) " +
+        String query = "SELECT * FROM [Booking] b INNER JOIN [Ticket] t on (b.BookingId = t.BookingId) " +
                 "WHERE b.UserId = ?";
 
         try (Connection connection = DriverManager.getConnection(connectionUrl)) {

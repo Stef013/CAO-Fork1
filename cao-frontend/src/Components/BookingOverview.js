@@ -101,7 +101,7 @@ export default function CustomizedDialogs(props) {
   const generatePricePerDayHotel = () => {
     switch (hotelReservation.roomType) {
       case 1:
-        return hotelReservation.hotel.singleRoomPrice
+        return hotelReservation.hotel.soloRoomPrice
       case 2:
         return hotelReservation.hotel.doubleRoomPrice
       case 3:
@@ -164,16 +164,16 @@ export default function CustomizedDialogs(props) {
                                   Location: {carRentalReservation.carRentalCompanyModel.location || ""}
                               </Grid>
                               <Grid item xs={6}>
-                                  Price: ${carRentalReservation.carRentalCompanyModel.price || ""}/day
-                              </Grid>
-                              <Grid item xs={6}>
-                                  Guest amount: {carRentalReservation.guestAmount || ""}
-                              </Grid>
-                              <Grid item xs={6}>
                                   Start of rental period: {carRentalReservation.pickUpDate || ""}
                               </Grid>
                               <Grid item xs={6}>
                                   End of rental period: {carRentalReservation.dropOffDate || ""}
+                              </Grid>
+                              <Grid item xs={6}>
+                                  Price: ${carRentalReservation.carRentalCompanyModel.price || ""}/day
+                              </Grid>
+                              <Grid item xs={6}>
+                                  Guest amount: {carRentalReservation.guestAmount || ""}
                               </Grid>
                           </Grid>
                       </Box>
@@ -205,13 +205,13 @@ export default function CustomizedDialogs(props) {
                                   Location: {hotelReservation.hotel.location}
                               </Grid>
                               <Grid item xs={6}>
-                                  Price: ${generatePricePerDayHotel()}/day
-                              </Grid>
-                              <Grid item xs={6}>
                                   Checkin date: {hotelReservation.checkInDate}
                               </Grid>
                               <Grid item xs={6}>
                                   Checkout date: {hotelReservation.checkOutDate}
+                              </Grid>
+                              <Grid item xs={6}>
+                                  Price: ${generatePricePerDayHotel()}/day
                               </Grid>
                           </Grid>
                       </Box>

@@ -96,7 +96,7 @@ class BookingList extends Component {
 
         return (
             <Paper>
-                <TableContainer style={{ maxHeight: 600 }}>
+                <TableContainer style={{ maxHeight: 1000 }}>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
