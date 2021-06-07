@@ -3,6 +3,7 @@ package Interface;
 import Models.createFlightReturnModel;
 import Models.flightReturnModel;
 import Models.getFlightsReturnModel;
+import Models.priceUpdateModel;
 
 import java.text.ParseException;
 import java.util.List;
@@ -23,4 +24,5 @@ public interface IFlight {
     getFlightsReturnModel getFlights();
     getFlightsReturnModel CurrentFlights();
     flightReturnModel FlightById(int FlightId);
+    boolean updateFlightPrice(priceUpdateModel model);
 }

@@ -19,28 +19,31 @@ class BookingList extends Component {
 
     async componentDidMount() {
         //TODO: fix user id cause hardcoded right now
-        this.props.axios.get("booking/booking/users/1").then((response) => {
+        this.props.axios.get("booking/booking/users").then((response) => {
 
-            response.data.forEach(booking => {
-                console.log("flightID:" + booking.tickets[0].flightId);
-                this.props.axios.get("/flight/flight/" + booking.tickets[0].flightId).then((response) => {
-                    var flight = response.data.flight;
-                    var combiFlightBooking = [];
-
-                    combiFlightBooking.push(flight);
-                    combiFlightBooking.push(booking);
-
-                    var tempBookingList = this.state.bookingList;
-                    tempBookingList.push(combiFlightBooking);
-
-                    this.setState({
-                        bookingList: tempBookingList,
-                        isLoaded: "true"
+            console.log(response.data)
+            if (response.data.length > 0) {
+                response.data.forEach(booking => {
+                    console.log("flightID:" + booking.tickets[0].flightId);
+                    this.props.axios.get("/flight/flight/" + booking.tickets[0].flightId).then((response) => {
+                        var flight = response.data.flight;
+                        var combiFlightBooking = [];
+    
+                        combiFlightBooking.push(flight);
+                        combiFlightBooking.push(booking);
+    
+                        var tempBookingList = this.state.bookingList;
+                        tempBookingList.push(combiFlightBooking);
+    
+                        this.setState({
+                            bookingList: tempBookingList,
+                            isLoaded: "true"
+                        })
+    
+                        console.log(this.state.bookingList);
                     })
-
-                    console.log(this.state.bookingList);
-                })
-            });
+                });
+            } 
         });
     }
 
@@ -93,7 +96,7 @@ class BookingList extends Component {
 
         return (
             <Paper>
-                <TableContainer style={{ maxHeight: 600 }}>
+                <TableContainer style={{ maxHeight: 1000 }}>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>

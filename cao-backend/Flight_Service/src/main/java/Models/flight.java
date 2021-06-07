@@ -2,7 +2,11 @@ package Models;
 
 public class flight {
 
+
+
+    private int id;
     private String ticket_price;
+
     private int airport_id;
 
     private String destination;
@@ -20,6 +24,14 @@ public class flight {
     public String longEndPos;
 
     public String latEndPos;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTicket_price() {
         return ticket_price;

@@ -4,21 +4,26 @@ import BookingSeatpicker from '../Components/CreateBookingSeatpicker'
 import BookingOverview from '../Components/CreateBookingOverview'
 import Error from './Error'
 import Booking from '../models/Booking';
-import axios from 'axios'
+import CarRentalReservationModel from '../models/CarRentalReservationModel';
+import HotelReservation from '../models/HotelReservation';
 import i18n from '../Components/i18n'
 
 class CreateBookingMain extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             currentPage: 1,
             booking: new Booking(),
+            carRentalReservation: new CarRentalReservationModel(),
+            hotelReservation: new HotelReservation(),
+            carRentalReservationId: 0,
+            hotelReservationId: 0,
             currentPassengers: 1
         };
     }
 
     setPassengers = (newPassengers) => {
-        this.setState({currentPassengers: newPassengers});
+        this.setState({ currentPassengers: newPassengers });
     }
 
     previousPage = () => {
@@ -56,22 +61,81 @@ class CreateBookingMain extends React.Component {
     }
 
     placeBooking = () => {
+        this.startPlacingBooking(this.state);
+    }
 
+    async startPlacingBooking(state) {
+        var finalCarRentalReservation = state.carRentalReservation
+        finalCarRentalReservation.guestAmount = parseInt(finalCarRentalReservation.guestAmount)
+        this.setState({carRentalReservation: finalCarRentalReservation})
+
+        if (this.state.carRentalReservation.nameBooker !== undefined){
+            await this.placeCarRentalBooking();
+            console.log("Finished car")
+        }
+
+        if (this.state.hotelReservation.nameBooker !== undefined){
+            await this.placeHotelBooking();
+            console.log("Finished hotel")
+        }
+
+        await this.placeFinalBooking();
+        console.log("Finished booking")
+    }
+
+    async placeCarRentalBooking() {
+        console.log("processing car")
+        await this.props.axios(
+            {
+                method: 'post',
+                url: 'carRental/reserveCarRental',
+                data: this.state.carRentalReservation
+            }
+        ).then((response) => {
+            if (response.status === 200) {
+                console.log(response)
+                console.log(response.data.id)
+                this.setState({carRentalReservationId: response.data.id})
+            }
+            else {
+                console.log("First zero auto")
+            }
+        })
+    }
+
+    async placeHotelBooking() {
+        console.log("processing hotel")
+        await this.props.axios(
+            {
+                method: 'post',
+                url: 'hotels/hotels/reservation',
+                data: this.state.hotelReservation
+            }
+        ).then((response) => {
+            if (response.status === 200) {
+                console.log(response)
+                console.log(response.data.id)
+                this.setState({hotelReservationId: response.data.id})
+            }
+            else {
+                console.log("First zero hotel")
+            }
+        })
+    }
+
+    async placeFinalBooking() {
+        console.log("processing booking with carID: " + this.state.carRentalReservationId + ", and hotelID: " + this.state.hotelReservationId)
         var newBooking = this.state.booking;
         newBooking.checkedIn = false;
         newBooking.tickets.forEach(ticket => {
             ticket.seat = "A1";
             ticket.price = 110;
             ticket.flightId = 3;
-            ticket.rentedCar = false;
-            ticket.rentedHotel = false;
+            ticket.rentedCar = this.state.carRentalReservationId;
+            ticket.rentedHotel = this.state.hotelReservationId;
         })
 
-        // TODO: use jwt
-        console.log(newBooking)
-
-
-        axios(
+        await this.props.axios(
             {
                 method: 'post',
                 url: 'http://localhost:8080/booking/booking',
@@ -81,6 +145,7 @@ class CreateBookingMain extends React.Component {
                 console.log(response);
                 if (response.status === 200) {
                     alert("Booking succesfull!")
+                    window.location.href="/bookingList"
                 }
             })
             .catch(function (error) {
@@ -88,23 +153,30 @@ class CreateBookingMain extends React.Component {
             });
     }
 
+    setCarRentalReservation = (newCarRentalReservation) => {
+        this.setState({ carRentalReservation: newCarRentalReservation });
+    }
+
+    setHotelReservation = (newHotelReservation) => {
+        this.setState({ hotelReservation: newHotelReservation })
+    }
+
+    //Page navigation
     selectPage = () => {
         console.log(this)
         switch (this.state.currentPage) {
             case 0:
-                return(<p>failed page load</p>)
+                return (<p>failed page load</p>)
             case 1:
-                return (<BookingPassengers setPassengers={this.setPassengers} booking={this.state.booking} currentPassengers={this.state.currentPassengers} storePassengerData={this.storePassengerData} previousPage={this.previousPage} />);
+                return (<BookingPassengers axios={this.props.axios} carRentalReservation={this.state.carRentalReservation} hotelReservation={this.state.hotelReservation} setHotelReservation={this.setHotelReservation} setPassengers={this.setPassengers} setCarRentalReservation={this.setCarRentalReservation} booking={this.state.booking} currentPassengers={this.state.currentPassengers} storePassengerData={this.storePassengerData} previousPage={this.previousPage} />);
             case 2:
                 return (<BookingSeatpicker previousPage={this.previousPage} booking={this.state.booking} storePassengerData={this.storePassengerData} />);
             case 3:
-                return (<BookingOverview previousPage={this.previousPage} booking={this.state.booking} placeBooking={this.placeBooking} />);
+                return (<BookingOverview previousPage={this.previousPage} booking={this.state.booking} carRentalReservation={this.state.carRentalReservation} hotelReservation={this.state.hotelReservation} placeBooking={this.placeBooking} />);
             default:
                 return (<Error />);
         }
     }
-
-
 
     render() {
         return this.selectPage();
