@@ -5,6 +5,7 @@ import Alert from '@material-ui/lab/Alert';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/styles';
 import { Trans, withTranslation } from 'react-i18next';
+import { withRouter } from "react-router-dom";
 
 const styles = theme => ({
     paper: {
@@ -47,7 +48,12 @@ class EmployeeLogin extends React.Component {
             isLoading: false,
         };
         this.handleSubmitevents = this.handleSubmitevents.bind(this);
+        this.navigatePortal = this.navigatePortal.bind(this);
         this.t = this.props.t;
+    }
+
+    navigatePortal() {
+        this.props.history.push('/EmployeePortal');
     }
 
     async handleSubmitevents(event) {
@@ -76,6 +82,8 @@ class EmployeeLogin extends React.Component {
             .then(res => {
                 this.setState({ isLoading: false });
                 this.props.setToken(responseToken);
+                console.log(responseToken);
+                this.navigatePortal();
             });
     }
 
@@ -135,7 +143,7 @@ class EmployeeLogin extends React.Component {
                                 className={classes.submit}
                             >
                                 <Trans t={t} i18nKey="loginpage.Sign in" />
-                        </Button>
+                            </Button>
                         </form>
                     </div>
                 </Paper>
@@ -149,4 +157,4 @@ EmployeeLogin.propTypes = {
     setToken: PropTypes.func.isRequired,
 };
 
-export default withTranslation()(withStyles(styles)(EmployeeLogin));
+export default withRouter(withTranslation()(withStyles(styles)(EmployeeLogin)));
