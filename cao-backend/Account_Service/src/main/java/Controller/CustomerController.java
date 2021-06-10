@@ -104,7 +104,7 @@ public class CustomerController {
             String json;
 
             try {
-                logger.logInfo(getClass().getName(), "In /customers");
+                //logger.logInfo(getClass().getName(), "In /customers");
                 List<Customer> customer = RL.getAllCustomer();
 
                 json = gson.toJson(customer);
