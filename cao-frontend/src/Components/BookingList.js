@@ -18,7 +18,6 @@ class BookingList extends Component {
     }
 
     async componentDidMount() {
-        //TODO: fix user id cause hardcoded right now
         this.props.axios.get("booking/booking/users").then((response) => {
 
             console.log(response.data)

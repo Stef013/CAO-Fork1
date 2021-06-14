@@ -7,6 +7,8 @@ import Booking from '../models/Booking';
 import CarRentalReservationModel from '../models/CarRentalReservationModel';
 import HotelReservation from '../models/HotelReservation';
 import i18n from '../Components/i18n'
+import { withRouter } from 'react-router-dom';
+
 
 class CreateBookingMain extends React.Component {
     constructor(props) {
@@ -20,6 +22,12 @@ class CreateBookingMain extends React.Component {
             hotelReservationId: 0,
             currentPassengers: 1
         };
+    }
+    
+    componentDidMount() {
+        if (this.props.location.state === undefined) {
+            this.props.history.push({pathname: "/flightList"})
+        }
     }
 
     setPassengers = (newPassengers) => {
@@ -128,9 +136,10 @@ class CreateBookingMain extends React.Component {
         var newBooking = this.state.booking;
         newBooking.checkedIn = false;
         newBooking.tickets.forEach(ticket => {
+            //TODO: UNHARDCODE THE SEAT
             ticket.seat = "A1";
-            ticket.price = 110;
-            ticket.flightId = 3;
+            ticket.price = this.props.location.state.flight.ticket_price;
+            ticket.flightId = this.props.location.state.flight.id;
             ticket.rentedCar = this.state.carRentalReservationId;
             ticket.rentedHotel = this.state.hotelReservationId;
         })
@@ -172,7 +181,7 @@ class CreateBookingMain extends React.Component {
             case 2:
                 return (<BookingSeatpicker previousPage={this.previousPage} booking={this.state.booking} storePassengerData={this.storePassengerData} />);
             case 3:
-                return (<BookingOverview previousPage={this.previousPage} booking={this.state.booking} carRentalReservation={this.state.carRentalReservation} hotelReservation={this.state.hotelReservation} placeBooking={this.placeBooking} />);
+                return (<BookingOverview flight={this.props.location.state.flight} previousPage={this.previousPage} booking={this.state.booking} carRentalReservation={this.state.carRentalReservation} hotelReservation={this.state.hotelReservation} placeBooking={this.placeBooking} />);
             default:
                 return (<Error />);
         }
@@ -183,4 +192,4 @@ class CreateBookingMain extends React.Component {
     }
 }
 
-export default CreateBookingMain
+export default withRouter(CreateBookingMain)

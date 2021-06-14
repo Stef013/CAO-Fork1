@@ -57,7 +57,7 @@ export default function MenuAppBar(props) {
             <img src={logo} alt="Logo" className={classes.logo}></img>
           </Typography>
           <Button style={{ marginRight: 20 }} color="primary" onClick={() => history.push('/BookingList')}>My Bookings</Button>
-          <Button style={{ marginRight: 20 }} color="primary" onClick={() => history.push('/CreateBooking')}>Book a Flight</Button>
+          <Button style={{ marginRight: 20 }} color="primary" onClick={() => history.push('/FlightList')}>Book a Flight</Button>
           <Button color="primary" onClick={() => history.push('/FlightTracker')}>Flight tracker</Button>
 
           <ClickAwayListener onClickAway={handleClose}>
