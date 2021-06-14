@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class InterpolFlightTicket {
 
     @JsonProperty("ticket")
-    private Ticket ticket;
+    public Ticket ticket;
     @JsonProperty("flight")
-    private Object flight;
+    public Object flight;
 
     public InterpolFlightTicket(Ticket ticket, Object flight) {
         this.ticket = ticket;

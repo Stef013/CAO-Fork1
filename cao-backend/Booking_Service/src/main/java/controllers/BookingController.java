@@ -88,37 +88,6 @@ public class BookingController {
         return claims;
     }
 
-    @POST
-    @Path("/booking/interpolrequest")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getTicketByUser(String interpolJson) throws JsonProcessingException {
-        InterpolRequest interpolRequest = objectMapper.readValue(interpolJson, InterpolRequest.class);
-        ArrayList<Ticket> tickets = bookingService.getTicketByUser(interpolRequest);
-
-        if (tickets == null || tickets.isEmpty()) {
-            return Response.status(Response.Status.OK).entity("No tickets found.").build();
-        } else {
-            ArrayList<InterpolFlightTicket> interpolFlightTickets = new ArrayList<>();
-            for (Ticket ticket : tickets) {
-                var flight = new Object();
-                try {
-                    URL url = new URL("http://localhost:5678/flight/" + ticket.getFlightId());
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestProperty("accept", "application/json");
-                    InputStream responseStream = connection.getInputStream();
-                    ObjectMapper objectMapper = new ObjectMapper();
-                    Map<String, Object> jsonMap = objectMapper.readValue(responseStream, Map.class);
-                    flight = jsonMap.get("flight");
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-
-                InterpolFlightTicket interpolFlightTicket = new InterpolFlightTicket(ticket, flight);
-                interpolFlightTickets.add(interpolFlightTicket);
-            }
-            return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(interpolFlightTickets)).build();
-        }
-    }
 
     @PUT
     @Path("/booking/checkin/{bookingId}")

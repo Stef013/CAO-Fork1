@@ -31,10 +31,10 @@ public class Ticket {
     private int extraLuggage;
 
     @JsonProperty("rentedHotel")
-    private boolean rentedHotel;
+    private int rentedHotel;
 
     @JsonProperty("rentedCar")
-    private boolean rentedCar;
+    private int rentedCar;
 
     @JsonProperty("dateOfBirth")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -104,19 +104,19 @@ public class Ticket {
         this.extraLuggage = extraLuggage;
     }
 
-    public boolean isRentedHotel() {
+    public int getRentedHotel() {
         return rentedHotel;
     }
 
-    public void setRentedHotel(boolean rentedHotel) {
+    public void setRentedHotel(int rentedHotel) {
         this.rentedHotel = rentedHotel;
     }
 
-    public boolean isRentedCar() {
+    public int getRentedCar() {
         return rentedCar;
     }
 
-    public void setRentedCar(boolean rentedCar) {
+    public void setRentedCar(int rentedCar) {
         this.rentedCar = rentedCar;
     }
 
@@ -128,8 +128,7 @@ public class Ticket {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Ticket(int ticketId, String firstname, String lastname, String gender, int flightId, float price,
-            String seat, int extraLuggage, boolean rentedHotel, boolean rentedCar, Date dateOfBirth) {
+    public Ticket(int ticketId, String firstname, String lastname, String gender, int flightId, float price, String seat, int extraLuggage, int rentedHotel, int rentedCar, Date dateOfBirth) {
         this.ticketId = ticketId;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -149,9 +148,18 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket{" + "ticketId=" + ticketId + ", firstname='" + firstname + '\'' + ", lastname='" + lastname
-                + '\'' + ", gender='" + gender + '\'' + ", flightId=" + flightId + ", price=" + price + ", seat='"
-                + seat + '\'' + ", extraLuggage=" + extraLuggage + ", rentedHotel=" + rentedHotel + ", rentedCar="
-                + rentedCar + ", dateOfBirth='" + dateOfBirth + '\'' + '}';
+        return "Ticket{" +
+                "ticketId=" + ticketId +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", gender='" + gender + '\'' +
+                ", flightId=" + flightId +
+                ", price=" + price +
+                ", seat='" + seat + '\'' +
+                ", extraLuggage=" + extraLuggage +
+                ", rentedHotel=" + rentedHotel +
+                ", rentedCar=" + rentedCar +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                '}';
     }
 }

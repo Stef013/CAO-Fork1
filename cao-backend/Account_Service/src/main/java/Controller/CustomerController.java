@@ -1,15 +1,25 @@
 package Controller;
 
 import Logic.Registration;
+import Model.AccountCredentials;
 import Model.Customer;
 import Model.Employee;
+import Model.JwtResponse;
 import Model.UpdateEmployee;
+import Repository.CustomerSqlRepository;
 import Utilities.Logging;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import spark.Spark;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.security.Key;
+import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
+
+import javax.crypto.spec.SecretKeySpec;
 
 import static spark.Spark.*;
 
@@ -18,6 +28,7 @@ public class CustomerController {
     // private CustomerRepo customerRepo;
     private Registration RL = new Registration();
     private Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
+    private CustomerSqlRepository customerRepo;
 
     Logging logger = new Logging();
     private final String ERROR_MESSAGE = "Something went wrong.";
@@ -61,12 +72,39 @@ public class CustomerController {
             return json;
         }));
 
+        Spark.post("/login", ((request, response) -> {
+            response.type("application/json");
+            AccountCredentials credentials = gson.fromJson(request.body(), AccountCredentials.class);
+            customerRepo = new CustomerSqlRepository();
+            Customer customer = customerRepo.get(credentials.getEmail());
+            JwtResponse jwtResponse = new JwtResponse();
+
+            if (credentials.isMatchingAccount(customer)) {
+                SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+                byte[] apiKeySecretBytes = "mnbv*9XllnLSf8Nxu4$%lbRH15cVQa^T".getBytes();
+                Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+
+                Calendar nbf = Calendar.getInstance();
+                nbf.add(Calendar.MINUTE, -10);
+                Calendar expiration = Calendar.getInstance();
+                expiration.add(Calendar.MINUTE, 60);
+                String jws = Jwts.builder().setSubject(customer.getEmail()).claim("userId", customer.getId())
+                        .setNotBefore(nbf.getTime()).setIssuedAt(new Date()).setExpiration(expiration.getTime())
+                        .signWith(signingKey).compact();
+                jwtResponse.setToken(jws);
+            } else {
+                response.status(401);
+                jwtResponse.setMessage("The user and password combination is incorrect");
+            }
+            return gson.toJson(jwtResponse);
+        }));
+
         Spark.get("/", ((request, response) -> {
             response.type("application/json");
             String json;
 
             try {
-                logger.logInfo(getClass().getName(), "In /customers");
+                //logger.logInfo(getClass().getName(), "In /customers");
                 List<Customer> customer = RL.getAllCustomer();
 
                 json = gson.toJson(customer);

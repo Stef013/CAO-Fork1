@@ -10,6 +10,8 @@
       <module fileurl="file://$PROJECT_DIR$/Gateway/backend-cao.iml" filepath="$PROJECT_DIR$/Gateway/backend-cao.iml" />
       <module fileurl="file://$PROJECT_DIR$/Booking_Service/booking-service.iml" filepath="$PROJECT_DIR$/Booking_Service/booking-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/cao-backend.iml" filepath="$PROJECT_DIR$/.idea/cao-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/car-rental-service/car-rental-service.iml" filepath="$PROJECT_DIR$/car-rental-service/car-rental-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hotel-service/hotel-service.iml" filepath="$PROJECT_DIR$/hotel-service/hotel-service.iml" />
     </modules>
   </component>
 </project>

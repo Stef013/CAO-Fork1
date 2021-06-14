@@ -13,6 +13,7 @@ import BookingListPage from "./pages/BookingListPage";
 import { Suspense } from "react";
 import jwt_decode from "jwt-decode";
 import MenuAppBar from './Components/MenuAppBar';
+import AppBarLogin from './Components/AppBarLogin';
 import axios from 'axios';
 
 
@@ -34,7 +35,7 @@ function App() {
     token ? localStorage.setItem('accessToken', token) : localStorage.removeItem('accessToken');
   }, [token]);
 
-  if(token) {
+  if (token) {
     authAxios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }
   else {
@@ -44,24 +45,35 @@ function App() {
   return (
     <main>
       <Suspense fallback={<h1>Loading...</h1>}>
-        <MenuAppBar auth={!!token} setToken={setToken} />
-        {
-          !token ?
-            <Login setToken={setToken} axios={authAxios} /> :
-            <Switch>
-              <Route path="/FlightTracker" component={FlightTracker} />
-              <Route path="/EmployeePortal" component={EmployeePortal} />
-              <Route path="/EmployeeCreation" component={EmployeeCreation} />
-              <Route path="/EmployeeList" component={() => <EmployeeList axios={authAxios} />} />
-              <Route path="/FlightSummary" component={() => <FlightSummary axios={authAxios} />} />
-              <Route path="/FlightPlanner" component={FlightPlanner} />
-              <Route path="/CreateBooking" component={() => <CreateBookingMain axios={authAxios}/>}/>
-              <Route path="/BookingList" component={() => <BookingListPage axios={authAxios}/>} />
 
-              {/* TODO: check if user has employee rights, redirect accordingly */}
-              <Redirect from='/' to="/EmployeePortal" />
-              <Route component={Error} />
-            </Switch>
+        {!token ? (
+          <div>
+            <AppBarLogin />
+            <Login setToken={setToken} axios={authAxios} />
+          </div>
+        )
+          :
+          (
+            <div>
+              <MenuAppBar auth={!!token} setToken={setToken} />
+              <Switch>
+                <Route path="/FlightTracker" component={FlightTracker} />
+                <Route path="/EmployeePortal" component={EmployeePortal} />
+                <Route path="/EmployeeCreation" component={EmployeeCreation} />
+                <Route path="/EmployeeList" component={() => <EmployeeList axios={authAxios} />} />
+                <Route path="/FlightSummary" component={() => <FlightSummary axios={authAxios} />} />
+                <Route path="/FlightPlanner" component={FlightPlanner} />
+                <Route path="/CreateBooking" component={() => <CreateBookingMain axios={authAxios} />} />
+                <Route path="/BookingList" component={() => <BookingListPage axios={authAxios} />} />
+
+                {/* TODO: check if user has employee rights, redirect accordingly */}
+                <Redirect from='/' to="/EmployeePortal" />
+                <Route component={Error} />
+              </Switch>
+            </div>
+          )
+
+
         }
       </Suspense>
     </main>

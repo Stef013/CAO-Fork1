@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="car-rental-service" />
         <module name="Flight_Service" />
         <module name="FlightTracker_Service" />
         <module name="booking-service" />
@@ -13,22 +14,27 @@
         <module name="Account_Service" />
         <module name="PoliceRaport_Service" />
         <module name="backend-cao" />
+        <module name="hotel-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Account_Service" target="14" />
+      <module name="Account_Service" target="11" />
       <module name="backend-cao" target="11" />
       <module name="booking-service" target="11" />
       <module name="Booking_Service" target="14" />
+      <module name="car-rental-service" target="11" />
       <module name="Flight_Service" target="1.8" />
       <module name="FlightTracker_Service" target="14" />
-      <module name="PoliceRaport_Service" target="14" />
+      <module name="hotel-service" target="11" />
+      <module name="PoliceRaport_Service" target="11" />
       <module name="Seatpicker_Service" target="14" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="backend-cao" options="-parameters" />
+      <module name="car-rental-service" options="-parameters" />
+      <module name="hotel-service" options="-parameters" />
     </option>
   </component>
 </project>
