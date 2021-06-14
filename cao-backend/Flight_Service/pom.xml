@@ -113,6 +113,13 @@
                 <artifactId>quarkus-maven-plugin</artifactId>
                 <version>${quarkus-plugin.version}</version>
                 <extensions>true</extensions>
+                <configuration>
+                    <archive>                   
+                        <manifest>
+                        <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -141,7 +148,7 @@
                 </configuration>
             </plugin>
         </plugins>
-    </build>
+       </build>
     <profiles>
         <profile>
             <id>native</id>
@@ -178,4 +185,4 @@
             </properties>
         </profile>
     </profiles>
-   </project>
+</project>

@@ -111,4 +111,8 @@ public class flight {
     public void setLatEndPos(String latEndPos) {
         this.latEndPos = latEndPos;
     }
+
+    public flight(){
+        
+    }
 }

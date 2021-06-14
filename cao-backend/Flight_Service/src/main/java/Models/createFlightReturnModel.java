@@ -1,8 +1,8 @@
 package Models;
 
 public class createFlightReturnModel {
-    private boolean success;
-    private String error;
+    public boolean success;
+    public String error;
 
     public boolean isSuccess() {
         return success;

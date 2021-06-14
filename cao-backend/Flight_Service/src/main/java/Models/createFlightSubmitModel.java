@@ -7,7 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class createFlightSubmitModel {
     @JsonProperty("airport_id")
-    private int airport_id;
+    public int airport_id;
 
     @JsonProperty("ticket_price")
     String ticket_price;

@@ -1,16 +1,14 @@
 package Models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class getFlightsReturnModel {
 
 
-    private boolean success;
-    private String error;
-    private List<flight> flightList = new ArrayList<>();
+    public boolean success;
+    public String error;
+    public List<flight> flightList = new ArrayList<>();
 
     public boolean isSuccess() {
         return success;
