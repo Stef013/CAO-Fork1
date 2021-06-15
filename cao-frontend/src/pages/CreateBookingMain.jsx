@@ -179,8 +179,6 @@ class CreateBookingMain extends React.Component {
             case 1:
                 return (<BookingPassengers axios={this.props.axios} carRentalReservation={this.state.carRentalReservation} hotelReservation={this.state.hotelReservation} setHotelReservation={this.setHotelReservation} setPassengers={this.setPassengers} setCarRentalReservation={this.setCarRentalReservation} booking={this.state.booking} currentPassengers={this.state.currentPassengers} storePassengerData={this.storePassengerData} previousPage={this.previousPage} />);
             case 2:
-                return (<BookingSeatpicker previousPage={this.previousPage} booking={this.state.booking} storePassengerData={this.storePassengerData} />);
-            case 3:
                 return (<BookingOverview flight={this.props.location.state.flight} previousPage={this.previousPage} booking={this.state.booking} carRentalReservation={this.state.carRentalReservation} hotelReservation={this.state.hotelReservation} placeBooking={this.placeBooking} />);
             default:
                 return (<Error />);

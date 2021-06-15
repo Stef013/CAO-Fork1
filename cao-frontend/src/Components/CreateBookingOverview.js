@@ -99,7 +99,7 @@ export default function CreateBookingOverview(props) {
                             {t('bookingoverview.extra luggage')}: {ticket.extraLuggage} {t('bookingoverview.pieces')}
                         </Grid>
                         <Grid item xs={6}>
-                            {t('bookingoverview.seat')}: {ticket.seat}
+                            {t('bookingoverview.seat')}: Randomly Selected
                         </Grid>
                     </Grid>
                 </Box>
@@ -317,7 +317,7 @@ export default function CreateBookingOverview(props) {
                             onClick={props.previousPage}
                         >
                             <ArrowBackIcon />
-                            {t('bookingoverview.seatpicker')}
+                            Passenger Information
                         </Button>
                     </Grid>
                     <Grid item xs={12} sm={6}>
