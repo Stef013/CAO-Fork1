@@ -1,8 +1,9 @@
 package Models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class flight {
-
-
 
     private int id;
     private String ticket_price;
@@ -17,7 +18,7 @@ public class flight {
 
     private String arrival_time;
 
-    public  String longStartPos;
+    public String longStartPos;
 
     public String latStartPos;
 
@@ -80,6 +81,7 @@ public class flight {
     public void setArrival_time(String arrival_time) {
         this.arrival_time = arrival_time;
     }
+
     public String getLongStartPos() {
         return longStartPos;
     }
@@ -112,7 +114,7 @@ public class flight {
         this.latEndPos = latEndPos;
     }
 
-    public flight(){
-        
+    public flight() {
+
     }
 }

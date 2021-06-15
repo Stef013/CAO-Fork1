@@ -1,10 +1,11 @@
 package Models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class createFlightSubmitModel {
     @JsonProperty("airport_id")
     public int airport_id;
@@ -68,7 +69,6 @@ public class createFlightSubmitModel {
         this.latEndPos = latEndPos;
     }
 
-
     public int getAirport_id() {
         return airport_id;
     }
@@ -116,6 +116,5 @@ public class createFlightSubmitModel {
     public void setArrival_time(String arrival_time) {
         this.arrival_time = arrival_time;
     }
-
 
 }

@@ -3,8 +3,10 @@ package Models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class getFlightsReturnModel {
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+public class getFlightsReturnModel {
 
     public boolean success;
     public String error;
