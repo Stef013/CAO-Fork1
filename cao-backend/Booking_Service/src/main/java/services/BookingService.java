@@ -51,7 +51,7 @@ public class BookingService {
         for (Ticket ticket : tickets) {
             var flight = new Object();
             try {
-                URL url = new URL("http://localhost:5678/flight/" + ticket.getFlightId());
+                URL url = new URL("http://0.0.0.0:5678/flight/" + ticket.getFlightId());
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestProperty("accept", "application/json");
                 InputStream responseStream = connection.getInputStream();

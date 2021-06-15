@@ -24,7 +24,7 @@ public class Receiver {
     public static void listen() throws Exception {
         System.out.println("Messaging gestart");
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
+        factory.setUri("amqps://reizmzkm:wAFZsfneqlblHNcJSNb69qB2bihZKVo-@rat.rmq2.cloudamqp.com/reizmzkm");
 
         try (Connection connection = factory.newConnection();
              Channel channel = connection.createChannel()) {
