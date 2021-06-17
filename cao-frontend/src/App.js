@@ -61,7 +61,7 @@ function App() {
               <Switch>
                 <Route path="/FlightTracker" component={FlightTracker} />
                 <Route path="/EmployeePortal" component={EmployeePortal} />
-                <Route path="/EmployeeCreation" component={EmployeeCreation} />
+                <Route path="/EmployeeCreation" component={() => <EmployeeCreation axios={authAxios} />} />
                 <Route path="/EmployeeList" component={() => <EmployeeList axios={authAxios} />} />
                 <Route path="/FlightSummary" component={() => <FlightSummary axios={authAxios} />} />
                 <Route path="/FlightPlanner" component={FlightPlanner} />
