@@ -2,24 +2,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flightservice
+  name: car-rental-service
 spec:
   selector:
     matchLabels:
-      app: flightservice
+      app: car-rental-service
   replicas: 1
   template:
     metadata:
       labels:
-        app: flightservice
+        app: car-rental-service
     spec:
       containers:
-        - name: flightservice
-          image: kevints98/flight_service
+        - name: car-rental-service
+          image: stefv013/carrentalservice
           imagePullPolicy: Always
           ports:
             - name: listen-port
-              containerPort: 5678
+              containerPort: 1000
           resources:
             requests:
               cpu: 10m
@@ -31,12 +31,12 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: flight-service
+  name: car-rental-service
 spec:
   selector:
-    app: flightservice
+    app: acar-rental-service
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 5678
+      targetPort: 1000
   type: LoadBalancer

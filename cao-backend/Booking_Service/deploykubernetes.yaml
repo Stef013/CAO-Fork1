@@ -2,20 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flightservice
+  name: bookingservice
 spec:
   selector:
     matchLabels:
-      app: flightservice
+      app: bookingservice
   replicas: 1
   template:
     metadata:
       labels:
-        app: flightservice
+        app: bookingservice
     spec:
       containers:
-        - name: flightservice
-          image: stefv013/flightservice
+        - name: bookingservice
+          image: kevints98/bookingservice
           imagePullPolicy: Always
           ports:
             - name: listen-port
@@ -31,12 +31,12 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: accountservice-service
+  name: bookingservice
 spec:
   selector:
-    app: accountservice
+    app: bookingservice
   ports:
     - protocol: TCP
-      port: 5678
-      targetPort: 5678
+      port: 8081
+      targetPort: 8081
   type: LoadBalancer
