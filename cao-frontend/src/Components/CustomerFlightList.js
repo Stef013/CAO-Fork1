@@ -16,7 +16,6 @@ class CustomerFlightList extends Component {
 
     async componentDidMount() {
         this.props.axios.get("flight/flight").then((response) => {
-            console.log(response.data);
             if (response.data.success) {
                 this.setState({
                     flightList: response.data.flightList,
@@ -27,8 +26,6 @@ class CustomerFlightList extends Component {
     }
 
     handleFlightUserClickBookNow = (flight) => {
-        console.log(flight);
-
         this.props.history.push({pathname: "/createbooking", state: {flight: flight}})
     }
 
