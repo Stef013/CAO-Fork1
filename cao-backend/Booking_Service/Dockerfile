@@ -1,19 +1,9 @@
-FROM quay.io/quarkus/centos-quarkus-maven:21.0.0-java11 AS build
-COPY pom.xml /usr/src/app/
-RUN mvn -f /usr/src/app/pom.xml -B de.qaware.maven:go-offline-maven-plugin:1.2.5:resolve-dependencies
+FROM maven:3.5-jdk-11 AS build
 COPY src /usr/src/app/src
-USER root
-RUN chown -R quarkus /usr/src/app
-USER quarkus
-RUN mvn -f /usr/src/app/pom.xml -Pnative clean package
+COPY pom.xml /usr/src/app
+RUN mvn -f /usr/src/app/pom.xml clean package -DskipTests
 
-FROM registry.access.redhat.com/ubi8/ubi-minimal
-WORKDIR /work/
-COPY --from=build /usr/src/app/target/*-runner /work/application
-
+FROM gcr.io/distroless/java:11
+COPY --from=build /usr/src/app/target/Booking_Service-1.0-SNAPSHOT-runner.jar /usr/app/Booking_Service-1.0-SNAPSHOT.jar
 EXPOSE 8081
-EXPOSE 80
-EXPOSE 5678
-
-CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
-
+ENTRYPOINT ["java","-jar","/usr/app/Booking_Service-1.0-SNAPSHOT.jar"]

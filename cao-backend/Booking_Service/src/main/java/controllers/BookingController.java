@@ -69,7 +69,7 @@ public class BookingController {
         try {
             returnBookings = bookingService.getBookingsByUserID(userId);
             return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(returnBookings)).build();
-        } catch(Exception e) {
+        } catch (Exception e) {
             return Response.status(Response.Status.fromStatusCode(409)).build();
         }
     }
@@ -78,6 +78,11 @@ public class BookingController {
     @Path("/booking/{bookingId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBookingByID(@PathParam("bookingId") int bookingId) {
+        try {
+            return Response.status(Response.Status.OK).entity(objectMapper.writeValueAsString(bookingService.getBookingsByUserID(1))).build();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

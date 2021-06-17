@@ -2,7 +2,6 @@ package Models;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class flightReturnModel {
     public boolean success;
     public String error;
