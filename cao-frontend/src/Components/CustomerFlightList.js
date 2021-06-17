@@ -30,14 +30,6 @@ class CustomerFlightList extends Component {
         console.log(flight);
 
         this.props.history.push({pathname: "/createbooking", state: {flight: flight}})
-       
-
-            // <Redirect 
-            //     to={{
-            //         pathname: "/CreateBooking",
-            //         state: { flight: flight }
-            //     }}
-            // />
     }
 
 
