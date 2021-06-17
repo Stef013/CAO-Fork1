@@ -12,7 +12,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Random;
 
 @ApplicationScoped
 public class BookingService {
@@ -29,6 +31,7 @@ public class BookingService {
             if (ticket.getExtraLuggage() > 2) {
                 return null;
             }
+            ticket.setSeat(generateSeatNumber());
         }
 
         if (booking.getContactPhonenumber().equals(booking.getEmergencyPhonenumber())) {
@@ -36,6 +39,17 @@ public class BookingService {
         }
 
         return bookingRepository.book(booking, userId);
+    }
+
+    private String generateSeatNumber() {
+        Random rnd = new Random();
+        ArrayList<String> seatLetters = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F"));
+
+        int rowNumber = rnd.nextInt(32) + 1;
+        int seatNumber = rnd.nextInt(6);
+
+        String seat = rowNumber + seatLetters.get(seatNumber);
+        return seat;
     }
 
     public ArrayList<Booking> getBookingsByUserID(int userId) {
