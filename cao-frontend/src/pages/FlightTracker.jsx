@@ -147,7 +147,7 @@ class App extends Component {
                 maxZoom={10}
                 mapStyle="mapbox://styles/mapbox/outdoors-v11"
                 onViewportChange={(viewport) => this.setState({ viewport })}
-                mapboxApiAccessToken={APIKey}
+                mapboxApiAccessToken={"pk.eyJ1IjoiYm9nYXRvbSIsImEiOiJja2wwb3diN28xMmx1Mm9wMHk1djB5dHBpIn0.82cfw_vIFD7_PrVNIQXdXg"}
                 style={{ top: "0" }}
             >
                 {this.state.MockAirplaneInfo.map(this.rAirplaneMarker)}
