@@ -68,7 +68,7 @@
         "phone number": "Phone Number",
         "emergency contact person": "Emergency Contact Person",
         "flight menu": "Flight Menu",
-        "seatpicker": "Seatpicker"
+        "booking overview": "Booking Overview"
     },
     "bookingseatpicker": {
         "seatpicker": "Seatpicker",
@@ -93,6 +93,18 @@
         "phone number": "Phone Number",
         "emergency contact person": "Emergency Contact",
         "payment": "Payment",
-        "seatpicker": "Seatpicker"
+        "passenger information": "Passenger Information",
+        "randomly selected": "Randomly Selected"
+    },
+    "customerflightlist": {
+        "departure location": "Departure Location",
+        "departure time": "Departure Time",
+        "destination": "Destination",
+        "destination time": "Destination Time",
+        "price per ticket": "Price per Ticket",
+        "book flight": "Book Flight",
+        "book now": "Book Now!",
+        "no flights available": "No flight could be loaded in at this moment.",
+        "please try again": "Please try again later."
     }
 }

@@ -2,24 +2,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flightservice
+  name: policeservice
 spec:
   selector:
     matchLabels:
-      app: flightservice
+      app: policeservice
   replicas: 1
   template:
     metadata:
       labels:
-        app: flightservice
+        app: policeservice
     spec:
       containers:
-        - name: flightservice
-          image: kevints98/flight_service
+        - name: policeservice
+          image: stefv013/policeservice
           imagePullPolicy: Always
           ports:
             - name: listen-port
-              containerPort: 5678
+              containerPort: 6789
           resources:
             requests:
               cpu: 10m
@@ -31,12 +31,12 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: flight-service
+  name: hotel-service
 spec:
   selector:
-    app: flightservice
+    app: hotel-service
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 5678
+      targetPort: 6789
   type: LoadBalancer

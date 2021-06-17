@@ -15,6 +15,8 @@ import jwt_decode from "jwt-decode";
 import MenuAppBar from './Components/MenuAppBar';
 import AppBarLogin from './Components/AppBarLogin';
 import axios from 'axios';
+import CustomerFlightList from "./Components/CustomerFlightList"
+import { withRouter } from 'react-router-dom';
 
 
 function App() {
@@ -59,12 +61,13 @@ function App() {
               <Switch>
                 <Route path="/FlightTracker" component={FlightTracker} />
                 <Route path="/EmployeePortal" component={EmployeePortal} />
-                <Route path="/EmployeeCreation" component={EmployeeCreation} />
+                <Route path="/EmployeeCreation" component={() => <EmployeeCreation axios={authAxios} />} />
                 <Route path="/EmployeeList" component={() => <EmployeeList axios={authAxios} />} />
                 <Route path="/FlightSummary" component={() => <FlightSummary axios={authAxios} />} />
                 <Route path="/FlightPlanner" component={FlightPlanner} />
-                <Route path="/CreateBooking" component={() => <CreateBookingMain axios={authAxios} />} />
+                <Route path="/CreateBooking" component={() => <CreateBookingMain axios={authAxios} render={(props) => <CreateBookingMain {...props}/>}/>}/>
                 <Route path="/BookingList" component={() => <BookingListPage axios={authAxios} />} />
+                <Route path="/FlightList" component={() => <CustomerFlightList axios={authAxios} />} />
 
                 {/* TODO: check if user has employee rights, redirect accordingly */}
                 <Redirect from='/' to="/EmployeePortal" />
@@ -80,4 +83,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);

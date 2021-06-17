@@ -62,10 +62,6 @@ export default function CreateBookingOverview(props) {
         return actions.order.capture();
     };
 
-    const calculatePrice = () => {
-        //todo: Calculate total price with a loop through each ticket
-    }
-
     const generatePricePerDayHotel = () => {
         switch (hotelReservation.roomType) {
             case 1:
@@ -103,7 +99,7 @@ export default function CreateBookingOverview(props) {
                             {t('bookingoverview.extra luggage')}: {ticket.extraLuggage} {t('bookingoverview.pieces')}
                         </Grid>
                         <Grid item xs={6}>
-                            {t('bookingoverview.seat')}: {ticket.seat}
+                            {t('bookingoverview.seat')}: {t('bookingoverview.randomly selected')}
                         </Grid>
                     </Grid>
                 </Box>
@@ -213,7 +209,7 @@ export default function CreateBookingOverview(props) {
                                     </Grid>
                                     <Grid item xs={6}>
                                         <Typography component="h3" align="right">
-                                            <b>{t('bookingoverview.total costs')}: ${calculatePrice()}</b>
+                                            <b>{t('bookingoverview.total costs')}: ${props.flight.ticket_price * booking.tickets.length}</b>
                                         </Typography>
                                     </Grid>
 
@@ -221,25 +217,25 @@ export default function CreateBookingOverview(props) {
                                         <FlightTakeoffIcon />
                                     </Grid>
                                     <Grid item xs={5}>
-                                        Brussel, Belgium
+                                        {props.flight.origin}
                                     </Grid>
                                     <Grid item xs={1}>
                                         <FlightLandIcon />
                                     </Grid>
                                     <Grid item xs={5}>
-                                        Madrid, Spain
+                                        {props.flight.destination}
                                     </Grid>
                                     <Grid item xs={1}>
                                         <ChevronRightIcon />
                                     </Grid>
                                     <Grid item xs={5}>
-                                        01-05-2021 15:00
+                                        {props.flight.departure_time.substr(0, 11) + " [" + props.flight.departure_time.substr(11, 5)+ "] "}
                                     </Grid>
                                     <Grid item xs={1}>
                                         <ChevronRightIcon />
                                     </Grid>
                                     <Grid item xs={5}>
-                                        01-05-2021 16:00
+                                        {props.flight.arrival_time.substr(0, 11) + " [" + props.flight.arrival_time.substr(11, 5)+ "] "}
                                     </Grid>
                                 </Grid>
                             </Box>
@@ -320,7 +316,7 @@ export default function CreateBookingOverview(props) {
                             onClick={props.previousPage}
                         >
                             <ArrowBackIcon />
-                            {t('bookingoverview.seatpicker')}
+                            {t('bookingoverview.passenger information')}
                         </Button>
                     </Grid>
                     <Grid item xs={12} sm={6}>

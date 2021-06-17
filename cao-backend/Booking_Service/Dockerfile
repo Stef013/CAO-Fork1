@@ -4,6 +4,6 @@ COPY pom.xml /usr/src/app
 RUN mvn -f /usr/src/app/pom.xml clean package -DskipTests
 
 FROM gcr.io/distroless/java:11
-COPY --from=build /usr/src/app/target/Booking_Service-1.0-SNAPSHOT.jar /usr/app/Booking_Service-1.0-SNAPSHOT.jar
+COPY --from=build /usr/src/app/target/Booking_Service-1.0-SNAPSHOT-runner.jar /usr/app/Booking_Service-1.0-SNAPSHOT.jar
 EXPOSE 8081
 ENTRYPOINT ["java","-jar","/usr/app/Booking_Service-1.0-SNAPSHOT.jar"]

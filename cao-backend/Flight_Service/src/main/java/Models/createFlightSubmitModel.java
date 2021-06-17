@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.*;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class createFlightSubmitModel {
     @JsonProperty("airport_id")
     public int airport_id;
