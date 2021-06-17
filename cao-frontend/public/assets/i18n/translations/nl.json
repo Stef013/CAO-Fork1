@@ -68,7 +68,7 @@
         "phone number": "Telefoonnummer",
         "emergency contact person": "Contactpersoon voor noodgevallen",
         "flight menu": "Vluchten overzicht",
-        "seatpicker": "Stoelkeuze"
+        "booking overview": "Boeking overzicht"
     },
     "bookingseatpicker": {
         "seatpicker": "Stoelkeuze",
@@ -93,6 +93,18 @@
         "phone number": "Telefoonnummer",
         "emergency contact person": "Contactpersoon voor noodgevallen",
         "payment": "Betalen",
-        "seatpicker": "Stoelkeuze"
+        "passenger information": "Passagiers informatie",
+        "randomly selected": "Willekeurige selectie"
+    },
+    "customerflightlist": {
+        "departure location": "Vertrekplaats",
+        "departure time": "Vertrektijd",
+        "destination": "Bestemming",
+        "destination time": "Aankomsttijd",
+        "price per ticket": "Prijs per ticket",
+        "book flight": "Boek Vlucht",
+        "book now": "Boek nu!",
+        "no flights available": "Er kunnen op dit moment geen vluchten ingeladen worden.",
+        "please try again": "Probeer het later nog een keer."
     }
 }

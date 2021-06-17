@@ -3,23 +3,25 @@ import { Component, useState } from "react";
 import { Redirect } from 'react-router';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Button } from "@material-ui/core";
 import { withRouter } from 'react-router-dom';
+import i18n from '../Components/i18n'
 
 
 class CustomerFlightList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoaded: "false",
+            isLoaded: false,
             flightList: []
         }
     }
+    
 
     async componentDidMount() {
         this.props.axios.get("flight/flight").then((response) => {
             if (response.data.success) {
                 this.setState({
                     flightList: response.data.flightList,
-                    isLoaded: "true"
+                    isLoaded: true
                 })
             }
         });
@@ -54,17 +56,17 @@ class CustomerFlightList extends Component {
                 </TableCell>
                 <TableCell>
                     <Button color="primary" onClick={() => {this.handleFlightUserClickBookNow(flight)}}>
-                        <b>Book Now!</b>
+                        <b>{i18n.t('customerflightlist.book now')}</b>
                     </Button>
                 </TableCell>
             </TableRow>
         ))
 
         // return null
-        if (this.state.isLoaded === "false") {
+        if (this.state.isLoaded === false) {
             return (
                 <Typography component="h1" variant="h3" style={{ color: "white" }}>
-                    No flights could be loaded at this time. <br /> Please try again later.
+                    {i18n.t('customerflightlist.no flights available')} <br /> {i18n.t('customerflightlist.please try again')}
                 </Typography>)
         }
 
@@ -76,32 +78,32 @@ class CustomerFlightList extends Component {
                             <TableRow>
                                 <TableCell>
                                     <Typography variant="h6">
-                                        <b>Departure location</b>
+                                        <b>{i18n.t('customerflightlist.departure location')}</b>
                                     </Typography>
                                 </TableCell>
                                 <TableCell>
                                     <Typography variant="h6">
-                                        <b>Departure time</b>
+                                        <b>{i18n.t('customerflightlist.departure time')}</b>
                                     </Typography>
                                 </TableCell>
                                 <TableCell>
                                     <Typography variant="h6">
-                                        <b>Destination</b>
+                                        <b>{i18n.t('customerflightlist.destination')}</b>
                                     </Typography>
                                 </TableCell>
                                 <TableCell>
                                     <Typography variant="h6">
-                                        <b>Destination time</b>
+                                        <b>{i18n.t('customerflightlist.destination time')}</b>
                                     </Typography>
                                 </TableCell>
                                 <TableCell>
                                     <Typography variant="h6">
-                                        <b>Price per ticket</b>
+                                        <b>{i18n.t('customerflightlist.price per ticket')}</b>
                                     </Typography>
                                 </TableCell>
                                 <TableCell>
                                     <Typography variant="h6">
-                                        <b>Book Flight</b>
+                                        <b>{i18n.t('customerflightlist.book flight')}</b>
                                     </Typography>
                                 </TableCell>
                             </TableRow>

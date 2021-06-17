@@ -99,7 +99,7 @@ export default function CreateBookingOverview(props) {
                             {t('bookingoverview.extra luggage')}: {ticket.extraLuggage} {t('bookingoverview.pieces')}
                         </Grid>
                         <Grid item xs={6}>
-                            {t('bookingoverview.seat')}: Randomly Selected
+                            {t('bookingoverview.seat')}: {t('bookingoverview.randomly selected')}
                         </Grid>
                     </Grid>
                 </Box>
@@ -236,7 +236,6 @@ export default function CreateBookingOverview(props) {
                                     </Grid>
                                     <Grid item xs={5}>
                                         {props.flight.arrival_time.substr(0, 11) + " [" + props.flight.arrival_time.substr(11, 5)+ "] "}
-                                        {console.log(props.flight)}
                                     </Grid>
                                 </Grid>
                             </Box>
@@ -317,7 +316,7 @@ export default function CreateBookingOverview(props) {
                             onClick={props.previousPage}
                         >
                             <ArrowBackIcon />
-                            Passenger Information
+                            {t('bookingoverview.passenger information')}
                         </Button>
                     </Grid>
                     <Grid item xs={12} sm={6}>

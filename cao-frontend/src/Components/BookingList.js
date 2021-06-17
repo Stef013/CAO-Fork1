@@ -12,7 +12,7 @@ class BookingList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoaded: "false",
+            isLoaded: false,
             bookingList: []
         }
     }
@@ -36,7 +36,7 @@ class BookingList extends Component {
     
                         this.setState({
                             bookingList: tempBookingList,
-                            isLoaded: "true"
+                            isLoaded: true
                         })
     
                         console.log(this.state.bookingList);
@@ -86,7 +86,7 @@ class BookingList extends Component {
         ))
 
         // return null
-        if (this.state.isLoaded === "false") {
+        if (this.state.isLoaded === false) {
             return (
                 <Typography component="h1" variant="h3" style={{ color: "white" }}>
                     No bookings could be loaded at this time. <br /> Please try again later.

@@ -556,7 +556,7 @@ const CreateBookingPassengers = (props) => {
                             variant="contained"
                             onClick={sendPassengerData}
                         >
-                            Booking Overview
+                            {t('bookingpassengers.booking overview')}    
                             <ArrowForwardIcon />
                         </Button>
                     </Grid>
