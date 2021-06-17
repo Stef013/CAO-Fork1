@@ -1,0 +1,42 @@
+#?filename=deploy-kubernetes.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: accountservice
+spec:
+  selector:
+    matchLabels:
+      app: accountservice
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: accountservice
+    spec:
+      containers:
+        - name: accountservice
+          image: bogatom/cao-accountservice:latest
+          imagePullPolicy: Always
+          ports:
+            - name: listen-port
+              containerPort: 4567
+          resources:
+            requests:
+              cpu: 10m
+              memory: 128Mi
+            limits:
+              cpu: 1
+              memory: 512Mi
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: accountservice-service
+spec:
+  selector:
+    app: accountservice
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 4567
+  type: LoadBalancer

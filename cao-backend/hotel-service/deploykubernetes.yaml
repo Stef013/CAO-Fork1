@@ -1,0 +1,42 @@
+#?filename=deploy-kubernetes.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookingservice
+spec:
+  selector:
+    matchLabels:
+      app: bookingservice
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bookingservice
+    spec:
+      containers:
+        - name: bookingservice
+          image: kevints98/bookingservice
+          imagePullPolicy: Always
+          ports:
+            - name: listen-port
+              containerPort: 8081
+          resources:
+            requests:
+              cpu: 10m
+              memory: 128Mi
+            limits:
+              cpu: 1
+              memory: 512Mi
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: bookingservice
+spec:
+  selector:
+    app: bookingservice
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8081
+  type: LoadBalancer
