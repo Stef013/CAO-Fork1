@@ -37,6 +37,6 @@ spec:
     app: accountservice
   ports:
     - protocol: TCP
-      port: 4567
+      port: 80
       targetPort: 4567
   type: LoadBalancer

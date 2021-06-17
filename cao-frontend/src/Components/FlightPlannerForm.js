@@ -54,7 +54,7 @@ class FlightPlannerForm extends PureComponent {
     event.preventDefault();
     await axios({
       method: "post",
-      url: `http://localhost:5678/flight`,
+      url: `http://20.82.46.255/flight/flight`,
       data: {
         airport_id: "1",
         ticket_price: this.state.ticket_price,
@@ -66,9 +66,9 @@ class FlightPlannerForm extends PureComponent {
     });
     alert(
       "A flight was created from " +
-        this.state.origin +
-        " to " +
-        this.state.destination
+      this.state.origin +
+      " to " +
+      this.state.destination
     );
   }
 

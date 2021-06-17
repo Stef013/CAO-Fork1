@@ -50,7 +50,7 @@ export default function FLightInfoPopup(props) {
 
     const getFlightData = async () => {
         await axios
-            .get("http://localhost:8080/booking/booking/flight/" + props.flightId)
+            .get("http://20.82.46.255/booking/booking/flight/" + props.flightId)
             .then((res) => {
                 console.log(res.data);
                 setTickets(res.data);
@@ -82,7 +82,7 @@ export default function FLightInfoPopup(props) {
             </Button>
             <Dialog open={open} maxWidth="lg" onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle style={{ padding: 10, marginTop: 30, marginLeft: 20 }} id="form-dialog-title">Passengers:</DialogTitle>
-                {loading ? ( 
+                {loading ? (
 
                     gotTickets ? (
                         <DialogContent style={{ padding: 10, marginLeft: 20, marginBottom: 30 }}>
@@ -114,12 +114,12 @@ export default function FLightInfoPopup(props) {
                             </TableContainer>
                         </DialogContent>
                     )
-                    :
-                    (
-                        <DialogContent style={{ padding: 10, marginLeft: 20, marginBottom: 30, marginRight: 20 }}>
-                            <Typography >No Passengers on this flight</Typography>
-                        </DialogContent>
-                    )   
+                        :
+                        (
+                            <DialogContent style={{ padding: 10, marginLeft: 20, marginBottom: 30, marginRight: 20 }}>
+                                <Typography >No Passengers on this flight</Typography>
+                            </DialogContent>
+                        )
 
                 ) :
                     (

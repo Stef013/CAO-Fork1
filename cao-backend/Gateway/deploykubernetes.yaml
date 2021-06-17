@@ -2,41 +2,41 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bookingservice
+  name: cao-gateway
 spec:
   selector:
     matchLabels:
-      app: bookingservice
+      app: cao-gateway
   replicas: 1
   template:
     metadata:
       labels:
-        app: bookingservice
+        app: cao-gateway
     spec:
       containers:
-        - name: bookingservice
-          image: kevints98/bookingservice
+        - name: cao-gateway
+          image: stefv013/cao-gateway
           imagePullPolicy: Always
           ports:
             - name: listen-port
-              containerPort: 8081
+              containerPort: 8080
           resources:
             requests:
               cpu: 10m
               memory: 128Mi
             limits:
               cpu: 1
-              memory: 512Mi
+              memory: 256Mi
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: bookingservice
+  name: cao-gateway
 spec:
   selector:
-    app: bookingservice
+    app: cao-gateway
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8081
+      targetPort: 8080
   type: LoadBalancer

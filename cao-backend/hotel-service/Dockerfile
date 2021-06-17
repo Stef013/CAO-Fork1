@@ -4,8 +4,8 @@ COPY pom.xml /usr/src/app
 RUN mvn -f /usr/src/app/pom.xml clean package -DskipTests
 
 FROM gcr.io/distroless/java:11
-COPY --from=build /usr/src/app/target/car-rental-service-0.0.1-SNAPSHOT.jar /usr/app/car-rental-service-0.0.1-SNAPSHOT.jar
-EXPOSE 1000
+COPY --from=build /usr/src/app/target/hotel-service-0.0.1-SNAPSHOT.jar /usr/app/hotel-service-0.0.1-SNAPSHOT.jar
+EXPOSE 1001
 EXPOSE 80
-ENTRYPOINT ["java","-jar","/usr/app/car-rental-service-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","/usr/app/hotel-service-0.0.1-SNAPSHOT.jar"]
 

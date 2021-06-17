@@ -67,14 +67,14 @@ class CreateBookingMain extends React.Component {
     async startPlacingBooking(state) {
         var finalCarRentalReservation = state.carRentalReservation
         finalCarRentalReservation.guestAmount = parseInt(finalCarRentalReservation.guestAmount)
-        this.setState({carRentalReservation: finalCarRentalReservation})
+        this.setState({ carRentalReservation: finalCarRentalReservation })
 
-        if (this.state.carRentalReservation.nameBooker !== undefined){
+        if (this.state.carRentalReservation.nameBooker !== undefined) {
             await this.placeCarRentalBooking();
             console.log("Finished car")
         }
 
-        if (this.state.hotelReservation.nameBooker !== undefined){
+        if (this.state.hotelReservation.nameBooker !== undefined) {
             await this.placeHotelBooking();
             console.log("Finished hotel")
         }
@@ -88,14 +88,14 @@ class CreateBookingMain extends React.Component {
         await this.props.axios(
             {
                 method: 'post',
-                url: 'carRental/reserveCarRental',
+                url: '/carRental/reserveCarRental',
                 data: this.state.carRentalReservation
             }
         ).then((response) => {
             if (response.status === 200) {
                 console.log(response)
                 console.log(response.data.id)
-                this.setState({carRentalReservationId: response.data.id})
+                this.setState({ carRentalReservationId: response.data.id })
             }
             else {
                 console.log("First zero auto")
@@ -115,7 +115,7 @@ class CreateBookingMain extends React.Component {
             if (response.status === 200) {
                 console.log(response)
                 console.log(response.data.id)
-                this.setState({hotelReservationId: response.data.id})
+                this.setState({ hotelReservationId: response.data.id })
             }
             else {
                 console.log("First zero hotel")
@@ -138,14 +138,14 @@ class CreateBookingMain extends React.Component {
         await this.props.axios(
             {
                 method: 'post',
-                url: 'http://localhost:8080/booking/booking',
+                url: 'http://20.82.46.255/booking/booking',
                 data: newBooking
             })
             .then(function (response) {
                 console.log(response);
                 if (response.status === 200) {
                     alert("Booking succesfull!")
-                    window.location.href="/bookingList"
+                    window.location.href = "/bookingList"
                 }
             })
             .catch(function (error) {

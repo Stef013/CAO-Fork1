@@ -89,7 +89,7 @@ class PoliceReport extends Component {
 
         console.log(this.report);
 
-        await axios.post('http://localhost:8080/police/report', this.report, {
+        await axios.post('http://20.82.46.255/police/report', this.report, {
             headers: {
                 "Content-Type": 'application/json', 'Accept': 'application/json'
             }
@@ -131,7 +131,7 @@ class PoliceReport extends Component {
                             <Snackbar open={openError} autoHideDuration={6000} onClose={this.handleClose}>
                                 <Alert onClose={this.handleClose} severity="error" variant="filled" className={classes.alert}>
                                     No suspect found.
-                             </Alert>
+                                </Alert>
                             </Snackbar>
                         </div>
                         <form id="form" onSubmit={(event) => this.handleSubmit(event)} >

@@ -2,41 +2,41 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: accountservice
+  name: carrentalservice
 spec:
   selector:
     matchLabels:
-      app: accountservice
+      app: carrentalservice
   replicas: 1
   template:
     metadata:
       labels:
-        app: accountservice
+        app: carrentalservice
     spec:
       containers:
-        - name: accountservice
-          image: bogatom/cao-accountservice:latest
+        - name: carrentalservice
+          image: stefv013/carrentalservice
           imagePullPolicy: Always
           ports:
             - name: listen-port
-              containerPort: 4567
+              containerPort: 1000
           resources:
             requests:
               cpu: 10m
               memory: 128Mi
             limits:
               cpu: 1
-              memory: 512Mi
+              memory: 256Mi
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: accountservice-service
+  name: carrentalservice
 spec:
   selector:
-    app: accountservice
+    app: carrentalservice
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 4567
+      targetPort: 1000
   type: LoadBalancer

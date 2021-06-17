@@ -19,7 +19,7 @@ import axios from 'axios';
 
 function App() {
   const authAxios = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: 'http://20.82.46.255',
   });
 
   const [token, setToken] = useState(() => {

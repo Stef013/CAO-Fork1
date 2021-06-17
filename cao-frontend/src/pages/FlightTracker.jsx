@@ -33,35 +33,35 @@ class App extends Component {
     async getAirplaneInfo() {
         const mockData = await axios({
             method: 'get',
-            url: `http://localhost:8080/flight/flight/current`
+            url: `http://20.82.46.255/flight/flight/current`
         })
         this.setState({
             MockAirplaneInfo: mockData.data.flightList,
             loaded: true
         })
-        
+
         this.calcMove();
         this.movePlanes();
     }
 
     calcMove() {
         this.setState({
-            
+
             MockAirplaneInfo: this.state.MockAirplaneInfo.map((plane) => {
                 var currentTime = new Date();
-                var startTime = new Date(plane.departure_time); 
+                var startTime = new Date(plane.departure_time);
                 var endTime = new Date(plane.arrival_time);
 
                 var preflyDiff = currentTime.getTime() - startTime.getTime();
                 var ticks = Math.round(preflyDiff / 1000);
-               
+
                 var difference = endTime.getTime() - startTime.getTime(); // This will give difference in milliseconds
                 plane.minutesToFly = Math.round(difference / 1000);
                 const directionLatitude = plane.latEndPos - plane.latStartPos;
                 const directionLongitude = plane.longEndPos - plane.longStartPos;
                 const angle =
                     (Math.atan2(directionLongitude, directionLatitude) * 180) / Math.PI;
-                    
+
                 var toMove = parseFloat((directionLatitude / plane.minutesToFly))
                 var toMoveLong = parseFloat((directionLongitude / plane.minutesToFly))
 

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Typography, Button, TextField, Grid, MenuItem, Paper, Container, Snackbar } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { withStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
 const useStyles = (theme) => ({
 
@@ -102,7 +103,7 @@ class EmployeeCreation extends Component {
 
                 var result = "";
 
-                await this.props.axios.post('/account/employee/', this.account, {
+                await axios.post('http://20.82.46.255/account/employee/', this.account, {
                     headers: {
                         "Content-Type": 'application/json', 'Accept': 'application/json'
                     }
@@ -138,14 +139,14 @@ class EmployeeCreation extends Component {
                             <Snackbar open={openSuccess} autoHideDuration={6000} onClose={this.handleClose}>
                                 <Alert onClose={this.handleClose} variant="filled" severity="success" className={classes.alert}>
                                     Account created successfully!
-                             </Alert>
+                                </Alert>
                             </Snackbar>
                         </div>
                         <div className={classes.root}>
                             <Snackbar open={openError} autoHideDuration={6000} onClose={this.handleClose}>
                                 <Alert onClose={this.handleClose} severity="error" variant="filled" className={classes.alert}>
                                     An Error Has Occured!
-                             </Alert>
+                                </Alert>
                             </Snackbar>
                         </div>
                         <form id="form" onSubmit={(event) => this.handleSubmit(event)} >
@@ -245,7 +246,7 @@ class EmployeeCreation extends Component {
                                 className={classes.submit}
                             >
                                 Create
-                        </Button>
+                            </Button>
                         </form>
                     </Paper>
                 </Container>

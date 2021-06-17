@@ -23,7 +23,7 @@ export default function ValueGetterGrid(props) {
 
   useEffect(async () => {
     await axios
-      .get("http://localhost:8080/flight/flight")
+      .get("http://20.82.46.255/flight/flight")
       .then((res) => {
         //setData(res.data);
         console.log(res.data);
@@ -59,7 +59,7 @@ export default function ValueGetterGrid(props) {
       if (field === "ticket_price") {
         const data = props; // Fix eslint value is missing in prop-types for JS files
 
-        axios.put("http://localhost:8080/flight/flight/updateFlightPrice", {
+        axios.put("http://20.82.46.255/flight/flight/updateFlightPrice", {
           id: id,
           ticket_price: data.value,
         });
