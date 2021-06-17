@@ -1,11 +1,12 @@
 package Models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class flightReturnModel {
-    private boolean success;
-    private String error;
-    private flight flight;
+    public boolean success;
+    public String error;
+    public flight flight;
 
     public flight getFlight() {
         return flight;
@@ -29,5 +30,9 @@ public class flightReturnModel {
 
     public void setError(String error) {
         this.error = error;
+    }
+
+    public flightReturnModel(){
+        
     }
 }

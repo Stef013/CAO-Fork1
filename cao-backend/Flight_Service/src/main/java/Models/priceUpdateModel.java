@@ -1,5 +1,8 @@
 package Models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class priceUpdateModel {
     public int getId() {
         return id;
@@ -17,6 +20,6 @@ public class priceUpdateModel {
         this.ticket_price = ticket_price;
     }
 
-    private int id;
-    private String ticket_price;
+    public int id;
+    public String ticket_price;
 }
