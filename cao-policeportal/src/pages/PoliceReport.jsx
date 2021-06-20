@@ -225,20 +225,20 @@ class PoliceReport extends Component {
 
                                     <Grid item xs={5}>
                                         <Typography style={{ display: 'inline-block', marginRight: 10, fontWeight: 600 }}>Departure: </Typography>
-                                        <Typography style={{ display: 'inline-block' }}>{this.suspect[0].flight.origin} </Typography>
+                                        <Typography style={{ display: 'inline-block' }}>Sidney, Australia </Typography>
                                     </Grid>
                                     <Grid item xs={7}>
                                         <Typography style={{ display: 'inline-block', marginRight: 10, fontWeight: 600 }}>Destination: </Typography>
-                                        <Typography style={{ display: 'inline-block' }}>{this.suspect[0].flight.destination} </Typography>
+                                        <Typography style={{ display: 'inline-block' }}>Amsterdam, The Netherlands</Typography>
                                     </Grid>
 
                                     <Grid item xs={5}>
                                         <Typography style={{ display: 'inline-block', marginRight: 10, fontWeight: 600 }}>Departure Time: </Typography>
-                                        <Typography style={{ display: 'inline-block' }}> {this.suspect[0].flight.departure_time} </Typography>
+                                        <Typography style={{ display: 'inline-block' }}> 13:00 </Typography>
                                     </Grid>
                                     <Grid item xs={7}>
                                         <Typography style={{ display: 'inline-block', marginRight: 10, fontWeight: 600 }}>Arrival Time: </Typography>
-                                        <Typography style={{ display: 'inline-block' }}> {this.suspect[0].flight.arrival_time} </Typography>
+                                        <Typography style={{ display: 'inline-block' }}> 22:00 </Typography>
                                     </Grid>
 
                                     <Grid item xs={5}>
