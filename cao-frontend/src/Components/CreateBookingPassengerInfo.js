@@ -126,7 +126,7 @@ const CreateBookingPassengerInfo = (props) => {
                         />
                     </Grid>
                     <Grid item xs={6}>
-                        <FormControl required>
+                        <FormControl>
                             <InputLabel>{t('bookingpassengers.luggage')}</InputLabel>
                             <Select
                                 onChange={handleTicketChange}

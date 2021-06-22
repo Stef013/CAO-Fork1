@@ -82,9 +82,9 @@ class CustomerLogin extends React.Component {
             })
             .then(res => {
                 this.setState({ isLoading: false });
+                this.props.setAccountType({ accountType: true });
                 this.props.setToken(responseToken);
                 console.log(responseToken);
-
                 this.navigateFlightTracker();
             });
     }

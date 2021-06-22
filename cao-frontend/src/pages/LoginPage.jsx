@@ -17,9 +17,9 @@ export default function Login(props) {
         <Container component="main" maxWidth="sm">
             <TopButton text={showEmployeeLogin ? t('loginpage.Customer login') : t('loginpage.Employee login')} onClick={() => switchLogin()}></TopButton>
             {showEmployeeLogin ? (
-                <EmployeeLogin setToken={props.setToken} axios={props.axios} />
+                <EmployeeLogin setToken={props.setToken} setAccountType={props.setAccountType} axios={props.axios} />
             ) : (
-                <CustomerLogin setToken={props.setToken} axios={props.axios} />
+                <CustomerLogin setToken={props.setToken} setAccountType={props.setAccountType} axios={props.axios} />
             )}
         </Container>
     )

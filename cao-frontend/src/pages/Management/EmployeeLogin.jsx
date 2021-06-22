@@ -81,6 +81,7 @@ class EmployeeLogin extends React.Component {
             })
             .then(res => {
                 this.setState({ isLoading: false });
+                this.props.setAccountType(false);
                 this.props.setToken(responseToken);
                 console.log(responseToken);
                 this.navigatePortal();

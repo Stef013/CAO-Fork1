@@ -13,6 +13,7 @@ import BookingListPage from "./pages/BookingListPage";
 import { Suspense } from "react";
 import jwt_decode from "jwt-decode";
 import MenuAppBar from './Components/MenuAppBar';
+import MenuAppBarEmployee from './Components/MenuAppBarEmployee';
 import AppBarLogin from './Components/AppBarLogin';
 import axios from 'axios';
 import CustomerFlightList from "./Components/CustomerFlightList"
@@ -44,6 +45,8 @@ function App() {
     delete axios.defaults.headers.common['Authorization'];
   }
 
+  const [accountType, setAccountType] = useState();
+
   return (
     <main>
       <Suspense fallback={<h1>Loading...</h1>}>
@@ -51,13 +54,27 @@ function App() {
         {!token ? (
           <div>
             <AppBarLogin />
-            <Login setToken={setToken} axios={authAxios} />
+            <Login setToken={setToken} setAccountType={setAccountType} axios={authAxios} />
           </div>
         )
           :
           (
             <div>
-              <MenuAppBar auth={!!token} setToken={setToken} />
+              <div>
+                {accountType ? (
+                  <div>
+                    <MenuAppBar auth={!!token} setToken={setToken} />
+
+                  </div>
+                )
+                  :
+                  (
+                    <div>
+                      <MenuAppBarEmployee auth={!!token} setToken={setToken} />
+                    </div>
+                  )}
+              </div>
+
               <Switch>
                 <Route path="/FlightTracker" component={FlightTracker} />
                 <Route path="/EmployeePortal" component={EmployeePortal} />
@@ -65,7 +82,7 @@ function App() {
                 <Route path="/EmployeeList" component={() => <EmployeeList axios={authAxios} />} />
                 <Route path="/FlightSummary" component={() => <FlightSummary axios={authAxios} />} />
                 <Route path="/FlightPlanner" component={FlightPlanner} />
-                <Route path="/CreateBooking" component={() => <CreateBookingMain axios={authAxios} render={(props) => <CreateBookingMain {...props}/>}/>}/>
+                <Route path="/CreateBooking" component={() => <CreateBookingMain axios={authAxios} render={(props) => <CreateBookingMain {...props} />} />} />
                 <Route path="/BookingList" component={() => <BookingListPage axios={authAxios} />} />
                 <Route path="/FlightList" component={() => <CustomerFlightList axios={authAxios} />} />
 
@@ -73,13 +90,14 @@ function App() {
                 <Redirect from='/' to="/EmployeePortal" />
                 <Route component={Error} />
               </Switch>
-            </div>
-          )
 
+            </div>
+
+          )
 
         }
       </Suspense>
-    </main>
+    </main >
   );
 }
 

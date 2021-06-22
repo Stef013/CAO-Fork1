@@ -12,6 +12,7 @@ import PassengerInfo from './CreateBookingPassengerInfo';
 import Ticket from '../models/Ticket';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 const CreateBookingPassengers = (props) => {
     const classes = useStyles();
     const { t } = useTranslation();
+    const history = useHistory();
 
     const [value, setValue] = React.useState(props.currentPassengers);
     const [booking, setBooking] = React.useState(props.booking);
@@ -249,7 +251,6 @@ const CreateBookingPassengers = (props) => {
     }
 
     const generateHotelRooms = () => {
-        console.log("helloerferf")
         if (hotelReservation.hotel !== undefined) {
             var rows = [];
             rows.push(<MenuItem value={1}>Single Room || ${hotelReservation.hotel.soloRoomPrice}/day</MenuItem>)
@@ -543,7 +544,7 @@ const CreateBookingPassengers = (props) => {
                             type="submit"
                             fullWidth
                             variant="contained"
-                        // onClick={props.previousPage}
+                            onClick={(e) => { history.push("/FlightList") }}
                         >
                             <ArrowBackIcon />
                             {t('bookingpassengers.flight menu')}
@@ -556,7 +557,7 @@ const CreateBookingPassengers = (props) => {
                             variant="contained"
                             onClick={sendPassengerData}
                         >
-                            {t('bookingpassengers.booking overview')}    
+                            {t('bookingpassengers.booking overview')}
                             <ArrowForwardIcon />
                         </Button>
                     </Grid>

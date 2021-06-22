@@ -23,10 +23,10 @@ class CreateBookingMain extends React.Component {
             currentPassengers: 1
         };
     }
-    
+
     componentDidMount() {
         if (this.props.location.state === undefined) {
-            this.props.history.push({pathname: "/flightList"})
+            this.props.history.push({ pathname: "/flightList" })
         }
     }
 
@@ -57,7 +57,6 @@ class CreateBookingMain extends React.Component {
             invalidTicketData = !(ticket.lastname);
             invalidTicketData = !(ticket.gender);
             invalidTicketData = !(ticket.dateOfBirth);
-            invalidTicketData = !(ticket.extraLuggage);
         });
 
         if (invalidBookingData || invalidTicketData) {

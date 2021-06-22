@@ -96,7 +96,7 @@ export default function CreateBookingOverview(props) {
                             {t('bookingoverview.date of birth')}: {ticket.dateOfBirth}
                         </Grid>
                         <Grid item xs={6}>
-                            {t('bookingoverview.extra luggage')}: {ticket.extraLuggage} {t('bookingoverview.pieces')}
+                            {t('bookingoverview.extra luggage')}: {ticket.extraLuggage}
                         </Grid>
                         <Grid item xs={6}>
                             {t('bookingoverview.seat')}: {t('bookingoverview.randomly selected')}
@@ -229,13 +229,13 @@ export default function CreateBookingOverview(props) {
                                         <ChevronRightIcon />
                                     </Grid>
                                     <Grid item xs={5}>
-                                        {props.flight.departure_time.substr(0, 11) + " [" + props.flight.departure_time.substr(11, 5)+ "] "}
+                                        {props.flight.departure_time.substr(0, 11) + " [" + props.flight.departure_time.substr(11, 5) + "] "}
                                     </Grid>
                                     <Grid item xs={1}>
                                         <ChevronRightIcon />
                                     </Grid>
                                     <Grid item xs={5}>
-                                        {props.flight.arrival_time.substr(0, 11) + " [" + props.flight.arrival_time.substr(11, 5)+ "] "}
+                                        {props.flight.arrival_time.substr(0, 11) + " [" + props.flight.arrival_time.substr(11, 5) + "] "}
                                     </Grid>
                                 </Grid>
                             </Box>

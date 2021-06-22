@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MenuAppBar(props) {
+export default function MenuAppBarEmployee(props) {
   const classes = useStyles();
   const { t } = useTranslation();
   const [auth] = React.useState(true);
@@ -59,9 +59,7 @@ export default function MenuAppBar(props) {
 
 
           <div>
-            <Button style={{ marginRight: 20 }} color="primary" onClick={() => history.push('/BookingList')}>My Bookings</Button>
-            <Button style={{ marginRight: 20 }} color="primary" onClick={() => history.push('/FlightList')}>Book a Flight</Button>
-            <Button color="primary" onClick={() => history.push('/FlightTracker')}>Flight tracker</Button>
+            <Button color="primary" onClick={() => history.push('/EmployeePortal')}>Management Portal</Button>
           </div>
 
 
